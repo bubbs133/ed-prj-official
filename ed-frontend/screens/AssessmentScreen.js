@@ -25,18 +25,21 @@ function AssessmentScreen() {
   const currentQuestion = assessment[currentQuestionIdx];
   const currentQuestionOptions = currentQuestion.options;
 
+  const lastQuestion = currentQuestionIdx === assessment.length + 1;
+  const firstQuestion = currentQuestionIdx === 1;
+
   return (
     <View style={styles.container}>
       <Text>AssessmentScreen</Text>
       <Text>{currentQuestionIdx} / 12</Text>
       <Text>{currentQuestion.question}</Text>
       {currentQuestionOptions.map((itemLable, idx) => (
-        <Pressable onPress={optionsHandler}>
+        <Pressable key={idx} onPress={optionsHandler}>
           <Text key={idx}>{itemLable.lable}</Text>
         </Pressable>
       ))}
-      <Button title="Next" color="#000" onPress={nextQuestionHandler}></Button>
-      <Button title="Back" color="#000" onPress={prevQuestionHandler}></Button>
+      <Button title="Next" color="#000" onPress={nextQuestionHandler} disabled={lastQuestion}></Button>
+      <Button title="Back" color="#000" onPress={prevQuestionHandler} disabled={firstQuestion}></Button>
     </View>
   );
 }

@@ -12,6 +12,7 @@ import DailyQuestScreen from "./screens/DailyQuestScreen";
 import { useState } from "react";
 import AssessmentScreen from "./screens/AssessmentScreen";
 import AssessmentIntroScreen from "./screens/AssessmentIntroScreen";
+import LandingScreen from "./screens/LandingScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,6 +27,7 @@ export default function App() {
   function UnAuthScreens({ onLogin }) {
     return (
       <Stack.Navigator>
+        <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: true }}></Stack.Screen>
         <Stack.Screen name="Login" options={{ headerShown: true }}>
           {(props) => <LoginScreen {...props} onLogin={onLoginHandler} />}
         </Stack.Screen>
@@ -69,8 +71,6 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="TabNav" component={BottomTabNavigation} />
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} options={{}} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
       </Stack.Navigator>
     );
   }

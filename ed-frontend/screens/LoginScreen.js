@@ -15,10 +15,10 @@ function LoginScreen({ navigation, onLogin }) {
   }
 
   async function loginHandler() {
-    console.log("login button pressed");
+    console.log("logged in!");
     try {
       await loginUser(email, password);
-      console.log("Successful")
+      console.log("Successful log")
       onLogin();
     } catch (error) {
       console.log("Invalid info");
@@ -55,14 +55,14 @@ function LoginScreen({ navigation, onLogin }) {
       <View>
         <Button title="Login" color="#000" onPress={loginHandler} />
       </View>
-      <Text>
+      {/*<Text>
         Dont have an account?
         <Button
           title="Sign up here."
           color="#000"
           onPress={signupScreenHandler}
         />
-      </Text>
+      </Text>*/}
     </View>
   );
 }
