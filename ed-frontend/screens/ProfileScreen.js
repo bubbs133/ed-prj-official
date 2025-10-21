@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { getAuth } from "firebase/auth";
 
 function ProfileScreen() {
   return (

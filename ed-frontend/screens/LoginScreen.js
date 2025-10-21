@@ -1,7 +1,7 @@
-import { View, TextInput, Text, StyleSheet, Button } from "react-native";
+import { View, TextInput, Text, StyleSheet, Button, Alert } from "react-native";
 import { useState } from "react";
 import Input from "../components/Input";
-import { createUser, loginUser } from "../auth/auth";
+import { loginUser } from "../auth/auth";
 import { StackActions } from "@react-navigation/native";
 
 function LoginScreen({ navigation, onLogin }) {
@@ -21,7 +21,7 @@ function LoginScreen({ navigation, onLogin }) {
       console.log("Successful log")
       onLogin();
     } catch (error) {
-      console.log("Invalid info");
+      Alert.alert("Invalid info!", "Please enter the correct information.")
     }
   }
 

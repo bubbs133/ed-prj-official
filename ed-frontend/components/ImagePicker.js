@@ -1,4 +1,4 @@
-import { Alert, Pressable, Text, View } from "react-native";
+import { Alert, Pressable, Text, View, StyleSheet } from "react-native";
 import {
   launchCameraAsync,
   useCameraPermissions,
@@ -39,15 +39,28 @@ function ImagePicker() {
 
     setImagePicked(image.uri);
   }
+
+  let imgPreview = <Text>Select up to 3 images</Text>;
+
+  if (imagePicked) {
+    imgPreview = <Image source={{uri: imagePicked}} />;
+  }
+
   return (
     <View>
-      <Text>Select up to 3 images</Text>
-      <Image source={imagePicked} />
+      <View style={styles.img}>{imgPreview}</View>
       <Pressable onPress={cameraLaunchingHandler}>
         <Text>Open Camera</Text>
       </Pressable>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  img: {
+    height: 200,
+    width: 200,
+  },
+});
 
 export default ImagePicker;

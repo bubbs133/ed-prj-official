@@ -36,7 +36,7 @@ function DailyQuestScreen() {
 
     const interval = setInterval(() => {
       timeChangeCheck();
-    }, 10000);
+    }, 50000);
 
     return () => clearInterval(interval);
   }, [day]);

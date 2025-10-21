@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaViewBase, StyleSheet, Text, View } from "react-native";
 import LoginScreen from "./screens/LoginScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -13,6 +13,7 @@ import { useState } from "react";
 import AssessmentScreen from "./screens/AssessmentScreen";
 import AssessmentIntroScreen from "./screens/AssessmentIntroScreen";
 import LandingScreen from "./screens/LandingScreen";
+import JournalScreen from "./screens/JournalScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -27,7 +28,11 @@ export default function App() {
   function UnAuthScreens({ onLogin }) {
     return (
       <Stack.Navigator>
-        <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: true }}></Stack.Screen>
+        <Stack.Screen
+          name="Landing"
+          component={LandingScreen}
+          options={{ headerShown: true }}
+        ></Stack.Screen>
         <Stack.Screen name="Login" options={{ headerShown: true }}>
           {(props) => <LoginScreen {...props} onLogin={onLoginHandler} />}
         </Stack.Screen>
@@ -57,6 +62,7 @@ export default function App() {
         }}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Journal" component={JournalScreen} />
         <Tab.Screen name="Quests" component={DailyQuestScreen} />
         <Tab.Screen name="Chatbot" component={BotIntro} />
         <Tab.Screen name="Profile" component={ProfileScreen} />

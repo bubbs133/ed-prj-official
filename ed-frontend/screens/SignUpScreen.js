@@ -1,18 +1,24 @@
 import { StyleSheet, Text, View, Button } from "react-native";
 import { useState } from "react";
 import Input from "../components/Input";
-import { createUser, loginUser } from "../auth/auth";
+import { createUser } from "../auth/auth";
+import { getAuth } from "firebase/auth";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function SignUpScreen({ navigation, onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
 
+  const auth = getAuth();
+  const user = auth.currentUser;
+
   async function signupHandler() {
     try {
       const data = await createUser(email, password);
+      await AsyncStorage.setItem("username", username);
       //navigation.replace("Home");
-      console.log("Successful", data)
+      console.log("Successful", data);
       onLogin();
     } catch (error) {
       //console.error("Sign up failed");
@@ -24,6 +30,15 @@ function SignUpScreen({ navigation, onLogin }) {
       <View style={styles.signupContainer}>
         <View style={styles.inputElements}>
           <Text>signup page</Text>
+          <Input
+            lable="username"
+            textInputConfig={{
+              value: username,
+              onChangeText: setUsername,
+              autoCorrect: false,
+              autoComplete: false,
+            }}
+          />
           <Input
             lable="email"
             textInputConfig={{
