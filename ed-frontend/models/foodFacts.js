@@ -36,7 +36,7 @@ const foodFacts = [
     },
     {
         id: 8,
-        fact: "Studies show that people with mental health conditions get better and many are on a path to recovery. Recovery refers to the process in which people can live, work, learn, and participate fully in their communities. There are more treatments, services, and community support systems than ever before, and they work.",
+        fact: "Studies show that people with mental health conditions get better. Recovery refers to the process in which people can live, work, learn, and participate fully in their communities. There are more treatments, services, and community support systems than ever before, and they work.",
         source: "https://www.samhsa.gov/mental-health/what-is-mental-health/facts"
     },
     {

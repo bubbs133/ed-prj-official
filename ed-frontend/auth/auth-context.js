@@ -1,5 +1,32 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
-const AuthContext = createContext();
+const AuthContext = createContext({
+  token: "",
+  isAuthenticated: false,
+  authenticate: (token) => {},
+  logout: () => {},
+});
 
-export { AuthContext }
+function AuthContextProvider({ children }) {
+  const [authToken, setAuthToken] = useState();
+
+  function authenticate(token) {
+    setAuthToken(token);
+  }
+
+  function logout() {
+    setAuthToken(null);
+  }
+
+  const value = {
+    token: authToken,
+    isAuthenticated: !!authToken,
+    authenticate: authenticate,
+    logout: logout
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
+
+export { AuthContext };
+export default AuthContextProvider;

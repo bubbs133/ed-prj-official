@@ -1,35 +1,45 @@
-import { View, TextInput, Text, StyleSheet, Button, Alert } from "react-native";
-import { useState } from "react";
+import {
+  View,
+  TextInput,
+  Text,
+  StyleSheet,
+  Button,
+  Alert,
+  Pressable,
+  ImageBackground,
+} from "react-native";
+import { useContext, useState } from "react";
 import Input from "../components/Input";
 import { loginUser } from "../auth/auth";
 import { StackActions } from "@react-navigation/native";
+import { AuthContext } from "../auth/auth-context";
 
 function LoginScreen({ navigation, onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [username, setUsername] = useState("");
+  //const [username, setUsername] = useState("");
 
-  function signupScreenHandler() {
-    console.log("signup");
-    navigation.navigate("SignUp");
-  }
+  const authCtx = useContext(AuthContext);
 
   async function loginHandler() {
     console.log("logged in!");
     try {
-      await loginUser(email, password);
-      console.log("Successful log")
+      const data = await loginUser(email, password);
+      authCtx.authenticate(data.idToken);
+      console.log("Successful log");
       onLogin();
     } catch (error) {
-      Alert.alert("Invalid info!", "Please enter the correct information.")
+      Alert.alert("Invalid info!", "Please enter the correct information.");
     }
   }
 
   return (
-    <View style={styles.mainContainer}>
-      <View style={styles.loginContainer}>
+    <ImageBackground
+      source={require("../assets/login-bg2.png")}
+      style={styles.backgroundImg}
+    >
+      <View style={styles.mainContainer}>
         <View style={styles.inputElements}>
-          <Text>login page</Text>
           <Input
             lable="email"
             textInputConfig={{
@@ -51,38 +61,47 @@ function LoginScreen({ navigation, onLogin }) {
             }}
           />
         </View>
+        <View style={styles.loginBtnView}>
+          <Pressable style={styles.loginBtn} onPress={loginHandler}>
+            <Text style={styles.loginBtnTitle}>Login</Text>
+          </Pressable>
+        </View>
       </View>
-      <View>
-        <Button title="Login" color="#000" onPress={loginHandler} />
-      </View>
-      {/*<Text>
-        Dont have an account?
-        <Button
-          title="Sign up here."
-          color="#000"
-          onPress={signupScreenHandler}
-        />
-      </Text>*/}
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    alignSelf: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
+  backgroundImg: {
+    resizeMode: "cover",
+    flex: 1,
   },
-  loginContainer: {
-    alignSelf: "center",
-    width: "90%",
-    justifyContent: "center",
+  mainContainer: {
+    flex: 1,
     alignItems: "center",
+    justifyContent: "center",
   },
   inputElements: {
-    width: "77%",
+    width: 300,
     marginBottom: 27,
+  },
+  loginBtn: {
+    borderRadius: 50,
+    height: 30,
+    width: 300,
+    backgroundColor: "#DBE6F1",
+    marginBottom: 10,
+    marginTop: 10,
+  },
+  loginBtnView: {
+    position: "absolute",
+    bottom: 100
+  },
+  loginBtnTitle: {
+    textAlign: "center",
+    fontSize: 19,
+    color: "#607FA8",
+    marginTop: 5,
   },
 });
 

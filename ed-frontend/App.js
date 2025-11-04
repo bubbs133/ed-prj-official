@@ -14,6 +14,8 @@ import AssessmentScreen from "./screens/AssessmentScreen";
 import AssessmentIntroScreen from "./screens/AssessmentIntroScreen";
 import LandingScreen from "./screens/LandingScreen";
 import JournalScreen from "./screens/JournalScreen";
+import { Ionicons } from "@expo/vector-icons";
+import AuthContextProvider from "./auth/auth-context";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -27,13 +29,13 @@ export default function App() {
 
   function UnAuthScreens({ onLogin }) {
     return (
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="Landing"
           component={LandingScreen}
-          options={{ headerShown: true }}
+          options={{ headerShown: false }}
         ></Stack.Screen>
-        <Stack.Screen name="Login" options={{ headerShown: true }}>
+        <Stack.Screen name="Login" options={{ headerShown: false }}>
           {(props) => <LoginScreen {...props} onLogin={onLoginHandler} />}
         </Stack.Screen>
         <Stack.Screen name="SignUp">
@@ -49,15 +51,14 @@ export default function App() {
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
-            position: "absolute",
             bottom: 45,
             left: 30,
             right: 30,
-            elevation: 0,
-            backgroundColor: "#ccc",
+            backgroundColor: "#fff",
+            borderWidth: 4,
+            borderColor: "#DBE6F1",
             borderRadius: 15,
             height: 60,
-            ...styles.shadow,
           },
         }}
       >
@@ -82,13 +83,15 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      {isAuthenticated ? (
-        <AuthScreens />
-      ) : (
-        <UnAuthScreens onLogin={onLoginHandler} />
-      )}
-    </NavigationContainer>
+    <AuthContextProvider>
+      <NavigationContainer>
+        {isAuthenticated ? (
+          <AuthScreens />
+        ) : (
+          <UnAuthScreens onLogin={onLoginHandler} />
+        )}
+      </NavigationContainer>
+    </AuthContextProvider>
   );
 }
 
@@ -98,15 +101,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-  },
-  shadow: {
-    shadowColor: "#cc32ds",
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.5,
-    elevation: 5,
   },
 });

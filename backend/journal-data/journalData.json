@@ -115,194 +115,194 @@
     },
     {
         "text": "So my deficit at the moment just consists of weighting my intake and staying under 1200cals a day no matter the type of food I eat",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "neutral",
+        "sub_lable": ["adjusting_self", "keeps_trying"],
         "source": "Journal"
     },
     {
         "text": "I spend a lot of time in the supermarket to find the less caloric foods I could eat safely hahahahahaa",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["guilt", "restriction"],
         "source": "Journal"
     },
     {
         "text": "I try to eat all foods, even junk food every once in a while, I tell myself it's not bad. The food was actually really good and I enjoyed it a lot.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "positive",
+        "sub_lable": ["eat_freely", "faced_fears", "keeps_trying"],
         "source": "Journal"
     },
     {
         "text": "I just want to keep my clothes and have consistent size. I feel like the only solution to this is to lose weight. Right now im going back to the gym again so I can atleast fit into my clothes. Outside of clothing, my body feels more sensitive to pain and I get sore more easily. I used to be able to walk longer but now I just get out of breath more easily. I wish i can say that my body is fine but for the current state of things, it seems like that i have to do this if I want to survive.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["fear", "negative_self_judgement", "weight_issues"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o2h8q6/im_tired_of_replacing_clothes/"
     },
     {
         "text": "I passed out leading a dog training class. I passed out a second time later in the shift. That made me get help. I couldn't risk injuring one of my dogs anymore. My dogs are what keep me motivated to continue my recovery. I cannot be present for them, if I'm not first being present for myself.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "positive",
+        "sub_lable": ["reflection", "positive_env"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o1s0ya/what_made_everything_click_for_you/"
     },
     {
         "text": "I tried separating the ED thoughts from myself, it took a while for that to click but once I realized it was this horrible thing that was really taking over my life, realizing that my ED would never show me love, it would never want me healthy, it wanted to take away the amazing things my body can do, it wanted to isolate me from people who care about me, it was the one speaking horrible thoughts to me about my body, that really hit home.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "positive",
+        "sub_lable": ["healthy_mindset", "reflection"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o1s0ya/what_made_everything_click_for_you/"
     },
     {
         "text": "At a recent appointment with a dietitian, they determined that I am malnourished yet I am still 265 fucking pounds and I have not recently (in the last 3 years) binged. I know my body is disgusting. They want me to participate in a support group for EDs but I'm going to be the fattest one there, aren't I?",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["body_image_issues", "weight_issues", "negative_self_judgement"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o2op46/i_am_fat_but_still_diagnosed_with_an_ed/"
     },
     {
         "text": "I'm almost on week three of anorexia recovery but I just feel so full, I'm terrified to eat and I'm so mentally hungry but I can't ever choose what to eat and when I do I can't really eat because I'm not hungry. Maybe I'm just trying to restrict but idk I have no idea what hunger feels like should I force myself to eat?",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "positive",
+        "sub_lable": ["adjusting_self", "keeps_trying", "reflection"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o2dmim/always_feeling_full/"
     },
     {
         "text": "I was doing enough initially to get better control on blood sugar and avoid getting really sick again but the last few weeks I've fallen back into restricting and fasting for longer and longer.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["restriction", "relapse"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o29uix/relapse_and_starting_to_purge/"
     },
     {
-        "text": "i knew i had to get it under control but truly i didn't care abt it. i'm now almost fourty pounds more and im slipping right back into my ed frame of mind. and truly i love it, i don't know how to stop. the thrill, the pain, the frame of mind, it's so addicting. i hate that i love it. i just can't stop thinking abt how i used to think and how it was just so much easier but it wasn't and i can't gaslight myself anymore.",
-        "main_lable": "",
-        "sub_lable": "",
+        "text": "i knew i had to get it under control but truly i didn't care abt it. i'm now almost fourty pounds more and im slipping right back into my ed frame of mind. and truly i love it, i don't know how to stop. the thrill, the pain, the frame of mind, it's so addicting. i hate that i love it. i just can't stop thinking about how i used to think and how it was just so much easier but it wasn't and i can't gaslight myself anymore.",
+        "main_lable": "negative",
+        "sub_lable": ["relapse", "stuck"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1nz6tbg/is_it_weird_i_dont_feel_guilty_for_my_ed/"
     },
     {
         "text": "Everything just feels so pointless now. If I start working out again I'm going to be in so much pain and have so much fatigue. If I start eating less again I'm going to be cranky and cold. But my stomach looks so huge and my back fat is coming back and I haven't had anything actual good healthy foods in weeks.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["restriction", "relapse"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o29dxb/im_gaining_weight_and_i_dont_know_what_to_do/"
     },
     {
         "text": " I feel horrible and look horrible and Halloween is coming up and I can't go out in a costume with my body looking this way. I hate being the biggest one in our friend group and I hate feeling bloated no matter what I do to flush my body out and I hate my body I just hate it. I seriously want to bang my head into a wall.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["negative_self_judgement", "body_image_issues"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o29dxb/im_gaining_weight_and_i_dont_know_what_to_do/"
     },
     {
         "text": "I just accepted that I have a ED I feel like it all started from calorie counting im very active in the gym so I was trying to gain muscle then trying to eat “healthy” which led to restricting food... it's gotten to the point where that's all I think about is calories and food and what I'm going to eat. It's gotten to the point where I'm starting to have panic attacks",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["restriction", "over_exercising"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o2q1y4/any_tips/"
     },
     {
         "text": "This past week I've binged every single day. It's embarrassing to me that I can't control how much I eat without feeling the need to fill myself up till I don't want to move. I did good for a while not binging then purging, but it feels like my mentality on it has been getting worse and I'm doing it more and in unhealthier ways.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["binge", "negative_self_judgement"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o1wyx0/i_eat_eat_eat/"
     },
     {
         "text": "I do really want to stop and get better, though. I don't know what to do. Tomorrow is a new day, and I WILL do better.",
         "main_lable": "positive",
-        "sub_lable": "",
+        "sub_lable": ["adjusting_self", "balance"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o1wyx0/i_eat_eat_eat/"
     },
     {
         "text": "I've basically just not been eating the last couple days and im not sure why or what's triggered it but really don't want to lose control again ",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["restriction", "relapse"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o1ws8j/major_relapse_how_to_get_back_on_track/"
     },
     {
         "text": "I have been doing reformer Pilates which I enjoy but noticed it wasn't doing much for my physique. I decided to incorporate weight lifting which I have noticed is starting to make me a lot more food-occupied, but I can see my shape is improving.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["overthinking", "body_image_issues", "food_occupied"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o2140h/meeting_fitness_goals_without_ruining_my/"
     },
     {
         "text": "Then I wanted to make positive change in myself since I have such low self esteem and a massive inferiority complex because of how I look ( chubby and acne all due to the stupid BED). I ended up spiraling into a couple months of anorexia, which I was able to painstakingly turn around because I was very malnutritioned and had lost my period.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["body_image_issues", "relapse"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o2yjex/im_so_so_sick_of_this/"
     },
     {
         "text": "I'm so fucking tired of food ruling my life and ruining my happiness and potential. I have a perfectly good family but all I do is just stress them out with a new mental health crap every month. what tf do I do? the times I've actually been to a therapist I downright never listened to them. It's like a freaking addiction - being addicted to not eating and then being obsessed with eating.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["guilt", "stuck", "food_occupied", "restriction"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o2yjex/im_so_so_sick_of_this/"
     },
     {
-        "text": "I am seriously sitting here contemplating sucde over eating a pop tart because I feel like I've lost so much control over my body and my life and I have no self discipline and I can't believe this. I can't believe my life is like this. Over a pop tart. I feel like I'll never be able to control what I do how I think how I live I'll always be controlled by these Ed thoughts and I don't know how this will ever end",
-        "main_lable": "",
-        "sub_lable": "",
+        "text": "I am seriously sitting here contemplating suicde over eating a pop tart because I feel like I've lost so much control over my body and my life and I have no self discipline and I can't believe this. I can't believe my life is like this. Over a pop tart. I feel like I'll never be able to control what I do how I think how I live I'll always be controlled by these Ed thoughts and I don't know how this will ever end",
+        "main_lable": "negative",
+        "sub_lable": ["self_harm", "relapse", "guilt"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o04abu/i_hate_my_brain/"
     },
     {
         "text": "After a few months, I think I've managed to put together a pretty healthy mindset around eating and exercise. I mostly focused on changing my mindset to reframe the changes. I changed the way I thought about things, so I was never thinking about taking away or having less.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "positive",
+        "sub_lable": ["adjusting_self", "positive_env", "healthy_mindset"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o33dls/viewing_healthy_eating_in_a_healthy_way/"
     },
     {
         "text": "I have found a lot of healthy foods that I genuinely really love! Some so good I want them more than the unhealthy foods I used to live off. And I still eat those a lot. I still eat a lot of bread, pasta, pizza, potato chips, ect. Not feeling shame over eating unhealthy food is something I'd already recovered from years ago. But now I regularly eat other healthy foods and snacks.",
         "main_lable": "positive",
-        "sub_lable": "",
+        "sub_lable": ["balance", "healthy_mindset", "eat_freely", "faced_fears"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o33dls/viewing_healthy_eating_in_a_healthy_way/"
     },
     {
         "text": "I got weighed at the doctor today, and I'd lost a small but significant ammount of weight. I didn't have a panic attack out of fear of slipping back into my old habits. I felt happy, but not because I thought I was getting skinnier. Because I thought that was a good sign that my liver values will be improved.",
         "main_lable": "positive",
-        "sub_lable": "",
+        "sub_lable": ["adjusting_self", "balance", "keeps_trying"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o33dls/viewing_healthy_eating_in_a_healthy_way/"
     },
     {
         "text": "I was diagnosed with an eating disorder not specified (EDNOS) just over two years ago. I was not taken seriously by many people because I ended up at a healthy weight for my height. My issue is, I've been trying to stop calorie counting and just enjoy my food and not worry about my weight but it seems that the more I am trying to distance myself from this stuff, the more others in my life are talking about it.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["negative_env", "adjusting_self"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o31204/do_you_have_trouble_hearing_about_others_health/"
     },
     {
         "text": "constantly hearing about others talk about their weight loss, wanting to lose weight, calories, etc. makes me feel insecure about myself and want to start doing my old habits again if that makes any sense?",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["negative_env", "relapse"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o31204/do_you_have_trouble_hearing_about_others_health/"
     },
     {
         "text": "i had fries today but I felt like it was a bit much or I should stop because I already ate 1 salad and some snack candy so i poured the rest of my BBQ ontop of it. I realized I've been doing this a lot i get a lot of sauce and when I feel like I should be done eating I pour it over my food so I dont want to eat it. Im just doing it so I dont overeat but maybe im just slipping back in ED territory even if I didnt do this before.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["restriction", "overthinking", "food_occupied"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o1w3t7/is_this_disordered_or_is_it_normal/"
     },
     {
         "text": "I'd been with them since March time and started talking therapy around 5-6 weeks ago. In that time i've introduced more regular eating, combated my body shaming and thoughts around restricting certain foods because they are “junk” or “bad. I've also not restricted any foods at all and now freely eat chocolate if I want it. I am actually very proud of my progress; as is my therapist.",
         "main_lable": "positive",
-        "sub_lable": "",
+        "sub_lable": ["adjusting_self", "healthy_mindset", "education"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o3zwal/discharged_from_eating_disorder_therapy_where_do/"
     },
     {
         "text": "I've been binging every day for over a week. I feel so disgusting but i can't stop. I can't control myself. I hate the feeling after binging i feel so gross. And the worst part is that i don't even know why i've been doing it. Usually i binge after having a really really hard day but the whole week has been completely fine so why do i still end up stuffing myself every day",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["binge", "relapse"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1nytkbm/ive_been_binging_every_day_for_over_a_week/"
     },
     {
         "text": "I can't really pinpoint when things began turning around, but today, I just sat down and thought about how much has changed, I'm seriously unable to eat the insane ammount of food I once was able to, my body refuses to push itself to eat more than it needs. I'm able to enjoy a biscuit, or have a chocolate bar without spiralling into a mindless binge. I'm able to take a moment and ask myself if I'm really hungry, if I'm not about to overeat. I'm able to function normally, without food thought plaguing me.",
         "main_lable": "positive",
-        "sub_lable": "",
+        "sub_lable": ["adjusting_self", "healthy_mindset", "reflection"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o3xn4u/it_does_get_better_ex_binger/"
     },
     {
         "text": "No matter how many times I tried exposures with sugary foods, it always led to an ED behavior. I would let my RD know it triggers me, as well as other foods, but it was always 'try again.' So painful. My only real recovery came when I was in Overeaters Anonymous for many years and did not eat sugar. I had no food or body noise and was just living.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["relapse", "overthinking"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o1a8hw/how_do_we_feel_about/"
     },
     {
         "text": "I constantly think about food. But this doesn't change much even when I eat freely. Now I eat without restrictions, but food still rules me; it's my main distraction. I constantly think about it, about what I ate before, what I'm eating, what I'll eat next, maybe I should buy that noodles and ice cream, and then there are chips, or maybe I should eat this, and then that. When I'm at work, I eat by the clock so as not to get terribly hungry, and between meals, I'm constantly, at least subconsciously, thinking about food, counting down the minutes.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["food_occupied", "overthinking"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o3vzyo/food_always_has_power_over_me_no_matter_whether_i/"
     },
     {
         "text": "I used to eat a dangerous amount and was losing weight fast. I'm finally eating more but I have to hit a certain amount of steps to feel okay. I don't know how to stop tracking and weighing and having constant mental strain when I calculate what's the plan for eating for the day.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["overthinking", "food_occupied", "stress"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o4d9wv/how_do_i_stop_tracking/"
     },
     {
@@ -320,199 +320,199 @@
     {
         "text": "I struggled a lot, and fought with my conscience and even almost gave up a lot. However, I made the decision to discontinue the services because I don't feel they're needed anymore and that I got a great circle of support looking out for me and helping me as well. For the 1st time in almost 30 years I can look at food and say 'I win'.",
         "main_lable": "positive",
-        "sub_lable": "",
+        "sub_lable": ["healthy_mindset", "positive_env", "social_connection"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o49vt7/i_think_i_hit_a_milestone_in_recovery/"
     },
     {
         "text": "My eating disorder started in childhood but I never knew. My mom put me on periactin at 4 years old to increase my appetite for no reason. My appetite was fine. This led to insulin resistance by age 6 because of the dark patches which she ignored. Went through a lot of abuse at home from father. Finally more trauma added by husband. I binge eat 3-4 times a week.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["binge", "negative_env"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o4fk1k/can_a_dietician_help_with_disordered_eating_that/"
     },
     {
         "text": "After some years under anorexia nervosa, my weight could go from very high to very low within weeks, and my body just couldn't focus on anything, in my last school year I had so much work to do, work that I would never do in those conditions, that was the first eye opening situation, realize that I wanted to do those things and that meant 'I want to be alive' somehow, short-term but real and kept me motivated for a few months.",
         "main_lable": "positive",
-        "sub_lable": "",
+        "sub_lable": ["reflection", "goals", "keeps_trying"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o4d2co/what_actually_did_work_for_you_in_ed_recovery/"
     },
     {
         "text": "I've started drinking more liquid calories, I hate it so so much. I use to love chocolate milk as a treat now its a chore once to twice a day. I managed to get back to a healthier weight. But it's been by forcing myself to eat/drink more calories and I'm really starting to hate the idea of eating. I never hated eating before but the last year has changed it. Tired of people asking if I had enough calories, tired of loosely tracking them, tired of making the decision to not eat what I want because something else is more calorie dense.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": [ "overthinking", "food_occupied"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o02xyg/tipstricks_to_add_calories_to_diet/"
     },
     {
         "text": "For the most part, it seems like my fear foods have all just disappeared and I can eat very easily and without that much guilt, and it's been this way pretty much the whole time I've been in a recovery center. I definitely had fear foods and food rules at home and I was admitted with an extremely low BMI because of restriction. But pretty much it feels like the only reason I'm here is for weight restoration and not because eating is mentally hard anymore. I'm kind of scared of weight gain but not enough that it prevents me from eating.",
         "main_lable": "positive",
-        "sub_lable": "",
+        "sub_lable": ["adjusting_self", "balance", "faced_fears"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o4f1vh/my_food_rules_just_disappeared/"
     },
     {
         "text": "I eat homemade foods, sometimes store junk but I vomit it all out every day, everytime I eat I run to the restroom to commit the act, I feel I'm going to die but won't stop it's like an addiction I am underweight for my body but I don't know what to do.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["relapse", "purging", "restriction"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o59ww3/i_have_an_ed/"
     },
     {
         "text": "I'm not underweight but my weight is borderline underweight. Why do I still have some arm fat?!?!?!?? My weight was never high to where it's loose skin etc I swear I can feel it when I walk and makes me feel so fat and disgusting. I swear a week ago it was not like this and I'm annoyed y I can never feel happy w my arms. Everywhere else I'm fine w but my arms NEVER. At least it's cold out so I can wear long sleeves again :/",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["negative_self_judgement", "body_image_issues"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o57a1a/arm_fat/"
     },
     {
         "text": "We are broke. We have so little money that I often would only have one meal a day. Somedays I would skip meals entirely. I feel guilty about “wasting” money on food, and to this effect, I became extremely underweight. I always make sure my kid gets 3 meals a day, no matter what. I try to make them as balanced and healthy as possible. She is the picture of health, which only further convinces me that I'm making the right decision by sacrificing meals for her betterment. It became apparent that a large part of my issues were diet related, but I still struggle to make myself eat anything without overwhelming guilt over spending money on myself.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["restriction", "poor", "guilt"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o4r632/poverty_related_disordered_eating/"
     },
     {
-        "text": "I'm male, but my dad constantly restricts food from me. He portioned control things, yelled at me when I ate a whole loaf of bread, and when I came home from the grocery he would inspect everything I bought. I feel like he is causing me to have an eating disorde",
-        "main_lable": "",
-        "sub_lable": "",
+        "text": "I'm male, but my dad constantly restricts food from me. He portioned control things, yelled at me when I ate a whole loaf of bread, and when I came home from the grocery he would inspect everything I bought. I feel like he is causing me to have an eating disorder",
+        "main_lable": "negative",
+        "sub_lable": ["negative_env", "restriction"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o4oex1/did_anyones_parents_cause_their_eating_disorder/"
     },
     {
         "text": "I'm a competitive swimmer. A year ago I got an ED, lost my period, then gained it back. I've now lost it again and it's been over 100 days. I no longer have an ED so I don't know where this is coming from? I do practice 5-6x a week but I make sure to supplement my nutrition for that. I've been trying to eat more carbs and healthy fats but still no luck. I can't just stop swimming so i'm running out of options.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["inbalance", "keeps_trying"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o4wr22/period_no_where_to_be_found/"
     },
     {
         "text": "Recently i have tried to get better with eating, but my sisters behaviour makes it hard. She eats so little and shames me (for example) for eating what she considers too much. I know she is struggling but its so hard to get better when she is skipping meals and eating so little.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["negative_env", "negative_self_judgement"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o4wchn/trying_to_get_better/"
     },
     {
         "text": "I don't know what to do. The past month I've ate what I really should be. For reference, I dealt with anorexia for about a year and was incredibly underweight. Now, I'm eating what my nutritionist recommends me, and my face is going to shit. It's puffy, my jawline has disappeared, even though I'm not even eating that much in the grand scheme of things. I don't feel any want to recover when I feel like it does this to me, I don't know what to do with myself.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["body_image_issues", "restriction", "food_occupied", "guilt"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o64c0t/eating_healthy_but_feeling_terrible/"
     },
     {
-        "text": "I've had eating problems for a couple years now,and just recently I've lost a bunch of weight without even trying.I’m only 17 and I have loose skin on my arms and legs and breasts and I hate it. I see the number has gone down on the scales but to myself, I still look the same.",
-        "main_lable": "",
-        "sub_lable": "",
+        "text": "I've had eating problems for a couple years now,and just recently I've lost a bunch of weight without even trying. I'm only 17 and I have loose skin on my arms and legs and breasts and I hate it. I see the number has gone down on the scales but to myself, I still look the same.",
+        "main_lable": "negative",
+        "sub_lable": ["negative_self_judgement", "body_image_issues", "weight_issues"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o63k8s/i_dont_know_what_i_look_like/"
     },
     {
         "text": "When me and my brother were cleaning, he mentioned that he had to take the scale out of the box. I didn't tell him before that I already opened it because I thought he would figure out that I have problems with eating. ",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["negative_env", "negative_self_judgement", "weight_issues", "overthinking"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o5uwbh/my_brother_made_a_comment_about_my_weight/"
     },
     {
         "text": "One thing about ED and having a family. Is I'm cooking food for my family, when I don't actually want to eat any of it and i don't. Don't get me wrong. I'm a great cook, I've done courses and everything. But I don't want to eat any of it, so cooking is actually a task for me rather then something I enjoy. I eat once a day and have stomach issues due to my ED. I'm so over it.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["restriction", "inbalance"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o66g9u/cooking_for_other_people/"
     },
     {
         "text": "I used to be extremely skinny, gained few lbs this year. And I don't even look fat I look normal for my height idk why this retarded bitch keeps calling me fat and triggering my ed. I had a phase where I ate nothing but water for a whole year and was almost like a fkn skeleton and it was traumatizing how bad I got. But now I wanna be sickly thin again i don't like the way my body looks.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["negative_env", "negative_self_judgement", "body_image_issues"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o6drc2/sister_keeps_calling_me_fat/"
     },
     {
-        "text": "When my friend died. He was twenty two, not underweight, had no concerning physical symptoms, according to his GP and bloods he was physically and clinically stable. Went to sleep, and never woke up. His heart stopped due to his potassium drastically dropping in the night, this was a direct result of his ed. Made me realise just how real and serious these disorders are, and no matter what weight, age, severity, no matter if blood results are fine or you feel fine, you could just die.",
-        "main_lable": "",
-        "sub_lable": "",
+        "text": "When my friend died, he was twenty two, not underweight, had no concerning physical symptoms, according to his GP and bloods he was physically and clinically stable. Went to sleep, and never woke up. His heart stopped due to his potassium drastically dropping in the night, this was a direct result of his ed. Made me realise just how real and serious these disorders are, and no matter what weight, age, severity, no matter if blood results are fine or you feel fine, you could just die.",
+        "main_lable": "negative",
+        "sub_lable": ["inbalance", "reflection"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o6qpke/what_made_you_realize_this_was_something_serious/"
     },
     {
         "text": "There wasn't one big event that made me realize the disorder was serious, it was small things over time. I was just getting to a healthy weight when I got pregnant with my first child and that gave me the ultimate motivation to stay healthy. Now she's almost six and I continue to stay healthy for my children. The dysmorphia is bad lately being pregnant again but I know I can push through with family support and my therapist.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "positive",
+        "sub_lable": ["positive_env", "family", "adjusting_self"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o6qpke/what_made_you_realize_this_was_something_serious/"
     },
     {
         "text": "Currently, with the help of my team (including a dietician who's worked with eating disorders before), I'm calorie counting, I only eat two meals and two snacks a day, and I have a prescription for a weight loss injection. The injection is a bandaid solution for while I build skills to manage my condition; I don't want to be on it long term, but it has helped and I've seen an improvement in my health.",
         "main_lable": "positive",
-        "sub_lable": "",
+        "sub_lable": ["adjusting_self", "positive_env"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o7g3pb/there_arent_enough_resources_for_binge_eating/"
     },
     {
         "text": "The amount I eat in a day is supported by my team; while I am losing some weight, it's in a way that's healthy. I'm feeling a lot more confident in myself, too; I'm more active, less tired, and overall I've got way more energy than before I sought help. My main goal is genuinely just getting to a point where I'm healthy.",
         "main_lable": "positive",
-        "sub_lable": "",
+        "sub_lable": ["adjusting_self", "positive_env", "healthy_mindset"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o7g3pb/there_arent_enough_resources_for_binge_eating/"
     },
     {
         "text": "ive been feeling really weird lately— huge increase in anxiety, heavy sadness in chest that feels suffocating, overall just feeling like a really… fragile human? idk how else to explain it but it's like i emotionally and physically feel very similar to how i felt deep in my last relapse. i didnt know where the feelings were coming from and then i realized that this time last year, i was doing really poorly and experienced some scary physical side effects from my eating disorder for the first time, my whole life fell apart, lost all of my independence, etc.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["reflection", "inbalance", "fear"],
         "source": "https://www.reddit.com/r/AnorexiaNervosa/comments/1o75j0i/is_it_possible_to_get_ptsd_from_anorexia_or_for/"
     },
     {
         "text": "I'm 28 years old, I weigh anywhere from 120-125 4'11. All my life I have suffered with body dysmorphia. I hate that BMI views me as “overweight” like that's just painful to see. I hate when I weigh myself my weight always changes. I know that's normal with daily weight changes and shifts but I can't figure out my true weight. I also have the ugly habit of weighing myself at night and I know at night weight is always on the higher end. My clothes still fit it doesn't feel like I gained weight even if I feel like my body is chubby. So I don't understand my body at all and the BMI claiming I'm overweight. It's such a horrible discouraging feeling.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["body_image_issues", "weight_issues"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o6wj6o/i_dont_understand_my_bodys_weight_constant_change/"
     },
     {
         "text": "But my ed is so bad. I'm underweight and under community eating disorder services. I was doing better with engaging at the beginning of the year, but some major triggering events happened and I ended up spiralling pretty bad. Here's the thing, I DESPERATELY want to be better. I started a sport about a year ago and I love it, I'm genuinely so good at what I do and I'm now hitting the point where I'm being offered opportunities I DREAM of, but I refuse, why? Because I can't eat that many times to be able to attend that many days of sport. I can't do it. I can't bring myself to eat.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["restriction", "inbalance", "keeps_trying"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o6qy94/i_think_i_need_an_admission_but_i_dont_know_what/"
     },
     {
         "text": "Recently I haven't had the energy to do the one thing that gives me joy, ice skate. I think this is due to my malnutrition. I'm really heartbroken & I don't know what to do. Skating and hockey are such big parts of my livelihood, or they have been, I feel so lost. I can only skate for about 30min at a time, with breaks. I used to go for 1.5-2.5 hours, no breaks. And almost daily. Now it's every couple weeks. I feel broken.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["low_energy", "guilt", "sadness", "inbalance"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o73k0i/skating/"
     },
     {
         "text": "I'm having a really hard time convincing myself that I should recover. I am overweight (not just body dysmorphia I genuinely am in the obese category). I restrict quite a lot and have recently been told I am malnourished but I am still overweight. I'm supposed to start a treatment program in a month but I just don't think I can do it! I'm afraid everyone there is going to judge me for being so large. Like my body is the body I was terrified to have when I first started struggling with restricting. I just need someone to tell me that I am not the only person who isn't underweight or even a normal weight. I feel so alone.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["negative_self_judgement", "body_image_issues", "weight_issues", "guilt", "overthinking"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o7we63/hard_to_recover_when_im_already_overweight/"
     },
     {
         "text": "I spent my whole time in recovery from “atypical” an overweight and was always terrified of this before going in to any treatment space. While I had experiences with judgement/poor treatment from mental health providers who did not have actual ED specialties in recovery and in actual ED spaces I had good experiences and actually was often not the only bigger person there. I'm very glad I recovered even though it was so hard to get help.",
         "main_lable": "positive",
-        "sub_lable": "",
+        "sub_lable": ["positive_env", "healthy_mindset"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o7we63/hard_to_recover_when_im_already_overweight/"
     },
     {
         "text": "I will also be starting treatment for atypical anorexia soon. This will be my second time. I saw a good mix of people the last time I was in treatment and I certainly wasn't the only one in a larger body. My experience was that people were generally kind and supportive of one another and that the facilitators worked to maintain a safe space that was free of judgement.",
         "main_lable": "positive",
-        "sub_lable": "",
+        "sub_lable": ["positive_env", "therapy", "social_connection", "reflection"],
         "source": "https://www.reddit.com/r/EatingDisorders/comments/1o7we63/hard_to_recover_when_im_already_overweight/"
     },
     {
         "text": "i used to go out on runs and go to certain stores during my ed, when i started to recover i didn't really want to go to those places bec i would get scared. even though i was scared i knew i could do it and i challenged myself and went to those places regardless of it all. i think it was a good part of my recovery journey, when facing your fears you'll realize you are stronger than u thought.",
         "main_lable": "positive",
-        "sub_lable": "faced_fears",
+        "sub_lable": ["challenged_themselves", "faced_fears", "keeps_trying"],
         "source": "https://www.reddit.com/r/AnorexiaNervosa/comments/1o75j0i/comment/njodm4c/?context=3"
     },
     {
         "text": "All I can think of when I'm in bed is food and what I'm going to eat tomorrow, what I ate that day, if I could secretly binge without anyone knowing etc. I end up on my phone trying to distract myself but i always, always end up on fast food apps. I spend literal hours creating hypothetical fast food orders. I'll put 40 nuggets, 5 large fries, 5 burgers, a pizza, a milkshake in my basket and then scrap it all and start again. I don't know why.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["overthinking", "food_occupied", "binge"],
         "source": "https://www.reddit.com/r/BingeEatingDisorder/comments/1o7likx/i_stay_up_at_night_creating_food_orders_that_i/"
     },
     {
         "text": "I spend an embarrassing amount of time fantasizing about the monstrous food orders I'll get the next day. I've forbidden myself from downloading any food apps but I dream of driving from place to place, ordering an insane amount of food and eating it all. I make a 'plan' and everything. I never actually do it the next day",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["overthinking", "food_occupied", "binge"],
         "source": "https://www.reddit.com/r/BingeEatingDisorder/comments/1o7likx/i_stay_up_at_night_creating_food_orders_that_i/"
     },
     {
         "text": "This is ruining my fucking life I can't handle it. Every single day is dictated by my obsessive need to eat and buy food. Im late to class or miss busses or get home an hour late or spend 50$ on uber eats just because i have this weird obsessive need to eat. I hate how i look, i hate my weight and i spend all my money. Being thin is just an added bonus at this point id do anything to get rid of this obsession over food. It's gonna drive me mad one day.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["overthinking", "food_occupied", "stress"],
         "source": "https://www.reddit.com/r/BingeEatingDisorder/comments/1o3gtk8/i_literally_cant_take_this_anymore/"
     },
     {
         "text": "how the hell am i supposed to recover in a world that is so obsessed with losing weight. everyone is obsessed with losing weight and eating 'healthy' and dieting and exercise. i'm so sick of it, i wish i never had to do any of those things ever again, it's made me so miserable. if losing weight and eating ultra healthy is the only point to life then i don't want to live anymore.",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["negative_env", "weight_issues", "stress", "inbalance"],
         "source": "https://www.reddit.com/r/AnorexiaNervosa/comments/1o35ht5/how_the_hell_am_i_supposed_to_recover_in_a_world/"
     },
     {
         "text": "i'm literally babysitting and instead of giving this baby my undivided attention i've eaten all of the family's cheese crackers and oreos. now i'm two water bottles down and i feel disgusting and also embarrassed. the family will come home to find their food gone. they'll wonder why i care more about my crippling food addiction more than their child. i do this EVERYWHERE - i'll binge at home or school or a friend's house. seriously, how do i stop??",
-        "main_lable": "",
-        "sub_lable": "",
+        "main_lable": "negative",
+        "sub_lable": ["binge", "food_occupied", "guilt"],
         "source": "https://www.reddit.com/r/BulimiaRecovery/comments/1gyey69/embarrassment_from_binge_eating/"
     },
     {
@@ -636,231 +636,159 @@
         "source": "synthetic_personal"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I met a friend for brunch and ordered pancakes. I didn't overthink or over analyze the menu or swap ingredients for 'better' ones. I just tried to relax and enjoy the time I had with my friend. She know about the issues I have but she's always been helpful and supportive through it all, she's ben through this before and understands the struggles.",
+        "main_lable": "positive",
+        "sub_lable": ["faced_fears", "good_diet", "positive_env", "social_connection"],
+        "source": "synthetic_personal"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I spent some time outside today, feeling the sun on my skin. It reminded me that my body lets me experience so many beautiful things in life. I missed the peace my nature walks would give to me, I would always torment myself my toxic food thoughts. Today I just plugged in my earbuds and let my mind be free",
+        "main_lable": "positive",
+        "sub_lable": ["healthy_mindset", "mindful", "self_love"],
+        "source": "synthetic_personal"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I'm noticing that recovery isn't about food alone. It's about how I talk to myself, how I treat my body, how I set boundaries. Today I chose rest instead of pushing through exhaustion, and it made all the difference. I told myself my body deserves gentleness just as much as my mind deserves it.",
+        "main_lable": "positive",
+        "sub_lable": ["mindful", "healthy_mindset", "self_love"],
+        "source": "synthetic_personal"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "Today, I journaled about gratitude, for my body, my friends, my support system. I realized how many people have helped me along the way, all the new friends I've made along the way and the old ones that I reconnected with. Recovery feels less lonely when I remember that I'm not doing it alone. To be honest it gave me a lot of hope today.",
+        "main_lable": "positive",
+        "sub_lable": ["healthy_mindset", "positive_env"],
+        "source": "synthetic_personal"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I've started to look forward to meals again, which still surprises me. I used to dread them but now, food feels like a way to care for myself. I'm nurishing myself, building myself up day by day, I feel really good about about my recovery so far, I'm grateful for everthing.",
+        "main_lable": "positive",
+        "sub_lable": ["healthy_mindset", "mindful"],
+        "source": "synthetic_personal"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I had a pretty normal day today. Woke up late, made coffee, and had a quick breakfast before heading out. I didn't feel much about it, just went through the motions. I'm trying to eat regularly even when I don't feel strongly one way or another. I'm just tryong to make it part of my routine.",
+        "main_lable": "neutral",
+        "sub_lable": ["stable", "normal"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I met my dietitian this afternoon. We talked about some adjustments to my plan, mostly small changes. It wasn't emotional, just practical. I guess that's a sign that I'm getting used to it. I'll try following the plan and see how my body reacts.",
+        "main_lable": "neutral",
+        "sub_lable": ["stable", "adjusting_self"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I had lunch with coworkers today. I ordered something simple and finished most of it. The conversation was light, mostly about work. I didn't feel anxious or overly relaxed, just neutral. It's strange but kind of nice to not feel pulled in either direction.",
+        "main_lable": "neutral",
+        "sub_lable": ["stable", "work"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I spent most of the day doing errands. Ate lunch later than usual, but it didn't throw me off. My appetite's been okay lately. I'm still trying to figure out what “normal” eating looks like for me, but I think I'm getting closer.",
+        "main_lable": "neutral",
+        "sub_lable": ["work", "stable"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I've been noticing my hunger patterns more, sometimes I'm not sure if I'm really hungry or just bored. I guess I'm trying to listen without overanalyzing and immediately getting overwhelmed. Sometimes I do kind of overthing because it's not always clear, but I guess that's part of the process.",
+        "main_lable": "neutral",
+        "sub_lable": ["adjusting_self", "keeps_trying"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I cooked dinner at home tonight. It wasn't anything fancy, just rice, vegetables, and some chicken. It filled me up and that was that, after I called my friend and we watched some shows together. It was a good afternoon, I helped to not overthink, it's been slow but might actually be progress.",
+        "main_lable": "neutral",
+        "sub_lable": ["social_connection", "good_diet"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I had therapy this morning. We talked about how recovery feels less dramatic lately, more stable, less intense. I'm not sure how to feel about that. Maybe that's what stability looks like, even if it feels a bit dull sometimes but at least I keep going even if I fall sometimes.",
+        "main_lable": "neutral",
+        "sub_lable": ["positive_env", "adjusting_self"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "Today felt average. I got up, went for a short walk, answered emails, ate meals when I remembered. Nothing particularly emotional happened. I think that's okay, not every day has to feel meaningful I guess. Progress comes little by little.",
+        "main_lable": "neutral",
+        "sub_lable": ["work", "stable"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I noticed I don't check nutrition labels as often anymore. Sometimes I still glance out of habit, but I don't obsess, I try not to look at the calories or how much fat something contains. It's not something I feel strongly about, just something I observed today. It's cool, maybe I'm slowly changing without realizing it. I'm glad I've got these journals to check my progress.",
+        "main_lable": "neutral",
+        "sub_lable": ["adjusting_self", "routine", "reflection"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I had an appointment this morning and grabbed something quick on the way. It wasn't the healthiest, but it's okay, it worked cuz I stopped feeling sluggish. I used to stress about that, but now I just note it and move on. Food feels more functional lately, like fuel. Everyone needs food to keep going afterall.",
+        "main_lable": "neutral",
+        "sub_lable": ["adjusting_self", "good_diet"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I went grocery shopping and got mostly the same things as usual, fruit, bread, meat. I didn't spend much time debating over brands or ingredients like I used to, I would spend time researching which ingredients were 'good' or 'bad'. It was a simple errand. I guess that's a quiet kind of progress.",
+        "main_lable": "neutral",
+        "sub_lable": ["faced_fears", "reflection"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I didn't sleep well last night, so today felt off. I was pretty tired the whole day but I drank some coffee to make it feel better. I still made sure to eat, but my appetite was weird. Nothing major, just low energy. I'm pretty tired now so I'm hoping for a better night's rest tonight.",
+        "main_lable": "neutral",
+        "sub_lable": ["adjusting_self", "low_energy"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I've been more focused on school lately, I've been so busy lately with projects and exams. I've mananged to do well in all the projects I've submitted and my exams. I've been thinking about food less with all this, it's not my main thought anymore. It feels neutral, but lighter in a way. I can live with that.",
+        "main_lable": "positive",
+        "sub_lable": ["goals", "adjusting_self"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "Today I felt kind of numb about everything. Not sad, not happy, just flat. I still followed my meal plan, though. It felt routine, which I guess is okay. Some days are just like that.",
+        "main_lable": "neutral",
+        "sub_lable": ["adjusting_self", "good_diet"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I tried a new recipe tonight. It turned out fine — nothing special. It was nice to cook for myself though, even if I wasn't super into it. I think these small, neutral moments matter more than I realize.",
+        "main_lable": "neutral",
+        "sub_lable": ["adjusting_self", "good_diet"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I had a normal day with meals, work, and rest. Nothing stood out, but it felt stable. I guess stability is something to get used to after chaos. It feels unfamiliar but manageable.",
+        "main_lable": "neutral",
+        "sub_lable": ["adjusting_self", "keeps_trying"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I noticed that I've been less focused on food lately and more on my routines. It's not intentional, just happening naturally. Maybe my brain is finally freeing up space for other things. I'm not sure how I feel about that yet.",
+        "main_lable": "neutral",
+        "sub_lable": ["normal", "adjusting_self"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I felt a bit off today, not physically, just emotionally flat. I'm not overthinking everything nor am I super excited for anything. I still ate what I needed to and got through the day. Sometimes I think this neutrality is a break my brain needs.",
+        "main_lable": "neutral",
+        "sub_lable": ["adjusting_self", "balance"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I've been tracking less lately. Not as a big statement, just laziness or maybe comfort. It feels fine. My meals have been consistent anyway, so maybe I don't need to monitor as closely as I used to. Also my scale broke and I've been too lazy to go get a new one, I'll probabily just leave it as is.",
+        "main_lable": "neutral",
+        "sub_lable": ["adjusting_self", "balance", "good_diet"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "I noticed I don't think of foods as “good” or “bad” much anymore. It's just food. It feels pretty normal, it doesn't feel like that big of a deal anymore, on deciding which food to eat and which not to eat. Everythin feels normal, I've just been feeling the vibes.",
+        "main_lable": "neutral",
+        "sub_lable": ["balance", "normal"],
+        "source": "synthetic"
     },
     {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
-    },
-    {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
-    },
-    {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
-    },
-    {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
-    },
-    {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
-    },
-    {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
-    },
-    {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
-    },
-    {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
-    },
-    {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
-    },
-    {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
-    },
-    {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
-    },
-    {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
-    },
-    {
-        "text": "",
-        "main_lable": "",
-        "sub_lable": "",
-        "source": ""
+        "text": "Today was quiet. I worked, made meals, and watched a show. There were no major emotions around eating, which used to be rare.",
+        "main_lable": "neutral",
+        "sub_lable": ["balance", "normal"],
+        "source": "synthetic"
     }
 ]

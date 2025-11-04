@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { quests } from "../models/quests";
 import { useEffect, useState, useRef } from "react";
 import ImagePicker from "../components/ImagePicker";
@@ -43,14 +43,22 @@ function DailyQuestScreen() {
 
   return (
     <View style={styles.container}>
-      <View>
-        <Text>DailyQuest</Text>
-        <Text>{rndQuest ? rndQuest.name : "name blank"}</Text>
-        <Text>{rndQuest ? rndQuest.description : "description blank"}</Text>
-      </View>
-      <View>
-        <ImagePicker/>
-      </View>
+      <ScrollView>
+        <View style={styles.contentView}>
+          <View>
+            <Text style={styles.questName}>
+              {rndQuest ? rndQuest.name : "name blank"}{"\n"}
+            </Text>
+            <Text style={styles.questText}>{rndQuest ? rndQuest.description : "description blank"}</Text>
+          </View>
+          <View>
+            <ImagePicker />
+          </View>
+        </View>
+        <Pressable>
+          <Text>Submit</Text>
+        </Pressable>
+      </ScrollView>
     </View>
   );
 }
@@ -59,8 +67,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+  },
+  contentView: {
+    marginTop: "35%",
+    marginLeft: "5%",
+    marginRight: "5%",
+  },
+  questName: {
+    fontSize: 20,
+  },
+  questText: {
   },
 });
 

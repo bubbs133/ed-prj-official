@@ -1,6 +1,9 @@
-import { Button, StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View, Pressable } from "react-native";
 
-function BotIntro() {
+function BotIntro({ navigation }) {
+  function continueHandler() {
+    navigation.navigate("Chatbot");
+  }
   return (
     <View style={styles.container}>
       <Text>Sage the Chatbot</Text>
@@ -24,10 +27,12 @@ function BotIntro() {
       <Button title="Text 988" color="#000"></Button>
       <Text>
         For international residents visit Lifeline International and contact
-        your country’s local lifeline.
+        your country's local lifeline.
       </Text>
       <Button title="International Lifeline" color="#000"></Button>
-      <Button title="Continue" color="#000"></Button>
+      <Pressable style={styles.loginBtn} onPress={continueHandler}>
+        <Text style={styles.loginBtnTitle}>Continue</Text>
+      </Pressable>
     </View>
   );
 }

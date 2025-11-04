@@ -17,10 +17,11 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   loginInputBox: {
-    borderWidth: 2.2,
+    borderWidth: 3.3,
     borderRadius: 50,
     height: 35,
     flexDirection: "row",
+    borderColor: "#DBE6F1"
   },
 });
 

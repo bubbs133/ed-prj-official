@@ -4,11 +4,11 @@
     "slug": "ed-frontend",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/salveo.png",
+    "icon": "./assets/blue-salveo.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/salveo.png",
+      "image": "./assets/blue-salveo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

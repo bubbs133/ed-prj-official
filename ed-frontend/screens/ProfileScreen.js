@@ -1,10 +1,15 @@
-import { StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { getAuth } from "firebase/auth";
 
 function ProfileScreen() {
   return (
     <View style={styles.container}>
-      <Text>Profile Screen</Text>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.topContainer}>
+          <Text> Username Here </Text>
+          <View></View>
+        </View>
+      </ScrollView>
     </View>
   );
 }
