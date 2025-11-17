@@ -2,6 +2,8 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { quests } from "../models/quests";
 import { useEffect, useState, useRef } from "react";
 import ImagePicker from "../components/ImagePicker";
+import Colors from "../constants/colors";
+import MainButton from "../components/MainButton";
 
 function DailyQuestScreen() {
   const [rndQuest, setRndQuest] = useState(null);
@@ -41,23 +43,25 @@ function DailyQuestScreen() {
     return () => clearInterval(interval);
   }, [day]);
 
+  function submitQuest() {
+    console.log("quest submit")
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView>
         <View style={styles.contentView}>
           <View>
             <Text style={styles.questName}>
-              {rndQuest ? rndQuest.name : "name blank"}{"\n"}
+              {rndQuest ? rndQuest.name : "name blank"}
             </Text>
             <Text style={styles.questText}>{rndQuest ? rndQuest.description : "description blank"}</Text>
           </View>
-          <View>
+          <View style={styles.imgContainer}>
             <ImagePicker />
           </View>
         </View>
-        <Pressable>
-          <Text>Submit</Text>
-        </Pressable>
+        <MainButton buttonTitle={"Submit"} handler={submitQuest}/>
       </ScrollView>
     </View>
   );
@@ -66,20 +70,32 @@ function DailyQuestScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.lightNeutral,
     alignItems: "flex-start",
     justifyContent: "flex-start",
   },
   contentView: {
-    marginTop: "35%",
+    marginTop: "17%",
     marginLeft: "5%",
     marginRight: "5%",
   },
   questName: {
     fontSize: 20,
+    fontFamily: "Afacad",
+    fontWeight: 500,
   },
   questText: {
+    fontFamily: "Afacad",
+    //fontWeight: 400,
+    letterSpacing: 1,
+    fontSize: 16,
+    paddingBottom: 20
   },
+  imgContainer: {
+    borderColor: Colors.lightGrey,
+    borderWidth: 1,
+    borderStyle: "dashed"
+  }
 });
 
 export default DailyQuestScreen;

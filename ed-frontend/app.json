@@ -1,16 +1,16 @@
 {
   "expo": {
-    "name": "ed-frontend",
-    "slug": "ed-frontend",
+    "name": "iter",
+    "slug": "iter",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/blue-salveo.png",
+    "icon": "./assets/newlanding.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/blue-salveo.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/newlanding.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#F0F0F0"
     },
     "ios": {
       "supportsTablet": true

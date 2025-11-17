@@ -1,10 +1,18 @@
-import { StyleSheet, Text, View, Button } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  ImageBackground,
+  Pressable,
+} from "react-native";
 import { useContext, useState } from "react";
 import Input from "../components/Input";
 import { createUser } from "../auth/auth";
 import { getAuth } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../auth/auth-context";
+import Colors from "../constants/colors";
 
 function SignUpScreen({ navigation, onLogin }) {
   const [email, setEmail] = useState("");
@@ -30,9 +38,11 @@ function SignUpScreen({ navigation, onLogin }) {
     }
   }
   return (
-    <View style={styles.mainContainer}>
-      <View style={styles.signupContainer}>
-        <Text>Sign Up</Text>
+    <ImageBackground
+      source={require("../assets/signin.png")}
+      style={styles.backgroundImg}
+    >
+      <View style={styles.mainContainer}>
         <View style={styles.inputElements}>
           <Input
             lable="email"
@@ -55,21 +65,55 @@ function SignUpScreen({ navigation, onLogin }) {
             }}
           />
         </View>
+
+        <View style={styles.signinBtnView}>
+          <Pressable style={styles.loginBtn} onPress={signupHandler}>
+            <Text style={styles.signinBtnTitle}>Sign Up</Text>
+          </Pressable>
+        </View>
       </View>
-      <View>
-        <Button title="Signup" color="#000" onPress={signupHandler} />
-      </View>
-    </View>
+    </ImageBackground>
   );
 }
 
 export default SignUpScreen;
 
 const styles = StyleSheet.create({
+  backgroundImg: {
+    resizeMode: "cover",
+    flex: 1,
+  },
   mainContainer: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  inputElements: {
+    width: 300,
+    marginBottom: 27,
+  },
+  loginBtn: {
+    borderRadius: 50,
+    height: 37,
+    width: 300,
+    backgroundColor: Colors.lightNeutral,
+    marginBottom: 10,
+    marginTop: 10,
+    borderColor: Colors.darkNeutral,
+    borderWidth: 2,
+    //borderBottomWidth: 4,
+  },
+  signinBtnView: {
+    position: "absolute",
+    bottom: 100,
+  },
+  signinBtnTitle: {
+    textAlign: "center",
+    fontSize: 19,
+    color: Colors.darkNeutral,
+    marginTop: 5,
+    fontFamily: "Afacad",
+    fontWeight: 500,
+    letterSpacing: 2,
   },
 });

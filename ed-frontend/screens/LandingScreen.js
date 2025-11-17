@@ -10,7 +10,7 @@ import React from "react";
 function LandingScreen({ navigation }) {
   function loginButtonHandler() {
     navigation.navigate("Login");
-    console.log("login btn");
+    //console.log("login btn");
   }
 
   function signupButtonHandler() {
@@ -20,18 +20,18 @@ function LandingScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../assets/landing-bg.png")}
+      source={require("../assets/newlanding.png")}
       style={styles.backgroundImg}
     >
       <View style={styles.container}>
         <View style={styles.btns}>
           <View>
-            <Pressable style={styles.btn} onPress={loginButtonHandler}>
+            <Pressable style={styles.loginbtn} onPressIn={loginButtonHandler}>
               <Text style={styles.btnTitles}>Login</Text>
             </Pressable>
           </View>
           <View>
-            <Pressable style={styles.btn} onPress={signupButtonHandler}>
+            <Pressable style={styles.signupbtn} onPress={signupButtonHandler}>
               <Text style={styles.btnTitles}>Sigup</Text>
             </Pressable>
           </View>
@@ -55,19 +55,40 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 35,
   },
-  btn: {
+  loginbtn: {
     borderRadius: 50,
-    height: 30,
+    height: 37,
     width: 300,
-    backgroundColor: "#DBE6F1",
+    backgroundColor: "#F0F0F0",
     marginBottom: 10,
-    marginTop: 10
+    marginTop: 10,
+    borderColor: "#42190D",
+    //borderColor: "#9B8E75",
+    borderWidth: 2,
+    //borderBottomWidth: 4,
+    //borderRightWidth: 4
+  },
+  signupbtn: {
+    borderRadius: 50,
+    height: 37,
+    width: 300,
+    backgroundColor: "#F0F0F0",
+    marginBottom: 10,
+    marginTop: 10,
+    //borderColor: "#ADBCBE",
+    borderColor: "#42190D",
+    borderWidth: 2,
+    //borderBottomWidth: 4,
+    //borderRightWidth: 4
   },
   btnTitles: {
     textAlign: "center",
     fontSize: 19,
-    color: "#607FA8",
+    color: "#42190D",
     marginTop: 5,
+    fontFamily: "Afacad",
+    fontWeight: 500,
+    letterSpacing: 2,
   },
 });
 

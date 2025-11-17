@@ -1,10 +1,11 @@
-import { Alert, Pressable, Text, View, StyleSheet } from "react-native";
+import { Alert, Pressable, Text, View, StyleSheet, Image } from "react-native";
 import {
   launchCameraAsync,
   useCameraPermissions,
   PermissionStatus,
 } from "expo-image-picker";
 import { useState } from "react";
+import Colors from "../constants/colors";
 
 function ImagePicker() {
   const [imagePicked, setImagePicked] = useState();
@@ -40,17 +41,17 @@ function ImagePicker() {
     setImagePicked(image.uri);
   }
 
-  let imgPreview = <Text>Select up to 3 images</Text>;
+  let imgPreview = <Text style={styles.text}>Select up to 3 images</Text>;
 
   if (imagePicked) {
-    imgPreview = <Image source={{uri: imagePicked}} />;
+    imgPreview = <Image source={{ uri: imagePicked }} />;
   }
 
   return (
     <View>
-      <View style={styles.img}>{imgPreview}</View>
       <Pressable onPress={cameraLaunchingHandler}>
-        <Text>Open Camera</Text>
+        <Image source={require("../assets/camera.png")} />
+        <View style={styles.img}>{imgPreview}</View>
       </Pressable>
     </View>
   );
@@ -60,6 +61,11 @@ const styles = StyleSheet.create({
   img: {
     height: 200,
     width: 200,
+  },
+  text: {
+    fontFamily: "Afacad",
+    fontSize: 16,
+    color: Colors.lightGrey,
   },
 });
 

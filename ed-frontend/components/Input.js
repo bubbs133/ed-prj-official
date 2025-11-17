@@ -1,4 +1,5 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
+import Colors from "../constants/colors";
 
 function Input({ lable, textInputConfig }) {
   return (
@@ -15,13 +16,20 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignSelf: "flex-start",
     marginBottom: 5,
+    fontFamily: "Afacad",
+    letterSpacing: 2,
+    fontSize: 16
   },
   loginInputBox: {
-    borderWidth: 3.3,
+    borderWidth: 2,
     borderRadius: 50,
     height: 35,
     flexDirection: "row",
-    borderColor: "#DBE6F1"
+    borderColor: Colors.darkNeutral,
+    fontFamily: "Afacad",
+    paddingLeft: "3%",
+    fontSize: 16,
+    letterSpacing: 1,
   },
 });
 

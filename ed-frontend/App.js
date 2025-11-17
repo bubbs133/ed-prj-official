@@ -16,6 +16,13 @@ import LandingScreen from "./screens/LandingScreen";
 import JournalScreen from "./screens/JournalScreen";
 import { Ionicons } from "@expo/vector-icons";
 import AuthContextProvider from "./auth/auth-context";
+import {
+  useFonts,
+  Afacad_400Regular,
+  Afacad_700Bold,
+  Afacad_500Medium,
+} from "@expo-google-fonts/afacad";
+import Colors from "./constants/colors";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -25,6 +32,16 @@ export default function App() {
 
   function onLoginHandler() {
     setIsAuthenticated(true);
+  }
+
+  const [fontsLoaded] = useFonts({
+    Afacad: Afacad_400Regular,
+    "Afacad-Medium": Afacad_500Medium,
+    "Afacad-Bold": Afacad_700Bold,
+  });
+
+  if (!fontsLoaded) {
+    return null;
   }
 
   function UnAuthScreens({ onLogin }) {
@@ -51,24 +68,70 @@ export default function App() {
         screenOptions={{
           headerShown: false,
           tabBarStyle: {
-            bottom: 45,
-            left: 30,
-            right: 30,
-            backgroundColor: "#fff",
-            borderWidth: 4,
-            borderColor: "#DBE6F1",
-            borderRadius: 15,
-            height: 60,
+            //bottom: 45,
+            //left: 30,
+            //right: 30,
+            backgroundColor: Colors.lightNeutral,
+            borderTopWidth: 2,
+            borderWidth: 3,
+            borderColor: Colors.darkNeutral,
+            //borderRadius: 15,
+            borderTopLeftRadius: 25,
+            borderTopRightRadius: 25,
+            height: 70,
+            //width: "93%",
+            justifyContent: "center",
+            alignItems: "center",
           },
         }}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Journal" component={JournalScreen} />
-        <Tab.Screen name="Quests" component={DailyQuestScreen} />
-        <Tab.Screen name="Chatbot" component={BotIntro} />
-        <Tab.Screen name="Profile" component={ProfileScreen} />
-        <Tab.Screen name="AssessmentIntro" component={AssessmentIntroScreen} />
-        <Tab.Screen name="Assessment" component={AssessmentScreen} />
+        <Tab.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="home" color="#000" size={19} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Journal"
+          component={JournalScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="book" color="#000" size={19} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Quests"
+          component={DailyQuestScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="check" color="#000" size={19} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Chatbot"
+          component={BotIntro}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="bubble" color="#000" size={19} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="Profile"
+          component={ProfileScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="person" color="#000" size={19} />
+            ),
+          }}
+        />
+        {/* <Tab.Screen name="AssessmentIntro" component={AssessmentIntroScreen} /> */}
+        {/* <Tab.Screen name="Assessment" component={AssessmentScreen} /> */}
       </Tab.Navigator>
     );
   }
@@ -82,7 +145,8 @@ export default function App() {
     );
   }
 
-  return (
+  {
+    /*return (
     <AuthContextProvider>
       <NavigationContainer>
         {isAuthenticated ? (
@@ -92,6 +156,13 @@ export default function App() {
         )}
       </NavigationContainer>
     </AuthContextProvider>
+  );*/
+  }
+
+  return (
+    <NavigationContainer>
+      <AuthScreens />
+    </NavigationContainer>
   );
 }
 

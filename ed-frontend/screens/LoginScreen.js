@@ -13,6 +13,7 @@ import Input from "../components/Input";
 import { loginUser } from "../auth/auth";
 import { StackActions } from "@react-navigation/native";
 import { AuthContext } from "../auth/auth-context";
+import Colors from "../constants/colors";
 
 function LoginScreen({ navigation, onLogin }) {
   const [email, setEmail] = useState("");
@@ -35,7 +36,7 @@ function LoginScreen({ navigation, onLogin }) {
 
   return (
     <ImageBackground
-      source={require("../assets/login-bg2.png")}
+      source={require("../assets/loginnew.png")}
       style={styles.backgroundImg}
     >
       <View style={styles.mainContainer}>
@@ -87,11 +88,14 @@ const styles = StyleSheet.create({
   },
   loginBtn: {
     borderRadius: 50,
-    height: 30,
+    height: 37,
     width: 300,
-    backgroundColor: "#DBE6F1",
+    backgroundColor: Colors.lightNeutral,
     marginBottom: 10,
     marginTop: 10,
+    borderColor: Colors.darkNeutral,
+    borderWidth: 2,
+    //borderBottomWidth: 4,
   },
   loginBtnView: {
     position: "absolute",
@@ -100,8 +104,11 @@ const styles = StyleSheet.create({
   loginBtnTitle: {
     textAlign: "center",
     fontSize: 19,
-    color: "#607FA8",
+    color: Colors.darkNeutral,
     marginTop: 5,
+    fontFamily: "Afacad",
+    fontWeight: 500,
+    letterSpacing: 2,
   },
 });
 

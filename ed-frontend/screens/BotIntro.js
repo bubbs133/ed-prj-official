@@ -1,4 +1,11 @@
-import { Button, StyleSheet, Text, View, Pressable } from "react-native";
+import {
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  ScrollView,
+} from "react-native";
 
 function BotIntro({ navigation }) {
   function continueHandler() {
@@ -6,33 +13,84 @@ function BotIntro({ navigation }) {
   }
   return (
     <View style={styles.container}>
-      <Text>Sage the Chatbot</Text>
-      <Text>
-        Sage is intended a provide general guidance on eating disorders such as
-        what they are, symptoms, and potential steps one can take as a start to
-        their recovery journey.
-      </Text>
-      <Text>
-        This chatbot is not a replacement to professional medical advice or
-        care. If you think you are in a life threatening situation immediately
-        contact your local emergency room.
-      </Text>
-      <Text>Suicide & Crisis Lifeline</Text>
-      <Text>
-        Professional help is always at your reach, if you are experiencing a
-        crisis contact the Suicide and Crisis Lifeline.
-      </Text>
-      <Text>For residents in the US & Canada call or text 988.</Text>
-      <Button title="Call 988" color="#000"></Button>
-      <Button title="Text 988" color="#000"></Button>
-      <Text>
-        For international residents visit Lifeline International and contact
-        your country's local lifeline.
-      </Text>
-      <Button title="International Lifeline" color="#000"></Button>
-      <Pressable style={styles.loginBtn} onPress={continueHandler}>
-        <Text style={styles.loginBtnTitle}>Continue</Text>
-      </Pressable>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.contentContainer}>
+          <Text style={[styles.heading, styles.globalFont]}>
+            Izzy the Chatbot
+          </Text>
+          <Text style={[styles.p, styles.globalFont]}>
+            Izzy is intended a provide general guidance on eating disorders such
+            as what they are, symptoms, and potential steps one can take as a
+            start to their recovery journey.{"\n"}
+          </Text>
+          <View>
+            <View>
+              <View>
+                <Text style={[styles.globalFont]}>
+                  Understand Eating Disorders
+                </Text>
+                <Text style={[styles.globalFont]}></Text>
+              </View>
+            </View>
+            <View>
+              <View>
+                <Text style={[styles.globalFont]}>Nutrition Guidance</Text>
+                <Text style={[styles.globalFont]}></Text>
+              </View>
+            </View>
+            <View>
+              <View>
+                <Text style={[styles.globalFont]}>
+                  Connection to professional support
+                </Text>
+                <Text style={[styles.globalFont]}></Text>
+              </View>
+            </View>
+          </View>
+          <Text style={[styles.p, styles.globalFont]}>
+            This chatbot is{" "}
+            <Text style={[styles.boldUnderline, styles.globalFont]}>
+              not a replacement
+            </Text>{" "}
+            to professional medical advice or care. If you think you are in a
+            life threatening situation immediately contact your local emergency
+            room.
+            {"\n"}
+          </Text>
+          <Text style={[styles.heading, styles.globalFont]}>
+            Suicide & Crisis Lifeline
+          </Text>
+          <Text style={[styles.p, styles.globalFont]}>
+            Professional help is always at your reach, if you are experiencing a
+            crisis contact the Suicide and Crisis Lifeline.{"\n"}
+          </Text>
+          <Text style={[styles.p, styles.globalFont]}>
+            For residents in the{" "}
+            <Text style={[styles.boldUnderline, styles.globalFont]}>
+              US & Canada
+            </Text>{" "}
+            call or text 988.
+          </Text>
+          <Pressable style={styles.loginBtn} onPress={continueHandler}>
+            <Text style={[styles.globalFont]}>Call 988</Text>
+          </Pressable>
+          <Pressable style={styles.loginBtn} onPress={continueHandler}>
+            <Text style={[styles.globalFont]}>Text 988</Text>
+          </Pressable>
+          <Text style={[styles.p, styles.globalFont]}>
+            For{" "}
+            <Text style={[styles.boldUnderline, styles.globalFont]}>
+              international residents
+            </Text>{" "}
+            visit Lifeline International and contact your country's local
+            lifeline.
+          </Text>
+          <Button title="International Lifeline" color="#000"></Button>
+          <Pressable style={styles.loginBtn} onPress={continueHandler}>
+            <Text style={styles.loginBtnTitle}>Continue</Text>
+          </Pressable>
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -41,8 +99,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    paddingHorizontal: "7%",
+  },
+  globalFont: {
+    fontFamily: "Afacad",
+    letterSpacing: 1,
+  },
+  contentContainer: {
+    marginTop: "20%",
+  },
+  p: {
+    fontSize: 16,
+  },
+  heading: {
+    fontSize: 20,
+    justifyContent: "flex-start",
+    fontWeight: 500,
+  },
+  boldUnderline: {
+    fontWeight: 700,
+    textDecorationLine: "underline",
   },
 });
 
