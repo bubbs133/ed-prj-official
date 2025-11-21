@@ -1,48 +1,94 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  ImageBackground,
+  Image
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getAuth } from "firebase/auth";
 import ImagePicker from "../components/ImagePicker";
 import Colors from "../constants/colors";
 import MainButton from "../components/MainButton";
+import { Ionicons } from "@expo/vector-icons";
 
-function ProfileScreen() {
+function ProfileScreen({ navigation }) {
   function settingsHandler() {
     console.log("settings");
+    navigation.navigate("Settings");
   }
 
   return (
-    <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <SafeAreaView>
-          <View>
-            <Text> Username Here </Text>
-            <View>
-              <ImagePicker />
+    <ImageBackground
+      source={require("../assets/profilebg.png")}
+      style={styles.backgroundImg}
+    >
+      <View style={styles.container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <SafeAreaView>
+            <View style={styles.contentContainer}>
+              <View style={styles.bars}>
+                <Pressable onPress={settingsHandler}>
+                  <Ionicons name="reorder-three-outline" size={34} />
+                </Pressable>
+              </View>
+              <View style={styles.top}>
+                <Image source={require("../assets/apppfp.jpg")} style={styles.pfppic}/>
+                <Text style={[styles.globalFont, styles.profilename]}>
+                  {" "}
+                  Username Here{" "}
+                </Text>
+              </View>
             </View>
-          </View>
-          <MainButton buttonTitle={"Settings"} handler={settingsHandler} />
-          <View>
-            <Text>My Account</Text>
-            <View>
-              <Text>Change username</Text>
-              <Text>Change password</Text>
-            </View>
-          </View>
-        </SafeAreaView>
-      </ScrollView>
-    </View>
+          </SafeAreaView>
+        </ScrollView>
+      </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.lightNeutral,
-    alignItems: "center",
-    justifyContent: "center",
+    //backgroundColor: Colors.lightNeutral,
+    //alignItems: "center",
+    //justifyContent: "center",
   },
-  topContainer: {
-    //marginTop: "20%",
+  backgroundImg: {
+    resizeMode: "cover",
+    flex: 1,
+  },
+  contentContainer: {
+    paddingLeft: "5%",
+    paddingRight: "5%",
+  },
+  bars: {
+    //justifyContent: "flex-end",
+    alignItems: "flex-end",
+  },
+  top: {
+    //alignContent: "center",
+    alignItems: "center"
+  },
+  profilename: {
+    fontWeight: 500,
+    fontSize: 20,
+  },
+  pfppic: {
+    resizeMode: "cover",
+    flex: 1,
+    borderRadius: '50%',
+    borderWidth: 2,
+    borderColor: Colors.darkNeutral,
+    height: 110,
+    width: 110
+  },
+  globalFont: {
+    fontFamily: "Afacad",
+    letterSpacing: 1,
+    color: Colors.darkNeutral,
   },
 });
 

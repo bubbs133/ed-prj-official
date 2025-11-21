@@ -1,5 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { SafeAreaViewBase, StyleSheet, Text, View } from "react-native";
+import {
+  SafeAreaViewBase,
+  Settings,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import LoginScreen from "./screens/LoginScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -14,6 +20,7 @@ import AssessmentScreen from "./screens/AssessmentScreen";
 import AssessmentIntroScreen from "./screens/AssessmentIntroScreen";
 import LandingScreen from "./screens/LandingScreen";
 import JournalScreen from "./screens/JournalScreen";
+import SettingsScreen from "./screens/SettingsScreen";
 import { Ionicons } from "@expo/vector-icons";
 import AuthContextProvider from "./auth/auth-context";
 import {
@@ -23,6 +30,7 @@ import {
   Afacad_500Medium,
 } from "@expo-google-fonts/afacad";
 import Colors from "./constants/colors";
+import Chatbot from "./screens/Chatbot";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -66,20 +74,18 @@ export default function App() {
     return (
       <Tab.Navigator
         screenOptions={{
+          tabBarActiveTintColor: Colors.darkNeutral,
+          tabBarInactiveTintColor: Colors.lightGrey,
+          //tabBarActiveBackgroundColor: Colors.darkPink,
           headerShown: false,
           tabBarStyle: {
-            //bottom: 45,
-            //left: 30,
-            //right: 30,
-            backgroundColor: Colors.lightNeutral,
+            backgroundColor: "transparent",
             borderTopWidth: 2,
             borderWidth: 3,
             borderColor: Colors.darkNeutral,
-            //borderRadius: 15,
             borderTopLeftRadius: 25,
             borderTopRightRadius: 25,
-            height: 70,
-            //width: "93%",
+            height: 60,
             justifyContent: "center",
             alignItems: "center",
           },
@@ -90,7 +96,7 @@ export default function App() {
           component={HomeScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="home" color="#000" size={19} />
+              <Ionicons name="home-outline" color="#42190D" size={19} />
             ),
           }}
         />
@@ -99,7 +105,7 @@ export default function App() {
           component={JournalScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="book" color="#000" size={19} />
+              <Ionicons name="book-outline" color="#42190D" size={19} />
             ),
           }}
         />
@@ -108,7 +114,7 @@ export default function App() {
           component={DailyQuestScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="check" color="#000" size={19} />
+              <Ionicons name="checkmark" color="#42190D" size={19} />
             ),
           }}
         />
@@ -117,7 +123,7 @@ export default function App() {
           component={BotIntro}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="bubble" color="#000" size={19} />
+              <Ionicons name="chatbubble-outline" color="#42190D" size={19} />
             ),
           }}
         />
@@ -126,7 +132,7 @@ export default function App() {
           component={ProfileScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="person" color="#000" size={19} />
+              <Ionicons name="person-outline" color="#42190D" size={19} />
             ),
           }}
         />
@@ -141,12 +147,25 @@ export default function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="TabNav" component={BottomTabNavigation} />
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen
+          name="Settings"
+          component={SettingsScreen}
+          options={{
+            headerShown: true,
+            headerBackTitleVisible: false,
+            title: "",
+            headerStyle: {
+              backgroundColor: Colors.lightNeutral,
+            },
+          }}
+        />
+        <Stack.Screen name="Assessment" component={AssessmentScreen} />
+        <Stack.Screen name="Chatbot" component={Chatbot} />
       </Stack.Navigator>
     );
   }
 
-  {
-    /*return (
+  /*return (
     <AuthContextProvider>
       <NavigationContainer>
         {isAuthenticated ? (
@@ -157,7 +176,6 @@ export default function App() {
       </NavigationContainer>
     </AuthContextProvider>
   );*/
-  }
 
   return (
     <NavigationContainer>

@@ -4,4 +4,4 @@ from .models import JournalEntry
 class JournalEntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = JournalEntry
-        fields = ['title', 'entry', 'date_created', 'mood'] #automatic serializer fields related to model
+        fields = ['entry_author', 'entry', 'date_created'] #automatic serializer fields related to model

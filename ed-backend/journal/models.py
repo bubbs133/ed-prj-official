@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class JournalEntry(models.Model):
@@ -15,12 +16,13 @@ class JournalEntry(models.Model):
         (9, '9'),
         (10, '10'),
     ]
-    title = models.CharField(max_length=50, null=True, blank=True)
+    entry_author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='entry_author', null=True, blank=True)
+    #title = models.CharField(max_length=50, null=True, blank=True)
     entry = models.TextField(max_length=200)
     date_created = models.DateTimeField(auto_now_add=True)
-    mood = models.IntegerField(default=5, choices=mood_choices)
+    #mood = models.IntegerField(default=5, choices=mood_choices)
     #item_price = models.DecimalField(max_digits=4, decimal_places=2)
     #item_img = models.ImageField(upload_to="uploads/food_images/", null=True, blank=True)
 
     def __str__(self):
-        return f'{self.title}, {self.date_created}'
+        return f'{self.entry_author}, {self.date_created}'

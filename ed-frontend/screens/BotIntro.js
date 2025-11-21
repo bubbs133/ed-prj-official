@@ -6,13 +6,16 @@ import {
   Pressable,
   ScrollView,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Colors from "../constants/colors";
+import { Ionicons } from "@expo/vector-icons";
 
 function BotIntro({ navigation }) {
   function continueHandler() {
     navigation.navigate("Chatbot");
   }
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.contentContainer}>
           <Text style={[styles.heading, styles.globalFont]}>
@@ -25,22 +28,28 @@ function BotIntro({ navigation }) {
           </Text>
           <View>
             <View>
+              <View style={styles.introinfo}>
+                <Ionicons name="help-circle-outline" size={50}/>
+                <View>
+                  <Text style={[styles.miniheadings, styles.globalFont]}>
+                    Understand Eating Disorders
+                  </Text>
+                  <Text style={[styles.globalFont]}>
+                    Take a deeper look at what eating disorders are and how can
+                    they can affect your lifestyle.
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View>
               <View>
-                <Text style={[styles.globalFont]}>
-                  Understand Eating Disorders
-                </Text>
+                <Text style={[styles.miniheadings, styles.globalFont]}>Nutrition Guidance</Text>
                 <Text style={[styles.globalFont]}></Text>
               </View>
             </View>
             <View>
               <View>
-                <Text style={[styles.globalFont]}>Nutrition Guidance</Text>
-                <Text style={[styles.globalFont]}></Text>
-              </View>
-            </View>
-            <View>
-              <View>
-                <Text style={[styles.globalFont]}>
+                <Text style={[styles.miniheadings, styles.globalFont]}>
                   Connection to professional support
                 </Text>
                 <Text style={[styles.globalFont]}></Text>
@@ -91,14 +100,14 @@ function BotIntro({ navigation }) {
           </Pressable>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.lightNeutral,
     alignItems: "flex-start",
     justifyContent: "flex-start",
     paddingHorizontal: "7%",
@@ -108,7 +117,11 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   contentContainer: {
-    marginTop: "20%",
+    paddingLeft: "5%",
+    paddingRight: "5%",
+  },
+  introinfo: {
+    flexDirection: "row"
   },
   p: {
     fontSize: 16,
@@ -117,6 +130,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     justifyContent: "flex-start",
     fontWeight: 500,
+  },
+  miniheadings: {
+    fontSize: 17,
+    fontWeight: 500
   },
   boldUnderline: {
     fontWeight: 700,

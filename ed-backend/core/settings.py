@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'journal',
     'assessment',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [

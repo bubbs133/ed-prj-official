@@ -9,8 +9,9 @@ const Colors = {
   darkBrown: "#998E78",
   lightPink: "#EAD2D2",
   darkPink: "#D7C1C1",
-  lightGrey: "#999999"
-
+  lightGrey: "#999999",
+  lightGrey2: "#e5e5e5ff",
+  lighterLightNeutral: "#F7F7F7"
 };
 
 export default Colors;

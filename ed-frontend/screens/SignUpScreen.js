@@ -17,7 +17,7 @@ import Colors from "../constants/colors";
 function SignUpScreen({ navigation, onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("");
 
   //const auth = getAuth();
   //const user = auth.currentUser;
@@ -25,6 +25,32 @@ function SignUpScreen({ navigation, onLogin }) {
   const authCtx = useContext(AuthContext);
 
   async function signupHandler() {
+    try {
+      const url = "http://127.0.0.1:8000/users/";
+      //const url = "http://92.168.0.125/journal";
+      let result = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          username: username,
+          password: password,
+        }),
+      });
+      result = await result.json();
+      if (result) {
+        console.log("User added", result);
+        setEmail("");
+        setUsername("");
+        setPassword("");
+      }
+    } catch (error) {
+      console.log("Error:", error);
+      Alert.alert("User not added", "Please try again");
+    }
+  }
+
+  /*async function signupHandler() {
     try {
       const data = await createUser(email, password);
       //await AsyncStorage.setItem("username", username);
@@ -36,7 +62,7 @@ function SignUpScreen({ navigation, onLogin }) {
       //console.error("Sign up failed");
       console.log("Signup error:", error.response?.data || error.message);
     }
-  }
+  }*/
   return (
     <ImageBackground
       source={require("../assets/signin.png")}
@@ -49,6 +75,17 @@ function SignUpScreen({ navigation, onLogin }) {
             textInputConfig={{
               value: email,
               onChangeText: setEmail,
+              autoCorrect: false,
+              autoComplete: false,
+            }}
+          />
+        </View>
+        <View style={styles.inputElements}>
+          <Input
+            lable="username"
+            textInputConfig={{
+              value: username,
+              onChangeText: setUsername,
               autoCorrect: false,
               autoComplete: false,
             }}

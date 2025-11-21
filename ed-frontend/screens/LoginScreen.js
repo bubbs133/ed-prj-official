@@ -16,20 +16,33 @@ import { AuthContext } from "../auth/auth-context";
 import Colors from "../constants/colors";
 
 function LoginScreen({ navigation, onLogin }) {
-  const [email, setEmail] = useState("");
+  //const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  //const [username, setUsername] = useState("");
 
   const authCtx = useContext(AuthContext);
 
   async function loginHandler() {
-    console.log("logged in!");
     try {
-      const data = await loginUser(email, password);
-      authCtx.authenticate(data.idToken);
-      console.log("Successful log");
-      onLogin();
+      const url = "http://127.0.0.1:8000/login/";
+      let response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
+      const data = await response.json();
+      if (response) {
+        console.log("logged in");
+        authCtx.authenticate(data.token, data.username, data.email);
+        onLogin()
+        //setUsername("");
+        //setPassword("");
+      }
     } catch (error) {
+      console.log("error:", error);
       Alert.alert("Invalid info!", "Please enter the correct information.");
     }
   }
@@ -42,10 +55,10 @@ function LoginScreen({ navigation, onLogin }) {
       <View style={styles.mainContainer}>
         <View style={styles.inputElements}>
           <Input
-            lable="email"
+            lable="username"
             textInputConfig={{
-              value: email,
-              onChangeText: setEmail,
+              value: username,
+              onChangeText: setUsername,
               autoCorrect: false,
               autoComplete: false,
             }}
@@ -59,6 +72,7 @@ function LoginScreen({ navigation, onLogin }) {
               onChangeText: setPassword,
               autoCorrect: false,
               autoComplete: false,
+              secureTextEntry: true
             }}
           />
         </View>
@@ -99,7 +113,7 @@ const styles = StyleSheet.create({
   },
   loginBtnView: {
     position: "absolute",
-    bottom: 100
+    bottom: 100,
   },
   loginBtnTitle: {
     textAlign: "center",
