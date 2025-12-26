@@ -31,6 +31,8 @@ import {
 } from "@expo-google-fonts/afacad";
 import Colors from "./constants/colors";
 import Chatbot from "./screens/Chatbot";
+import FoodTrackingScreen from "./screens/FoodTrackingScreen";
+import ExerciseTrackingScreen from "./screens/ExerciseTrackingScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -151,7 +153,7 @@ export default function App() {
           name="Settings"
           component={SettingsScreen}
           options={{
-            headerShown: true,
+            headerShown: false,
             headerBackTitleVisible: false,
             title: "",
             headerStyle: {
@@ -161,6 +163,8 @@ export default function App() {
         />
         <Stack.Screen name="Assessment" component={AssessmentScreen} />
         <Stack.Screen name="Chatbot" component={Chatbot} />
+        <Stack.Screen name="Meals" component={FoodTrackingScreen} />
+        <Stack.Screen name="Exercises" component={ExerciseTrackingScreen} />
       </Stack.Navigator>
     );
   }

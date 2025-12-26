@@ -72,6 +72,14 @@ function HomeScreen({ navigation }) {
     navigation.navigate("Assessment");
   }
 
+  function foodHandler() {
+    navigation.navigate("Meals");
+  }
+
+  function exerciseHandler() {
+    navigation.navigate("Exercises");
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -154,20 +162,29 @@ function HomeScreen({ navigation }) {
               overScrollMode="never"
               showsHorizontalScrollIndicator={false}
             >
-              <Pressable
-                style={styles.scrollItemPress}
-                onPress={journalHandler}
-              >
+              <Pressable style={styles.scrollItemPress} onPress={foodHandler}>
                 <Boxes
                   style={{
                     borderColor: Colors.darkGreen,
                     backgroundColor: Colors.lightGreen,
                   }}
-                  itemTitle="Journal"
-                  description="Set your thoughts and feelings free by journaling."
-                  imgPath={require("../assets/greenbook.png")}
+                  itemTitle="Mindful Meals"
+                  description="Gently observe your eating habits."
+                  imgPath={require("../assets/foodgreen.png")}
                 />
               </Pressable>
+              <Pressable style={styles.scrollItemPress} onPress={exerciseHandler}>
+                <Boxes
+                  style={{
+                    borderColor: Colors.darkBrown,
+                    backgroundColor: Colors.lightBrown,
+                  }}
+                  itemTitle="Active Wellness"
+                  description="Act with wellness in mind and be alert of your movement."
+                  imgPath={require("../assets/runbrown.png")}
+                />
+              </Pressable>
+
               <Pressable
                 style={[
                   styles.scrollItemPress,
@@ -181,12 +198,12 @@ function HomeScreen({ navigation }) {
               >
                 <Boxes
                   style={{
-                    borderColor: Colors.darkBrown,
-                    backgroundColor: Colors.lightBrown,
+                    borderColor: Colors.darkPink,
+                    backgroundColor: Colors.lightPink,
                   }}
                   itemTitle="Self-Assessment"
                   description="Take the self-assessment to check in on your symptoms."
-                  imgPath={require("../assets/brownquiz.png")}
+                  imgPath={require("../assets/quizpink.png")}
                 />
               </Pressable>
             </ScrollView>
@@ -198,10 +215,10 @@ function HomeScreen({ navigation }) {
               onPress={questHandler}
             >
               <Boxes
-                style={styles.resourcesBox}
+                style={[styles.resourcesBox]}
                 itemTitle="Resources"
                 description="Check out this list of offical resources regarding eating disorders, nutrition, and where you can find professional help near you."
-                imgPath={require("../assets/solar_star-bold.png")}
+                imgPath={require("../assets/listblue.png")}
               />
             </Pressable>
           </View>
@@ -321,7 +338,7 @@ const styles = StyleSheet.create({
   },
   resourcesBox: {
     backgroundColor: Colors.lightBlue,
-    borderColor: Colors.darkBlue,
+    borderColor: Colors.darkBlue
   },
 });
 
