@@ -5,14 +5,27 @@ import {
   View,
   Pressable,
   ScrollView,
+  Alert,
 } from "react-native";
+import { Checkbox } from "expo-checkbox";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Colors from "../constants/colors";
 import { Ionicons } from "@expo/vector-icons";
+import MainButton from "../components/MainButton";
+import { useState } from "react";
 
 function BotIntro({ navigation }) {
+  const [isChecked, setIsChecked] = useState(false);
+
   function continueHandler() {
-    navigation.navigate("Chatbot");
+    if (isChecked) {
+      navigation.navigate("ChatbotRoom");
+    } else {
+      Alert.alert(
+        "Please check box to continue",
+        "Please read the statements before continuing."
+      );
+    }
   }
   return (
     <SafeAreaView style={styles.container}>
@@ -29,30 +42,34 @@ function BotIntro({ navigation }) {
           <View>
             <View>
               <View style={styles.introinfo}>
-                <Ionicons name="help-circle-outline" size={50}/>
-                <View>
+                <View style={styles.introPoint}>
                   <Text style={[styles.miniheadings, styles.globalFont]}>
                     Understand Eating Disorders
                   </Text>
                   <Text style={[styles.globalFont]}>
                     Take a deeper look at what eating disorders are and how can
-                    they can affect your lifestyle.
+                    they can direct your lifestyle regardless of your
+                    background.
                   </Text>
                 </View>
-              </View>
-            </View>
-            <View>
-              <View>
-                <Text style={[styles.miniheadings, styles.globalFont]}>Nutrition Guidance</Text>
-                <Text style={[styles.globalFont]}></Text>
-              </View>
-            </View>
-            <View>
-              <View>
-                <Text style={[styles.miniheadings, styles.globalFont]}>
-                  Connection to professional support
-                </Text>
-                <Text style={[styles.globalFont]}></Text>
+                <View style={styles.introPoint}>
+                  <Text style={[styles.miniheadings, styles.globalFont]}>
+                    Nutrition Guidance
+                  </Text>
+                  <Text style={[styles.globalFont]}>
+                    Learn about nutrition and gently promote healthy eating
+                    patterns.
+                  </Text>
+                </View>
+                <View style={styles.introPoint}>
+                  <Text style={[styles.miniheadings, styles.globalFont]}>
+                    Connection to professional support
+                  </Text>
+                  <Text style={[styles.globalFont]}>
+                    Understand the many different professional resources that
+                    are available to support you.
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
@@ -78,26 +95,32 @@ function BotIntro({ navigation }) {
             <Text style={[styles.boldUnderline, styles.globalFont]}>
               US & Canada
             </Text>{" "}
-            call or text 988.
-          </Text>
-          <Pressable style={styles.loginBtn} onPress={continueHandler}>
-            <Text style={[styles.globalFont]}>Call 988</Text>
-          </Pressable>
-          <Pressable style={styles.loginBtn} onPress={continueHandler}>
-            <Text style={[styles.globalFont]}>Text 988</Text>
-          </Pressable>
-          <Text style={[styles.p, styles.globalFont]}>
-            For{" "}
+            call or text 988. For{" "}
             <Text style={[styles.boldUnderline, styles.globalFont]}>
               international residents
             </Text>{" "}
             visit Lifeline International and contact your country's local
             lifeline.
           </Text>
-          <Button title="International Lifeline" color="#000"></Button>
-          <Pressable style={styles.loginBtn} onPress={continueHandler}>
-            <Text style={styles.loginBtnTitle}>Continue</Text>
+          {/*<Pressable style={styles.loginBtn} onPress={continueHandler}>
+            <Text style={[styles.globalFont]}>Call 988</Text>
           </Pressable>
+          <Pressable style={styles.loginBtn} onPress={continueHandler}>
+            <Text style={[styles.globalFont]}>Text 988</Text>
+          </Pressable>*/}
+          <View style={styles.checkBoxSection}>
+            <Checkbox
+              style={styles.checkbox}
+              value={isChecked}
+              onValueChange={setIsChecked}
+              color={isChecked ? Colors.checkBoxColor : undefined}
+            />
+            <Text style={[styles.statement, styles.globalFont]}>
+              By checking the box and continuing I understand to the statements
+              from above.
+            </Text>
+          </View>
+          <MainButton buttonTitle={"Continue"} handler={continueHandler} />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -105,13 +128,6 @@ function BotIntro({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: Colors.lightNeutral,
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
-    paddingHorizontal: "7%",
-  },
   globalFont: {
     fontFamily: "Afacad",
     letterSpacing: 1,
@@ -120,8 +136,11 @@ const styles = StyleSheet.create({
     paddingLeft: "5%",
     paddingRight: "5%",
   },
+  introPoint: {
+    paddingBottom: 10,
+  },
   introinfo: {
-    flexDirection: "row"
+    paddingBottom: 15,
   },
   p: {
     fontSize: 16,
@@ -133,11 +152,23 @@ const styles = StyleSheet.create({
   },
   miniheadings: {
     fontSize: 17,
-    fontWeight: 500
+    fontWeight: 500,
   },
   boldUnderline: {
     fontWeight: 700,
     textDecorationLine: "underline",
+  },
+  checkBoxSection: {
+    flexDirection: "row",
+    gap: 15,
+    marginTop: 15,
+    marginBottom: 10,
+  },
+  checkbox: {
+    marginTop: 3,
+  },
+  statement: {
+    marginTop: -5,
   },
 });
 

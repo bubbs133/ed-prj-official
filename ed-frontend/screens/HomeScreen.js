@@ -72,14 +72,9 @@ function HomeScreen({ navigation }) {
     navigation.navigate("Assessment");
   }
 
-  function foodHandler() {
-    navigation.navigate("Meals");
+  function trackingHandler() {
+    navigation.navigate("Tracking");
   }
-
-  function exerciseHandler() {
-    navigation.navigate("Exercises");
-  }
-
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -162,29 +157,17 @@ function HomeScreen({ navigation }) {
               overScrollMode="never"
               showsHorizontalScrollIndicator={false}
             >
-              <Pressable style={styles.scrollItemPress} onPress={foodHandler}>
+              <Pressable style={styles.scrollItemPress} onPress={trackingHandler}>
                 <Boxes
                   style={{
                     borderColor: Colors.darkGreen,
                     backgroundColor: Colors.lightGreen,
                   }}
-                  itemTitle="Mindful Meals"
-                  description="Gently observe your eating habits."
+                  itemTitle="Care Log"
+                  description="Gently observe your nourishment, emotions, and movement."
                   imgPath={require("../assets/foodgreen.png")}
                 />
               </Pressable>
-              <Pressable style={styles.scrollItemPress} onPress={exerciseHandler}>
-                <Boxes
-                  style={{
-                    borderColor: Colors.darkBrown,
-                    backgroundColor: Colors.lightBrown,
-                  }}
-                  itemTitle="Active Wellness"
-                  description="Act with wellness in mind and be alert of your movement."
-                  imgPath={require("../assets/runbrown.png")}
-                />
-              </Pressable>
-
               <Pressable
                 style={[
                   styles.scrollItemPress,

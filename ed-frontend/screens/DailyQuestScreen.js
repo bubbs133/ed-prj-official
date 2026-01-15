@@ -56,29 +56,24 @@ function DailyQuestScreen() {
   }
 
   return (
-    <ImageBackground
-      source={require("../assets/questsbg.png")}
-      style={styles.backgroundImg}
-    >
-      <SafeAreaView style={styles.container}>
-        <ScrollView>
-          <View style={styles.contentView}>
-            <View>
-              <Text style={styles.questName}>
-                {rndQuest ? rndQuest.name : "name blank"}
-              </Text>
-              <Text style={styles.questText}>
-                {rndQuest ? rndQuest.description : "description blank"}
-              </Text>
-            </View>
-            <View style={styles.imgContainer}>
-              <ImagePicker />
-            </View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View style={styles.contentView}>
+          <View>
+            <Text style={styles.questName}>
+              {rndQuest ? rndQuest.name : "name blank"}
+            </Text>
+            <Text style={styles.questText}>
+              {rndQuest ? rndQuest.description : "description blank"}
+            </Text>
           </View>
-          <MainButton buttonTitle={"Submit"} handler={submitQuest} />
-        </ScrollView>
-      </SafeAreaView>
-    </ImageBackground>
+          <View style={styles.imgContainer}>
+            <ImagePicker />
+          </View>
+        </View>
+        <MainButton buttonTitle={"Submit"} handler={submitQuest} />
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 

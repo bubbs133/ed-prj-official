@@ -11,7 +11,8 @@ const Colors = {
   darkPink: "#D7C1C1",
   lightGrey: "#999999",
   lightGrey2: "#e5e5e5ff",
-  lighterLightNeutral: "#F7F7F7"
+  lighterLightNeutral: "#F7F7F7",
+  checkBoxColor: "#77605A"
 };
 
 export default Colors;

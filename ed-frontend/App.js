@@ -33,6 +33,8 @@ import Colors from "./constants/colors";
 import Chatbot from "./screens/Chatbot";
 import FoodTrackingScreen from "./screens/FoodTrackingScreen";
 import ExerciseTrackingScreen from "./screens/ExerciseTrackingScreen";
+import TrackingScreen from "./screens/TrackingScreen";
+import ChatroomScreen from "./screens/ChatroomScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -163,8 +165,12 @@ export default function App() {
         />
         <Stack.Screen name="Assessment" component={AssessmentScreen} />
         <Stack.Screen name="Chatbot" component={Chatbot} />
+        <Stack.Screen name="ChatbotRoom" component={ChatroomScreen} />
+        <Stack.Screen name="Tracking" component={TrackingScreen} />
+        {/*
         <Stack.Screen name="Meals" component={FoodTrackingScreen} />
         <Stack.Screen name="Exercises" component={ExerciseTrackingScreen} />
+        */}
       </Stack.Navigator>
     );
   }

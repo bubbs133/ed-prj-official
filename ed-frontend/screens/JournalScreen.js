@@ -73,35 +73,30 @@ function JournalScreen() {
 
   const date = displayDate();
   return (
-    <ImageBackground
-      source={require("../assets/journalbg.png")}
-      style={styles.backgroundImg}
-    >
-      <SafeAreaView style={styles.container}>
-        <ScrollView showsHorizontalScrollIndicator={false}>
-          <View style={[styles.contentContainer]}>
-            <View>
-              <Text style={[styles.date, styles.globalFont]}>{date[0]}</Text>
-              <Text style={[styles.globalFont]}>{date[1]}</Text>
-            </View>
-            <Text style={[styles.prompt, styles.globalFont]}>
-              {journalPrompt.prompt}
-            </Text>
-            <TextInput
-              multiline={true}
-              placeholder="Take a moment to ponder and express yourself through the prompt."
-              onChangeText={(entry) => setEntry(entry)}
-              style={[styles.journalEntryBox, styles.globalFont]}
-            ></TextInput>
-            <SecondButton
-              style={styles.submitbtn}
-              buttonTitle={"Submit"}
-              handler={submitHandler}
-            />
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsHorizontalScrollIndicator={false}>
+        <View style={[styles.contentContainer]}>
+          <View>
+            <Text style={[styles.date, styles.globalFont]}>{date[0]}</Text>
+            <Text style={[styles.globalFont]}>{date[1]}</Text>
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </ImageBackground>
+          <Text style={[styles.prompt, styles.globalFont]}>
+            {journalPrompt.prompt}
+          </Text>
+          <TextInput
+            multiline={true}
+            placeholder="Take a moment to ponder and express yourself through the prompt."
+            onChangeText={(entry) => setEntry(entry)}
+            style={[styles.journalEntryBox, styles.globalFont]}
+          ></TextInput>
+          <SecondButton
+            style={styles.submitbtn}
+            buttonTitle={"Submit"}
+            handler={submitHandler}
+          />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -124,7 +119,7 @@ const styles = StyleSheet.create({
   globalFont: {
     fontFamily: "Afacad",
     letterSpacing: 1,
-    color: Colors.darkNeutral
+    color: Colors.darkNeutral,
   },
   journalEntryBox: {
     //borderColor: "#000",

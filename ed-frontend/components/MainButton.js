@@ -8,36 +8,35 @@ function MainButton({ buttonTitle, handler }) {
       <Pressable
         style={({ pressed }) => [
           styles.buttonBox,
-          pressed ? styles.buttonPressed : styles.buttonBox,
+          pressed ? styles.optionsBoxPressed : styles.optionsBoxUnpressed,
         ]}
         onPress={handler}
       >
-        <Text style={styles.buttonTitle}>{buttonTitle}</Text>
+        {({ pressed }) => (
+          <Text
+            style={[
+              styles.buttonTitle,
+              pressed ? styles.textPressed : styles.textUnpressed,
+            ]}
+          >
+            {buttonTitle}
+          </Text>
+        )}
       </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  buttonBox: {
-    borderRadius: 50,
-    height: 37,
-    width: 300,
-    backgroundColor: "#F0F0F0",
-    marginBottom: 10,
-    marginTop: 10,
-    borderColor: "#42190D",
-    //borderColor: "#9B8E75",
-    borderWidth: 2,
-  },
   buttonTitle: {
     textAlign: "center",
     fontSize: 19,
     color: "#42190D",
     marginTop: 5,
     fontFamily: "Afacad",
-    fontWeight: 500,
+    fontWeight: 400,
     letterSpacing: 2,
+    paddingBottom: 10
   },
   buttonPressedTitle: {
     color: "#42190D",
@@ -48,6 +47,27 @@ const styles = StyleSheet.create({
   buttonPressed: {
     backgroundColor: Colors.darkNeutral,
     opacity: 0.05,
+  },
+  buttonBox: {
+    height: 32,
+    width: 300,
+    borderWidth: 2,
+    paddingHorizontal: 12,
+    borderRadius: 10,
+    borderColor: Colors.darkNeutral,
+  },
+  optionsBoxUnpressed: {
+    borderColor: Colors.darkNeutral,
+  },
+  optionsBoxPressed: {
+    borderColor: "#77605A",
+    backgroundColor: "#77605A",
+  },
+  textPressed: {
+    color: Colors.lightNeutral,
+  },
+  textUnpressed: {
+    color: Colors.darkNeutral,
   },
 });
 
