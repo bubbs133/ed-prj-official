@@ -74,7 +74,7 @@ function TrackingScreen({ navigation }) {
               <View style={styles.top}>
                 <GoBack navigation={navigation} />
                 <Text style={[styles.header, styles.globalFont]}>
-                  Mindful Tracking
+                  Care Log
                 </Text>
               </View>
               <View style={[styles.section]}>

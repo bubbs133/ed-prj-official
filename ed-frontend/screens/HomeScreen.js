@@ -128,7 +128,7 @@ function HomeScreen({ navigation }) {
                     borderColor: Colors.darkPink,
                     backgroundColor: Colors.lightPink,
                   }}
-                  itemTitle="Izzy the Chatbot"
+                  itemTitle="Chatroom"
                   description="Chat with Izzy to understand eating disorders and nutrition."
                   imgPath={require("../assets/pinkbubbleoutline.png")}
                 />

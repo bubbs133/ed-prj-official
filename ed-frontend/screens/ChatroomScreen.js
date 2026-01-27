@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { GiftedChat } from "react-native-gifted-chat";
+import { GiftedChat, Bubble } from "react-native-gifted-chat";
 import Colors from "../constants/colors";
 import { useState, useEffect, useCallback } from "react";
 import React from "react";
@@ -28,6 +28,24 @@ function ChatroomScreen() {
     );
   }, []);
 
+  const renderBubble = (props) => {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          right: {
+            backgroundColor: Colors.darkNeutral,
+          },
+        }}
+        textStyle={{
+          right: {
+            color: "#fff",
+          },
+        }}
+      />
+    );
+  };
+
   return (
     <GiftedChat
       messages={messages}
@@ -35,6 +53,7 @@ function ChatroomScreen() {
       user={{
         _id: 1,
       }}
+      renderBubble={renderBubble}
     />
   );
 }

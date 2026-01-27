@@ -1,22 +1,32 @@
 import numpy as np
 import pandas as pd
 
+import latent_states, state_profiles
+
 np.random.seed(42)
-num_samples = 200
+user_samples = 100
+features = list(state_profiles.STATE_PROFILES[0].keys())
 
-def generate_data():
-    data = {
-        'num_meals': np.random.randint(0, 5, num_samples),
-        'avg_mood_pre_meal': np.random.randint(0, 11, num_samples),
-        'avg_mood_post_meal': np.random.randint(0, 11, num_samples),
-        'avg_mood_day': np.random.randint(0, 11, num_samples),
-        'stress_level': np.random.randint(0, 11, num_samples),
-        'anxiety_level': np.random.randint(0, 11, num_samples),
-        'exercise_amount_hr': np.random.uniform(0, 7, num_samples)
-    }
+data = []
 
-    tracking_df = pd.DataFrame(data)
-    #print(tracking_df)
-    print(tracking_df[0:5])
+for user_id in range(user_samples):
+    state = np.random.choice([0, 1, 2, 3], p=[0.25, 0.25, 0.25, 0.25])
+    profile = state_profiles.STATE_PROFILES[state]
 
-generate_data()
+    user_row = {"latent_state": state}
+
+    for feature in features:
+        value = np.random.normal(
+            loc=profile[feature],
+            scale=1.6
+        )
+
+        value = np.clip(value, 0, 10)
+        user_row[feature] = round(value, 0)
+
+    data.append(user_row)
+
+df = pd.DataFrame(data)
+#print(df)
+
+csv_file = df.to_csv("testing_data_scale1_6.csv", index=False)

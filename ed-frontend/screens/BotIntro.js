@@ -116,8 +116,8 @@ function BotIntro({ navigation }) {
               color={isChecked ? Colors.checkBoxColor : undefined}
             />
             <Text style={[styles.statement, styles.globalFont]}>
-              By checking the box and continuing I understand to the statements
-              from above.
+              I'm confirming I understand the statements above and choose to
+              move forward.
             </Text>
           </View>
           <MainButton buttonTitle={"Continue"} handler={continueHandler} />
@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
   },
   statement: {
     marginTop: -5,
+    paddingRight: "10%",
   },
 });
 
