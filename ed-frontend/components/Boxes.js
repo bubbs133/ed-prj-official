@@ -2,9 +2,30 @@ import { View, Text, TextInput, StyleSheet, Image } from "react-native";
 import Colors from "../constants/colors";
 //import Icon from "react-native-vector-icons/FontAwesome";
 
-function Boxes({ itemTitle, description, imgPath, style }) {
+function Boxes({
+  itemTitle,
+  description,
+  imgPath,
+  height,
+  width,
+  borderColor,
+  fillColor,
+}) {
   return (
-    <View style={[styles.itemBox, style]}>
+    <View
+      style={{
+        //flex: 1,
+        borderBottomWidth: 3,
+        borderRightWidth: 3,
+        borderRadius: 25,
+        //margin: 0,
+        marginBottom: 10,
+        height: height,
+        width: width,
+        borderColor: borderColor,
+        backgroundColor: fillColor,
+      }}
+    >
       <Image source={imgPath} style={styles.img}></Image>
       <View style={styles.bottom}>
         <Text style={[styles.itemTitle, styles.globalFont]}>{itemTitle}</Text>
@@ -17,32 +38,13 @@ function Boxes({ itemTitle, description, imgPath, style }) {
 }
 
 const styles = StyleSheet.create({
-  itemBox: {
-    borderRadius: 25,
-    //borderWidth: 2,
-    //marginLeft: "7%"
-    //borderColor: Colors.darkNeutral
-    borderBottomWidth: 3,
-    borderRightWidth: 3,
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-    //height: 170,
-    //width: 200,
-    //paddingLeft: 10,
-  },
   globalFont: {
     fontFamily: "Afacad",
-    //fontWeight: 500,
     color: Colors.darkNeutral,
   },
-  /*top: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 5
-    //alignItems: 'center'
-  },*/
   bottom: {
-    marginTop: -20
+    marginTop: -5,
+    marginRight: 0,
   },
   itemTitle: {
     fontSize: 17,
@@ -50,9 +52,7 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     letterSpacing: 3,
     marginLeft: 15,
-    //paddingBottom: 13,
     marginTop: 5,
-    //paddingLeft: 5
   },
   description: {
     fontSize: 14,
@@ -62,9 +62,9 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   img: {
-    width: 57,
-    height: 57,
-    marginTop: -10,
+    width: 50,
+    height: 50,
+    marginTop: 5,
     marginLeft: 10,
     //paddingRight: 10
     //paddingLeft: -10

@@ -7,22 +7,32 @@ import {
   FlatList,
   ImageBackground,
   Image,
+  Button,
   Modal,
+  Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, useEffect, useRef, useContext } from "react";
+import { useRoute } from "@react-navigation/native";
 import { foodFacts } from "../models/foodFacts";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Boxes from "../components/Boxes";
 import Colors from "../constants/colors";
 import { AuthContext } from "../auth/auth-context";
+import { RESOURCES } from "../models/resources";
 
 function HomeScreen({ navigation }) {
+  const [activeModal, setActiveModal] = useState(false);
   const authCtx = useContext(AuthContext);
 
   const [rndFoodFact, setRndFoodFact] = useState(null);
   const [minute, setMinute] = useState(new Date().getMinutes());
   const prevMin = useRef(minute);
+
+  //const [clusterPred, setClusterPred] = useState(null);
+
+  const route = useRoute();
+  const result = route.params?.result;
 
   function generateRandomIndex() {
     const rndNum = Math.floor(Math.random() * foodFacts.length);
@@ -55,25 +65,17 @@ function HomeScreen({ navigation }) {
     return () => clearInterval(interval);
   }, [minute]);
 
-  function questHandler() {
-    navigation.navigate("Quests");
-    //console.log("quests btn");
-  }
-
-  function journalHandler() {
-    navigation.navigate("Journal");
-  }
-
-  function izzyHandler() {
-    navigation.navigate("Chatbot");
-  }
-
-  function assessmentHandler() {
-    navigation.navigate("Assessment");
-  }
-
-  function trackingHandler() {
-    navigation.navigate("Tracking");
+  function renderItem({ item }) {
+    return (
+      <View style={styles.resourceContainer}>
+        <Pressable onPress={() => Linking.openURL(item.resource)}>
+          <Text style={[styles.resourceHeading, styles.globalFont]}>
+            {item.resourceName}
+          </Text>
+          <Text style={styles.globalFont}>{item.resourceDetails}</Text>
+        </Pressable>
+      </View>
+    );
   }
   return (
     <SafeAreaView style={styles.container}>
@@ -83,6 +85,7 @@ function HomeScreen({ navigation }) {
             <Text style={[styles.introText, styles.globalFont]}>
               Hi {authCtx.username}!{"\n"}
             </Text>
+            <Text>{result ? `Result: ${result}`: "No result"}</Text>
           </View>
           <View style={styles.factContainer}>
             <View style={styles.factText}>
@@ -93,117 +96,6 @@ function HomeScreen({ navigation }) {
                 {rndFoodFact ? rndFoodFact.fact : "fact blank"}
               </Text>
             </View>
-          </View>
-        </View>
-        <View style={styles.homeViews}>
-          <View>
-            <Text style={[styles.headings, styles.globalFont]}>
-              Daily Activities
-            </Text>
-            <ScrollView
-              contentContainerStyle={styles.scrollContent}
-              horizontal={true}
-              overScrollMode="never"
-              showsHorizontalScrollIndicator={false}
-            >
-              <View>
-                <Pressable
-                  style={styles.scrollItemPress}
-                  onPress={questHandler}
-                >
-                  <Boxes
-                    style={{
-                      borderColor: Colors.darkBlue,
-                      backgroundColor: Colors.lightBlue,
-                    }}
-                    itemTitle="Quests"
-                    description="Challenge yourself and your mind by completing quests."
-                    imgPath={require("../assets/staroutline.png")}
-                  />
-                </Pressable>
-              </View>
-              <Pressable style={styles.scrollItemPress} onPress={izzyHandler}>
-                <Boxes
-                  style={{
-                    borderColor: Colors.darkPink,
-                    backgroundColor: Colors.lightPink,
-                  }}
-                  itemTitle="Chatroom"
-                  description="Chat with Izzy to understand eating disorders and nutrition."
-                  imgPath={require("../assets/pinkbubbleoutline.png")}
-                />
-              </Pressable>
-              <Pressable
-                style={styles.scrollItemPress}
-                onPress={journalHandler}
-              >
-                <Boxes
-                  style={{
-                    borderColor: Colors.darkGreen,
-                    backgroundColor: Colors.lightGreen,
-                  }}
-                  itemTitle="Journal"
-                  description="Set your thoughts and feelings free by journaling."
-                  imgPath={require("../assets/greenbook.png")}
-                />
-              </Pressable>
-            </ScrollView>
-          </View>
-          <View>
-            <Text style={[styles.headings, styles.globalFont]}>Check-In</Text>
-            <ScrollView
-              contentContainerStyle={styles.scrollContent}
-              horizontal={true}
-              overScrollMode="never"
-              showsHorizontalScrollIndicator={false}
-            >
-              <Pressable style={styles.scrollItemPress} onPress={trackingHandler}>
-                <Boxes
-                  style={{
-                    borderColor: Colors.darkGreen,
-                    backgroundColor: Colors.lightGreen,
-                  }}
-                  itemTitle="Care Log"
-                  description="Gently observe your nourishment, emotions, and movement."
-                  imgPath={require("../assets/foodgreen.png")}
-                />
-              </Pressable>
-              <Pressable
-                style={[
-                  styles.scrollItemPress,
-                  {
-                    backgroundColor: Colors.lightPink,
-                    borderRadius: 25,
-                    borderColor: Colors.darkPink,
-                  },
-                ]}
-                onPress={assessmentHandler}
-              >
-                <Boxes
-                  style={{
-                    borderColor: Colors.darkPink,
-                    backgroundColor: Colors.lightPink,
-                  }}
-                  itemTitle="Self-Assessment"
-                  description="Take the self-assessment to check in on your symptoms."
-                  imgPath={require("../assets/quizpink.png")}
-                />
-              </Pressable>
-            </ScrollView>
-          </View>
-          <View>
-            <Text style={[styles.headings, styles.globalFont]}>Resources</Text>
-            <Pressable
-              style={styles.scrollItemPressResources}
-              onPress={questHandler}
-            >
-              <Boxes
-                style={[styles.resourcesBox]}
-                itemTitle="Resources"
-                description="Check out this list of offical resources regarding eating disorders, nutrition, and where you can find professional help near you."
-                imgPath={require("../assets/listblue.png")}
-              />
-            </Pressable>
           </View>
         </View>
       </ScrollView>
@@ -219,16 +111,10 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     justifyContent: "flex-start",
   },
-  topContainer: {
-    //marginTop: "-3%",
-    //marginLeft: '5%',
-    //marginRight: '5%',
-    //backgroundColor: "#DBE6F1",
-  },
-  /*backgroundImg: {
-    resizeMode: "cover",
+  backgroundImg: {
+    resizeMode: "stretch",
     flex: 1,
-  },*/
+  },
   homeViews: {
     //borderTopLeftRadius: "6%",
     //borderTopRightRadius: "6%",
@@ -321,7 +207,22 @@ const styles = StyleSheet.create({
   },
   resourcesBox: {
     backgroundColor: Colors.lightBlue,
-    borderColor: Colors.darkBlue
+    borderColor: Colors.darkBlue,
+  },
+  resourcesModalInnerContainer: {
+    flex: 1,
+  },
+  modalHeading: {
+    textAlign: "center",
+    marginLeft: 0,
+  },
+  resourceContainer: {
+    padding: 16,
+  },
+  resourceHeading: {
+    fontSize: 17,
+    fontWeight: 500,
+    letterSpacing: 1,
   },
 });
 

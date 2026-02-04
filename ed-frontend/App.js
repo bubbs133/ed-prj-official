@@ -35,6 +35,7 @@ import FoodTrackingScreen from "./screens/FoodTrackingScreen";
 import ExerciseTrackingScreen from "./screens/ExerciseTrackingScreen";
 import TrackingScreen from "./screens/TrackingScreen";
 import ChatroomScreen from "./screens/ChatroomScreen";
+import SandboxScreen from "./screens/SandboxScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -105,20 +106,11 @@ export default function App() {
           }}
         />
         <Tab.Screen
-          name="Journal"
-          component={JournalScreen}
+          name="Sandbox"
+          component={SandboxScreen}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="book-outline" color="#42190D" size={19} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="Quests"
-          component={DailyQuestScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="checkmark" color="#42190D" size={19} />
+              <Ionicons name="leaf-outline" color="#42190D" size={19} />
             ),
           }}
         />
@@ -165,8 +157,10 @@ export default function App() {
         />
         <Stack.Screen name="Assessment" component={AssessmentScreen} />
         <Stack.Screen name="Chatbot" component={Chatbot} />
+        <Stack.Screen name="Quests" component={DailyQuestScreen} />
         <Stack.Screen name="ChatbotRoom" component={ChatroomScreen} />
         <Stack.Screen name="Tracking" component={TrackingScreen} />
+        <Stack.Screen name="Journal" component={JournalScreen} />
         {/*
         <Stack.Screen name="Meals" component={FoodTrackingScreen} />
         <Stack.Screen name="Exercises" component={ExerciseTrackingScreen} />

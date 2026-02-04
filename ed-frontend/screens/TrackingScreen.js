@@ -22,43 +22,48 @@ import {
 import GoBack from "../components/GoBack";
 
 function TrackingScreen({ navigation }) {
-  const [mealDescription, setMealDescription] = useState("");
-  const [mood, setMood] = useState(null);
-  const [numMeals, setNumMeals] = useState(null);
-  const [satiation, setSatiation] = useState(null);
-  const [exercise, setExercise] = useState(null);
+  const [urgeIntensity, setUrgeIntensity] = useState(null);
+  const [bingeUrge, setBingeUrge] = useState(null);
+  const [restriction, setRestriction] = useState(null);
+  const [emotionalDistress, setEmotionalDistress] = useState(null);
+  const [stressLevel, setStressLevel] = useState(null);
+  const [energyLevel, setEnergyLevel] = useState(null);
   const [notes, setNotes] = useState("");
 
   async function submitHandler() {
     try {
-      const url = "http://127.0.0.1:8000/tracking/";
+      const url = "http://127.0.0.1:8000/care-log/";
       //const url = "http://92.168.0.125/journal";
       let result = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          num_meals: numMeals,
-          meal_description: mealDescription,
-          avg_mood: mood,
-          satiation_level: satiation,
-          exercise_amount_hr: exercise,
-          post_meal_notes: notes,
+          urge_intensity: urgeIntensity,
+          binge_urge: bingeUrge,
+          restriction: restriction,
+          emotional_distress: emotionalDistress,
+          stress_level: stressLevel,
+          energy_level: energyLevel,
+          notes: notes,
         }),
       });
       result = await result.json();
       if (result) {
-        console.log("Meal entry added", result);
+        //console.log("Entry added", result);
         // clear form fields
-        setMealDescription("");
-        setMood("");
-        setNumMeals("");
-        setSatiation("");
-        setExercise("");
+        setUrgeIntensity("");
+        setBingeUrge("");
+        setRestriction("");
+        setEmotionalDistress("");
+        setStressLevel("");
+        setEnergyLevel("");
         setNotes("");
       }
     } catch (error) {
       console.log("Error:", error);
-      Alert.alert("Meal entry not added", "Please try again");
+      Alert.alert("Entry not added", "Please try again");
+    } finally {
+      navigation.navigate("Home", result);
     }
   }
 
@@ -73,78 +78,88 @@ function TrackingScreen({ navigation }) {
             <View style={[styles.contentContainer]}>
               <View style={styles.top}>
                 <GoBack navigation={navigation} />
-                <Text style={[styles.header, styles.globalFont]}>
-                  Care Log
-                </Text>
+                <Text style={[styles.header, styles.globalFont]}>Care Log</Text>
               </View>
               <View style={[styles.section]}>
                 <Text style={[styles.sectionNames, styles.globalFont]}>
-                  Number of Meals
-                </Text>
-                <TextInput
-                  multiline={false}
-                  placeholder="How many meals did you have today? :)"
-                  keyboardType="decimal-pad"
-                  onChangeText={(entry) => setNumMeals(entry)}
-                  style={[styles.mealEntryBox, styles.globalFont]}
-                ></TextInput>
-              </View>
-              <View style={[styles.section]}>
-                <Text style={[styles.sectionNames, styles.globalFont]}>
-                  Brief Description of Meals
+                  Urge Intensity
                 </Text>
                 <TextInput
                   multiline={true}
-                  placeholder="Don't overthink it, just a brief description of your meal :)"
-                  onChangeText={(entry) => setMealDescription(entry)}
+                  placeholder="On a scale from 0 - 10, rate any general urge intensities."
+                  keyboardType="decimal-pad"
+                  onChangeText={(entry) => setUrgeIntensity(entry)}
                   style={[styles.mealEntryBox, styles.globalFont]}
                 ></TextInput>
               </View>
               <View style={[styles.section]}>
                 <Text style={[styles.sectionNames, styles.globalFont]}>
-                  Average Mood Today
+                  Binge Urge
                 </Text>
                 <TextInput
-                  multiline={false}
-                  placeholder="How did you feel before your meals?"
+                  multiline={true}
+                  placeholder="On a scale from 0 - 10, rate any binge urge intensities."
+                  onChangeText={(entry) => setBingeUrge(entry)}
+                  style={[styles.mealEntryBox, styles.globalFont]}
+                ></TextInput>
+              </View>
+              <View style={[styles.section]}>
+                <Text style={[styles.sectionNames, styles.globalFont]}>
+                  Restriction Level
+                </Text>
+                <TextInput
+                  multiline={true}
+                  placeholder="On a scale from 0 - 10, rate any urges to restrict, either through food or exercise."
                   keyboardType="decimal-pad"
-                  onChangeText={(entry) => setMood(entry)}
+                  onChangeText={(entry) => setRestriction(entry)}
                   style={[styles.mealEntryBox, styles.globalFont]}
                 ></TextInput>
               </View>
               <View style={styles.section}>
                 <Text style={[styles.sectionNames, styles.globalFont]}>
-                  Satiation Level
+                  Emotional Distress
                 </Text>
                 <TextInput
                   multiline={true}
-                  placeholder="On a scale from 0 to 10 (lowest to highest), ow satisfied were you after your meals?"
+                  placeholder="On a scale from 0 to 10, describe any emotional distress—perhaps sadness, anger, etc."
                   keyboardType="decimal-pad"
-                  onChangeText={(entry) => setSatiation(entry)}
+                  onChangeText={(entry) => setEmotionalDistress(entry)}
                   style={[styles.mealEntryBox, styles.globalFont]}
                 ></TextInput>
               </View>
               <View style={[styles.section]}>
                 <Text style={[styles.sectionNames, styles.globalFont]}>
-                  Exercise Amount
+                  Stress Level
                 </Text>
                 <TextInput
                   multiline={true}
-                  placeholder="How many hours of active exercise did you complete today?"
+                  placeholder="On a scale from 0 - 10, rate your stress level."
                   keyboardType="decimal-pad"
-                  onChangeText={(entry) => setExercise(entry)}
+                  onChangeText={(entry) => setStressLevel(entry)}
                   style={[styles.mealEntryBox, styles.globalFont]}
                 ></TextInput>
               </View>
               <View style={[styles.section]}>
                 <Text style={[styles.sectionNames, styles.globalFont]}>
-                  Notes
+                  Energy Level
                 </Text>
                 <TextInput
                   multiline={true}
-                  placeholder="Any final thoughts?"
+                  placeholder="On a scale from 0 - 10, describe the amount of energy you have."
+                  keyboardType="decimal-pad"
+                  onChangeText={(entry) => setEnergyLevel(entry)}
+                  style={[styles.mealEntryBox, styles.globalFont]}
+                ></TextInput>
+              </View>
+              <View style={[styles.section]}>
+                <Text style={[styles.sectionNames, styles.globalFont]}>
+                  Reflect on your care log
+                </Text>
+                <TextInput
+                  multiline={true}
+                  placeholder="What did you learn from your care log today? e.g., when I don't eat enough during the day, I tend to binge in the evening, work stressors always seem to trigger me, etc."
                   onChangeText={(entry) => setNotes(entry)}
-                  style={[styles.mealEntryBox, styles.globalFont]}
+                  style={[styles.entryBoxNotes, styles.globalFont]}
                 ></TextInput>
               </View>
               <MainButton
@@ -198,7 +213,10 @@ const styles = StyleSheet.create({
     /*borderColor: Colors.darkNeutral,
     borderRadius: 10,
     borderWidth: 2*/
-    marginTop: -5
+    marginTop: -5,
+  },
+  entryBoxNotes: {
+    height: 100,
   },
   optionsContainer: {
     flexDirection: "row",

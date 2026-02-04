@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'journal',
     'assessment',
     'food',
-    'tracking',
+    'carelog',
     'chatbot',
     'rest_framework',
     'rest_framework.authtoken',
