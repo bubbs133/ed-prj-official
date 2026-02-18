@@ -10,7 +10,9 @@ import {
   Button,
   Modal,
   Linking,
+  Alert,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, useEffect, useRef, useContext } from "react";
 import { useRoute } from "@react-navigation/native";
@@ -20,120 +22,200 @@ import Boxes from "../components/Boxes";
 import Colors from "../constants/colors";
 import { AuthContext } from "../auth/auth-context";
 import { RESOURCES } from "../models/resources";
+import DashboardCard from "../components/DashboardCard";
 
 function HomeScreen({ navigation }) {
   const [activeModal, setActiveModal] = useState(false);
   const authCtx = useContext(AuthContext);
 
-  const [rndFoodFact, setRndFoodFact] = useState(null);
   const [minute, setMinute] = useState(new Date().getMinutes());
   const prevMin = useRef(minute);
 
-  //const [clusterPred, setClusterPred] = useState(null);
+  const [careLogData, setCareLogData] = useState(null);
 
-  const route = useRoute();
-  const result = route.params?.result;
+  // ****** DISPLAY DATE ****** //
+  function displayDate() {
+    const today = new Date();
+    const month = today.toLocaleDateString("en-US", { month: "long" });
+    const dayNumber = today.getDate();
+    const dayName = today.toLocaleDateString("en-US", { weekday: "long" });
 
-  function generateRandomIndex() {
-    const rndNum = Math.floor(Math.random() * foodFacts.length);
-    return rndNum;
+    const formattedDate = `${month} ${dayNumber}`;
+    const dayNameFormatted = `${dayName}`;
+
+    return [formattedDate, dayNameFormatted];
   }
+  const date = displayDate();
 
-  function generateRndFact(rndNum) {
-    setRndFoodFact(foodFacts[rndNum]);
-  }
+  // ****** FETCH CARE LOG DATA ****** //
+  async function fetchData() {
+    try {
+      const careLogUrl = "http://127.0.0.1:8000/dashboard-recommendations/";
 
-  function timeChangeCheck() {
-    const today = new Date().getMinutes();
+      let response = await fetch(careLogUrl);
 
-    if (today !== prevMin.current) {
-      prevMin.current == today;
-      setMinute(today);
-      console.log("min updated");
+      const json = response.json();
+
+      setCareLogData(json);
+    } catch (error) {
+      Alert.alert(
+        "Unable to fetch data",
+        "Care Log data unavailable, please try again.",
+      );
     }
-    console.log("time checked");
   }
 
   useEffect(() => {
-    const rndNum = generateRandomIndex();
-    generateRndFact(rndNum);
-
-    const interval = setInterval(() => {
-      timeChangeCheck();
-    }, 50000);
-
-    return () => clearInterval(interval);
-  }, [minute]);
-
-  function renderItem({ item }) {
-    return (
-      <View style={styles.resourceContainer}>
-        <Pressable onPress={() => Linking.openURL(item.resource)}>
-          <Text style={[styles.resourceHeading, styles.globalFont]}>
-            {item.resourceName}
+    fetchData();
+  }, []);
+}
+return (
+  <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.topContainer}>
+        <View>
+          <Text style={[styles.introText, styles.globalFont]}>
+            Heyo Bubbs{authCtx.username}!
           </Text>
-          <Text style={styles.globalFont}>{item.resourceDetails}</Text>
-        </Pressable>
-      </View>
-    );
-  }
-  return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={styles.topContainer}>
           <View>
-            <Text style={[styles.introText, styles.globalFont]}>
-              Hi {authCtx.username}!{"\n"}
+            <Text style={[styles.date, styles.globalFont]}>
+              {date[1]}, {date[0]}{" "}
             </Text>
-            <Text>{result ? `Result: ${result}`: "No result"}</Text>
-          </View>
-          <View style={styles.factContainer}>
-            <View style={styles.factText}>
-              <Text style={[styles.duk, styles.globalFont]}>
-                Did you know...
-              </Text>
-              <Text style={styles.fact} numberOfLines={4} ellipsizeMode="tail">
-                {rndFoodFact ? rndFoodFact.fact : "fact blank"}
-              </Text>
-            </View>
+            <Text style={[styles.globalFont, styles.introPhrase]}>
+              Whether you fell yesterday, fall today or tomorrow, remember that
+              every day is a another opportunity to try again.{"\n"}
+            </Text>
           </View>
         </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
+        
+        <View style={styles.section}>
+          <Text style={[styles.sectionHeading, styles.globalFont]}>
+            General Insights
+          </Text>
+          <View style={styles.dashboardCards}>
+            <Pressable style={{ width: "48%" }}>
+              <DashboardCard
+                itemTitle={"This Week"}
+                details={"This week you were stable, great progress! "}
+                height={154}
+                width={"100%"}
+                borderColor={Colors.darkBrown}
+                fillColor={Colors.lightBrown}
+              />
+            </Pressable>
+            <Pressable style={{ width: "48%" }}>
+              <DashboardCard
+                itemTitle={"Last Week"}
+                details={
+                  "You seemed to have a rough week, it seemed that work stress caused some overeating. This is totally okay, just be mindful of the pressure you allow into your life :)"
+                }
+                height={"auto"}
+                width={"100%"}
+                borderColor={Colors.darkBlue}
+                fillColor={Colors.lightBlue}
+              />
+            </Pressable>
+          </View>
+        </View>
+        <View style={styles.section}>
+          <Text style={[styles.sectionHeading, styles.globalFont]}>
+            Friendly Suggestions
+          </Text>
+          <View style={styles.dashboardCards}>
+            <Pressable style={{ width: "30%" }}>
+              <DashboardCard
+                itemTitle={"This Week"}
+                details={"This is your status for the week."}
+                height={100}
+                width={"100%"}
+                borderColor={Colors.darkBrown}
+                fillColor={Colors.lightBrown}
+              />
+            </Pressable>
+            <Pressable style={{ width: "30%" }}>
+              <DashboardCard
+                itemTitle={"This Week"}
+                details={"This is your status for the week."}
+                height={100}
+                width={"100%"}
+                borderColor={Colors.darkBrown}
+                fillColor={Colors.lightBrown}
+              />
+            </Pressable>
+            <Pressable style={{ width: "30%" }}>
+              <DashboardCard
+                itemTitle={"Last Week"}
+                details={"This is your status for last week."}
+                height={100}
+                width={"100%"}
+                borderColor={Colors.darkBlue}
+                fillColor={Colors.lightBlue}
+              />
+            </Pressable>
+          </View>
+        </View>
+        <View style={styles.dashboardCard}>
+          <Text style={[styles.sectionHeading, styles.globalFont]}>
+            Friendly Suggestions
+          </Text>
+          <Pressable
+            style={{ width: "100%" }}
+            onPress={() => {
+              setActiveModal(!activeModal);
+            }}
+          >
+            <Boxes
+              style={[styles.resourcesBox]}
+              itemTitle="Resources"
+              description="• 3-min grounding • Gentle meal reminder • Journal prompt"
+              imgPath={require("../assets/toolbox.png")}
+              height={"auto"}
+              width={"100%"}
+              borderColor={Colors.darkPink}
+              fillColor={Colors.lightPink}
+            />
+          </Pressable>
+        </View>
+      </View>
+    </ScrollView>
+  </SafeAreaView>
+);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.lightNeutral,
-    //backgroundColor: "#fff",
+    //backgroundColor: "red",
     alignItems: "flex-start",
     justifyContent: "flex-start",
   },
-  backgroundImg: {
-    resizeMode: "stretch",
-    flex: 1,
+  topContainer: {
+    paddingHorizontal: "5%",
   },
-  homeViews: {
-    //borderTopLeftRadius: "6%",
-    //borderTopRightRadius: "6%",
-    //borderWidth: 2,
-    //borderColor: "#000",
-    //backgroundColor: "#fff"
-    //paddingLeft: "5%",
-    //marginRight: "5%",
-    rowGap: 25,
+  date: {
+    fontSize: 17,
+    letterSpacing: 1,
+  },
+  introPhrase: {
+    fontSize: 15,
+    letterSpacing: 1,
   },
   globalFont: {
     fontFamily: "Afacad",
-    //fontWeight: 500,
     color: Colors.darkNeutral,
   },
+  sectionHeading: {
+    fontSize: 17,
+    fontWeight: 700,
+    letterSpacing: 2,
+    paddingBottom: 10,
+  },
+  dashboardCards: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
   introText: {
-    //marginTop: "20%",
-    marginLeft: "5%",
-    marginRight: "5%",
     fontSize: 23,
     letterSpacing: 2,
     fontWeight: 500,

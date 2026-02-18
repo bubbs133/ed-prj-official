@@ -18,7 +18,7 @@ function SettingsScreen({ navigation }) {
       source={require("../assets/settingsbg.png")}
       style={styles.backgroundImg}
     >
-      <SafeAreaView>
+      <SafeAreaView edges={['top', 'left', 'right']}>
         <View>
           <View style={styles.contentContainer}>
             <View>

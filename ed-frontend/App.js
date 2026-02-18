@@ -36,6 +36,7 @@ import ExerciseTrackingScreen from "./screens/ExerciseTrackingScreen";
 import TrackingScreen from "./screens/TrackingScreen";
 import ChatroomScreen from "./screens/ChatroomScreen";
 import SandboxScreen from "./screens/SandboxScreen";
+import ReadScreen from "./screens/ReadScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -81,6 +82,7 @@ export default function App() {
         screenOptions={{
           tabBarActiveTintColor: Colors.darkNeutral,
           tabBarInactiveTintColor: Colors.lightGrey,
+          safeAreaInsets: { bottom: 0 },
           //tabBarActiveBackgroundColor: Colors.darkPink,
           headerShown: false,
           tabBarStyle: {
@@ -93,6 +95,7 @@ export default function App() {
             height: 60,
             justifyContent: "center",
             alignItems: "center",
+            paddingBottom: 0,
           },
         }}
       >
@@ -161,6 +164,7 @@ export default function App() {
         <Stack.Screen name="ChatbotRoom" component={ChatroomScreen} />
         <Stack.Screen name="Tracking" component={TrackingScreen} />
         <Stack.Screen name="Journal" component={JournalScreen} />
+        <Stack.Screen name="Read" component={ReadScreen}/>
         {/*
         <Stack.Screen name="Meals" component={FoodTrackingScreen} />
         <Stack.Screen name="Exercises" component={ExerciseTrackingScreen} />

@@ -44,7 +44,7 @@ function AssessmentScreen({ navigation }) {
       source={require("../assets/profilebg.png")}
       style={styles.backgroundImg}
     >
-      <SafeAreaView style={[styles.container]}>
+      <SafeAreaView style={[styles.container]} edges={['top', 'left', 'right']}>
         <View>
           <View style={styles.top}>
             <GoBack navigation={navigation} />

@@ -5,7 +5,7 @@ import {
   View,
   Pressable,
   ImageBackground,
-  Image
+  Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getAuth } from "firebase/auth";
@@ -21,31 +21,29 @@ function ProfileScreen({ navigation }) {
   }
 
   return (
-    <ImageBackground
-      source={require("../assets/profilebg.png")}
-      style={styles.backgroundImg}
-    >
-      <View style={styles.container}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <SafeAreaView>
-            <View style={styles.contentContainer}>
-              <View style={styles.bars}>
-                <Pressable onPress={settingsHandler}>
-                  <Ionicons name="reorder-three-outline" size={34} />
-                </Pressable>
-              </View>
-              <View style={styles.top}>
-                <Image source={require("../assets/apppfp.jpg")} style={styles.pfppic}/>
-                <Text style={[styles.globalFont, styles.profilename]}>
-                  {" "}
-                  Username Here{" "}
-                </Text>
-              </View>
+    <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <SafeAreaView edges={['top', 'left', 'right']}>
+          <View style={styles.contentContainer}>
+            <View style={styles.bars}>
+              <Pressable onPress={settingsHandler}>
+                <Ionicons name="reorder-three-outline" size={34} />
+              </Pressable>
             </View>
-          </SafeAreaView>
-        </ScrollView>
-      </View>
-    </ImageBackground>
+            <View style={styles.top}>
+              <Image
+                source={require("../assets/apppfp.jpg")}
+                style={styles.pfppic}
+              />
+              <Text style={[styles.globalFont, styles.profilename]}>
+                {" "}
+                Bubbs{" "}
+              </Text>
+            </View>
+          </View>
+        </SafeAreaView>
+      </ScrollView>
+    </View>
   );
 }
 
@@ -70,20 +68,21 @@ const styles = StyleSheet.create({
   },
   top: {
     //alignContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   profilename: {
     fontWeight: 500,
     fontSize: 20,
+    paddingTop: 10
   },
   pfppic: {
     resizeMode: "cover",
     flex: 1,
-    borderRadius: '50%',
+    borderRadius: "50%",
     borderWidth: 2,
     borderColor: Colors.darkNeutral,
     height: 110,
-    width: 110
+    width: 110,
   },
   globalFont: {
     fontFamily: "Afacad",

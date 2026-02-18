@@ -28,11 +28,14 @@ function TrackingScreen({ navigation }) {
   const [emotionalDistress, setEmotionalDistress] = useState(null);
   const [stressLevel, setStressLevel] = useState(null);
   const [energyLevel, setEnergyLevel] = useState(null);
+  const [sleepHours, setSleepHours] = useState(null);
+  const [numMeals, setNumMeals] = useState(null);
+  const [exerciseMins, setExerciseMins] = useState(null);
   const [notes, setNotes] = useState("");
 
   async function submitHandler() {
     try {
-      const url = "http://127.0.0.1:8000/care-log/";
+      const url = "http://127.0.0.1:8000/care-log-cluster/";
       //const url = "http://92.168.0.125/journal";
       let result = await fetch(url, {
         method: "POST",
@@ -44,6 +47,9 @@ function TrackingScreen({ navigation }) {
           emotional_distress: emotionalDistress,
           stress_level: stressLevel,
           energy_level: energyLevel,
+          sleep_hours: sleepHours,
+          num_meals: numMeals,
+          exercise_minutes: exerciseMins,
           notes: notes,
         }),
       });
@@ -57,6 +63,9 @@ function TrackingScreen({ navigation }) {
         setEmotionalDistress("");
         setStressLevel("");
         setEnergyLevel("");
+        setSleepHours("");
+        setNumMeals("");
+        setExerciseMins("");
         setNotes("");
       }
     } catch (error) {
@@ -72,7 +81,7 @@ function TrackingScreen({ navigation }) {
       source={require("../assets/profilebg.png")}
       style={styles.backgroundImg}
     >
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
         <ScrollView showsHorizontalScrollIndicator={false}>
           <View>
             <View style={[styles.contentContainer]}>
@@ -148,6 +157,42 @@ function TrackingScreen({ navigation }) {
                   placeholder="On a scale from 0 - 10, describe the amount of energy you have."
                   keyboardType="decimal-pad"
                   onChangeText={(entry) => setEnergyLevel(entry)}
+                  style={[styles.mealEntryBox, styles.globalFont]}
+                ></TextInput>
+              </View>
+              <View style={[styles.section]}>
+                <Text style={[styles.sectionNames, styles.globalFont]}>
+                  Sleep Hours
+                </Text>
+                <TextInput
+                  multiline={true}
+                  placeholder="About how many hours did you sleep last night? (Partial hours are welcomed.)"
+                  keyboardType="decimal-pad"
+                  onChangeText={(entry) => setSleepHours(entry)}
+                  style={[styles.mealEntryBox, styles.globalFont]}
+                ></TextInput>
+              </View>
+              <View style={[styles.section]}>
+                <Text style={[styles.sectionNames, styles.globalFont]}>
+                  Number of Meals
+                </Text>
+                <TextInput
+                  multiline={true}
+                  placeholder="About how many meals did you have today? (Partial meals are okay too.)"
+                  keyboardType="decimal-pad"
+                  onChangeText={(entry) => setNumMeals(entry)}
+                  style={[styles.mealEntryBox, styles.globalFont]}
+                ></TextInput>
+              </View>
+              <View style={[styles.section]}>
+                <Text style={[styles.sectionNames, styles.globalFont]}>
+                  Exercise in Minutes
+                </Text>
+                <TextInput
+                  multiline={true}
+                  placeholder="About how many minutes did you actively engage in physical exercise?"
+                  keyboardType="decimal-pad"
+                  onChangeText={(entry) => setExerciseMins(entry)}
                   style={[styles.mealEntryBox, styles.globalFont]}
                 ></TextInput>
               </View>

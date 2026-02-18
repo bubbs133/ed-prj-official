@@ -13,7 +13,7 @@ const DAILY_ACTIVITIES = [
   {
     id: "chat",
     title: "Chatroom",
-    description: "Chat with Izzy to understand eating disorders and nutrition.",
+    description: "Have a chat with Izzy on eating disorders and nutrition.",
     color: Colors.lightPink,
     border: Colors.darkPink,
     img: require("../assets/pinkbubbleoutline.png"),
@@ -43,7 +43,7 @@ const CHECK_INS = [
   {
     id: "carelog",
     title: "Care Log",
-    description: "Gently observe yourself.",
+    description: "Gently observe yourself and your habits.",
     color: Colors.lightGreen,
     border: Colors.darkGreen,
     img: require("../assets/foodgreen.png"),

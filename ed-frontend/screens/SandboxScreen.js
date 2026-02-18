@@ -12,6 +12,8 @@ import Colors from "../constants/colors";
 import { RESOURCES } from "../models/resources";
 import { DAILY_ACTIVITIES, CHECK_INS } from "../models/activityBoxes";
 import Boxes from "../components/Boxes";
+import { QUICK_READS } from "../models/reads";
+import DashboardCard from "../components/DashboardCard";
 
 function SandboxSreen({ navigation }) {
   const [activeModal, setActiveModal] = useState(false);
@@ -30,7 +32,7 @@ function SandboxSreen({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right']}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.contentContainer}>
           <View style={styles.top}>
@@ -128,6 +130,34 @@ function SandboxSreen({ navigation }) {
                 )}
               />
             </View>
+            <View style={styles.activitySection}>
+              <Text style={[styles.sectionHeading, styles.globalFont]}>
+                Quick Reads
+              </Text>
+              <FlatList
+                scrollEnabled={false}
+                data={QUICK_READS}
+                numColumns={1}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                  <Pressable
+                    style={{ width: "100%" }}
+                    onPress={() =>
+                      navigation.navigate("Read", { readId: item.id })
+                    }
+                  >
+                    <DashboardCard
+                      itemTitle={item.title}
+                      details={item.cardSummary}
+                      height={120}
+                      width={"100%"}
+                      borderColor={item.border}
+                      fillColor={item.color}
+                    />
+                  </Pressable>
+                )}
+              />
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -154,6 +184,7 @@ const styles = StyleSheet.create({
   },
   screenInfo: {
     marginBottom: 25,
+    fontSize: 15,
   },
   sectionHeading: {
     fontSize: 17,

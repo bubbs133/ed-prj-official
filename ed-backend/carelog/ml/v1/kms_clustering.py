@@ -5,7 +5,7 @@ from sklearn.cluster import KMeans
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv("/Users/avatarvaleria/Projects/colabs/ed-prj/ed-backend/tracking/python/tracking_data.csv")
+df = pd.read_csv("/Users/avatarvaleria/Projects/colabs/ed-prj/ed-backend/tracking/ml/tracking_data.csv")
 df_features = df.iloc[:, 1:]
 
 scaler = StandardScaler()

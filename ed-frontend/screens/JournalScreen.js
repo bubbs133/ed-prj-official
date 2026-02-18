@@ -73,7 +73,7 @@ function JournalScreen() {
 
   const date = displayDate();
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <ScrollView showsHorizontalScrollIndicator={false}>
         <View style={[styles.contentContainer]}>
           <View>
