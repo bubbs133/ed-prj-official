@@ -40,7 +40,7 @@ function SandboxSreen({ navigation }) {
               Wellness Sandbox
             </Text>
             <Text style={[styles.screenInfo, styles.globalFont]}>
-              Jump into the sandbox, discover new information regarding
+              Jump into the sandbox, discover new information about
               yourself, eating disorders, nutrition, and who knows, maybe even
               make some sandcastles.
             </Text>

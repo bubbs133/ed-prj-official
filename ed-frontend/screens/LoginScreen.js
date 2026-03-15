@@ -8,14 +8,14 @@ import {
   Pressable,
   ImageBackground,
 } from "react-native";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import Input from "../components/Input";
 import { loginUser } from "../auth/auth";
 import { StackActions } from "@react-navigation/native";
 import { AuthContext } from "../auth/auth-context";
 import Colors from "../constants/colors";
 
-function LoginScreen({ navigation, onLogin }) {
+function LoginScreen({ navigation }) {
   //const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -34,18 +34,25 @@ function LoginScreen({ navigation, onLogin }) {
         }),
       });
       const data = await response.json();
-      if (response) {
-        console.log("logged in");
-        authCtx.authenticate(data.token, data.username, data.email);
-        onLogin()
-        //setUsername("");
-        //setPassword("");
+      
+      if (response.ok && data.token) {
+        console.log("Login successful, token:", data.token);
+        await authCtx.authenticate(data.token);
+        setUsername("");
+        setPassword("");
+        navigation.navigate("TabNav");
+      } else {
+        Alert.alert("Login failed", data.detail || "Invalid credentials");
       }
     } catch (error) {
-      console.log("error:", error);
+      console.log("Login error:", error);
       Alert.alert("Invalid info!", "Please enter the correct information.");
     }
   }
+
+  useEffect(() => {
+    console.log("AUTH TOKEN UPDATED:", authCtx.token);
+  }, [authCtx.token]);
 
   return (
     <ImageBackground
@@ -72,7 +79,7 @@ function LoginScreen({ navigation, onLogin }) {
               onChangeText: setPassword,
               autoCorrect: false,
               autoComplete: false,
-              secureTextEntry: true
+              secureTextEntry: true,
             }}
           />
         </View>

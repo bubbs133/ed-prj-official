@@ -16,11 +16,9 @@ class SignUpSerializer(serializers.ModelSerializer):
         )
         return user
     
-class LoginSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ["username", "password"]
-        extra_kwargs = {'password': {'write_only': True}}
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField(required=True)
+    password = serializers.CharField(required=True, write_only=True)
 
     def validate(self, data):
         username = data.get("username")
@@ -28,7 +26,7 @@ class LoginSerializer(serializers.ModelSerializer):
 
         if username and password:
             user = authenticate(username=username, password=password)
-            if not username:
+            if not user:
                 raise serializers.ValidationError("Incorrect username or password")
         else:
             raise serializers.ValidationError("Username and password required")

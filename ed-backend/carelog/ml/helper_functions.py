@@ -26,14 +26,13 @@ def cluster_user(data):
 
     return cluster, state_name
 
-def get_recommendations(cluster):
+def get_recommendations(cluster, features):
     recomms = RECOMMENDATIONS
     recom_list = []
 
     if cluster == 0: #emotional distress + restriction
-        print("cluster 0/ed + restriction")
-        #if features["stress"] > 6:
-        #    recom_list.append(random.choice(recomms["stress_over_6"]))
+        if features["stress"] > 6:
+            recom_list.append(random.choice(recomms["stress_over_6"]))
     if cluster == 1: #stable
         print("cluster 1/stable")
     if cluster == 2: #burnout/being numb

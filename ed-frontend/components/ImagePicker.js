@@ -7,7 +7,7 @@ import {
 import { useState } from "react";
 import Colors from "../constants/colors";
 
-function ImagePicker() {
+function ImagePicker({ rotation }) {
   const [imagePicked, setImagePicked] = useState();
   const [cameraPermissionInfo, requestPermission] = useCameraPermissions();
 
@@ -41,16 +41,23 @@ function ImagePicker() {
     setImagePicked(image.uri);
   }
 
-  let imgPreview = <Text style={styles.text}>Select up to 3 images</Text>;
+  let imgPreview = <Text style={styles.text}>+</Text>;
 
   if (imagePicked) {
     imgPreview = <Image source={{ uri: imagePicked }} />;
   }
 
   return (
-    <View>
+    <View
+      style={{
+        transform: rotation,
+        borderRadius: 10,
+        borderColor: "#dedede",
+        borderWidth: 3,
+        backgroundColor: Colors.lightGrey2
+      }}
+    >
       <Pressable onPress={cameraLaunchingHandler}>
-        <Image source={require("../assets/camera.png")} />
         <View style={styles.img}>{imgPreview}</View>
       </Pressable>
     </View>
@@ -59,13 +66,15 @@ function ImagePicker() {
 
 const styles = StyleSheet.create({
   img: {
-    height: 200,
-    width: 200,
+    height: 150,
+    width: 130,
   },
   text: {
     fontFamily: "Afacad",
-    fontSize: 16,
+    fontSize: 20,
     color: Colors.lightGrey,
+    textAlign: "center",
+    justifyContent: "center"
   },
 });
 

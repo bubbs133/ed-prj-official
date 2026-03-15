@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+/*import { StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { useState } from "react";
@@ -20,4 +20,4 @@ function AuthContent({ isLogin, onAuthenticate }) {
 
 export default AuthContent;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({});*/

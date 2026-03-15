@@ -2,13 +2,15 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from .serializers import SignUpSerializer, LoginSerializer
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
+from rest_framework.permissions import AllowAny
 
 # Create your views here.
 @api_view(['GET', 'POST'])
+@permission_classes([AllowAny])
 def user_list(request):
     if request.method == "GET":
         users = User.objects.all()
@@ -24,8 +26,10 @@ def user_list(request):
     return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["POST"])
+@permission_classes([AllowAny])
 def login_user(request):
     if request.method == "POST":
+        print("REQUEST DATA RECEIVED:", request.data)
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.validated_data["user"]
@@ -35,13 +39,5 @@ def login_user(request):
                 "username": user.username,
                 "email": user.email
                 })
-        print("Error")
+        print("Serializer Errors:", serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-"""from rest_framework import generics
-from django.contrib.auth.models import User
-from .serializers import SignUpSerializer
-
-class RegisterView(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = SignUpSerializer"""

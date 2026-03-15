@@ -15,14 +15,13 @@ import HomeScreen from "./screens/HomeScreen";
 import BotIntro from "./screens/BotIntro";
 import ProfileScreen from "./screens/ProfileScreen";
 import DailyQuestScreen from "./screens/DailyQuestScreen";
-import { useState } from "react";
+import { useContext } from "react";
 import AssessmentScreen from "./screens/AssessmentScreen";
 import AssessmentIntroScreen from "./screens/AssessmentIntroScreen";
 import LandingScreen from "./screens/LandingScreen";
 import JournalScreen from "./screens/JournalScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import { Ionicons } from "@expo/vector-icons";
-import AuthContextProvider from "./auth/auth-context";
 import {
   useFonts,
   Afacad_400Regular,
@@ -37,16 +36,22 @@ import TrackingScreen from "./screens/TrackingScreen";
 import ChatroomScreen from "./screens/ChatroomScreen";
 import SandboxScreen from "./screens/SandboxScreen";
 import ReadScreen from "./screens/ReadScreen";
+import { AuthContext } from "./auth/auth-context";
+import AuthContextProvider from "./auth/auth-context";
+import ChatListScreen from "./screens/ChatListScreen";
+import SelectedQuestScreen from "./screens/SelectedQuestScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  //const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  function onLoginHandler() {
+  /*function onLoginHandler() {
     setIsAuthenticated(true);
-  }
+  }*/
+
+  //const authCtx = useContext(AuthContext);
 
   const [fontsLoaded] = useFonts({
     Afacad: Afacad_400Regular,
@@ -58,7 +63,7 @@ export default function App() {
     return null;
   }
 
-  function UnAuthScreens({ onLogin }) {
+  function UnAuthScreens() {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
@@ -67,10 +72,10 @@ export default function App() {
           options={{ headerShown: false }}
         ></Stack.Screen>
         <Stack.Screen name="Login" options={{ headerShown: false }}>
-          {(props) => <LoginScreen {...props} onLogin={onLoginHandler} />}
+          {(props) => <LoginScreen {...props} />}
         </Stack.Screen>
         <Stack.Screen name="SignUp">
-          {(props) => <SignUpScreen {...props} onLogin={onLoginHandler} />}
+          {(props) => <SignUpScreen {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     );
@@ -162,9 +167,11 @@ export default function App() {
         <Stack.Screen name="Chatbot" component={Chatbot} />
         <Stack.Screen name="Quests" component={DailyQuestScreen} />
         <Stack.Screen name="ChatbotRoom" component={ChatroomScreen} />
+        <Stack.Screen name="ChatList" component={ChatListScreen} />
         <Stack.Screen name="Tracking" component={TrackingScreen} />
         <Stack.Screen name="Journal" component={JournalScreen} />
-        <Stack.Screen name="Read" component={ReadScreen}/>
+        <Stack.Screen name="Read" component={ReadScreen} />
+        <Stack.Screen name="SelectedQuest" component={SelectedQuestScreen} />
         {/*
         <Stack.Screen name="Meals" component={FoodTrackingScreen} />
         <Stack.Screen name="Exercises" component={ExerciseTrackingScreen} />
@@ -173,23 +180,25 @@ export default function App() {
     );
   }
 
-  /*return (
-    <AuthContextProvider>
-      <NavigationContainer>
-        {isAuthenticated ? (
-          <AuthScreens />
-        ) : (
-          <UnAuthScreens onLogin={onLoginHandler} />
-        )}
-      </NavigationContainer>
-    </AuthContextProvider>
-  );*/
+  function RootNavigator() {
+    const authCtx = useContext(AuthContext);
+
+    return authCtx.isAuthenticated ? <AuthScreens /> : <UnAuthScreens />;
+  }
 
   return (
+    <AuthContextProvider>
+      <NavigationContainer>
+        <RootNavigator/>
+      </NavigationContainer>
+    </AuthContextProvider>
+  );
+
+  /*return (
     <NavigationContainer>
       <AuthScreens />
     </NavigationContainer>
-  );
+  );*/
 }
 
 const styles = StyleSheet.create({

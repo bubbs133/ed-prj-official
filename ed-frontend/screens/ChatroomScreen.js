@@ -24,7 +24,7 @@ function ChatroomScreen() {
 
   const onSend = useCallback((messages = []) => {
     setMessages((previousMessages) =>
-      GiftedChat.append(previousMessages, messages)
+      GiftedChat.append(previousMessages, messages),
     );
   }, []);
 
@@ -54,6 +54,7 @@ function ChatroomScreen() {
         _id: 1,
       }}
       renderBubble={renderBubble}
+      isUserAvatarVisible={true}
     />
   );
 }

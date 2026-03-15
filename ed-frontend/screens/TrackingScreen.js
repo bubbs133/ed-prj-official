@@ -9,7 +9,7 @@ import {
   FlatList,
   ImageBackground,
 } from "react-native";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SecondButton from "../components/SecondButton";
 import MainButton from "../components/MainButton";
@@ -20,6 +20,7 @@ import {
   EMOTIONS,
 } from "../models/mealEntryOptions";
 import GoBack from "../components/GoBack";
+import { AuthContext } from "../auth/auth-context";
 
 function TrackingScreen({ navigation }) {
   const [urgeIntensity, setUrgeIntensity] = useState(null);
@@ -33,23 +34,28 @@ function TrackingScreen({ navigation }) {
   const [exerciseMins, setExerciseMins] = useState(null);
   const [notes, setNotes] = useState("");
 
+  const authCtx = useContext(AuthContext);
+
   async function submitHandler() {
     try {
       const url = "http://127.0.0.1:8000/care-log-cluster/";
       //const url = "http://92.168.0.125/journal";
       let result = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${authCtx.token}`,
+        },
         body: JSON.stringify({
-          urge_intensity: urgeIntensity,
-          binge_urge: bingeUrge,
-          restriction: restriction,
-          emotional_distress: emotionalDistress,
-          stress_level: stressLevel,
-          energy_level: energyLevel,
-          sleep_hours: sleepHours,
-          num_meals: numMeals,
-          exercise_minutes: exerciseMins,
+          urge_intensity: Number(urgeIntensity),
+          binge_urge: Number(bingeUrge),
+          restriction: Number(restriction),
+          emotional_distress: Number(emotionalDistress),
+          stress_level: Number(stressLevel),
+          energy_level: Number(energyLevel),
+          sleep_hours: Number(sleepHours),
+          num_meals: Number(numMeals),
+          exercise_minutes: Number(exerciseMins),
           notes: notes,
         }),
       });
@@ -57,7 +63,7 @@ function TrackingScreen({ navigation }) {
       if (result) {
         //console.log("Entry added", result);
         // clear form fields
-        setUrgeIntensity("");
+        setUrgeIntensity(0);
         setBingeUrge("");
         setRestriction("");
         setEmotionalDistress("");
@@ -72,16 +78,21 @@ function TrackingScreen({ navigation }) {
       console.log("Error:", error);
       Alert.alert("Entry not added", "Please try again");
     } finally {
+      //Alert.alert("Entry added!", "Greate job! :D");
       navigation.navigate("Home", result);
     }
   }
+
+  useEffect(() => {
+    console.log("TOKEN IN CARE LOG SCREEN:", authCtx.token);
+  }, []);
 
   return (
     <ImageBackground
       source={require("../assets/profilebg.png")}
       style={styles.backgroundImg}
     >
-      <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+      <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
         <ScrollView showsHorizontalScrollIndicator={false}>
           <View>
             <View style={[styles.contentContainer]}>

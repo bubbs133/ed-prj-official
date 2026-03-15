@@ -31,7 +31,7 @@ function HomeScreen({ navigation }) {
   const [minute, setMinute] = useState(new Date().getMinutes());
   const prevMin = useRef(minute);
 
-  const [careLogData, setCareLogData] = useState(null);
+  const [careLogData, setCareLogData] = useState(0);
 
   // ****** DISPLAY DATE ****** //
   function displayDate() {
@@ -52,9 +52,13 @@ function HomeScreen({ navigation }) {
     try {
       const careLogUrl = "http://127.0.0.1:8000/dashboard-recommendations/";
 
-      let response = await fetch(careLogUrl);
+      let response = await fetch(careLogUrl, {
+        headers: {
+          Authorization: `Token ${authCtx.token}`,
+        },
+      });
 
-      const json = response.json();
+      const json = await response.json();
 
       setCareLogData(json);
     } catch (error) {
@@ -66,120 +70,122 @@ function HomeScreen({ navigation }) {
   }
 
   useEffect(() => {
+    console.log("TOKEN IN HOME SCREEN:", authCtx.token);
     fetchData();
   }, []);
-}
-return (
-  <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.topContainer}>
-        <View>
-          <Text style={[styles.introText, styles.globalFont]}>
-            Heyo Bubbs{authCtx.username}!
-          </Text>
+
+  return (
+    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.topContainer}>
           <View>
-            <Text style={[styles.date, styles.globalFont]}>
-              {date[1]}, {date[0]}{" "}
+            <Text style={[styles.introText, styles.globalFont]}>
+              Hi Bubbs{authCtx.username}!
             </Text>
-            <Text style={[styles.globalFont, styles.introPhrase]}>
-              Whether you fell yesterday, fall today or tomorrow, remember that
-              every day is a another opportunity to try again.{"\n"}
-            </Text>
+            <View>
+              <Text style={[styles.date, styles.globalFont]}>
+                {date[1]}, {date[0]}{" "}
+              </Text>
+              <Text style={[styles.globalFont, styles.introPhrase]}>
+                Whether you fell yesterday, fall today or tomorrow, remember
+                that every day is a another opportunity to try again.{"\n"}
+              </Text>
+            </View>
           </View>
-        </View>
-        
-        <View style={styles.section}>
-          <Text style={[styles.sectionHeading, styles.globalFont]}>
-            General Insights
-          </Text>
-          <View style={styles.dashboardCards}>
-            <Pressable style={{ width: "48%" }}>
-              <DashboardCard
-                itemTitle={"This Week"}
-                details={"This week you were stable, great progress! "}
-                height={154}
-                width={"100%"}
-                borderColor={Colors.darkBrown}
-                fillColor={Colors.lightBrown}
-              />
-            </Pressable>
-            <Pressable style={{ width: "48%" }}>
-              <DashboardCard
-                itemTitle={"Last Week"}
-                details={
-                  "You seemed to have a rough week, it seemed that work stress caused some overeating. This is totally okay, just be mindful of the pressure you allow into your life :)"
-                }
+
+          <View style={styles.section}>
+            <Text style={[styles.sectionHeading, styles.globalFont]}>
+              General Insights
+            </Text>
+            <View style={styles.dashboardCards}>
+              <Pressable style={{ width: "48%" }}>
+                <DashboardCard
+                  itemTitle={"This Week"}
+                  details={"This week you were stable, great progress! "}
+                  height={154}
+                  width={"100%"}
+                  borderColor={Colors.darkBrown}
+                  fillColor={Colors.lightBrown}
+                />
+              </Pressable>
+              <Pressable style={{ width: "48%" }}>
+                <DashboardCard
+                  itemTitle={"Last Week"}
+                  details={
+                    "This week you were stable, great progress!"
+                  }
+                  height={154}
+                  width={"100%"}
+                  borderColor={Colors.darkBlue}
+                  fillColor={Colors.lightBlue}
+                />
+              </Pressable>
+            </View>
+          </View>
+          <View style={styles.section}>
+            <Text style={[styles.sectionHeading, styles.globalFont]}>
+              Friendly Suggestions
+            </Text>
+            <View style={styles.dashboardCards}>
+              <Pressable style={{ width: "30%" }}>
+                <DashboardCard
+                  itemTitle={"This Week"}
+                  details={careLogData.urge_intensity}
+                  height={100}
+                  width={"100%"}
+                  borderColor={Colors.darkBrown}
+                  fillColor={Colors.lightBrown}
+                />
+              </Pressable>
+              <Pressable style={{ width: "30%" }}>
+                <DashboardCard
+                  itemTitle={"This Week"}
+                  details={"This is your status for the week."}
+                  height={100}
+                  width={"100%"}
+                  borderColor={Colors.darkBrown}
+                  fillColor={Colors.lightBrown}
+                />
+              </Pressable>
+              <Pressable style={{ width: "30%" }}>
+                <DashboardCard
+                  itemTitle={"Last Week"}
+                  details={"This is your status for last week."}
+                  height={100}
+                  width={"100%"}
+                  borderColor={Colors.darkBlue}
+                  fillColor={Colors.lightBlue}
+                />
+              </Pressable>
+            </View>
+          </View>
+          <View style={styles.dashboardCard}>
+            <Text style={[styles.sectionHeading, styles.globalFont]}>
+              Friendly Suggestions
+            </Text>
+            <Pressable
+              style={{ width: "100%" }}
+              onPress={() => {
+                setActiveModal(!activeModal);
+              }}
+            >
+              <Boxes
+                style={[styles.resourcesBox]}
+                itemTitle="Resources"
+                description="• 3-min grounding • Gentle meal reminder • Journal prompt"
+                imgPath={require("../assets/toolbox.png")}
                 height={"auto"}
                 width={"100%"}
-                borderColor={Colors.darkBlue}
-                fillColor={Colors.lightBlue}
+                borderColor={Colors.darkPink}
+                fillColor={Colors.lightPink}
               />
             </Pressable>
           </View>
         </View>
-        <View style={styles.section}>
-          <Text style={[styles.sectionHeading, styles.globalFont]}>
-            Friendly Suggestions
-          </Text>
-          <View style={styles.dashboardCards}>
-            <Pressable style={{ width: "30%" }}>
-              <DashboardCard
-                itemTitle={"This Week"}
-                details={"This is your status for the week."}
-                height={100}
-                width={"100%"}
-                borderColor={Colors.darkBrown}
-                fillColor={Colors.lightBrown}
-              />
-            </Pressable>
-            <Pressable style={{ width: "30%" }}>
-              <DashboardCard
-                itemTitle={"This Week"}
-                details={"This is your status for the week."}
-                height={100}
-                width={"100%"}
-                borderColor={Colors.darkBrown}
-                fillColor={Colors.lightBrown}
-              />
-            </Pressable>
-            <Pressable style={{ width: "30%" }}>
-              <DashboardCard
-                itemTitle={"Last Week"}
-                details={"This is your status for last week."}
-                height={100}
-                width={"100%"}
-                borderColor={Colors.darkBlue}
-                fillColor={Colors.lightBlue}
-              />
-            </Pressable>
-          </View>
-        </View>
-        <View style={styles.dashboardCard}>
-          <Text style={[styles.sectionHeading, styles.globalFont]}>
-            Friendly Suggestions
-          </Text>
-          <Pressable
-            style={{ width: "100%" }}
-            onPress={() => {
-              setActiveModal(!activeModal);
-            }}
-          >
-            <Boxes
-              style={[styles.resourcesBox]}
-              itemTitle="Resources"
-              description="• 3-min grounding • Gentle meal reminder • Journal prompt"
-              imgPath={require("../assets/toolbox.png")}
-              height={"auto"}
-              width={"100%"}
-              borderColor={Colors.darkPink}
-              fillColor={Colors.lightPink}
-            />
-          </Pressable>
-        </View>
-      </View>
-    </ScrollView>
-  </SafeAreaView>
-);
+      </ScrollView>
+    </SafeAreaView>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {

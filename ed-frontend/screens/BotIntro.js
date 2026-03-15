@@ -19,6 +19,7 @@ function BotIntro({ navigation }) {
 
   function continueHandler() {
     if (isChecked) {
+      //navigation.navigate("ChatList");
       navigation.navigate("ChatbotRoom");
     } else {
       Alert.alert(
