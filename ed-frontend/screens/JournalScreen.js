@@ -14,8 +14,9 @@ import MainButton from "../components/MainButton";
 import Colors from "../constants/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SecondButton from "../components/SecondButton";
+import GoBack from "../components/GoBack";
 
-function JournalScreen() {
+function JournalScreen({ navigation }) {
   const [journalPrompt, setJournalPrompt] = useState("");
   const [entryAuthor, setEntryAuthor] = useState("");
   const [title, setTitle] = useState("");
@@ -73,9 +74,12 @@ function JournalScreen() {
 
   const date = displayDate();
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
       <ScrollView showsHorizontalScrollIndicator={false}>
         <View style={[styles.contentContainer]}>
+          <View>
+            <GoBack navigation={navigation} />
+          </View>
           <View>
             <Text style={[styles.date, styles.globalFont]}>{date[0]}</Text>
             <Text style={[styles.globalFont]}>{date[1]}</Text>

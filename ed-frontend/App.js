@@ -40,6 +40,8 @@ import { AuthContext } from "./auth/auth-context";
 import AuthContextProvider from "./auth/auth-context";
 import ChatListScreen from "./screens/ChatListScreen";
 import SelectedQuestScreen from "./screens/SelectedQuestScreen";
+import { StackScreen } from "react-native-screens";
+import QuickReadsListScreen from "./screens/QuickReadsListScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -91,7 +93,7 @@ export default function App() {
           //tabBarActiveBackgroundColor: Colors.darkPink,
           headerShown: false,
           tabBarStyle: {
-            backgroundColor: "transparent",
+            //backgroundColor: "transparent",
             borderTopWidth: 2,
             borderWidth: 3,
             borderColor: Colors.darkNeutral,
@@ -122,7 +124,7 @@ export default function App() {
             ),
           }}
         />
-        <Tab.Screen
+       { /*<Tab.Screen
           name="Chatbot"
           component={BotIntro}
           options={{
@@ -130,7 +132,7 @@ export default function App() {
               <Ionicons name="chatbubble-outline" color="#42190D" size={19} />
             ),
           }}
-        />
+        />*/}
         <Tab.Screen
           name="Profile"
           component={ProfileScreen}
@@ -159,7 +161,7 @@ export default function App() {
             headerBackTitleVisible: false,
             title: "",
             headerStyle: {
-              backgroundColor: Colors.lightNeutral,
+              backgroundColor: "white"
             },
           }}
         />
@@ -172,6 +174,7 @@ export default function App() {
         <Stack.Screen name="Journal" component={JournalScreen} />
         <Stack.Screen name="Read" component={ReadScreen} />
         <Stack.Screen name="SelectedQuest" component={SelectedQuestScreen} />
+        <Stack.Screen name="QuickReadsList" component={QuickReadsListScreen} />
         {/*
         <Stack.Screen name="Meals" component={FoodTrackingScreen} />
         <Stack.Screen name="Exercises" component={ExerciseTrackingScreen} />
@@ -186,19 +189,19 @@ export default function App() {
     return authCtx.isAuthenticated ? <AuthScreens /> : <UnAuthScreens />;
   }
 
-  return (
+  /*return (
     <AuthContextProvider>
       <NavigationContainer>
         <RootNavigator/>
       </NavigationContainer>
     </AuthContextProvider>
-  );
-
-  /*return (
-    <NavigationContainer>
-      <AuthScreens />
-    </NavigationContainer>
   );*/
+
+  return (
+    <NavigationContainer>
+      <UnAuthScreens />
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({

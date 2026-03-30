@@ -5,10 +5,11 @@ import {
   Text,
   View,
   ImageBackground,
+  Image,
   Dimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { quests } from "../models/quests";
+import { QUESTS } from "../models/quests";
 import GoBack from "../components/GoBack";
 import { useEffect, useState, useRef } from "react";
 import ImagePicker from "../components/ImagePicker";
@@ -20,35 +21,35 @@ import { SwiperFlatList } from "react-native-swiper-flatlist";
 function DailyQuestScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
-      <View>
-        <GoBack navigation={navigation} />
-      </View>
+      <GoBack navigation={navigation}/>
       <SwiperFlatList
         autoplay={false}
         showPagination={false}
-        data={quests}
+        data={QUESTS}
         renderItem={({ item }) => (
-          <View style={styles.questContainer}>
-            <View style={styles.questCard}>
-              <Text style={styles.questName}>
-                {item.name ? item.name : "name blank"}
-              </Text>
-              <Text style={styles.questText}>
-                {item ? item.description : "description blank"}
-              </Text>
-            </View>
-            <View style={styles.questSelectionBtn}>
-              <Pressable
-                onPress={() =>
-                  navigation.navigate("SelectedQuest", { questId: item.id })
-                }
-              >
-                <Text style={[styles.globalFont, styles.questGoBtn]}>
-                  Let's do this!
+          <ImageBackground style={styles.questImg} source={item.img}>
+            <View style={styles.questContainer}>
+              <View style={styles.questCard}>
+                <Text style={styles.questName}>
+                  {item.name ? item.name : "name blank"}
                 </Text>
-              </Pressable>
+                <Text style={styles.questText}>
+                  {item ? item.description : "description blank"}
+                </Text>
+              </View>
+              <View style={styles.questSelectionBtn}>
+                <Pressable
+                  onPress={() =>
+                    navigation.navigate("SelectedQuest", { questId: item.id })
+                  }
+                >
+                  <Text style={[styles.globalFont, styles.questGoBtn]}>
+                    Let's do this!
+                  </Text>
+                </Pressable>
+              </View>
             </View>
-          </View>
+          </ImageBackground>
         )}
       />
     </SafeAreaView>
@@ -69,16 +70,21 @@ const styles = StyleSheet.create({
     fontFamily: "Afacad",
     letterSpacing: 1,
   },
+  questImg: {
+    flex: 1,
+    resizeMode: "cover",
+  },
+  questCard: {
+    marginHorizontal: "5%"
+  },
   questContainer: {
     flex: 1,
     width,
-    justifyContent: "center",
+    justifyContent: "flex-end",
+    marginBottom: "50%",
   },
-  questCard: {
-    height: "70%",
-    backgroundColor: "blue",
-    width: "90%",
-    borderRadius: 20,
+  questGoBtn: {
+    textAlign: "center"
   },
   questName: {
     fontSize: 20,

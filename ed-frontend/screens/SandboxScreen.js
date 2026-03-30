@@ -32,7 +32,7 @@ function SandboxSreen({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }} edges={["top", "left", "right"]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.contentContainer}>
           <View style={styles.top}>
@@ -40,9 +40,9 @@ function SandboxSreen({ navigation }) {
               Wellness Sandbox
             </Text>
             <Text style={[styles.screenInfo, styles.globalFont]}>
-              Jump into the sandbox, discover new information about
-              yourself, eating disorders, nutrition, and who knows, maybe even
-              make some sandcastles.
+              Jump into the sandbox, discover new information about yourself,
+              eating disorders, nutrition, and who knows, maybe even make some
+              sandcastles.
             </Text>
           </View>
           <View style={styles.activityBoxes}>
@@ -63,8 +63,9 @@ function SandboxSreen({ navigation }) {
                   imgPath={require("../assets/toolbox.png")}
                   height={130}
                   width={"100%"}
-                  borderColor={Colors.darkBrown}
-                  fillColor={Colors.lightBrown}
+                  borderColor={Colors.coffeeBrown}
+                  fillColor={Colors.lightCoffeeBrown}
+                  fontColor={Colors.cream}
                 />
               </Pressable>
             </View>
@@ -94,70 +95,35 @@ function SandboxSreen({ navigation }) {
                       width={"100%"}
                       borderColor={item.border}
                       fillColor={item.color}
+                      fontColor={item.fontColor}
                     />
                   </Pressable>
                 )}
               />
             </View>
-            <View style={styles.activitySection}>
+            {/*<View style={styles.activitySection}>
               <Text style={[styles.sectionHeading, styles.globalFont]}>
                 Check-In
               </Text>
-              <FlatList
-                scrollEnabled={false}
-                data={CHECK_INS}
-                numColumns={2}
-                keyExtractor={(item) => item.id}
-                columnWrapperStyle={{
-                  justifyContent: "space-between",
-                  marginBottom: 10,
+              <Pressable
+                style={{ width: "100%" }}
+                onPress={() => {
+                  setActiveModal(!activeModal);
                 }}
-                renderItem={({ item }) => (
-                  <Pressable
-                    style={{ width: "48%" }}
-                    onPress={() => navigation.navigate(item.screen)}
-                  >
-                    <Boxes
-                      itemTitle={item.title}
-                      description={item.description}
-                      imgPath={item.img}
-                      height={154}
-                      width={"100%"}
-                      borderColor={item.border}
-                      fillColor={item.color}
-                    />
-                  </Pressable>
-                )}
-              />
-            </View>
-            <View style={styles.activitySection}>
-              <Text style={[styles.sectionHeading, styles.globalFont]}>
-                Quick Reads
-              </Text>
-              <FlatList
-                scrollEnabled={false}
-                data={QUICK_READS}
-                numColumns={1}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                  <Pressable
-                    style={{ width: "100%" }}
-                    onPress={() =>
-                      navigation.navigate("Read", { readId: item.id })
-                    }
-                  >
-                    <DashboardCard
-                      itemTitle={item.title}
-                      details={item.cardSummary}
-                      height={120}
-                      width={"100%"}
-                      borderColor={item.border}
-                      fillColor={item.color}
-                    />
-                  </Pressable>
-                )}
-              />
-            </View>
+              >
+                <Boxes
+                  style={[styles.resourcesBox]}
+                  itemTitle="Care Log"
+                  description="Gently observe yourself and your habits."
+                  imgPath={require("../assets/toolbox.png")}
+                  height={110}
+                  width={"100%"}
+                  borderColor={Colors.marineBlue}
+                  fillColor={Colors.limeGreen}
+                  fontColor={Colors.marineBlue}
+                />
+              </Pressable>
+            </View>*/}
           </View>
         </View>
       </ScrollView>
@@ -175,6 +141,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingLeft: "5%",
     paddingRight: "5%",
+    backgroundColor: "white",
   },
   heading: {
     fontSize: 23,

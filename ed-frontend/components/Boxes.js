@@ -10,13 +10,14 @@ function Boxes({
   width,
   borderColor,
   fillColor,
+  fontColor,
 }) {
   return (
     <View
       style={{
         //flex: 1,
-        borderBottomWidth: 3,
-        borderRightWidth: 3,
+        borderBottomWidth: 4,
+        borderRightWidth: 4,
         borderRadius: 25,
         //margin: 0,
         marginBottom: 10,
@@ -24,12 +25,19 @@ function Boxes({
         width: width,
         borderColor: borderColor,
         backgroundColor: fillColor,
+        color: fontColor,
       }}
     >
       <Image source={imgPath} style={styles.img}></Image>
       <View style={styles.bottom}>
-        <Text style={[styles.itemTitle, styles.globalFont]}>{itemTitle}</Text>
-        <Text style={[styles.description, styles.globalFont]}>
+        <Text
+          style={[styles.itemTitle, styles.globalFont, { color: fontColor }]}
+        >
+          {itemTitle}
+        </Text>
+        <Text
+          style={[styles.description, styles.globalFont, { color: fontColor }]}
+        >
           {description}
         </Text>
       </View>
@@ -40,7 +48,8 @@ function Boxes({
 const styles = StyleSheet.create({
   globalFont: {
     fontFamily: "Afacad",
-    color: Colors.darkNeutral,
+    //color: Colors.darkNeutral,
+    //color: Colors.whiteish
   },
   bottom: {
     marginTop: -5,

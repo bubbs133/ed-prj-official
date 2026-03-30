@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "iter",
-    "slug": "iter",
+    "name": "umi",
+    "slug": "umi",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/newlanding.png",
+    "icon": "./assets/main/iconumi.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/newlanding.png",
+      "image": "./assets/main/iconumi.png",
       "resizeMode": "cover",
       "backgroundColor": "#F0F0F0"
     },

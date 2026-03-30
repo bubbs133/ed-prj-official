@@ -39,7 +39,6 @@ function TrackingScreen({ navigation }) {
   async function submitHandler() {
     try {
       const url = "http://127.0.0.1:8000/care-log-cluster/";
-      //const url = "http://92.168.0.125/journal";
       let result = await fetch(url, {
         method: "POST",
         headers: {

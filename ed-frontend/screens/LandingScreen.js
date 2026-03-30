@@ -20,7 +20,7 @@ function LandingScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../assets/newlanding.png")}
+      source={require("../assets/main/newumilanding.png")}
       style={styles.backgroundImg}
     >
       <View style={styles.container}>
@@ -59,10 +59,11 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 37,
     width: 300,
-    backgroundColor: "#F0F0F0",
+    backgroundColor: "transparent",
     marginBottom: 10,
     marginTop: 10,
-    borderColor: "#42190D",
+    borderColor: "#C0D0E1",
+    //borderColor: "#42190D",
     //borderColor: "#9B8E75",
     borderWidth: 2,
     //borderBottomWidth: 4,
@@ -72,11 +73,12 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 37,
     width: 300,
-    backgroundColor: "#F0F0F0",
+    backgroundColor: "transparent",
     marginBottom: 10,
     marginTop: 10,
     //borderColor: "#ADBCBE",
-    borderColor: "#42190D",
+    //borderColor: "#42190D",
+    borderColor: "#C0D0E1",
     borderWidth: 2,
     //borderBottomWidth: 4,
     //borderRightWidth: 4
@@ -84,7 +86,8 @@ const styles = StyleSheet.create({
   btnTitles: {
     textAlign: "center",
     fontSize: 19,
-    color: "#42190D",
+    //color: "#42190D",
+    color: "#C0D0E1",
     marginTop: 5,
     fontFamily: "Afacad",
     fontWeight: 500,

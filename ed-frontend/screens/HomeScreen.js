@@ -98,26 +98,32 @@ function HomeScreen({ navigation }) {
               General Insights
             </Text>
             <View style={styles.dashboardCards}>
-              <Pressable style={{ width: "48%" }}>
+              <Pressable style={{ width: "100%" }}>
                 <DashboardCard
                   itemTitle={"This Week"}
                   details={"This week you were stable, great progress! "}
-                  height={154}
+                  height={110}
                   width={"100%"}
-                  borderColor={Colors.darkBrown}
-                  fillColor={Colors.lightBrown}
+                  borderColor={Colors.coffeeBrown}
+                  fillColor={Colors.lightCoffeeBrown}
                 />
               </Pressable>
-              <Pressable style={{ width: "48%" }}>
+            </View>
+          </View>
+          <View style={styles.section}>
+            <Text style={[styles.sectionHeading, styles.globalFont]}>
+              Trends
+            </Text>
+            <View style={styles.dashboardCards}>
+              <Pressable style={{ width: "100%" }}>
                 <DashboardCard
-                  itemTitle={"Last Week"}
-                  details={
-                    "This week you were stable, great progress!"
-                  }
-                  height={154}
+                  itemTitle={"This Week"}
+                  details={"This week you were stable, great progress! "}
+                  height={110}
                   width={"100%"}
-                  borderColor={Colors.darkBlue}
-                  fillColor={Colors.lightBlue}
+                  borderColor={Colors.lightCoffeeBrown}
+                  fillColor={Colors.greyish}
+                  fontColor={Colors.seaBlue2}
                 />
               </Pressable>
             </View>
@@ -127,57 +133,31 @@ function HomeScreen({ navigation }) {
               Friendly Suggestions
             </Text>
             <View style={styles.dashboardCards}>
-              <Pressable style={{ width: "30%" }}>
+              <Pressable style={{ width: "100%" }}>
                 <DashboardCard
                   itemTitle={"This Week"}
                   details={careLogData.urge_intensity}
-                  height={100}
+                  height={110}
                   width={"100%"}
-                  borderColor={Colors.darkBrown}
-                  fillColor={Colors.lightBrown}
-                />
-              </Pressable>
-              <Pressable style={{ width: "30%" }}>
-                <DashboardCard
-                  itemTitle={"This Week"}
-                  details={"This is your status for the week."}
-                  height={100}
-                  width={"100%"}
-                  borderColor={Colors.darkBrown}
-                  fillColor={Colors.lightBrown}
-                />
-              </Pressable>
-              <Pressable style={{ width: "30%" }}>
-                <DashboardCard
-                  itemTitle={"Last Week"}
-                  details={"This is your status for last week."}
-                  height={100}
-                  width={"100%"}
-                  borderColor={Colors.darkBlue}
-                  fillColor={Colors.lightBlue}
+                  borderColor={Colors.seaDarkBlue}
+                  fillColor={Colors.seaBlue2}
                 />
               </Pressable>
             </View>
           </View>
           <View style={styles.dashboardCard}>
             <Text style={[styles.sectionHeading, styles.globalFont]}>
-              Friendly Suggestions
+              History List
             </Text>
-            <Pressable
-              style={{ width: "100%" }}
-              onPress={() => {
-                setActiveModal(!activeModal);
-              }}
-            >
-              <Boxes
-                style={[styles.resourcesBox]}
-                itemTitle="Resources"
-                description="• 3-min grounding • Gentle meal reminder • Journal prompt"
-                imgPath={require("../assets/toolbox.png")}
-                height={"auto"}
+            <Pressable style={{ width: "100%" }}>
+              <DashboardCard
+                itemTitle={"This Week"}
+                details={careLogData.urge_intensity}
+                height={110}
                 width={"100%"}
-                borderColor={Colors.darkPink}
-                fillColor={Colors.lightPink}
+                borderColor={Colors.seaBlue2}
+                fillColor={Colors.seaDarkBlue}
+                fontColor={Colors.seaBlue2}
               />
             </Pressable>
           </View>
@@ -190,7 +170,7 @@ function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.lightNeutral,
+    backgroundColor: "white",
     //backgroundColor: "red",
     alignItems: "flex-start",
     justifyContent: "flex-start",

@@ -7,34 +7,40 @@ import {
   Dimensions,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { quests } from "../models/quests";
-import React, { useState } from "react";
+import { QUESTS } from "../models/quests";
+import { useState, useContext } from "react";
 import ImagePicker from "../components/ImagePicker";
 import GoBack from "../components/GoBack";
+import { AuthContext } from "../auth/auth-context";
 
 function SelectedQuestScreen({ route, navigation }) {
-  const [summary, setSummary] = useState("");
+  //const [ questImgs, setQuestImgs ] = useState([])
+  const [questSummary, setQuestSummary] = useState("");
+  const authCtx = useContext(AuthContext);
 
   const { questId } = route.params;
 
-  const quest = quests.find((q) => q.id === questId);
+  const quest = QUESTS.find((q) => q.id === questId);
 
   if (!quest) return <Text>Quest not found</Text>;
 
   async function questSubmitHandler() {
     try {
-      const url = "http://127.0.0.1:8000/?/";
+      const url = "http://127.0.0.1:8000/quest/";
       let result = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${authCtx.token}`,
+        },
         body: JSON.stringify({
-          summary: summary,
+          quest_summary: questSummary,
         }),
       });
       result = await result.json();
       if (result) {
         console.log("Quest recorded", result);
-        setSummary("");
+        setQuestSummary("");
       }
     } catch (error) {
       console.log("Error:", error);
@@ -65,15 +71,20 @@ function SelectedQuestScreen({ route, navigation }) {
             </View>
           </View>
           <View style={styles.inputContainer}>
-            <Text style={[styles.globalFont, styles.question]}>How'd it go?</Text>
+            <Text style={[styles.globalFont, styles.question]}>
+              How'd it go?
+            </Text>
             <TextInput
               style={[styles.globalFont, styles.textInput]}
               multiline={true}
               keyboardType="default"
-              onChangeText={(entry) => setSummary(entry)}
+              onChangeText={(entry) => setQuestSummary(entry)}
             />
           </View>
-          <Pressable style={styles.submitBtnContainer} onPress={questSubmitHandler}>
+          <Pressable
+            style={styles.submitBtnContainer}
+            onPress={questSubmitHandler}
+          >
             <Text style={[styles.globalFont, styles.done]}>Done!</Text>
           </Pressable>
         </View>
@@ -88,6 +99,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: "5%",
+
     //alignItems: "flex-start",
     //justifyContent: "flex-start",
   },
@@ -127,12 +139,12 @@ const styles = StyleSheet.create({
     fontWeight: 500,
   },
   submitBtnContainer: {
-    paddingTop: "10%"
+    paddingTop: "10%",
   },
   done: {
     fontWeight: 500,
-    fontSize: 17
-  }
+    fontSize: 17,
+  },
   /*textInput: {
     borderColor: "#dedede",
     borderWidth: 2,

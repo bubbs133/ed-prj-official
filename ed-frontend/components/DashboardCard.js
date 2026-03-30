@@ -9,13 +9,14 @@ function DashboardCard({
   width,
   borderColor,
   fillColor,
+  fontColor
 }) {
   return (
     <View
       style={{
         //flex: 1,
-        borderBottomWidth: 3,
-        borderRightWidth: 3,
+        borderBottomWidth: 3.5,
+        borderRightWidth: 3.5,
         borderRadius: 25,
         //margin: 0,
         marginBottom: 10,
@@ -23,6 +24,7 @@ function DashboardCard({
         width: width,
         borderColor: borderColor,
         backgroundColor: fillColor,
+        color: fontColor
       }}
     >
       <View style={styles.bottom}>
@@ -38,7 +40,8 @@ function DashboardCard({
 const styles = StyleSheet.create({
   globalFont: {
     fontFamily: "Afacad",
-    color: Colors.darkNeutral,
+   //color: Colors.darkNeutral,
+   //color: Colors.whiteish
   },
   bottom: {
     marginTop: -5,

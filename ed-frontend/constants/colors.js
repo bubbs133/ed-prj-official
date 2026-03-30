@@ -12,7 +12,23 @@ const Colors = {
   lightGrey: "#999999",
   lightGrey2: "#e5e5e5ff",
   lighterLightNeutral: "#F7F7F7",
-  checkBoxColor: "#77605A"
+  checkBoxColor: "#77605A",
+  burgandyMain: "#743A3B",
+  burgandyDarker: "#540C0D",
+  burgandyOnClick: "#763D3D",
+  whiteish: "#FDFDFD",
+  pastelBlue: "#C1DBE8",
+  yellow: "#FFF0B5",
+  marineBlue: "#3E558F",
+  seaBlue: "#9DBBED",
+  greyish: "#F4F4F4",
+  secondMarineBlue: "#6F86B1",
+  limeGreen: "#E9F3B2",
+  coffeeBrown: "#3F3A14",
+  cream: "#FFF8E5",
+  seaBlue2: "#AEC8D5",
+  seaDarkBlue: "#4A7683",
+  lightCoffeeBrown: "#7D7465"
 };
 
 export default Colors;
