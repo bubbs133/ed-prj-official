@@ -4,31 +4,31 @@ const QUESTS = [
     name: "Quality Time",
     description:
       "Spend time with a loved one, life is always easier when you get to bond with someone you love and loves you back.",
-    img: require("../assets/quests/hugs.png"),
+    img: require("../assets/quests/balls.png"),
   },
   {
     id: "1",
     name: "Self Gratitude",
     description: "Write down 3 things you are grateful of yourself.",
-    img: require("../assets/quests/flower.png"),
+    img: require("../assets/quests/board.png"),
   },
   {
     id: "2",
     name: "Golden Sunshine",
     description: "Take a couple of minutes under the golden sunshine, embrace the warmth, listen to birds, and feel the wind gently get past you.",
-    img: require("../assets/quests/sunshine.png"),
+    img: require("../assets/quests/sun.png"),
   },
   {
     id: "3",
     name: "Spark Your Mind",
     description: "Spend 20 minutes of your day with a forgetten hobby. Things like this allow you to reconnect with and spark up parts of you.",
-    img: require("../assets/quests/learn.png"),
+    img: require("../assets/quests/boat.png"),
   },
   {
     id: "4",
     name: "Music Time",
     description: "Listen to 2 - 3 of your favorite songs that give you nothing but good vibes! Keep those in handy when you are feeling low.",
-    img: require("../assets/quests/music.png"),
+    img: require("../assets/quests/clouds.png"),
   },
   /*new Quests(
     "2",

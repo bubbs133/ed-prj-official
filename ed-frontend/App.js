@@ -189,19 +189,19 @@ export default function App() {
     return authCtx.isAuthenticated ? <AuthScreens /> : <UnAuthScreens />;
   }
 
-  /*return (
+  return (
     <AuthContextProvider>
       <NavigationContainer>
         <RootNavigator/>
       </NavigationContainer>
     </AuthContextProvider>
-  );*/
+  );
 
-  return (
+  /*return (
     <NavigationContainer>
       <UnAuthScreens />
     </NavigationContainer>
-  );
+  );*/
 }
 
 const styles = StyleSheet.create({

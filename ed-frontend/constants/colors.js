@@ -26,6 +26,7 @@ const Colors = {
   limeGreen: "#E9F3B2",
   coffeeBrown: "#3F3A14",
   cream: "#FFF8E5",
+  floaterCream: "#E5D4D0",
   seaBlue2: "#AEC8D5",
   seaDarkBlue: "#4A7683",
   lightCoffeeBrown: "#7D7465"

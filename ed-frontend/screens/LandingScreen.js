@@ -6,6 +6,7 @@ import {
   ImageBackground,
 } from "react-native";
 import React from "react";
+import Colors from "../constants/colors";
 
 function LandingScreen({ navigation }) {
   function loginButtonHandler() {
@@ -62,10 +63,10 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     marginBottom: 10,
     marginTop: 10,
-    borderColor: "#C0D0E1",
+    borderColor: Colors.floaterCream,
     //borderColor: "#42190D",
     //borderColor: "#9B8E75",
-    borderWidth: 2,
+    borderWidth: 3,
     //borderBottomWidth: 4,
     //borderRightWidth: 4
   },
@@ -77,9 +78,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 10,
     //borderColor: "#ADBCBE",
-    //borderColor: "#42190D",
-    borderColor: "#C0D0E1",
-    borderWidth: 2,
+    borderColor: Colors.floaterCream,
+    //borderColor: "#C0D0E1",
+    borderWidth: 3,
     //borderBottomWidth: 4,
     //borderRightWidth: 4
   },
@@ -87,11 +88,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 19,
     //color: "#42190D",
-    color: "#C0D0E1",
+    color: Colors.floaterCream,
     marginTop: 5,
     fontFamily: "Afacad",
-    fontWeight: 500,
+    fontWeight: 700,
     letterSpacing: 2,
+    //paddingBottom: 500,
   },
 });
 

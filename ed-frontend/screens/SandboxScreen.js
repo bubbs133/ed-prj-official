@@ -60,7 +60,7 @@ function SandboxSreen({ navigation }) {
                   style={[styles.resourcesBox]}
                   itemTitle="Resources"
                   description="Check out this list of official resources—help is closer than you think!"
-                  imgPath={require("../assets/toolbox.png")}
+                  imgPath={require("../assets/icons/floater.png")}
                   height={130}
                   width={"100%"}
                   borderColor={Colors.coffeeBrown}

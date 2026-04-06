@@ -71,10 +71,11 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   img: {
-    width: 50,
-    height: 50,
-    marginTop: 5,
-    marginLeft: 10,
+    width: 40,
+    height: 40,
+    marginTop: 13,
+    marginLeft: 15,
+    marginBottom: 5
     //paddingRight: 10
     //paddingLeft: -10
   },

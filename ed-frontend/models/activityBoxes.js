@@ -10,7 +10,7 @@ const DAILY_ACTIVITIES = [
     color: Colors.seaBlue2,
     border: Colors.seaDarkBlue,
     fontColor: Colors.seaDarkBlue,
-    img: require("../assets/staroutline.png"),
+    img: require("../assets/icons/shell.png"),
     screen: "Quests",
   },
   /*{
@@ -30,8 +30,9 @@ const DAILY_ACTIVITIES = [
     color: Colors.greyish,
     border: Colors.lightCoffeeBrown,
     fontColor: Colors.lightCoffeeBrown,
-    img: require("../assets/foodgreen.png"),
-    screen: "Tracking",
+    img: require("../assets/icons/waves.png"),
+    //screen: "Tracking",
+    screen: "Assessment"
   },
   {
     id: "journal",
@@ -40,17 +41,17 @@ const DAILY_ACTIVITIES = [
     color: Colors.greyish,
     border: Colors.lightCoffeeBrown,
     fontColor: Colors.lightCoffeeBrown,
-    img: require("../assets/greenbook.png"),
+    img: require("../assets/icons/beachball.png"),
     screen: "Journal",
   },
   {
     id: "quickReads",
     title: "Quick Reads",
-    description: "Challenge yourself and your mind by completing quests.",
+    description: "Learn about eating disorders, nutrition, and sport science!",
     color: Colors.seaDarkBlue,
     border: Colors.seaBlue2,
     fontColor: Colors.seaBlue2,
-    img: require("../assets/staroutline.png"),
+    img: require("../assets/icons/umbrella.png"),
     screen: "QuickReadsList",
   },
 ];
