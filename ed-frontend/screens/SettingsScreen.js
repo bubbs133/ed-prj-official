@@ -20,57 +20,50 @@ function SettingsScreen({ navigation }) {
     navigation.navigate("LoginScreen");
   }
   return (
-    <ImageBackground
-      source={require("../assets/settingsbg.png")}
-      style={styles.backgroundImg}
-    >
-      <SafeAreaView edges={["top", "left", "right"]}>
-        <View>
-          <View style={styles.contentContainer}>
-            <View>
-              <GoBack navigation={navigation} />
-              <Text style={[styles.header, styles.globalFont]}>Settings</Text>
-            </View>
-            <View style={styles.element}>
-              <Text style={[styles.section, styles.globalFont]}>
-                Account Management
-              </Text>
-              <Ionicons name="chevron-forward-outline" />
-            </View>
-            <View style={styles.element}>
-              <Text style={[styles.section, styles.globalFont]}>
-                Notifications
-              </Text>
-              <Ionicons name="chevron-forward-outline" />
-            </View>
-            <View style={styles.element}>
-              <Text style={[styles.section, styles.globalFont]}>
-                Privacy and Data
-              </Text>
-              <Ionicons name="chevron-forward-outline" />
-            </View>
-            <View style={styles.element}>
-              <Text style={[styles.section, styles.globalFont]}>
-                Help Center
-              </Text>
-              <Ionicons name="chevron-forward-outline" />
-            </View>
-            <View style={styles.element}>
-              <Text style={[styles.section, styles.globalFont]}>
-                Future Updates
-              </Text>
-              <Ionicons name="chevron-forward-outline" />
-            </View>
-            <View style={styles.element}>
-              <Pressable onPress={logoutHandler}>
-                <Text style={[styles.section, styles.globalFont]}>Logout</Text>
-              </Pressable>
-              {/*<Ionicons name="chevron-forward-outline" />*/}
-            </View>
+    <SafeAreaView edges={["top", "left", "right"]}>
+      <View>
+        <View style={styles.contentContainer}>
+          <View>
+            <GoBack navigation={navigation} />
+            <Text style={[styles.header, styles.globalFont]}>Settings</Text>
+          </View>
+          <View style={styles.element}>
+            <Text style={[styles.section, styles.globalFont]}>
+              Account Management
+            </Text>
+            <Ionicons name="chevron-forward-outline" />
+          </View>
+          <View style={styles.element}>
+            <Text style={[styles.section, styles.globalFont]}>
+              Notifications
+            </Text>
+            <Ionicons name="chevron-forward-outline" />
+          </View>
+          <View style={styles.element}>
+            <Text style={[styles.section, styles.globalFont]}>
+              Privacy and Data
+            </Text>
+            <Ionicons name="chevron-forward-outline" />
+          </View>
+          <View style={styles.element}>
+            <Text style={[styles.section, styles.globalFont]}>Help Center</Text>
+            <Ionicons name="chevron-forward-outline" />
+          </View>
+          <View style={styles.element}>
+            <Text style={[styles.section, styles.globalFont]}>
+              Future Updates
+            </Text>
+            <Ionicons name="chevron-forward-outline" />
+          </View>
+          <View style={styles.element}>
+            <Pressable onPress={logoutHandler}>
+              <Text style={[styles.section, styles.globalFont]}>Logout</Text>
+            </Pressable>
+            {/*<Ionicons name="chevron-forward-outline" />*/}
           </View>
         </View>
-      </SafeAreaView>
-    </ImageBackground>
+      </View>
+    </SafeAreaView>
   );
 }
 

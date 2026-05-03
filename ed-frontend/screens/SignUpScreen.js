@@ -65,7 +65,7 @@ function SignUpScreen({ navigation, onLogin }) {
   }*/
   return (
     <ImageBackground
-      source={require("../assets/signin.png")}
+      source={require("../assets/main/umisignup.png")}
       style={styles.backgroundImg}
     >
       <View style={styles.mainContainer}>

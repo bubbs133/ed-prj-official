@@ -21,7 +21,7 @@ function LandingScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../assets/main/newumilanding.png")}
+      source={require("../assets/main/umilanding2.png")}
       style={styles.backgroundImg}
     >
       <View style={styles.container}>
@@ -33,7 +33,7 @@ function LandingScreen({ navigation }) {
           </View>
           <View>
             <Pressable style={styles.signupbtn} onPress={signupButtonHandler}>
-              <Text style={styles.btnTitles}>Sigup</Text>
+              <Text style={styles.btnTitles}>Signup</Text>
             </Pressable>
           </View>
         </View>

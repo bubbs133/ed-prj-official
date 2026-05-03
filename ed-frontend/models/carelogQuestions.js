@@ -37,7 +37,7 @@ const CARELOG_QUESTIONS = [
   },
   {
     id: "8",
-    question: "Reflect on your carelog. What did you learn from your care log today? e.g., when I don't eat enough during the day, I tend to binge in the evening, work stressors always seem to trigger me, etc."
+    question: "Reflect on your carelog, what did you learn from your care log today?"
   }
 ];
 

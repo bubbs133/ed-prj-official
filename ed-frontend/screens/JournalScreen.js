@@ -13,7 +13,7 @@ import { journalPrompts } from "../models/journalPrompts";
 import MainButton from "../components/MainButton";
 import Colors from "../constants/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
-import SecondButton from "../components/SecondButton";
+import PrimaryButton from "../components/PrimaryButton";
 import GoBack from "../components/GoBack";
 
 function JournalScreen({ navigation }) {
@@ -93,10 +93,12 @@ function JournalScreen({ navigation }) {
             onChangeText={(entry) => setEntry(entry)}
             style={[styles.journalEntryBox, styles.globalFont]}
           ></TextInput>
-          <SecondButton
+          <PrimaryButton
             style={styles.submitbtn}
             buttonTitle={"Submit"}
             handler={submitHandler}
+            border={Colors.seaDarkBlue}
+            fill={Colors.seaBlue2}
           />
         </View>
       </ScrollView>

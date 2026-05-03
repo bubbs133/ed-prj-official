@@ -5,6 +5,7 @@ import {
   Button,
   Pressable,
   ImageBackground,
+  Modal,
   TextInput,
 } from "react-native";
 import { useState, useContext } from "react";
@@ -17,6 +18,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { AuthContext } from "../auth/auth-context";
 
 function AssessmentScreen({ navigation }) {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(1);
   const [answers, setAnswers] = useState({});
 
@@ -57,8 +60,10 @@ function AssessmentScreen({ navigation }) {
 
       const data = await result.json();
       console.log(data);
+      setModalVisible(!modalVisible);
     } catch (error) {
       console.log(error);
+      Alert.alert("Care log not added", "Please try again");
     }
   }
 
@@ -71,7 +76,7 @@ function AssessmentScreen({ navigation }) {
 
   return (
     <SafeAreaView style={[styles.container]} edges={["top", "left", "right"]}>
-      <View>
+      <View style={[styles.mainContainer]}>
         <View style={styles.top}>
           <GoBack navigation={navigation} />
         </View>
@@ -84,7 +89,7 @@ function AssessmentScreen({ navigation }) {
           {currentQuestion.question}
         </Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, styles.globalFont]}
           keyboardType="decimal-pad"
           value={answers[currentQuestionIdx] || ""}
           onChangeText={(text) => {
@@ -95,18 +100,45 @@ function AssessmentScreen({ navigation }) {
           }}
         />
         <View style={styles.btns}>
-          <Pressable onPress={prevQuestionHandler} disabled={firstQuestion}>
-            <Text style={[styles.btn, styles.globalFont]}>Back</Text>
-          </Pressable>
           <Pressable
+            style={styles.btn}
             onPress={isLast ? submitHandler : nextQuestionHandler}
             disabled={lastQuestion}
           >
-            <Text style={[styles.btn, styles.globalFont]}>
+            <Text style={[styles.btnTitle, styles.globalFont]}>
               {isLast ? "Submit" : "Next"}
             </Text>
           </Pressable>
+          <Pressable
+            style={styles.btn}
+            onPress={prevQuestionHandler}
+            disabled={firstQuestion}
+          >
+            <Text style={[styles.btnTitle, styles.globalFont]}>Back</Text>
+          </Pressable>
         </View>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+            Alert.alert("Modal has been closed.");
+            setModalVisible(!modalVisible);
+            navigation.navigate("Sandbox");
+          }}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>Hello World!</Text>
+              <Pressable
+                style={[styles.button, styles.buttonClose]}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.textStyle}>Hide Modal</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
       </View>
     </SafeAreaView>
   );
@@ -114,8 +146,10 @@ function AssessmentScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
+    //backgroundColor: Colors.seaBlue2,
     flex: 1,
-    //backgroundColor: "#fff",
+  },
+  mainContainer: {
     marginLeft: "5%",
     marginRight: "5%",
   },
@@ -134,26 +168,57 @@ const styles = StyleSheet.create({
   },
   input: {
     height: "40%",
-    borderWidth: 1,
-    borderColor: "black",
-    marginTop: 10,
+    //borderWidth: 1,
+    //borderColor: "black",
+    marginTop: "15%",
+    textAlign: "center",
+    fontSize: 150,
   },
   questions: {
-    fontSize: 25,
+    fontSize: 22,
     letterSpacing: 1,
     textAlign: "center",
-    fontWeight: 500,
-    marginTop: "30%"
+    //fontWeight: 500,
+    marginTop: "10%",
   },
   btns: {
-    //bottom: 10,
-    fontSize: 17,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    alignItems: "center",
   },
   btn: {
-    fontSize: 17,
-    letterSpacing: 0.5,
+    borderRadius: 50,
+    height: 37,
+    width: 300,
+    backgroundColor: "transparent",
+    marginBottom: 10,
+    marginTop: 10,
+    borderColor: Colors.darkNeutral,
+    borderWidth: 2,
+  },
+  btnTitle: {
+    textAlign: "center",
+    fontSize: 19,
+    color: Colors.darkNeutral,
+    marginTop: 5,
+    fontFamily: "Afacad",
+    fontWeight: 700,
+    letterSpacing: 2,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalView: {
+    backgroundColor: "red",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
+    //borderRadius: 30,
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 150,
+    textAlign: "center",
   },
 });
 

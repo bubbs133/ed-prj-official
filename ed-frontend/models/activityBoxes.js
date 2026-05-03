@@ -64,7 +64,7 @@ const CHECK_INS = [
     color: Colors.limeGreen,
     border: Colors.marineBlue,
     fontColor: Colors.marineBlue,
-    img: require("../assets/foodgreen.png"),
+    //img: require("../assets/foodgreen.png"),
     screen: "Tracking",
   },
   /*{

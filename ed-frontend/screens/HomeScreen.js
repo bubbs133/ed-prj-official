@@ -64,7 +64,7 @@ function HomeScreen({ navigation }) {
     } catch (error) {
       Alert.alert(
         "Unable to fetch data",
-        "Care Log data unavailable, please try again.",
+        "Data unavailable, please try again.",
       );
     }
   }
@@ -98,10 +98,10 @@ function HomeScreen({ navigation }) {
               General Insights
             </Text>
             <View style={styles.dashboardCards}>
-              <Pressable style={{ width: "100%" }}>
+              <Pressable style={{ width: "100%" }} onPress={() => navigation.navigate("GeneralInsights")}>
                 <DashboardCard
-                  itemTitle={"This Week"}
-                  details={"This week you were stable, great progress! "}
+                  itemTitle={null}
+                  details={null}
                   height={110}
                   width={"100%"}
                   borderColor={Colors.coffeeBrown}
@@ -117,8 +117,8 @@ function HomeScreen({ navigation }) {
             <View style={styles.dashboardCards}>
               <Pressable style={{ width: "100%" }}>
                 <DashboardCard
-                  itemTitle={"This Week"}
-                  details={"This week you were stable, great progress! "}
+                  itemTitle={null}
+                  details={null}
                   height={110}
                   width={"100%"}
                   borderColor={Colors.lightCoffeeBrown}
@@ -135,7 +135,7 @@ function HomeScreen({ navigation }) {
             <View style={styles.dashboardCards}>
               <Pressable style={{ width: "100%" }}>
                 <DashboardCard
-                  itemTitle={"This Week"}
+                  itemTitle={null}
                   details={careLogData.urge_intensity}
                   height={110}
                   width={"100%"}
@@ -151,9 +151,9 @@ function HomeScreen({ navigation }) {
             </Text>
             <Pressable style={{ width: "100%" }}>
               <DashboardCard
-                itemTitle={"This Week"}
-                details={careLogData.urge_intensity}
-                height={110}
+                itemTitle={null}
+                details={"Take a quick look at your overall journey! :D"}
+                height={90}
                 width={"100%"}
                 borderColor={Colors.seaBlue2}
                 fillColor={Colors.seaDarkBlue}

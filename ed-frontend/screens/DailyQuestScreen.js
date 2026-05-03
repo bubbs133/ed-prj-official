@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width,
     justifyContent: "flex-end",
-    marginBottom: "50%",
+    marginBottom: "30%",
   },
   questGoBtn: {
     textAlign: "center"

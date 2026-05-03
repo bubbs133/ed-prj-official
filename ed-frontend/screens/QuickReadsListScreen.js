@@ -13,6 +13,7 @@ import { QUICK_READS } from "../models/reads";
 import DashboardCard from "../components/DashboardCard";
 import GoBack from "../components/GoBack";
 import React from "react";
+import ReadsList from "../components/ReadsList";
 
 function QuickReadsListScreen({ navigation }) {
   return (
@@ -28,9 +29,8 @@ function QuickReadsListScreen({ navigation }) {
           <View style={styles.top}>
             <Text style={[styles.heading, styles.globalFont]}>Quick Reads</Text>
             <Text style={[styles.screenInfo, styles.globalFont]}>
-              Immerse yourself into quick little reads--learn about eating
-              disorders, what keeps them going, and how to approach a healthy
-              settlement with yourself and your mind.
+              Learn about eating disorders, what keeps them going, and how to
+              approach a healthy settlement with yourself and your mind.
             </Text>
           </View>
           <FlatList
@@ -43,13 +43,12 @@ function QuickReadsListScreen({ navigation }) {
                 style={{ width: "100%" }}
                 onPress={() => navigation.navigate("Read", { readId: item.id })}
               >
-                <DashboardCard
+                <ReadsList
                   itemTitle={item.title}
+                  imgPath={item.img}
                   details={item.cardSummary}
                   height={120}
                   width={"100%"}
-                  borderColor={item.border}
-                  fillColor={item.color}
                 />
               </Pressable>
             )}

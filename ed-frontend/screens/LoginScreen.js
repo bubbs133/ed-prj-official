@@ -56,7 +56,7 @@ function LoginScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../assets/loginnew.png")}
+      source={require("../assets/main/umilogin.png")}
       style={styles.backgroundImg}
     >
       <View style={styles.mainContainer}>
@@ -111,21 +111,20 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 37,
     width: 300,
-    backgroundColor: Colors.lightNeutral,
+    borderColor: Colors.floaterCream,
     marginBottom: 10,
     marginTop: 10,
-    borderColor: Colors.darkNeutral,
-    borderWidth: 2,
+    borderWidth: 3,
     //borderBottomWidth: 4,
   },
   loginBtnView: {
     position: "absolute",
-    bottom: 100,
+    bottom: 50,
   },
   loginBtnTitle: {
     textAlign: "center",
     fontSize: 19,
-    color: Colors.darkNeutral,
+    color: Colors.floaterCream,
     marginTop: 5,
     fontFamily: "Afacad",
     fontWeight: 500,

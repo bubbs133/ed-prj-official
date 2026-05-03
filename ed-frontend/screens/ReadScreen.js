@@ -29,7 +29,6 @@ export default function ReadScreen({ route, navigation }) {
     if (currentIndex < sections.length - 1) {
       setCurrentIndex((prev) => prev + 1);
     } else {
-      // optional: go back or show "done"
       navigation.goBack();
     }
   }
@@ -45,32 +44,19 @@ export default function ReadScreen({ route, navigation }) {
             {currentIndex + 1} / {sections.length}
           </Text>
         </View>
-        <Pressable onPress={handleNext} style={{ flex: 1 }}>
-          <View style={styles.questContainer}>
+        <ScrollView style={styles.scrollview}>
+          <Pressable onPress={handleNext} style={styles.pressable}>
             <View style={styles.readContainer}>
               <Text style={styles.readSubtitle}>{currentSection.subtitle}</Text>
 
-              <Text style={styles.readContent}>{currentSection.paragraph}</Text>
-            </View>
-          </View>
-        </Pressable>
-        {/*<SwiperFlatList
-          autoplay={false}
-          showPagination={false}
-          data={read.sections}
-          renderItem={({ item }) => (
-            <View style={styles.questContainer}>
-              <View style={styles.questCard}>
-                <Text style={styles.questName}>
-                  {item.subtitle ? item.subtitle : "name blank"}
+              {(currentSection.paragraphs).map((p, index) => (
+                <Text key={index} style={styles.readContent}>
+                  {p}
                 </Text>
-                <Text style={styles.questText}>
-                  {item ? item.paragraph : "description blank"}
-                </Text>
-              </View>
+              ))}
             </View>
-          )}
-        />*/}
+          </Pressable>
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -84,14 +70,16 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   container: {
-    flex: 1,
+    marginHorizontal: "5%",
   },
   progress: {
     textAlign: "center",
-    fontSize: 17
+    fontSize: 17,
+    paddingBottom: "10%",
   },
   readContainer: {
-    rowGap: "50%"
+    flex: 1,
+    //rowGap: "5%",
   },
   title: {
     fontSize: 18,
@@ -103,27 +91,20 @@ const styles = StyleSheet.create({
   paragraph: {
     fontSize: 16,
   },
-  questContainer: {
-    flex: 1,
-    width,
-  },
-  questCard: {
-    marginHorizontal: "5%",
-  },
   readSubtitle: {
     fontSize: 25,
     fontFamily: "Afacad",
     fontWeight: 500,
     textAlign: "left",
-    letterSpacing: 1
+    letterSpacing: 1,
+    paddingBottom: "5%",
   },
   readContent: {
     fontFamily: "Afacad",
     //fontWeight: 400,
     letterSpacing: 1,
     fontSize: 20,
-    paddingBottom: 20,
+    marginBottom: 20,
     textAlign: "left",
-    justifyContent: "space-between"
   },
 });

@@ -58,170 +58,163 @@ function FoodTrackingScreen({ navigation }) {
   }
 
   return (
-    <ImageBackground
-      source={require("../assets/profilebg.png")}
-      style={styles.backgroundImg}
-    >
-      <SafeAreaView style={styles.container}>
-        <View>
-          <View style={[styles.contentContainer]}>
-            <View style={styles.top}>
-              <GoBack navigation={navigation} />
-              <Text style={[styles.header, styles.globalFont]}>
-                Mindful Meals
-              </Text>
-            </View>
-            <View style={[styles.section]}>
-              <Text style={[styles.sectionNames, styles.globalFont]}>
-                Meal Type
-              </Text>
-              <View style={[styles.optionsContainer]}>
-                {MEAL_TYPES.map((mealType) => (
-                  <Pressable
-                    style={({ pressed }) => [
-                      styles.optionsBox,
-                      pressed
-                        ? styles.optionsBoxPressed
-                        : styles.optionsBoxUnpressed,
-                    ]}
-                    key={mealType}
-                    onPress={() => setMealType(mealType)}
-                  >
-                    {({ pressed }) => (
-                      <Text
-                        style={[
-                          styles.globalFont,
-                          pressed ? styles.textPressed : styles.textUnpressed,
-                        ]}
-                      >
-                        {mealType}
-                      </Text>
-                    )}
-                  </Pressable>
-                ))}
-              </View>
-            </View>
-            <View style={[styles.section]}>
-              <Text style={[styles.sectionNames, styles.globalFont]}>
-                Brief Description
-              </Text>
-              <TextInput
-                multiline={true}
-                placeholder="Don't overthink it, just a brief description of your meal :)"
-                onChangeText={(entry) => setMealEntry(entry)}
-                style={[styles.mealEntryBox, styles.globalFont]}
-              ></TextInput>
-            </View>
-            <View style={[styles.section]}>
-              <Text style={[styles.sectionNames, styles.globalFont]}>
-                Emotions Before Meal
-              </Text>
-              <View style={[styles.optionsContainer]}>
-                {EMOTIONS.map((emotion) => (
-                  <Pressable
-                    style={({ pressed }) => [
-                      styles.optionsBox,
-                      pressed
-                        ? styles.optionsBoxPressed
-                        : styles.optionsBoxUnpressed,
-                    ]}
-                    key={emotion}
-                    onPress={() => setMoodBefore(emotion)}
-                  >
-                    {({ pressed }) => (
-                      <Text
-                        style={[
-                          styles.globalFont,
-                          pressed ? styles.textPressed : styles.textUnpressed,
-                        ]}
-                      >
-                        {emotion}
-                      </Text>
-                    )}
-                  </Pressable>
-                ))}
-              </View>
-            </View>
-            <View style={styles.section}>
-              <Text style={[styles.sectionNames, styles.globalFont]}>
-                Emotions After Meal
-              </Text>
-              <View style={[styles.optionsContainer]}>
-                {EMOTIONS.map((emotion) => (
-                  <Pressable
-                    style={({ pressed }) => [
-                      styles.optionsBox,
-                      pressed
-                        ? styles.optionsBoxPressed
-                        : styles.optionsBoxUnpressed,
-                    ]}
-                    key={emotion}
-                    onPress={() => setMoodAfter(emotion)}
-                  >
-                    {({ pressed }) => (
-                      <Text
-                        style={[
-                          styles.globalFont,
-                          pressed ? styles.textPressed : styles.textUnpressed,
-                        ]}
-                      >
-                        {emotion}
-                      </Text>
-                    )}
-                  </Pressable>
-                ))}
-              </View>
-            </View>
-            <View style={styles.section}>
-              <Text style={[styles.sectionNames, styles.globalFont]}>
-                Hunger Level
-              </Text>
-              <View style={[styles.optionsContainer]}>
-                {HUNGER_LEVELS.map((level) => (
-                  <Pressable
-                    style={({ pressed }) => [
-                      styles.optionsBox,
-                      pressed
-                        ? styles.optionsBoxPressed
-                        : styles.optionsBoxUnpressed,
-                    ]}
-                    key={level}
-                    onPress={() => setHungerLevel(level)}
-                  >
-                    {({ pressed }) => (
-                      <Text
-                        style={[
-                          styles.globalFont,
-                          pressed ? styles.textPressed : styles.textUnpressed,
-                        ]}
-                      >
-                        {level}
-                      </Text>
-                    )}
-                  </Pressable>
-                ))}
-              </View>
-            </View>
-            <View style={[styles.section]}>
-              <Text style={[styles.sectionNames, styles.globalFont]}>
-                Notes
-              </Text>
-              <TextInput
-                multiline={true}
-                placeholder="Any thoughts?"
-                onChangeText={(entry) => setNotes(entry)}
-                style={[styles.mealEntryBox, styles.globalFont]}
-              ></TextInput>
-            </View>
-            <MainButton
-              style={styles.submitbtn}
-              buttonTitle={"Submit"}
-              handler={submitHandler}
-            />
+    <SafeAreaView style={styles.container}>
+      <View>
+        <View style={[styles.contentContainer]}>
+          <View style={styles.top}>
+            <GoBack navigation={navigation} />
+            <Text style={[styles.header, styles.globalFont]}>
+              Mindful Meals
+            </Text>
           </View>
+          <View style={[styles.section]}>
+            <Text style={[styles.sectionNames, styles.globalFont]}>
+              Meal Type
+            </Text>
+            <View style={[styles.optionsContainer]}>
+              {MEAL_TYPES.map((mealType) => (
+                <Pressable
+                  style={({ pressed }) => [
+                    styles.optionsBox,
+                    pressed
+                      ? styles.optionsBoxPressed
+                      : styles.optionsBoxUnpressed,
+                  ]}
+                  key={mealType}
+                  onPress={() => setMealType(mealType)}
+                >
+                  {({ pressed }) => (
+                    <Text
+                      style={[
+                        styles.globalFont,
+                        pressed ? styles.textPressed : styles.textUnpressed,
+                      ]}
+                    >
+                      {mealType}
+                    </Text>
+                  )}
+                </Pressable>
+              ))}
+            </View>
+          </View>
+          <View style={[styles.section]}>
+            <Text style={[styles.sectionNames, styles.globalFont]}>
+              Brief Description
+            </Text>
+            <TextInput
+              multiline={true}
+              placeholder="Don't overthink it, just a brief description of your meal :)"
+              onChangeText={(entry) => setMealEntry(entry)}
+              style={[styles.mealEntryBox, styles.globalFont]}
+            ></TextInput>
+          </View>
+          <View style={[styles.section]}>
+            <Text style={[styles.sectionNames, styles.globalFont]}>
+              Emotions Before Meal
+            </Text>
+            <View style={[styles.optionsContainer]}>
+              {EMOTIONS.map((emotion) => (
+                <Pressable
+                  style={({ pressed }) => [
+                    styles.optionsBox,
+                    pressed
+                      ? styles.optionsBoxPressed
+                      : styles.optionsBoxUnpressed,
+                  ]}
+                  key={emotion}
+                  onPress={() => setMoodBefore(emotion)}
+                >
+                  {({ pressed }) => (
+                    <Text
+                      style={[
+                        styles.globalFont,
+                        pressed ? styles.textPressed : styles.textUnpressed,
+                      ]}
+                    >
+                      {emotion}
+                    </Text>
+                  )}
+                </Pressable>
+              ))}
+            </View>
+          </View>
+          <View style={styles.section}>
+            <Text style={[styles.sectionNames, styles.globalFont]}>
+              Emotions After Meal
+            </Text>
+            <View style={[styles.optionsContainer]}>
+              {EMOTIONS.map((emotion) => (
+                <Pressable
+                  style={({ pressed }) => [
+                    styles.optionsBox,
+                    pressed
+                      ? styles.optionsBoxPressed
+                      : styles.optionsBoxUnpressed,
+                  ]}
+                  key={emotion}
+                  onPress={() => setMoodAfter(emotion)}
+                >
+                  {({ pressed }) => (
+                    <Text
+                      style={[
+                        styles.globalFont,
+                        pressed ? styles.textPressed : styles.textUnpressed,
+                      ]}
+                    >
+                      {emotion}
+                    </Text>
+                  )}
+                </Pressable>
+              ))}
+            </View>
+          </View>
+          <View style={styles.section}>
+            <Text style={[styles.sectionNames, styles.globalFont]}>
+              Hunger Level
+            </Text>
+            <View style={[styles.optionsContainer]}>
+              {HUNGER_LEVELS.map((level) => (
+                <Pressable
+                  style={({ pressed }) => [
+                    styles.optionsBox,
+                    pressed
+                      ? styles.optionsBoxPressed
+                      : styles.optionsBoxUnpressed,
+                  ]}
+                  key={level}
+                  onPress={() => setHungerLevel(level)}
+                >
+                  {({ pressed }) => (
+                    <Text
+                      style={[
+                        styles.globalFont,
+                        pressed ? styles.textPressed : styles.textUnpressed,
+                      ]}
+                    >
+                      {level}
+                    </Text>
+                  )}
+                </Pressable>
+              ))}
+            </View>
+          </View>
+          <View style={[styles.section]}>
+            <Text style={[styles.sectionNames, styles.globalFont]}>Notes</Text>
+            <TextInput
+              multiline={true}
+              placeholder="Any thoughts?"
+              onChangeText={(entry) => setNotes(entry)}
+              style={[styles.mealEntryBox, styles.globalFont]}
+            ></TextInput>
+          </View>
+          <MainButton
+            style={styles.submitbtn}
+            buttonTitle={"Submit"}
+            handler={submitHandler}
+          />
         </View>
-      </SafeAreaView>
-    </ImageBackground>
+      </View>
+    </SafeAreaView>
   );
 }
 

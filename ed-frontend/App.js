@@ -12,12 +12,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import SignUpScreen from "./screens/SignUpScreen";
 import HomeScreen from "./screens/HomeScreen";
-import BotIntro from "./screens/BotIntro";
 import ProfileScreen from "./screens/ProfileScreen";
 import DailyQuestScreen from "./screens/DailyQuestScreen";
 import { useContext } from "react";
 import AssessmentScreen from "./screens/AssessmentScreen";
-import AssessmentIntroScreen from "./screens/AssessmentIntroScreen";
 import LandingScreen from "./screens/LandingScreen";
 import JournalScreen from "./screens/JournalScreen";
 import SettingsScreen from "./screens/SettingsScreen";
@@ -30,8 +28,6 @@ import {
 } from "@expo-google-fonts/afacad";
 import Colors from "./constants/colors";
 import Chatbot from "./screens/Chatbot";
-import FoodTrackingScreen from "./screens/FoodTrackingScreen";
-import ExerciseTrackingScreen from "./screens/ExerciseTrackingScreen";
 import TrackingScreen from "./screens/TrackingScreen";
 import ChatroomScreen from "./screens/ChatroomScreen";
 import SandboxScreen from "./screens/SandboxScreen";
@@ -42,6 +38,8 @@ import ChatListScreen from "./screens/ChatListScreen";
 import SelectedQuestScreen from "./screens/SelectedQuestScreen";
 import { StackScreen } from "react-native-screens";
 import QuickReadsListScreen from "./screens/QuickReadsListScreen";
+import GeneralInsightsScreen from "./screens/GeneralInsightsScreen";
+import StressScreen from "./screens/StressScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -175,6 +173,8 @@ export default function App() {
         <Stack.Screen name="Read" component={ReadScreen} />
         <Stack.Screen name="SelectedQuest" component={SelectedQuestScreen} />
         <Stack.Screen name="QuickReadsList" component={QuickReadsListScreen} />
+        <Stack.Screen name="GeneralInsights" component={GeneralInsightsScreen} />
+        <Stack.Screen name="StressScreen" component={StressScreen} />
         {/*
         <Stack.Screen name="Meals" component={FoodTrackingScreen} />
         <Stack.Screen name="Exercises" component={ExerciseTrackingScreen} />
