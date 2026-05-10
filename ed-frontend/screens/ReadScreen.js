@@ -20,10 +20,10 @@ export default function ReadScreen({ route, navigation }) {
 
   const read = QUICK_READS.find((r) => r.id === readId);
 
+  if (!read) return <Text>Read not found</Text>;
+
   const sections = read.sections;
   const currentSection = sections[currentIndex];
-
-  if (!read) return <Text>Read not found</Text>;
 
   function handleNext() {
     if (currentIndex < sections.length - 1) {
@@ -34,7 +34,7 @@ export default function ReadScreen({ route, navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
+    <SafeAreaView style={styles.container} >
       <View style={styles.contentContainer}>
         <View>
           <GoBack navigation={navigation} />
@@ -44,7 +44,7 @@ export default function ReadScreen({ route, navigation }) {
             {currentIndex + 1} / {sections.length}
           </Text>
         </View>
-        <ScrollView style={styles.scrollview}>
+        <ScrollView style={styles.scrollview} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
           <Pressable onPress={handleNext} style={styles.pressable}>
             <View style={styles.readContainer}>
               <Text style={styles.readSubtitle}>{currentSection.subtitle}</Text>
@@ -70,7 +70,11 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   container: {
+    flex: 1,
     marginHorizontal: "5%",
+  },
+  scrollContent: {
+    paddingBottom: 250
   },
   progress: {
     textAlign: "center",

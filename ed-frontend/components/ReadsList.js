@@ -21,7 +21,7 @@ function ReadsList({ itemTitle, imgPath, details, height, width }) {
         //borderRightWidth: 3.5,
         borderRadius: 25,
         //margin: 0,
-        marginBottom: 10,
+        marginBottom: 16,
         height: "auto",
         width: "auto",
         //borderColor: Colors.lightCoffeeBrown,
@@ -38,7 +38,7 @@ function ReadsList({ itemTitle, imgPath, details, height, width }) {
         <Text style={[styles.itemTitle, styles.globalFont]}>{itemTitle}</Text>
         <Text style={[styles.details, styles.globalFont]}>{details}</Text>
       </View>
-      <Pressable
+      {/*<Pressable
         style={styles.bookmark}
         onPress={() => setIsBookmarked(!isBookmarked)}
       >
@@ -47,7 +47,7 @@ function ReadsList({ itemTitle, imgPath, details, height, width }) {
           color="#42190D"
           size={22}
         />
-      </Pressable>
+      </Pressable>*/}
     </View>
   );
 }
@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     height: 150,
     width: 130,
     borderRadius: 10,
+    paddingLeft: 5,
   },
   itemTitle: {
     fontSize: 17,
@@ -79,7 +80,8 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     letterSpacing: 2,
     marginLeft: 15,
-    marginTop: 15,
+    marginTop: 4,
+    paddingBottom: 7,
   },
   details: {
     fontSize: 14,

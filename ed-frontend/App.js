@@ -40,6 +40,14 @@ import { StackScreen } from "react-native-screens";
 import QuickReadsListScreen from "./screens/QuickReadsListScreen";
 import GeneralInsightsScreen from "./screens/GeneralInsightsScreen";
 import StressScreen from "./screens/StressScreen";
+import BingeUrgeInsightsScreen from "./screens/BingeUrgeInsightsScreen";
+import EmotionalDistressInsightsScreen from "./screens/EmotionalDistressInsightsScreen";
+import EnergyInsightsScreen from "./screens/EnergyInsightsScreen";
+import ExerciseInsightsScreen from "./screens/ExerciseInsightsScreen";
+import MealsInsightsScreen from "./screens/MealsInsightsScreen";
+import RestrictionInsightsScreen from "./screens/RestrictionInsightsScreen";
+import SleepInsightsScreen from "./screens/SleepInsightsScreen";
+import UrgeIntensityInsightsScreen from "./screens/UrgeIntensityInsightsScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -175,6 +183,14 @@ export default function App() {
         <Stack.Screen name="QuickReadsList" component={QuickReadsListScreen} />
         <Stack.Screen name="GeneralInsights" component={GeneralInsightsScreen} />
         <Stack.Screen name="StressScreen" component={StressScreen} />
+        <Stack.Screen name="BingeScreen" component={BingeUrgeInsightsScreen} />
+        <Stack.Screen name="EmotionalDistressScreen" component={EmotionalDistressInsightsScreen} />
+        <Stack.Screen name="EnergyScreen" component={EnergyInsightsScreen} />
+        <Stack.Screen name="ExerciseScreen" component={ExerciseInsightsScreen} />
+        <Stack.Screen name="MealsScreen" component={MealsInsightsScreen} />
+        <Stack.Screen name="RestrictionScreen" component={RestrictionInsightsScreen} />
+        <Stack.Screen name="SleepScreen" component={SleepInsightsScreen} />
+        <Stack.Screen name="UrgeScreen" component={UrgeIntensityInsightsScreen} />
         {/*
         <Stack.Screen name="Meals" component={FoodTrackingScreen} />
         <Stack.Screen name="Exercises" component={ExerciseTrackingScreen} />

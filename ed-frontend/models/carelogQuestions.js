@@ -19,24 +19,28 @@ const CARELOG_QUESTIONS = [
   },
   {
     id: "4",
-    question: "On a scale from 0 - 10, describe the amount of energy you have.",
+    question: "On a scale from 0 - 10, rate your stress level.",
   },
   {
     id: "5",
-    question: "About how many hours did you sleep last night?",
+    question: "On a scale from 0 - 10, describe the amount of energy you have.",
   },
   {
     id: "6",
-    question:
-      "About how many meals did you have today? (Partial meals are okay too.)",
+    question: "About how many hours did you sleep last night?",
   },
   {
     id: "7",
     question:
-      "About how many minutes did you actively engage in physical exercise?",
+      "About how many meals did you have today?",
   },
   {
     id: "8",
+    question:
+      "About how many minutes did you actively engage in physical exercise?",
+  },
+  {
+    id: "9",
     question: "Reflect on your carelog, what did you learn from your care log today?"
   }
 ];

@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from .ml.helper_functions import cluster_user, get_recommendations
+from .ml.helper_functions import cluster_user, get_recommendations, get_feature_insights, calculate_trend, aggregate_weekly_feature_data
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
@@ -39,9 +39,7 @@ def care_log_cluster(request):
             cluster, state_name = cluster_user(data)
 
             care_log_input = serializer.save(
-                user=request.user,
-                cluster=cluster,
-                state_name=state_name
+                user=request.user, cluster=cluster, state_name=state_name
             )
 
             return Response(
@@ -70,19 +68,90 @@ def dashboard_recommendations(request):
     )
 
     if not latest_entry:
-        return Response({"detail": "No care log data for user"}, status=status.HTTP_404_NOT_FOUND)
+        return Response(
+            {"detail": "No care log data for user"}, status=status.HTTP_404_NOT_FOUND
+        )
 
     serializer = CareLogSerializer(latest_entry)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-"""    if request.method == "GET":
-        serializer = CareLogSerializer(data=request.data)
-        if serializer.is_valid():
-            data = serializer.validated_data
-            cluster, _ = cluster_user(data)
-            
-            get_recoms = get_recommendations(cluster)
-            print(get_recoms)
-            return get_recoms
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)"""
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def weekly_insights(request):
+
+    today = timezone.now().date()
+
+    monday = today - timedelta(days=today.weekday())
+
+    sunday = monday + timedelta(days=6)
+
+    weekly_entries = CareLog.objects.filter(
+        user=request.user,
+        date_created__date__gte=monday,
+        date_created__date__lte=sunday,
+    ).order_by("date_created")
+
+    if not weekly_entries.exists():
+
+        return Response(
+            {"detail": "No care log data for this week"},
+            status=status.HTTP_404_NOT_FOUND,
+        )
+
+    count = weekly_entries.count()
+
+    daily_feature_data = aggregate_weekly_feature_data(weekly_entries)
+
+    features = {}
+
+    feature_labels = {
+        "urge_intensity": "Urge Intensity",
+        "binge_urge": "Binge Urges",
+        "restriction": "Restriction",
+        "emotional_distress": "Emotional Distress",
+        "stress_level": "Stress",
+        "energy_level": "Energy",
+        "sleep_hours": "Sleep",
+        "num_meals": "Meals",
+        "exercise_minutes": "Exercise",
+    }
+
+    for feature_key, entries in daily_feature_data.items():
+
+        valid_entries = [e for e in entries if e is not None]
+
+        if valid_entries:
+            average = round(sum(valid_entries) / len(valid_entries), 2)
+        else:
+            average = 0
+
+        trend_data = calculate_trend(entries)
+
+        insights = get_feature_insights(
+            feature_key,
+            average,
+            trend_data["trend"],
+        )
+
+        features[feature_key] = {
+            "label": feature_labels[feature_key],
+            "average": average,
+            "entries": entries,
+            "trend": trend_data["trend"],
+            "trend_direction": trend_data["trend_direction"],
+            "trend_value": trend_data["trend_value"],
+            "insights": insights,
+        }
+
+    return Response(
+        {
+            "week": {
+                "start": monday.isoformat(),
+                "end": sunday.isoformat(),
+            },
+            "entries_count": count,
+            "features": features,
+        },
+        status=status.HTTP_200_OK,
+    )
