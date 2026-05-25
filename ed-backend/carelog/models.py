@@ -13,7 +13,7 @@ class CareLog(models.Model):
     sleep_hours = models.FloatField(default=7.0, blank=True)
     num_meals = models.FloatField(default=3.0, blank=True)
     exercise_minutes = models.IntegerField(default=30, blank=True)
-    notes = models.CharField(max_length=100, blank=True)
+    notes = models.CharField(max_length=2000, blank=True)
     cluster = models.IntegerField(blank=True, null=True)
     state_name = models.CharField(max_length=100, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)

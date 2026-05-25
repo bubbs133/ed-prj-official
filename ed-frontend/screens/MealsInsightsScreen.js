@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+  Dimensions,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState, useEffect, useContext } from "react";
 import Colors from "../constants/colors";
@@ -24,7 +31,7 @@ function MealsInsightsScreen({ navigation }) {
       const response = await fetch("http://127.0.0.1:8000/weekly-insights/", {
         method: "GET",
         headers: {
-          "Authorization": `Token ${authContext.token}`,
+          Authorization: `Token ${authContext.token}`,
           "Content-Type": "application/json",
         },
       });
@@ -77,24 +84,29 @@ function MealsInsightsScreen({ navigation }) {
     if (average < 2.5) {
       suggestions.push({
         title: "Establish meal times",
-        description: "Set specific times for breakfast, lunch, and dinner. Consistency helps your body expect and prepare for meals.",
+        description:
+          "Set specific times for breakfast, lunch, and dinner. Consistency helps your body expect and prepare for meals.",
       });
       suggestions.push({
         title: "Prep easy options",
-        description: "Simple meals count! Sandwiches, pasta, or leftovers are perfectly fine options.",
+        description:
+          "Simple meals count! Sandwiches, pasta, or leftovers are perfectly fine options.",
       });
       suggestions.push({
         title: "Use phone reminders",
-        description: "Set alarms for meal times if you tend to forget or skip meals.",
+        description:
+          "Set alarms for meal times if you tend to forget or skip meals.",
       });
     } else {
       suggestions.push({
         title: "Variety helps",
-        description: "Try to include different food groups across your meals for balanced nutrition.",
+        description:
+          "Try to include different food groups across your meals for balanced nutrition.",
       });
       suggestions.push({
         title: "Honor your hunger",
-        description: "Listen to your body's cues and eat when hungry without rigid rules.",
+        description:
+          "Listen to your body's cues and eat when hungry without rigid rules.",
       });
     }
     return suggestions;
@@ -108,63 +120,82 @@ function MealsInsightsScreen({ navigation }) {
             <GoBack navigation={navigation} />
 
             <View>
-              <Text style={[styles.globalFont, styles.heading]}>Meals Insights</Text>
+              <Text style={[styles.globalFont, styles.heading]}>
+                Meals Insights
+              </Text>
               <View style={styles.scoreContainer}>
-                <Text style={[styles.globalFont, styles.score]}>{average.toFixed(1)}</Text>
+                <Text style={[styles.globalFont, styles.score]}>
+                  {average.toFixed(1)}
+                </Text>
                 <Text style={[styles.globalFont, styles.ten]}>per day</Text>
               </View>
             </View>
-
-            <View style={styles.progressSection}>
-              <Progress.Bar
-                progress={Math.min(average / 5, 1)}
-                width={Dimensions.get("window").width - 40}
-                color="#93B3C2"
-                height={12}
-                borderRadius={6}
-              />
+            <View style={[styles.section, { marginBottom: 20 }]}>
+              <Text style={[styles.globalFont, styles.subtitles]}>
+                Daily Breakdown
+              </Text>
+              <View style={styles.dailyGrid}>
+                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
+                  (day, idx) => (
+                    <View key={idx} style={styles.dayBox}>
+                      <Text style={[styles.globalFont, styles.dayLabel]}>
+                        {day}
+                      </Text>
+                      <Text style={[styles.globalFont, styles.dayValue]}>
+                        {entries[idx]?.toFixed(0) || "-"}
+                      </Text>
+                    </View>
+                  ),
+                )}
+              </View>
             </View>
 
             <View style={styles.sections}>
               <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>General Insights</Text>
+                <Text style={[styles.globalFont, styles.subtitles]}>
+                  General Insights
+                </Text>
                 <Text style={styles.globalFont}>{getInsight()}</Text>
               </View>
 
               <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>Trends</Text>
-                <View style={styles.trendBox}>
-                  <Text style={[styles.globalFont, styles.trendArrow]}>{trend_direction}</Text>
-                  <View>
-                    <Text style={[styles.globalFont, styles.bold]}>
-                      {trend === "increasing" ? "Increasing" : trend === "decreasing" ? "Decreasing" : "Stable"}
-                    </Text>
-                    <Text style={styles.globalFont}>Change: {trend_value.toFixed(1)} meals/day</Text>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>Daily Breakdown</Text>
-                <View style={styles.dailyGrid}>
-                  {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, idx) => (
-                    <View key={idx} style={styles.dayBox}>
-                      <Text style={[styles.globalFont, styles.dayLabel]}>{day}</Text>
-                      <Text style={[styles.globalFont, styles.dayValue]}>{entries[idx]?.toFixed(1) || "-"}</Text>
-                    </View>
-                  ))}
-                </View>
-              </View>
-
-              <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>Friendly Suggestions</Text>
+                <Text style={[styles.globalFont, styles.subtitles]}>
+                  Friendly Suggestions
+                </Text>
                 <View style={styles.suggestions}>
                   {getSuggestions().map((suggestion, index) => (
                     <View key={index} style={styles.suggestion}>
-                      <Text style={[styles.globalFont, styles.bold]}>{suggestion.title}</Text>
-                      <Text style={styles.globalFont}>{suggestion.description}</Text>
+                      <Text style={[styles.globalFont, styles.bold]}>
+                        {suggestion.title}
+                      </Text>
+                      <Text style={styles.globalFont}>
+                        {suggestion.description}
+                      </Text>
                     </View>
                   ))}
+                </View>
+              </View>
+
+              <View style={styles.section}>
+                <Text style={[styles.globalFont, styles.subtitles]}>
+                  Trends
+                </Text>
+                <View style={styles.trendBox}>
+                  <Text style={[styles.globalFont, styles.trendArrow]}>
+                    {trend_direction}
+                  </Text>
+                  <View>
+                    <Text style={[styles.globalFont, styles.bold]}>
+                      {trend === "increasing"
+                        ? "Increasing"
+                        : trend === "decreasing"
+                          ? "Decreasing"
+                          : "Stable"}
+                    </Text>
+                    <Text style={styles.globalFont}>
+                      Change: {trend_value}/10
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
@@ -178,7 +209,7 @@ function MealsInsightsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.seaBlue2,
+    backgroundColor: "#fff",
   },
   contentContainer: {
     paddingHorizontal: "5%",

@@ -51,6 +51,7 @@ function HomeScreen({ navigation }) {
   async function fetchData() {
     try {
       const careLogUrl = "http://127.0.0.1:8000/dashboard-recommendations/";
+      //const careLogUrl = "http://192.168.0.125:8000/dashboard-recommendations/";
 
       let response = await fetch(careLogUrl, {
         headers: {
@@ -92,74 +93,106 @@ function HomeScreen({ navigation }) {
               </Text>
             </View>
           </View>
-
+          <View style={styles.section}>
+            <Text style={[styles.sectionHeading, styles.globalFont]}>
+              Quick Actions
+            </Text>
+            <View style={styles.qaContainer}>
+              <Pressable
+                style={[styles.qaBox]}
+                onPress={() => navigation.navigate("Assessment")}
+              >
+                <Image
+                  style={styles.qaIcon}
+                  source={require("../assets/icons/wave-brown.png")}
+                />
+                <Text style={[styles.globalFont, styles.qaText]}>Check in</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.qaBox]}
+                onPress={() => navigation.navigate("Map")}
+              >
+                <Image
+                  style={styles.qaIcon}
+                  source={require("../assets/icons/map-brown.png")}
+                />
+                <Text style={[styles.globalFont, styles.qaText]}>
+                  Help Near Me
+                </Text>
+              </Pressable>
+              <Pressable
+                style={[styles.qaBox]}
+                onPress={() => navigation.navigate("QuickReadsList")}
+              >
+                <Image
+                  style={styles.qaIcon}
+                  source={require("../assets/icons/brown-umbrella.png")}
+                />
+                <Text style={[styles.globalFont, styles.qaText]}>
+                  Quick Reads
+                </Text>
+              </Pressable>
+            </View>
+          </View>
           <View style={styles.section}>
             <Text style={[styles.sectionHeading, styles.globalFont]}>
               General Insights
             </Text>
             <View style={styles.dashboardCards}>
-              <Pressable style={{ width: "100%" }} onPress={() => navigation.navigate("GeneralInsights")}>
+              <Pressable
+                style={{ width: "100%" }}
+                onPress={() => navigation.navigate("GeneralInsights")}
+              >
                 <DashboardCard
-                  itemTitle={null}
+                  itemTitle="Your Weekly Progress"
                   details={null}
-                  height={110}
+                  height={200}
                   width={"100%"}
-                  borderColor={Colors.coffeeBrown}
-                  fillColor={Colors.lightCoffeeBrown}
+                  borderColor={Colors.lightCoffeeBrown}
+                  fillColor={Colors.seaBlue2}
+                  fontColor={Colors.seaDarkBlue}
                 />
               </Pressable>
             </View>
           </View>
           <View style={styles.section}>
             <Text style={[styles.sectionHeading, styles.globalFont]}>
-              Trends
+              Your Journey
             </Text>
             <View style={styles.dashboardCards}>
-              <Pressable style={{ width: "100%" }}>
-                <DashboardCard
-                  itemTitle={null}
-                  details={null}
-                  height={110}
+              <Pressable
+                style={{ width: "50%", paddingRight: 7 }}
+                onPress={() => navigation.navigate("StickersScreen")}
+              >
+                <Boxes
+                  style={[styles.resourcesBox]}
+                  itemTitle="Sticker Shop"
+                  description="Redeem your sand dollars!"
+                  imgPath={require("../assets/icons/seastar.png")}
+                  height={130}
                   width={"100%"}
-                  borderColor={Colors.lightCoffeeBrown}
-                  fillColor={Colors.greyish}
+                  borderColor={Colors.coffeeBrown}
+                  fillColor={Colors.seaDarkBlue}
+                  fontColor={Colors.seaBlue2}
+                />
+              </Pressable>
+              <Pressable
+                style={{ width: "50%", paddingLeft: 7 }}
+                onPress={() => navigation.navigate("Profile")}
+              >
+                <Boxes
+                  style={[styles.resourcesBox]}
+                  itemTitle="My Profile"
+                  description="Let's take a look at my history."
+                  imgPath={require("../assets/icons/floater.png")}
+                  height={130}
+                  width={"100%"}
+                  borderColor={Colors.coffeeBrown}
+                  fillColor={Colors.seaDarkBlue}
                   fontColor={Colors.seaBlue2}
                 />
               </Pressable>
             </View>
-          </View>
-          <View style={styles.section}>
-            <Text style={[styles.sectionHeading, styles.globalFont]}>
-              Friendly Suggestions
-            </Text>
-            <View style={styles.dashboardCards}>
-              <Pressable style={{ width: "100%" }}>
-                <DashboardCard
-                  itemTitle={null}
-                  details={careLogData.urge_intensity}
-                  height={110}
-                  width={"100%"}
-                  borderColor={Colors.seaDarkBlue}
-                  fillColor={Colors.seaBlue2}
-                />
-              </Pressable>
-            </View>
-          </View>
-          <View style={styles.dashboardCard}>
-            <Text style={[styles.sectionHeading, styles.globalFont]}>
-              History List
-            </Text>
-            <Pressable style={{ width: "100%" }}>
-              <DashboardCard
-                itemTitle={null}
-                details={"Take a quick look at your overall journey! :D"}
-                height={90}
-                width={"100%"}
-                borderColor={Colors.seaBlue2}
-                fillColor={Colors.seaDarkBlue}
-                fontColor={Colors.seaBlue2}
-              />
-            </Pressable>
           </View>
         </View>
       </ScrollView>
@@ -194,7 +227,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: 700,
     letterSpacing: 2,
-    paddingBottom: 10,
+    paddingBottom: 7,
   },
   dashboardCards: {
     flex: 1,
@@ -206,19 +239,8 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     fontWeight: 500,
   },
-  duk: {
-    fontSize: 17,
-    fontWeight: 700,
-    letterSpacing: 1,
-    marginLeft: "3%",
-    marginTop: "3%",
-  },
-  fact: {
-    letterSpacing: 1,
-    fontFamily: "Afacad",
-    fontSize: 15,
-    color: Colors.darkNeutral,
-    padding: 10,
+  section: {
+    paddingBottom: 15,
   },
   headings: {
     fontWeight: 700,
@@ -227,34 +249,10 @@ const styles = StyleSheet.create({
     fontSize: 17,
     marginLeft: "5%",
   },
-  factContainer: {
-    marginLeft: "5%",
-    marginRight: "5%",
-    //paddingBottom: "8%",
-    marginTop: "-3%",
-    marginBottom: 25,
-    //backgroundColor: Colors.lightGrey2,
-    //borderColor: Colors.lightGrey,
-    borderBottomWidth: 3,
-    backgroundColor: Colors.lightBrown,
-    borderColor: Colors.darkBrown,
-    borderRightWidth: 3,
-    borderRadius: 25,
-    //borderRadius: 25,
-    //borderWidth: 2.6,
-    //borderColor: "#000",
-    //borderBottomWidth: 4.5,
-    //borderRightWidth: 4.5,
-  },
   scrollContent: {
     flexDirection: "row",
     gap: 20,
     paddingHorizontal: 20,
-  },
-  scrollItemPressResources: {
-    width: "90%",
-    //height: 250,
-    marginLeft: "5%",
   },
   scrollItemPress: {
     flexDirection: "row",
@@ -263,34 +261,54 @@ const styles = StyleSheet.create({
     //gap: 100,
     //marginLeft: "5%",
   },
-  itemBg: {
-    resizeMode: "cover",
-    //zIndex: 2,
+  mapButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: Colors.darkNeutral,
+    opacity: 50,
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 20,
   },
-  itemBgImg: {
-    resizeMode: "cover",
-    height: 193,
-    width: 163,
-    borderRadius: 100,
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+    marginLeft: 10,
   },
-  resourcesBox: {
-    backgroundColor: Colors.lightBlue,
-    borderColor: Colors.darkBlue,
-  },
-  resourcesModalInnerContainer: {
+  topCards: {
     flex: 1,
+    flexDirection: "row",
+    gap: 10,
+    //paddingHorizontal: 10,
   },
-  modalHeading: {
-    textAlign: "center",
-    marginLeft: 0,
+  qaContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 10,
   },
-  resourceContainer: {
-    padding: 16,
+  qaBox: {
+    flex: 1,
+    height: 90,
+    backgroundColor: Colors.lightCoffeeBrown,
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 5,
+    paddingBottom: -5,
   },
-  resourceHeading: {
-    fontSize: 17,
-    fontWeight: 500,
+
+  qaText: {
+    fontSize: 16,
+    fontWeight: "500",
     letterSpacing: 1,
+    color: Colors.cream,
+    textAlign: "center",
+    marginTop: 15,
+  },
+
+  qaIcon: {
+    width: 35,
+    height: 35,
   },
 });
 

@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+  Dimensions,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState, useEffect, useContext } from "react";
 import Colors from "../constants/colors";
@@ -23,7 +30,7 @@ function EmotionalDistressInsightsScreen({ navigation }) {
       const response = await fetch("http://127.0.0.1:8000/weekly-insights/", {
         method: "GET",
         headers: {
-          "Authorization": `Token ${authContext.token}`,
+          Authorization: `Token ${authContext.token}`,
           "Content-Type": "application/json",
         },
       });
@@ -58,7 +65,8 @@ function EmotionalDistressInsightsScreen({ navigation }) {
   }
 
   const { emotional_distress } = weeklyData.features;
-  const { average, entries, trend, trend_direction, trend_value } = emotional_distress;
+  const { average, entries, trend, trend_direction, trend_value } =
+    emotional_distress;
 
   const getInsight = () => {
     if (average > 7) {
@@ -75,24 +83,29 @@ function EmotionalDistressInsightsScreen({ navigation }) {
     if (average > 6) {
       suggestions.push({
         title: "Reach out for support",
-        description: "Talk to a therapist, counselor, trusted friend, or family member about what you're experiencing.",
+        description:
+          "Talk to a therapist, counselor, trusted friend, or family member about what you're experiencing.",
       });
       suggestions.push({
         title: "Practice grounding techniques",
-        description: "5-4-3-2-1 technique: Name 5 things you see, 4 you can touch, 3 you hear, 2 you smell, 1 you taste.",
+        description:
+          "5-4-3-2-1 technique: Name 5 things you see, 4 you can touch, 3 you hear, 2 you smell, 1 you taste.",
       });
       suggestions.push({
         title: "Self-compassion matters",
-        description: "Speak to yourself like you would a good friend going through a hard time.",
+        description:
+          "Speak to yourself like you would a good friend going through a hard time.",
       });
     } else {
       suggestions.push({
         title: "Keep doing what works",
-        description: "Continue with the strategies and support that help you manage emotions.",
+        description:
+          "Continue with the strategies and support that help you manage emotions.",
       });
       suggestions.push({
         title: "Prevention is key",
-        description: "Build resilience by maintaining sleep, nutrition, movement, and connection.",
+        description:
+          "Build resilience by maintaining sleep, nutrition, movement, and connection.",
       });
     }
     return suggestions;
@@ -106,63 +119,80 @@ function EmotionalDistressInsightsScreen({ navigation }) {
             <GoBack navigation={navigation} />
 
             <View>
-              <Text style={[styles.globalFont, styles.heading]}>Emotional Distress</Text>
+              <Text style={[styles.globalFont, styles.heading]}>
+                Emotional Distress
+              </Text>
               <View style={styles.scoreContainer}>
                 <Text style={[styles.globalFont, styles.score]}>{average}</Text>
                 <Text style={[styles.globalFont, styles.ten]}>out of 10</Text>
               </View>
             </View>
-
-            <View style={styles.progressSection}>
-              <Progress.Bar
-                progress={average / 10}
-                width={Dimensions.get("window").width - 40}
-                color="#F4A1A8"
-                height={12}
-                borderRadius={6}
-              />
+            <View style={[styles.section, { marginBottom: 20 }]}>
+              <Text style={[styles.globalFont, styles.subtitles]}>
+                Daily Breakdown
+              </Text>
+              <View style={styles.dailyGrid}>
+                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
+                  (day, idx) => (
+                    <View key={idx} style={styles.dayBox}>
+                      <Text style={[styles.globalFont, styles.dayLabel]}>
+                        {day}
+                      </Text>
+                      <Text style={[styles.globalFont, styles.dayValue]}>
+                        {entries[idx]?.toFixed(0) || "-"}
+                      </Text>
+                    </View>
+                  ),
+                )}
+              </View>
             </View>
 
             <View style={styles.sections}>
               <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>General Insights</Text>
+                <Text style={[styles.globalFont, styles.subtitles]}>
+                  General Insights
+                </Text>
                 <Text style={styles.globalFont}>{getInsight()}</Text>
               </View>
 
               <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>Trends</Text>
-                <View style={styles.trendBox}>
-                  <Text style={[styles.globalFont, styles.trendArrow]}>{trend_direction}</Text>
-                  <View>
-                    <Text style={[styles.globalFont, styles.bold]}>
-                      {trend === "increasing" ? "Increasing" : trend === "decreasing" ? "Decreasing" : "Stable"}
-                    </Text>
-                    <Text style={styles.globalFont}>Change: {trend_value}/10</Text>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>Daily Breakdown</Text>
-                <View style={styles.dailyGrid}>
-                  {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, idx) => (
-                    <View key={idx} style={styles.dayBox}>
-                      <Text style={[styles.globalFont, styles.dayLabel]}>{day}</Text>
-                      <Text style={[styles.globalFont, styles.dayValue]}>{entries[idx]?.toFixed(0) || "-"}</Text>
-                    </View>
-                  ))}
-                </View>
-              </View>
-
-              <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>Friendly Suggestions</Text>
+                <Text style={[styles.globalFont, styles.subtitles]}>
+                  Friendly Suggestions
+                </Text>
                 <View style={styles.suggestions}>
                   {getSuggestions().map((suggestion, index) => (
                     <View key={index} style={styles.suggestion}>
-                      <Text style={[styles.globalFont, styles.bold]}>{suggestion.title}</Text>
-                      <Text style={styles.globalFont}>{suggestion.description}</Text>
+                      <Text style={[styles.globalFont, styles.bold]}>
+                        {suggestion.title}
+                      </Text>
+                      <Text style={styles.globalFont}>
+                        {suggestion.description}
+                      </Text>
                     </View>
                   ))}
+                </View>
+              </View>
+
+              <View style={styles.section}>
+                <Text style={[styles.globalFont, styles.subtitles]}>
+                  Trends
+                </Text>
+                <View style={styles.trendBox}>
+                  <Text style={[styles.globalFont, styles.trendArrow]}>
+                    {trend_direction}
+                  </Text>
+                  <View>
+                    <Text style={[styles.globalFont, styles.bold]}>
+                      {trend === "increasing"
+                        ? "Increasing"
+                        : trend === "decreasing"
+                          ? "Decreasing"
+                          : "Stable"}
+                    </Text>
+                    <Text style={styles.globalFont}>
+                      Change: {trend_value}/10
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
@@ -176,7 +206,7 @@ function EmotionalDistressInsightsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.seaBlue2,
+    backgroundColor: "#fff",
   },
   contentContainer: {
     paddingHorizontal: "5%",

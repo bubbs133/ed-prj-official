@@ -75,7 +75,7 @@ const GeneralInsightsScreen = ({ navigation }) => {
     emotional_distress: "#F4A1A8",
     restriction: "#FFB6C1",
     binge_urge: "#DEB887",
-    urge_intensity: "#E0C4B0",
+    urge_intensity: Colors.greyish,
   };
 
   if (loading) {
@@ -112,7 +112,7 @@ const GeneralInsightsScreen = ({ navigation }) => {
             <GoBack navigation={navigation} />
             <Text style={[styles.globalFont, styles.heading]}>No Data</Text>
             <Text style={styles.globalFont}>
-              No care log entries for this week yet.
+              Submit some care logs to see some data! :D
             </Text>
           </View>
         </SafeAreaView>
@@ -128,21 +128,18 @@ const GeneralInsightsScreen = ({ navigation }) => {
         <SafeAreaView edges={["top", "left", "right"]}>
           <View style={styles.contentContainer}>
             <GoBack navigation={navigation} />
-
             <Text style={[styles.globalFont, styles.heading]}>
               Weekly Overview
             </Text>
 
             {/* Summary Section */}
             <View style={styles.summarySection}>
-              <Text style={[styles.globalFont, styles.summaryTitle]}>
-                Summary
-              </Text>
               <View style={styles.summaryBox}>
-                <Text style={styles.globalFont}>
-                  You've logged {weeklyData.entries_count} entries this week.
-                  Tap any feature card to see detailed insights, trends, and
-                  personalized suggestions.
+                <Text style={[styles.globalFont, { fontSize: 15 }]}>
+                  You've logged {weeklyData.entries_count}{" "}
+                  {weeklyData.entries_count <= 1 ? "entry" : "entries"} this
+                  week. Tap any feature card to see detailed insights, trends,
+                  and personalized suggestions.
                 </Text>
               </View>
             </View>
@@ -173,7 +170,7 @@ const GeneralInsightsScreen = ({ navigation }) => {
                     <Text style={styles.globalFont}>{featureData.unit}</Text>
                   </View>
 
-                  <View style={styles.cardProgress}>
+                  {/*<View style={styles.cardProgress}>
                     <Progress.Bar
                       progress={Math.min(featureData.average / 10, 1)}
                       width={140}
@@ -181,7 +178,7 @@ const GeneralInsightsScreen = ({ navigation }) => {
                       height={6}
                       borderRadius={3}
                     />
-                  </View>
+                  </View>*/}
 
                   <View style={styles.cardTrend}>
                     <Text style={styles.globalFont}>
@@ -203,10 +200,10 @@ const { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.seaBlue2,
+    backgroundColor: "#fff",
+    paddingHorizontal: "5%",
   },
   contentContainer: {
-    paddingHorizontal: "5%",
     paddingBottom: 40,
   },
   globalFont: {
@@ -228,22 +225,17 @@ const styles = StyleSheet.create({
   },
   featureCard: {
     width: "48%",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: Colors.greyish,
     borderRadius: 12,
     padding: 12,
     marginBottom: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
   cardHeader: {
     marginBottom: 8,
   },
   cardLabel: {
     fontWeight: 600,
-    fontSize: 13,
+    fontSize: 15,
   },
   cardContent: {
     alignItems: "center",
@@ -262,7 +254,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   summarySection: {
-    marginTop: 10,
+    paddingBottom: 25,
   },
   summaryTitle: {
     fontWeight: 600,
@@ -270,9 +262,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   summaryBox: {
-    backgroundColor: "#F0F0F0",
-    borderRadius: 10,
-    padding: 15,
+    //backgroundColor: "#F0F0F0",
   },
 });
 

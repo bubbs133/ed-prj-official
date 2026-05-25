@@ -7,6 +7,8 @@ from rest_framework import status
 
 from .ml.helper_functions import cluster_user, get_recommendations, get_feature_insights, calculate_trend, aggregate_weekly_feature_data
 
+from stickers.rewards.helper_functions import award_points
+
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import permission_classes
 
@@ -41,6 +43,8 @@ def care_log_cluster(request):
             care_log_input = serializer.save(
                 user=request.user, cluster=cluster, state_name=state_name
             )
+
+            award_points(request.user, "care_log_submission", 1)
 
             return Response(
                 {

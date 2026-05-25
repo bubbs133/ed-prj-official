@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+  Dimensions,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState, useEffect, useContext } from "react";
 import Colors from "../constants/colors";
@@ -23,7 +30,7 @@ function RestrictionInsightsScreen({ navigation }) {
       const response = await fetch("http://127.0.0.1:8000/weekly-insights/", {
         method: "GET",
         headers: {
-          "Authorization": `Token ${authContext.token}`,
+          Authorization: `Token ${authContext.token}`,
           "Content-Type": "application/json",
         },
       });
@@ -62,11 +69,11 @@ function RestrictionInsightsScreen({ navigation }) {
 
   const getInsight = () => {
     if (average > 6) {
-      return "Strong restriction urges this week. These urges are valid but remember: restriction fuels the disorder. Challenge these thoughts with compassion for yourself. 💪";
+      return "Strong restriction urges this week. These urges are valid but remember: restriction fuels the disorder. Challenge these thoughts with compassion for yourself.";
     } else if (average > 3) {
-      return "Moderate restriction urges. You're managing them well. Keep challenging and practicing flexibility with food. Great progress! 😊";
+      return "Moderate restriction urges. You're managing them well. Keep challenging and practicing flexibility with food. Great progress!";
     } else {
-      return "Low restriction urges - amazing! You're breaking free from these patterns. Celebrate your progress and keep going! 🎉";
+      return "Low restriction urges - amazing! You're breaking free from these patterns. Celebrate your progress and keep going!";
     }
   };
 
@@ -75,24 +82,29 @@ function RestrictionInsightsScreen({ navigation }) {
     if (average > 5) {
       suggestions.push({
         title: "Challenge restriction thoughts",
-        description: "When the urge appears, ask: 'Is this thought helpful? What do I need right now?'",
+        description:
+          "When the urge appears, ask: 'Is this thought helpful? What do I need right now?'",
       });
       suggestions.push({
         title: "Practice challenge meals",
-        description: "Eat foods you fear or restrict in a safe environment with support. Expose yourself to reduce anxiety.",
+        description:
+          "Eat foods you fear or restrict in a safe environment with support. Expose yourself to reduce anxiety.",
       });
       suggestions.push({
         title: "Talk to your support team",
-        description: "Share these urges with therapist, dietitian, or trusted person. You don't have to face this alone.",
+        description:
+          "Share these urges with therapist, dietitian, or trusted person. You don't have to face this alone.",
       });
     } else {
       suggestions.push({
         title: "Celebrate your wins",
-        description: "Every meal eaten without restriction is a victory. Acknowledge your strength and progress!",
+        description:
+          "Every meal eaten without restriction is a victory. Acknowledge your strength and progress!",
       });
       suggestions.push({
         title: "Build flexibility",
-        description: "Practice eating a variety of foods, including former fear foods, to reinforce that all foods are okay.",
+        description:
+          "Practice eating a variety of foods, including former fear foods, to reinforce that all foods are okay.",
       });
     }
     return suggestions;
@@ -106,63 +118,80 @@ function RestrictionInsightsScreen({ navigation }) {
             <GoBack navigation={navigation} />
 
             <View>
-              <Text style={[styles.globalFont, styles.heading]}>Restriction Urges</Text>
+              <Text style={[styles.globalFont, styles.heading]}>
+                Restriction Urges
+              </Text>
               <View style={styles.scoreContainer}>
                 <Text style={[styles.globalFont, styles.score]}>{average}</Text>
                 <Text style={[styles.globalFont, styles.ten]}>out of 10</Text>
               </View>
             </View>
-
-            <View style={styles.progressSection}>
-              <Progress.Bar
-                progress={average / 10}
-                width={Dimensions.get("window").width - 40}
-                color="#FFB6C1"
-                height={12}
-                borderRadius={6}
-              />
+            <View style={[styles.section, { marginBottom: 20 }]}>
+              <Text style={[styles.globalFont, styles.subtitles]}>
+                Daily Breakdown
+              </Text>
+              <View style={styles.dailyGrid}>
+                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
+                  (day, idx) => (
+                    <View key={idx} style={styles.dayBox}>
+                      <Text style={[styles.globalFont, styles.dayLabel]}>
+                        {day}
+                      </Text>
+                      <Text style={[styles.globalFont, styles.dayValue]}>
+                        {entries[idx]?.toFixed(0) || "-"}
+                      </Text>
+                    </View>
+                  ),
+                )}
+              </View>
             </View>
 
             <View style={styles.sections}>
               <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>General Insights</Text>
+                <Text style={[styles.globalFont, styles.subtitles]}>
+                  General Insights
+                </Text>
                 <Text style={styles.globalFont}>{getInsight()}</Text>
               </View>
 
               <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>Trends</Text>
-                <View style={styles.trendBox}>
-                  <Text style={[styles.globalFont, styles.trendArrow]}>{trend_direction}</Text>
-                  <View>
-                    <Text style={[styles.globalFont, styles.bold]}>
-                      {trend === "increasing" ? "Increasing" : trend === "decreasing" ? "Decreasing" : "Stable"}
-                    </Text>
-                    <Text style={styles.globalFont}>Change: {trend_value}/10</Text>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>Daily Breakdown</Text>
-                <View style={styles.dailyGrid}>
-                  {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, idx) => (
-                    <View key={idx} style={styles.dayBox}>
-                      <Text style={[styles.globalFont, styles.dayLabel]}>{day}</Text>
-                      <Text style={[styles.globalFont, styles.dayValue]}>{entries[idx]?.toFixed(0) || "-"}</Text>
-                    </View>
-                  ))}
-                </View>
-              </View>
-
-              <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>Friendly Suggestions</Text>
+                <Text style={[styles.globalFont, styles.subtitles]}>
+                  Friendly Suggestions
+                </Text>
                 <View style={styles.suggestions}>
                   {getSuggestions().map((suggestion, index) => (
                     <View key={index} style={styles.suggestion}>
-                      <Text style={[styles.globalFont, styles.bold]}>{suggestion.title}</Text>
-                      <Text style={styles.globalFont}>{suggestion.description}</Text>
+                      <Text style={[styles.globalFont, styles.bold]}>
+                        {suggestion.title}
+                      </Text>
+                      <Text style={styles.globalFont}>
+                        {suggestion.description}
+                      </Text>
                     </View>
                   ))}
+                </View>
+              </View>
+
+              <View style={styles.section}>
+                <Text style={[styles.globalFont, styles.subtitles]}>
+                  Trends
+                </Text>
+                <View style={styles.trendBox}>
+                  <Text style={[styles.globalFont, styles.trendArrow]}>
+                    {trend_direction}
+                  </Text>
+                  <View>
+                    <Text style={[styles.globalFont, styles.bold]}>
+                      {trend === "increasing"
+                        ? "Increasing"
+                        : trend === "decreasing"
+                          ? "Decreasing"
+                          : "Stable"}
+                    </Text>
+                    <Text style={styles.globalFont}>
+                      Change: {trend_value}/10
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
@@ -176,7 +205,7 @@ function RestrictionInsightsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.seaBlue2,
+    backgroundColor: "#fff",
   },
   contentContainer: {
     paddingHorizontal: "5%",

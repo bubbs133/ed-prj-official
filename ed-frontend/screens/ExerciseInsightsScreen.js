@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+  Dimensions,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState, useEffect, useContext } from "react";
 import Colors from "../constants/colors";
@@ -23,7 +30,7 @@ function ExerciseInsightsScreen({ navigation }) {
       const response = await fetch("http://127.0.0.1:8000/weekly-insights/", {
         method: "GET",
         headers: {
-          "Authorization": `Token ${authContext.token}`,
+          Authorization: `Token ${authContext.token}`,
           "Content-Type": "application/json",
         },
       });
@@ -58,7 +65,8 @@ function ExerciseInsightsScreen({ navigation }) {
   }
 
   const { exercise_minutes } = weeklyData.features;
-  const { average, entries, trend, trend_direction, trend_value } = exercise_minutes;
+  const { average, entries, trend, trend_direction, trend_value } =
+    exercise_minutes;
 
   const getInsight = () => {
     if (average >= 30) {
@@ -75,24 +83,29 @@ function ExerciseInsightsScreen({ navigation }) {
     if (average < 15) {
       suggestions.push({
         title: "Start with movement you enjoy",
-        description: "Walking, dancing, yoga, or sports - anything that gets you moving. Pick what you enjoy!",
+        description:
+          "Walking, dancing, yoga, or sports - anything that gets you moving. Pick what you enjoy!",
       });
       suggestions.push({
         title: "Build gradually",
-        description: "Start small (10-15 min) and gradually increase as you build consistency and strength.",
+        description:
+          "Start small (10-15 min) and gradually increase as you build consistency and strength.",
       });
       suggestions.push({
         title: "Exercise has mental health benefits",
-        description: "Movement reduces stress, improves mood, and supports your recovery journey.",
+        description:
+          "Movement reduces stress, improves mood, and supports your recovery journey.",
       });
     } else {
       suggestions.push({
         title: "Variety keeps it fresh",
-        description: "Mix different types of movement - cardio, strength, flexibility - to work different body systems.",
+        description:
+          "Mix different types of movement - cardio, strength, flexibility - to work different body systems.",
       });
       suggestions.push({
         title: "Recovery is important too",
-        description: "Balance activity with adequate rest and recovery to prevent burnout.",
+        description:
+          "Balance activity with adequate rest and recovery to prevent burnout.",
       });
     }
     return suggestions;
@@ -106,63 +119,93 @@ function ExerciseInsightsScreen({ navigation }) {
             <GoBack navigation={navigation} />
 
             <View>
-              <Text style={[styles.globalFont, styles.heading]}>Exercise Insights</Text>
+              <Text style={[styles.globalFont, styles.heading]}>
+                Exercise Insights
+              </Text>
               <View style={styles.scoreContainer}>
-                <Text style={[styles.globalFont, styles.score]}>{average.toFixed(0)}</Text>
-                <Text style={[styles.globalFont, styles.ten]}>minutes per day</Text>
+                <Text style={[styles.globalFont, styles.score]}>
+                  {average.toFixed(0)}
+                </Text>
+                <Text style={[styles.globalFont, styles.ten]}>
+                  minutes per day
+                </Text>
               </View>
-            </View>
-
-            <View style={styles.progressSection}>
-              <Progress.Bar
-                progress={Math.min(average / 60, 1)}
-                width={Dimensions.get("window").width - 40}
-                color="#A8D8A8"
-                height={12}
-                borderRadius={6}
-              />
             </View>
 
             <View style={styles.sections}>
               <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>General Insights</Text>
+                <Text style={[styles.globalFont, styles.subtitles]}>
+                  General Insights
+                </Text>
                 <Text style={styles.globalFont}>{getInsight()}</Text>
               </View>
+              <View style={[styles.section, { marginBottom: 20 }]}>
+                <Text style={[styles.globalFont, styles.subtitles]}>
+                  Daily Breakdown
+                </Text>
+                <View style={styles.dailyGrid}>
+                  {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
+                    (day, idx) => (
+                      <View key={idx} style={styles.dayBox}>
+                        <Text style={[styles.globalFont, styles.dayLabel]}>
+                          {day}
+                        </Text>
+                        <Text style={[styles.globalFont, styles.dayValue]}>
+                          {entries[idx]?.toFixed(0) || "-"}
+                        </Text>
+                      </View>
+                    ),
+                  )}
+                </View>
+              </View>
 
-              <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>Trends</Text>
-                <View style={styles.trendBox}>
-                  <Text style={[styles.globalFont, styles.trendArrow]}>{trend_direction}</Text>
-                  <View>
-                    <Text style={[styles.globalFont, styles.bold]}>
-                      {trend === "increasing" ? "Increasing" : trend === "decreasing" ? "Decreasing" : "Stable"}
-                    </Text>
-                    <Text style={styles.globalFont}>Change: {trend_value.toFixed(0)} min</Text>
+              <View style={styles.sections}>
+                <View style={styles.section}>
+                  <Text style={[styles.globalFont, styles.subtitles]}>
+                    General Insights
+                  </Text>
+                  <Text style={styles.globalFont}>{getInsight()}</Text>
+                </View>
+
+                <View style={styles.section}>
+                  <Text style={[styles.globalFont, styles.subtitles]}>
+                    Friendly Suggestions
+                  </Text>
+                  <View style={styles.suggestions}>
+                    {getSuggestions().map((suggestion, index) => (
+                      <View key={index} style={styles.suggestion}>
+                        <Text style={[styles.globalFont, styles.bold]}>
+                          {suggestion.title}
+                        </Text>
+                        <Text style={styles.globalFont}>
+                          {suggestion.description}
+                        </Text>
+                      </View>
+                    ))}
                   </View>
                 </View>
-              </View>
 
-              <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>Daily Breakdown</Text>
-                <View style={styles.dailyGrid}>
-                  {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, idx) => (
-                    <View key={idx} style={styles.dayBox}>
-                      <Text style={[styles.globalFont, styles.dayLabel]}>{day}</Text>
-                      <Text style={[styles.globalFont, styles.dayValue]}>{entries[idx]?.toFixed(0) || "-"}</Text>
+                <View style={styles.section}>
+                  <Text style={[styles.globalFont, styles.subtitles]}>
+                    Trends
+                  </Text>
+                  <View style={styles.trendBox}>
+                    <Text style={[styles.globalFont, styles.trendArrow]}>
+                      {trend_direction}
+                    </Text>
+                    <View>
+                      <Text style={[styles.globalFont, styles.bold]}>
+                        {trend === "increasing"
+                          ? "Increasing"
+                          : trend === "decreasing"
+                            ? "Decreasing"
+                            : "Stable"}
+                      </Text>
+                      <Text style={styles.globalFont}>
+                        Change: {trend_value}/10
+                      </Text>
                     </View>
-                  ))}
-                </View>
-              </View>
-
-              <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>Friendly Suggestions</Text>
-                <View style={styles.suggestions}>
-                  {getSuggestions().map((suggestion, index) => (
-                    <View key={index} style={styles.suggestion}>
-                      <Text style={[styles.globalFont, styles.bold]}>{suggestion.title}</Text>
-                      <Text style={styles.globalFont}>{suggestion.description}</Text>
-                    </View>
-                  ))}
+                  </View>
                 </View>
               </View>
             </View>

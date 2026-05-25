@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, Dimensions } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+  Dimensions,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import React, { useState, useEffect, useContext } from "react";
 import Colors from "../constants/colors";
@@ -26,7 +33,7 @@ function StressInsightsScreen({ navigation }) {
       const response = await fetch("http://127.0.0.1:8000/weekly-insights/", {
         method: "GET",
         headers: {
-          "Authorization": `Token ${authContext.token}`,
+          Authorization: `Token ${authContext.token}`,
           "Content-Type": "application/json",
         },
       });
@@ -66,15 +73,16 @@ function StressInsightsScreen({ navigation }) {
   }
 
   const { stress_level } = weeklyData.features;
-  const { average, entries, trend, trend_direction, trend_value } = stress_level;
+  const { average, entries, trend, trend_direction, trend_value } =
+    stress_level;
 
   const getInsight = () => {
     if (average > 7) {
-      return "Your stress levels have been high this week. Remember to take moments to breathe deeply and practice self-care. You're managing through a challenging time. 💪";
+      return "Your stress levels have been high this week. Remember to take moments to breathe deeply and practice self-care. You're managing through a challenging time.";
     } else if (average > 4) {
-      return "Moderate stress this week. You're handling it well with your coping strategies. Keep them going! 😊";
+      return "Moderate stress this week. You're handling it well with your coping strategies. Keep them going!";
     } else {
-      return "Low stress levels - amazing work! Continue what you're doing. 🌟";
+      return "Low stress levels - amazing work! Continue what you're doing.";
     }
   };
 
@@ -83,18 +91,21 @@ function StressInsightsScreen({ navigation }) {
     if (average > 6) {
       suggestions.push({
         title: "Try relaxation exercises",
-        description: "Deep breathing, meditation, or progressive muscle relaxation can help calm your nervous system.",
+        description:
+          "Deep breathing, meditation, or progressive muscle relaxation can help calm your nervous system.",
       });
     }
     if (trend === "increasing") {
       suggestions.push({
         title: "Stress is increasing",
-        description: "Consider adding more stress management activities to your routine this coming week.",
+        description:
+          "Consider adding more stress management activities to your routine this coming week.",
       });
     }
     suggestions.push({
       title: "Keep a stress journal",
-      description: "Write down what's causing stress to better understand and address the root causes.",
+      description:
+        "Write down what's causing stress to better understand and address the root causes.",
     });
     return suggestions;
   };
@@ -108,65 +119,80 @@ function StressInsightsScreen({ navigation }) {
 
             {/* Header */}
             <View>
-              <Text style={[styles.globalFont, styles.heading]}>Stress Insights</Text>
+              <Text style={[styles.globalFont, styles.heading]}>
+                Stress Insights
+              </Text>
               <View style={styles.scoreContainer}>
                 <Text style={[styles.globalFont, styles.score]}>{average}</Text>
                 <Text style={[styles.globalFont, styles.ten]}>out of 10</Text>
               </View>
             </View>
-
-            {/* Progress Bar */}
-            <View style={styles.progressSection}>
-              <Progress.Bar
-                progress={average / 10}
-                width={Dimensions.get("window").width - 40}
-                color="#E8A87C"
-                height={12}
-                borderRadius={6}
-              />
+            <View style={[styles.section, { marginBottom: 20 }]}>
+              <Text style={[styles.globalFont, styles.subtitles]}>
+                Daily Breakdown
+              </Text>
+              <View style={styles.dailyGrid}>
+                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
+                  (day, idx) => (
+                    <View key={idx} style={styles.dayBox}>
+                      <Text style={[styles.globalFont, styles.dayLabel]}>
+                        {day}
+                      </Text>
+                      <Text style={[styles.globalFont, styles.dayValue]}>
+                        {entries[idx]?.toFixed(0) || "-"}
+                      </Text>
+                    </View>
+                  ),
+                )}
+              </View>
             </View>
 
-            {/* Sections */}
             <View style={styles.sections}>
               <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>General Insights</Text>
+                <Text style={[styles.globalFont, styles.subtitles]}>
+                  General Insights
+                </Text>
                 <Text style={styles.globalFont}>{getInsight()}</Text>
               </View>
 
               <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>Trends</Text>
-                <View style={styles.trendBox}>
-                  <Text style={[styles.globalFont, styles.trendArrow]}>{trend_direction}</Text>
-                  <View>
-                    <Text style={[styles.globalFont, styles.bold]}>
-                      {trend === "increasing" ? "Increasing" : trend === "decreasing" ? "Decreasing" : "Stable"}
-                    </Text>
-                    <Text style={styles.globalFont}>Change: {trend_value}/10 this week</Text>
-                  </View>
-                </View>
-              </View>
-
-              <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>Daily Breakdown</Text>
-                <View style={styles.dailyGrid}>
-                  {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((day, idx) => (
-                    <View key={idx} style={styles.dayBox}>
-                      <Text style={[styles.globalFont, styles.dayLabel]}>{day}</Text>
-                      <Text style={[styles.globalFont, styles.dayValue]}>{entries[idx]?.toFixed(0) || "-"}</Text>
-                    </View>
-                  ))}
-                </View>
-              </View>
-
-              <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>Friendly Suggestions</Text>
+                <Text style={[styles.globalFont, styles.subtitles]}>
+                  Friendly Suggestions
+                </Text>
                 <View style={styles.suggestions}>
                   {getSuggestions().map((suggestion, index) => (
                     <View key={index} style={styles.suggestion}>
-                      <Text style={[styles.globalFont, styles.bold]}>{suggestion.title}</Text>
-                      <Text style={styles.globalFont}>{suggestion.description}</Text>
+                      <Text style={[styles.globalFont, styles.bold]}>
+                        {suggestion.title}
+                      </Text>
+                      <Text style={styles.globalFont}>
+                        {suggestion.description}
+                      </Text>
                     </View>
                   ))}
+                </View>
+              </View>
+
+              <View style={styles.section}>
+                <Text style={[styles.globalFont, styles.subtitles]}>
+                  Trends
+                </Text>
+                <View style={styles.trendBox}>
+                  <Text style={[styles.globalFont, styles.trendArrow]}>
+                    {trend_direction}
+                  </Text>
+                  <View>
+                    <Text style={[styles.globalFont, styles.bold]}>
+                      {trend === "increasing"
+                        ? "Increasing"
+                        : trend === "decreasing"
+                          ? "Decreasing"
+                          : "Stable"}
+                    </Text>
+                    <Text style={styles.globalFont}>
+                      Change: {trend_value}/10
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
@@ -180,7 +206,7 @@ function StressInsightsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.seaBlue2,
+    backgroundColor: "#fff",
   },
   contentContainer: {
     paddingHorizontal: "5%",

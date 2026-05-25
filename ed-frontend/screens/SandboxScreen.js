@@ -52,9 +52,7 @@ function SandboxSreen({ navigation }) {
               </Text>
               <Pressable
                 style={{ width: "100%" }}
-                onPress={() => {
-                  setActiveModal(!activeModal);
-                }}
+                onPress={() => navigation.navigate('Resources')}
               >
                 <Boxes
                   style={[styles.resourcesBox]}

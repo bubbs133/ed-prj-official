@@ -127,17 +127,7 @@ function BingeUrgeInsightsScreen({ navigation }) {
               </View>
             </View>
 
-            <View style={styles.progressSection}>
-              <Progress.Bar
-                progress={average / 10}
-                width={Dimensions.get("window").width - 40}
-                color="#DEB887"
-                height={12}
-                borderRadius={6}
-              />
-            </View>
-
-            <View style={styles.section}>
+            <View style={[styles.section, { marginBottom: 20 }]}>
               <Text style={[styles.globalFont, styles.subtitles]}>
                 Daily Breakdown
               </Text>
@@ -216,7 +206,7 @@ function BingeUrgeInsightsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.seaBlue2,
+    backgroundColor: "#fff",
   },
   contentContainer: {
     paddingHorizontal: "5%",
@@ -235,7 +225,7 @@ const styles = StyleSheet.create({
   scoreContainer: {
     justifyContent: "center",
     alignItems: "center",
-    paddingTop: 20,
+    paddingTop: 10,
     paddingBottom: 25,
   },
   score: {

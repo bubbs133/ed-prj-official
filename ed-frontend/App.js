@@ -39,7 +39,6 @@ import SelectedQuestScreen from "./screens/SelectedQuestScreen";
 import { StackScreen } from "react-native-screens";
 import QuickReadsListScreen from "./screens/QuickReadsListScreen";
 import GeneralInsightsScreen from "./screens/GeneralInsightsScreen";
-import StressScreen from "./screens/StressScreen";
 import BingeUrgeInsightsScreen from "./screens/BingeUrgeInsightsScreen";
 import EmotionalDistressInsightsScreen from "./screens/EmotionalDistressInsightsScreen";
 import EnergyInsightsScreen from "./screens/EnergyInsightsScreen";
@@ -48,6 +47,10 @@ import MealsInsightsScreen from "./screens/MealsInsightsScreen";
 import RestrictionInsightsScreen from "./screens/RestrictionInsightsScreen";
 import SleepInsightsScreen from "./screens/SleepInsightsScreen";
 import UrgeIntensityInsightsScreen from "./screens/UrgeIntensityInsightsScreen";
+import StickerCollectionScreen from "./screens/StickerScreen";
+import MapScreen from "./screens/MapScreen";
+import ResourcesScreen from "./screens/ResourcesScreen";
+import StressInsightsScreen from "./screens/StressInsightsScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -100,11 +103,13 @@ export default function App() {
           headerShown: false,
           tabBarStyle: {
             //backgroundColor: "transparent",
-            borderTopWidth: 2,
-            borderWidth: 3,
-            borderColor: Colors.darkNeutral,
-            borderTopLeftRadius: 25,
-            borderTopRightRadius: 25,
+            //borderTopWidth: 2,
+            //borderWidth: 3,
+            //borderColor: Colors.darkNeutral,
+            //borderTopLeftRadius: 25,
+            //borderTopRightRadius: 25,
+            backgroundColor: Colors.greyish,
+            //backgroundColor: "#fff",
             height: 60,
             justifyContent: "center",
             alignItems: "center",
@@ -182,7 +187,7 @@ export default function App() {
         <Stack.Screen name="SelectedQuest" component={SelectedQuestScreen} />
         <Stack.Screen name="QuickReadsList" component={QuickReadsListScreen} />
         <Stack.Screen name="GeneralInsights" component={GeneralInsightsScreen} />
-        <Stack.Screen name="StressScreen" component={StressScreen} />
+        <Stack.Screen name="StressScreen" component={StressInsightsScreen} />
         <Stack.Screen name="BingeScreen" component={BingeUrgeInsightsScreen} />
         <Stack.Screen name="EmotionalDistressScreen" component={EmotionalDistressInsightsScreen} />
         <Stack.Screen name="EnergyScreen" component={EnergyInsightsScreen} />
@@ -191,6 +196,9 @@ export default function App() {
         <Stack.Screen name="RestrictionScreen" component={RestrictionInsightsScreen} />
         <Stack.Screen name="SleepScreen" component={SleepInsightsScreen} />
         <Stack.Screen name="UrgeScreen" component={UrgeIntensityInsightsScreen} />
+        <Stack.Screen name="StickersScreen" component={StickerCollectionScreen} />
+        <Stack.Screen name="Map" component={MapScreen} />
+        <Stack.Screen name="Resources" component={ResourcesScreen} />
         {/*
         <Stack.Screen name="Meals" component={FoodTrackingScreen} />
         <Stack.Screen name="Exercises" component={ExerciseTrackingScreen} />

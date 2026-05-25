@@ -15,8 +15,8 @@ function DashboardCard({
     <View
       style={{
         //flex: 1,
-        borderBottomWidth: 3.5,
-        borderRightWidth: 3.5,
+        //borderBottomWidth: 3.5,
+       // borderRightWidth: 3.5,
         borderRadius: 25,
         //margin: 0,
         marginBottom: 10,
@@ -24,12 +24,12 @@ function DashboardCard({
         width: width,
         borderColor: borderColor,
         backgroundColor: fillColor,
-        color: fontColor
+        //color: fontColor
       }}
     >
       <View style={styles.bottom}>
-        <Text style={[styles.itemTitle, styles.globalFont]}>{itemTitle}</Text>
-        <Text style={[styles.details, styles.globalFont]}>
+        <Text style={[styles.itemTitle, styles.globalFont, {color: fontColor}]}>{itemTitle}</Text>
+        <Text style={[styles.details, styles.globalFont, {color: fontColor}]}>
           {details}
         </Text>
       </View>

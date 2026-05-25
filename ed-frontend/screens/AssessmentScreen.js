@@ -102,7 +102,7 @@ function AssessmentScreen({ navigation }) {
             {currentQuestionIdx + 1} / {CARELOG_QUESTIONS.length}
           </Text>
           <ScrollView
-            contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
+            contentContainerStyle={{ flexGrow: 1, paddingTop: 40 }}
             showsVerticalScrollIndicator={false}
           >
             <Text style={[styles.questions, styles.globalFont]}>
@@ -134,6 +134,14 @@ function AssessmentScreen({ navigation }) {
           </ScrollView>
 
           <View style={styles.footer}>
+            <View style={{ width: 80 }}>
+              {!firstQuestion && (
+                <Pressable onPress={prevQuestionHandler}>
+                  <Text style={[styles.btnTitle, styles.globalFont]}>Back</Text>
+                </Pressable>
+              )}
+            </View>
+
             <Pressable
               style={[
                 styles.btn,
@@ -146,12 +154,6 @@ function AssessmentScreen({ navigation }) {
                 {isLast ? "Done!" : "Next"}
               </Text>
             </Pressable>
-
-            {!firstQuestion && (
-              <Pressable style={styles.btn} onPress={prevQuestionHandler}>
-                <Text style={[styles.btnTitle, styles.globalFont]}>Back</Text>
-              </Pressable>
-            )}
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -241,11 +243,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 150, // Huge for numbers
     color: Colors.darkNeutral,
+    paddingTop: "20%"
   },
   footer: {
     paddingBottom: 20,
-    alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
+  btn: {},
   centeredView: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.5)", // Dims the screen
@@ -297,18 +302,10 @@ const styles = StyleSheet.create({
   questions: {
     fontSize: 24,
     textAlign: "center",
-    marginTop: -170,
-  },
-  btn: {
-    //backgroundColor: Colors.darkNeutral,
-    borderRadius: 25,
-    paddingHorizontal: 40,
-    paddingVertical: 12,
-    marginVertical: 10,
   },
   btnTitle: {
     color: "white",
-    fontSize: 18,
+    fontSize: 20,
   },
   modalIconContainer: {
     marginBottom: 20,

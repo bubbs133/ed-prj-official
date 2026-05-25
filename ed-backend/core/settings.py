@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-0uxx2v7vu_qdyqxi$fsg_*o@!$twx_8em1^i4hvcl$ftc_y5xe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "192.168.0.125",
+    "127.0.0.1"
+]
 
 
 # Application definition
@@ -42,6 +45,8 @@ INSTALLED_APPS = [
     'carelog',
     'chatbot',
     'quests',
+    'stickers',
+    'users',
     'rest_framework',
     'rest_framework.authtoken',
 ]

@@ -21,7 +21,7 @@ function LandingScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../assets/main/umilanding2.png")}
+      source={require("../assets/main/landing2.png")}
       style={styles.backgroundImg}
     >
       <View style={styles.container}>

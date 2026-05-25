@@ -16,8 +16,8 @@ function Boxes({
     <View
       style={{
         //flex: 1,
-        borderBottomWidth: 4,
-        borderRightWidth: 4,
+        //borderBottomWidth: 4,
+        //borderRightWidth: 4,
         borderRadius: 25,
         //margin: 0,
         marginBottom: 10,

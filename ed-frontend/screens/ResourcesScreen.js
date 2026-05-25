@@ -1,35 +1,227 @@
-import { StyleSheet, Text, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+  ScrollView,
+  Linking,
+} from "react-native";
 import React from "react";
+import GoBack from "../components/GoBack";
+import Colors from "../constants/colors";
+import { Ionicons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-function ResourcesScreen() {
+function ResourcesScreen({ navigation }) {
+  const resources = [
+    {
+      title: "988 Suicide & Crisis Lifeline",
+      description: "24/7 emotional support for people in distress or crisis.",
+      website: "https://988lifeline.org",
+      call: "988",
+      text: "988",
+    },
+    {
+      title: "National Alliance for Eating Disorders",
+      description:
+        "Free therapist-led support groups, referrals, and education.",
+      website: "https://www.allianceforeatingdisorders.com",
+      call: "8666621235",
+    },
+    {
+      title: "NEDA",
+      description:
+        "Education, recovery resources, screenings, and treatment support.",
+      website: "https://www.nationaleatingdisorders.org",
+    },
+    {
+      title: "Crisis Text Line",
+      description: "Text with a trained volunteer crisis counselor 24/7.",
+      website: "https://www.crisistextline.org",
+      text: "741741",
+    },
+  ];
+
   return (
-    <View>
-      <View>
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsHorizontalScrollIndicator={false}>
         <View>
           <GoBack navigation={navigation} />
+
+          <View style={styles.top}>
+            <Text style={[styles.heading, styles.globalFont]}>Resources</Text>
+
+            <Text style={[styles.screenInfo, styles.globalFont]}>
+              Connect with professionals around you who will give you proper
+              support and guidence, help is closer than you think!
+            </Text>
+          </View>
         </View>
-        <View style={styles.top}>
-          <Text style={[styles.heading, styles.globalFont]}>Resources</Text>
-          <Text style={[styles.screenInfo, styles.globalFont]}>
-            Learn about eating disorders, what keeps them going, and how to
-            approach a healthy settlement with yourself and your mind.
+
+        <Pressable
+          style={styles.mapButton}
+          onPress={() => navigation.navigate("Map")}
+        >
+          <Text style={[styles.buttonText, styles.globalFont]}>
+            Find Local Help Centers
           </Text>
-        </View>
-      </View>
-    </View>
+          <Text style={[styles.resourceDescription, styles.globalFont]}>
+            Find profressional help near your area and connect with them today.
+          </Text>
+          <Pressable
+            style={styles.actionButtonMap}
+            onPress={() => navigation.navigate("Map")}
+          >
+            <Ionicons name="map-outline" size={18} color="white" />
+            <Text style={[styles.actionText, styles.globalFont]}>Map</Text>
+          </Pressable>
+        </Pressable>
+
+        {resources.map((resource, index) => (
+          <View key={index} style={styles.resourceCard}>
+            <Text style={[styles.resourceTitle, styles.globalFont]}>
+              {resource.title}
+            </Text>
+
+            <Text style={[styles.resourceDescription, styles.globalFont]}>
+              {resource.description}
+            </Text>
+
+            <View style={styles.actions}>
+              <Pressable
+                style={styles.actionButton}
+                onPress={() => Linking.openURL(resource.website)}
+              >
+                <Ionicons name="globe-outline" size={18} color="white" />
+                <Text style={[styles.actionText, styles.globalFont]}>
+                  Website
+                </Text>
+              </Pressable>
+
+              {resource.call && (
+                <Pressable
+                  style={styles.actionButton}
+                  onPress={() => Linking.openURL(`tel:${resource.call}`)}
+                >
+                  <Ionicons name="call-outline" size={18} color="white" />
+                  <Text style={[styles.actionText, styles.globalFont]}>
+                    Call
+                  </Text>
+                </Pressable>
+              )}
+
+              {resource.text && (
+                <Pressable
+                  style={styles.actionButton}
+                  onPress={() => Linking.openURL(`sms:${resource.text}`)}
+                >
+                  <Ionicons name="chatbubble-outline" size={18} color="white" />
+                  <Text style={[styles.actionText, styles.globalFont]}>
+                    Text
+                  </Text>
+                </Pressable>
+              )}
+            </View>
+          </View>
+        ))}
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  heading: {
-    fontSize: 23,
-    justifyContent: "flex-start",
-    fontWeight: 500,
+  container: {
+    flex: 1,
+    backgroundColor: "white",
+    padding: 20,
+  },
+  globalFont: {
+    fontFamily: "Afacad",
+    color: Colors.darkNeutral,
     letterSpacing: 1,
   },
+  top: {
+    marginBottom: 10,
+  },
+
+  heading: {
+    fontSize: 23,
+    fontWeight: "500",
+    letterSpacing: 1,
+  },
+
   screenInfo: {
     marginBottom: 25,
     fontSize: 15,
+    lineHeight: 22,
+    letterSpacing: 1,
+  },
+
+  mapButton: {
+    backgroundColor: "#f5f5f5",
+    padding: 18,
+    borderRadius: 14,
+    marginBottom: 16,
+  },
+
+  buttonText: {
+    color: Colors.darkNeutral,
+    fontWeight: "600",
+    fontSize: 18,
+  },
+
+  resourceCard: {
+    backgroundColor: "#f5f5f5",
+    padding: 18,
+    borderRadius: 14,
+    marginBottom: 16,
+  },
+
+  resourceTitle: {
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 8,
+    color: Colors.darkNeutral,
+  },
+
+  resourceDescription: {
+    fontSize: 16,
+    lineHeight: 20,
+    color: "#555",
+    marginBottom: 15,
+  },
+
+  actions: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+  },
+
+  actionButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: Colors.lightCoffeeBrown,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 10,
+  },
+  actionButtonMap: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: Colors.lightCoffeeBrown,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 10,
+    width: 77,
+  },
+  actionText: {
+    color: "white",
+    marginLeft: 6,
+    fontWeight: "500",
+  },
+
+  globalFont: {
+    fontFamily: "Afacad",
   },
 });
 

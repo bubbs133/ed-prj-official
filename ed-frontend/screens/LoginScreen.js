@@ -25,6 +25,7 @@ function LoginScreen({ navigation }) {
   async function loginHandler() {
     try {
       const url = "http://127.0.0.1:8000/login/";
+      //const url = "http://192.168.0.125:8000/login/";
       let response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -34,7 +35,7 @@ function LoginScreen({ navigation }) {
         }),
       });
       const data = await response.json();
-      
+
       if (response.ok && data.token) {
         console.log("Login successful, token:", data.token);
         await authCtx.authenticate(data.token);
@@ -56,32 +57,34 @@ function LoginScreen({ navigation }) {
 
   return (
     <ImageBackground
-      source={require("../assets/main/umilogin.png")}
+      source={require("../assets/main/loginbg2.png")}
       style={styles.backgroundImg}
     >
       <View style={styles.mainContainer}>
-        <View style={styles.inputElements}>
-          <Input
-            lable="username"
-            textInputConfig={{
-              value: username,
-              onChangeText: setUsername,
-              autoCorrect: false,
-              autoComplete: false,
-            }}
-          />
-        </View>
-        <View style={styles.inputElements}>
-          <Input
-            lable="password"
-            textInputConfig={{
-              value: password,
-              onChangeText: setPassword,
-              autoCorrect: false,
-              autoComplete: false,
-              secureTextEntry: true,
-            }}
-          />
+        <View style={styles.inputContainer}>
+          <View style={styles.inputElements}>
+            <Input
+              lable="username"
+              textInputConfig={{
+                value: username,
+                onChangeText: setUsername,
+                autoCorrect: false,
+                autoComplete: false,
+              }}
+            />
+          </View>
+          <View style={styles.inputElements}>
+            <Input
+              lable="password"
+              textInputConfig={{
+                value: password,
+                onChangeText: setPassword,
+                autoCorrect: false,
+                autoComplete: false,
+                secureTextEntry: true,
+              }}
+            />
+          </View>
         </View>
         <View style={styles.loginBtnView}>
           <Pressable style={styles.loginBtn} onPress={loginHandler}>
@@ -101,8 +104,10 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    top: "35%",
   },
+  inputContainer: {},
   inputElements: {
     width: 300,
     marginBottom: 27,
@@ -111,20 +116,20 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 37,
     width: 300,
-    borderColor: Colors.floaterCream,
+    //borderColor: Colors.floaterCream,
     marginBottom: 10,
     marginTop: 10,
-    borderWidth: 3,
+    //borderWidth: 3,
     //borderBottomWidth: 4,
   },
   loginBtnView: {
     position: "absolute",
-    bottom: 50,
+    top: "36%",
   },
   loginBtnTitle: {
     textAlign: "center",
     fontSize: 19,
-    color: Colors.floaterCream,
+    color: Colors.darkNeutral,
     marginTop: 5,
     fontFamily: "Afacad",
     fontWeight: 500,

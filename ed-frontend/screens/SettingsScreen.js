@@ -17,7 +17,7 @@ function SettingsScreen({ navigation }) {
 
   async function logoutHandler() {
     await logout();
-    navigation.navigate("LoginScreen");
+    //navigation.navigate("LoginScreen");
   }
   return (
     <SafeAreaView edges={["top", "left", "right"]}>

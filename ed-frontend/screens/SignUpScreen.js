@@ -27,7 +27,7 @@ function SignUpScreen({ navigation, onLogin }) {
   async function signupHandler() {
     try {
       const url = "http://127.0.0.1:8000/users/";
-      //const url = "http://92.168.0.125/journal";
+      //const url = "http://192.168.0.125:8000/users/";
       let result = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -65,7 +65,7 @@ function SignUpScreen({ navigation, onLogin }) {
   }*/
   return (
     <ImageBackground
-      source={require("../assets/main/umisignup.png")}
+      source={require("../assets/main/signupbg.png")}
       style={styles.backgroundImg}
     >
       <View style={styles.mainContainer}>
@@ -104,7 +104,7 @@ function SignUpScreen({ navigation, onLogin }) {
         </View>
 
         <View style={styles.signinBtnView}>
-          <Pressable style={styles.loginBtn} onPress={signupHandler}>
+          <Pressable style={styles.signupBtn} onPress={signupHandler}>
             <Text style={styles.signinBtnTitle}>Sign Up</Text>
           </Pressable>
         </View>
@@ -129,20 +129,20 @@ const styles = StyleSheet.create({
     width: 300,
     marginBottom: 27,
   },
-  loginBtn: {
-    borderRadius: 50,
+  signupBtn: {
+    //borderRadius: 50,
     height: 37,
     width: 300,
-    backgroundColor: Colors.lightNeutral,
+    //backgroundColor: Colors.lightNeutral,
     marginBottom: 10,
     marginTop: 10,
-    borderColor: Colors.darkNeutral,
-    borderWidth: 2,
+    //borderColor: Colors.darkNeutral,
+    //borderWidth: 2,
     //borderBottomWidth: 4,
   },
   signinBtnView: {
     position: "absolute",
-    bottom: 100,
+    bottom: "22%"
   },
   signinBtnTitle: {
     textAlign: "center",

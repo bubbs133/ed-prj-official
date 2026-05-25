@@ -24,5 +24,6 @@ urlpatterns = [
     path("", include("journal.urls")),
     path("", include("users.urls")),
     path("", include("quests.urls")),
-    path("", include("carelog.urls"))
+    path("", include("carelog.urls")),
+    path("", include("stickers.urls")),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
