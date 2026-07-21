@@ -24,10 +24,12 @@ function RestrictionInsightsScreen({ navigation }) {
   }, [authContext.token]);
 
   const fetchWeeklyInsights = async () => {
+    const url = "http://127.0.0.1:8000/weekly-insights/"
+    //const url = "http://192.168.0.125:8000/weekly-insights/"
     try {
       setLoading(true);
       if (!authContext.token) throw new Error("Not authenticated");
-      const response = await fetch("http://127.0.0.1:8000/weekly-insights/", {
+      const response = await fetch(url, {
         method: "GET",
         headers: {
           Authorization: `Token ${authContext.token}`,
@@ -112,7 +114,7 @@ function RestrictionInsightsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <SafeAreaView edges={["top", "left", "right"]}>
           <View style={styles.contentContainer}>
             <GoBack navigation={navigation} />
@@ -259,7 +261,7 @@ const styles = StyleSheet.create({
   trendBox: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FFE8F0",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 10,
     padding: 12,
   },
@@ -273,7 +275,7 @@ const styles = StyleSheet.create({
   },
   dayBox: {
     alignItems: "center",
-    backgroundColor: "#FFB6C1",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 8,
     padding: 8,
     width: "13%",
@@ -282,19 +284,19 @@ const styles = StyleSheet.create({
     fontWeight: 600,
     fontSize: 11,
     marginBottom: 4,
-    color: "#FFFFFF",
+    color: Colors.darkNeutral,
   },
   dayValue: {
     fontSize: 12,
     fontWeight: 600,
-    color: "#FFFFFF",
+    color: Colors.darkNeutral,
   },
   suggestions: {
     gap: 12,
     marginTop: 10,
   },
   suggestion: {
-    backgroundColor: "#FFB6C1",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 12,
     padding: 12,
   },

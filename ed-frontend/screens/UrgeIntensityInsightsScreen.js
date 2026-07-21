@@ -70,11 +70,11 @@ function UrgeIntensityInsightsScreen({ navigation }) {
 
   const getInsight = () => {
     if (average > 7) {
-      return "Intense urges overall this week. This is challenging - use your full toolkit of coping strategies and reach out to your support network. You can get through this. 💪";
+      return "Intense urges overall this week. This is challenging - use your full toolkit of coping strategies and reach out to your support network. You can get through this.";
     } else if (average > 4) {
-      return "Moderate urge intensity. You're handling it well. Keep using your coping techniques - they're helping. 😊";
+      return "Moderate urge intensity. You're handling it well. Keep using your coping techniques - they're helping.";
     } else {
-      return "Low overall urge intensity - amazing progress! Your recovery strategies are working. Keep it up! 🌟";
+      return "Low overall urge intensity - amazing progress! Your recovery strategies are working. Keep it up!";
     }
   };
 
@@ -157,10 +157,10 @@ function UrgeIntensityInsightsScreen({ navigation }) {
                 <View style={styles.suggestions}>
                   {getSuggestions().map((suggestion, index) => (
                     <View key={index} style={styles.suggestion}>
-                      <Text style={[styles.globalFont, styles.bold]}>
+                      <Text style={[styles.globalFont, styles.bold, styles.light]}>
                         {suggestion.title}
                       </Text>
-                      <Text style={styles.globalFont}>
+                      <Text style={[styles.globalFont, styles.light]}>
                         {suggestion.description}
                       </Text>
                     </View>
@@ -173,18 +173,18 @@ function UrgeIntensityInsightsScreen({ navigation }) {
                   Trends
                 </Text>
                 <View style={styles.trendBox}>
-                  <Text style={[styles.globalFont, styles.trendArrow]}>
+                  <Text style={[styles.globalFont, styles.trendArrow, styles.light]}>
                     {trend_direction}
                   </Text>
                   <View>
-                    <Text style={[styles.globalFont, styles.bold]}>
+                    <Text style={[styles.globalFont, styles.bold, styles.light]}>
                       {trend === "increasing"
                         ? "Increasing"
                         : trend === "decreasing"
                           ? "Decreasing"
                           : "Stable"}
                     </Text>
-                    <Text style={styles.globalFont}>
+                    <Text style={[styles.globalFont, styles.light]}>
                       Change: {trend_value}/10
                     </Text>
                   </View>
@@ -249,13 +249,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 8,
   },
+  light: {
+    color: "#fff"
+  },
   bold: {
     fontWeight: 600,
   },
   trendBox: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#F5EEDB",
+    backgroundColor: Colors.lightCoffeeBrown,
     borderRadius: 10,
     padding: 12,
   },
@@ -269,7 +272,7 @@ const styles = StyleSheet.create({
   },
   dayBox: {
     alignItems: "center",
-    backgroundColor: "#E0C4B0",
+    backgroundColor: Colors.lightCoffeeBrown,
     borderRadius: 8,
     padding: 8,
     width: "13%",
@@ -290,7 +293,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   suggestion: {
-    backgroundColor: "#E0C4B0",
+    backgroundColor: Colors.lightCoffeeBrown,
     borderRadius: 12,
     padding: 12,
   },

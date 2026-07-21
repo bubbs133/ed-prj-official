@@ -70,11 +70,11 @@ function EmotionalDistressInsightsScreen({ navigation }) {
 
   const getInsight = () => {
     if (average > 7) {
-      return "High emotional distress this week. This is valid - emotions are real. Reach out to your support system and practice self-compassion. You're not alone. 💙";
+      return "High emotional distress this week. This is valid - emotions are real. Reach out to your support system and practice self-compassion. You're not alone.";
     } else if (average > 4) {
-      return "Moderate emotional distress. Use your coping tools and strategies. It's okay to feel - emotions are part of recovery. 😊";
+      return "Moderate emotional distress. Use your coping tools and strategies. It's okay to feel - emotions are part of recovery.";
     } else {
-      return "You're managing emotions well this week. Keep using what's working for you! Great job. 🌟";
+      return "You're managing emotions well this week. Keep using what's working for you! Great job.";
     }
   };
 
@@ -162,10 +162,10 @@ function EmotionalDistressInsightsScreen({ navigation }) {
                 <View style={styles.suggestions}>
                   {getSuggestions().map((suggestion, index) => (
                     <View key={index} style={styles.suggestion}>
-                      <Text style={[styles.globalFont, styles.bold]}>
+                      <Text style={[styles.globalFont, styles.bold, {color: "#fff"}]}>
                         {suggestion.title}
                       </Text>
-                      <Text style={styles.globalFont}>
+                      <Text style={[styles.globalFont, {color: "#fff"}]}>
                         {suggestion.description}
                       </Text>
                     </View>
@@ -178,18 +178,18 @@ function EmotionalDistressInsightsScreen({ navigation }) {
                   Trends
                 </Text>
                 <View style={styles.trendBox}>
-                  <Text style={[styles.globalFont, styles.trendArrow]}>
+                  <Text style={[styles.globalFont, styles.trendArrow, {color: "#fff"}]}>
                     {trend_direction}
                   </Text>
                   <View>
-                    <Text style={[styles.globalFont, styles.bold]}>
+                    <Text style={[styles.globalFont, styles.bold, {color: "#fff"}]}>
                       {trend === "increasing"
                         ? "Increasing"
                         : trend === "decreasing"
                           ? "Decreasing"
                           : "Stable"}
                     </Text>
-                    <Text style={styles.globalFont}>
+                    <Text style={[styles.globalFont, {color: "#fff"}]}>
                       Change: {trend_value}/10
                     </Text>
                   </View>
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
   trendBox: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FFE8E8",
+    backgroundColor: Colors.lightCoffeeBrown,
     borderRadius: 10,
     padding: 12,
   },
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
   },
   dayBox: {
     alignItems: "center",
-    backgroundColor: "#F4A1A8",
+    backgroundColor: Colors.lightCoffeeBrown,
     borderRadius: 8,
     padding: 8,
     width: "13%",
@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   suggestion: {
-    backgroundColor: "#F4A1A8",
+    backgroundColor: Colors.lightCoffeeBrown,
     borderRadius: 12,
     padding: 12,
   },

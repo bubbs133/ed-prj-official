@@ -1,7 +1,8 @@
 const journalPrompts = [
   {
     id: 1,
-    prompt: "What brings you joy and fulfillment in your life?",
+    prompt:
+      "Despite this struggles with food, what still brings you joy and fulfillment in your life?",
   },
   {
     id: 2,
@@ -9,11 +10,13 @@ const journalPrompts = [
   },
   {
     id: 3,
-    prompt: "List three things you are grateful for today.",
+    prompt:
+      "What steps do you think are needed to achieve a better relationship with food and yourself?",
   },
   {
     id: 4,
-    prompt: "What is one positive aspect of your life that you often overlook?",
+    prompt:
+      "What would you do with the extra time you reclaim from your eating disorder?",
   },
   {
     id: 5,
@@ -53,6 +56,31 @@ const journalPrompts = [
     id: 12,
     prompt:
       "Write a 'breakup letter' to your eating disorder, writing about the ways it has harmed you and what you hope to gain from letting it go.",
+  },
+  {
+    id: 13,
+    prompt:
+      "What does recovery mean to you? Do you believe that full recovery is possible?",
+  },
+  {
+    id: 14,
+    prompt:
+      "What motivated you to start recovery in the first place? What was the first step you took to begin this journey?",
+  },
+  {
+    id: 15,
+    prompt:
+      "In moments of relapse or slip, or when urges get difficult, what do you wish you would remember? What can you learn from relapse or slips?",
+  },
+  {
+    id: 16,
+    prompt:
+      "What positives have you experienced from the recovery journey so far?",
+  },
+  {
+    id: 17,
+    prompt:
+      "Make a list of the common negative thoughts you have about your body that you repeat to yourself often. Then next to it, write out how you would respond to your best friend or a loved one saying these things about themselves. Then, compare the differences between the two statements. Why is there such a big difference between the way you speak to yourself and those you care about? In what ways could you begin changing the way you speak to yourself about your body?",
   },
 ];
 

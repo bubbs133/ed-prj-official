@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "umi",
+    "description": "An eating disorder support app to reflect without judgement, get personalized insights, and learn along the way. Designed to be a supportive tool, not a replacement for professional care.",
     "slug": "umi",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,9 +14,11 @@
       "backgroundColor": "#F0F0F0"
     },
     "ios": {
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/main/iconumi.png",
         "backgroundColor": "#ffffff"

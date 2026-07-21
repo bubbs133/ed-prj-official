@@ -1,16 +1,28 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { View, StyleSheet, Alert, ActivityIndicator, Text } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+
 import * as Location from "expo-location";
 
-function MapScreen() {
+import Colors from "../constants/colors";
+import GoBack from "../components/GoBack";
+
+import HeaderCard from "../components/HeaderCard";
+import FilterChips from "../components/FilterChips";
+import MiniMap from "../components/MiniMap";
+import PlaceList from "../components/PlaceList";
+import PlaceDetailSheet from "../components/PlaceDetailSheet";
+
+function MapScreen({ navigation }) {
+  const mapRef = useRef(null);
+
   const [location, setLocation] = useState(null);
   const [places, setPlaces] = useState([]);
+  const [selectedPlace, setSelectedPlace] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
+      const { status } = await Location.requestForegroundPermissionsAsync();
 
       if (status !== "granted") {
         Alert.alert("Permission denied", "Location permission is required.");
@@ -18,7 +30,7 @@ function MapScreen() {
         return;
       }
 
-      let userLocation = await Location.getCurrentPositionAsync({});
+      const userLocation = await Location.getCurrentPositionAsync({});
 
       setLocation(userLocation.coords);
 
@@ -29,6 +41,9 @@ function MapScreen() {
     })();
   }, []);
 
+  // -----------------------------
+  // YOUR ORIGINAL OVERPASS REQUEST
+  // -----------------------------
   const fetchPlaces = async (lat, lng) => {
     try {
       const query = `
@@ -52,68 +67,135 @@ function MapScreen() {
 
       setPlaces(data.elements || []);
     } catch (error) {
-      console.error(error);
-      Alert.alert("Error", "Failed to fetch nearby places.");
+      console.log(error);
+
+      Alert.alert("Error", "Failed to fetch nearby professionals.");
     } finally {
       setLoading(false);
     }
   };
 
+  // -----------------------------
+  // DISTANCE
+  // -----------------------------
+
+  const deg2rad = (deg) => {
+    return deg * (Math.PI / 180);
+  };
+
+  const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
+    const R = 6371;
+
+    const dLat = deg2rad(lat2 - lat1);
+    const dLon = deg2rad(lon2 - lon1);
+
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) *
+        Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    return R * c;
+  };
+
+  // -----------------------------
+  // SORT BY DISTANCE
+  // -----------------------------
+
+  const sortedPlaces =
+    location == null
+      ? []
+      : [...places].sort((a, b) => {
+          const distanceA = getDistanceFromLatLonInKm(
+            location.latitude,
+            location.longitude,
+            a.lat,
+            a.lon,
+          );
+
+          const distanceB = getDistanceFromLatLonInKm(
+            location.latitude,
+            location.longitude,
+            b.lat,
+            b.lon,
+          );
+
+          return distanceA - distanceB;
+        });
+
+  // -----------------------------
+  // SELECT PLACE
+  // -----------------------------
+
+  const handleSelectPlace = (place) => {
+    setSelectedPlace(place);
+
+    mapRef.current?.animateTo(place);
+  };
+
+  // -----------------------------
+  // LOADING
+  // -----------------------------
+
   if (loading) {
     return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" />
+      <View style={styles.centerContainer}>
+        <ActivityIndicator size="large" color={Colors.primaryBlue} />
       </View>
     );
   }
 
   if (!location) {
     return (
-      <View style={styles.container}>
-        <Text>Location not available.</Text>
+      <View style={styles.centerContainer}>
+        <Text style={styles.globalFont}>Location unavailable.</Text>
       </View>
     );
   }
 
+  // -----------------------------
+  // UI
+  // -----------------------------
+
   return (
     <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: location.latitude,
-          longitude: location.longitude,
-          latitudeDelta: 0.09,
-          longitudeDelta: 0.04,
-        }}
-      >
-        {/* User location marker */}
-        <Marker
-          coordinate={{
-            latitude: location.latitude,
-            longitude: location.longitude,
-          }}
-          title="You are here"
-          pinColor="blue"
-        />
+      <GoBack navigation={navigation} />
 
-        {/* Places markers */}
-        {places.map((place, index) => (
-          <Marker
-            key={index}
-            coordinate={{
-              latitude: place.lat,
-              longitude: place.lon,
-            }}
-            title={place.tags?.name || "Healthcare facility"}
-            description={`
-              ${place.tags?.phone ? `📞 ${place.tags.phone}\n` : ""}
-              ${place.tags?.["addr:housenumber"] || ""} 
-              ${place.tags?.["addr:street"] || ""}
-              ${place.tags?.["addr:city"] || ""}
-            `}
-          />
-        ))}
-      </MapView>
+      <HeaderCard />
+
+      <FilterChips />
+
+      <MiniMap
+        ref={mapRef}
+        location={location}
+        places={sortedPlaces}
+        setSelectedPlace={handleSelectPlace}
+      />
+
+      <PlaceList
+        places={sortedPlaces}
+        location={location}
+        getDistance={getDistanceFromLatLonInKm}
+        onSelect={handleSelectPlace}
+      />
+
+      <PlaceDetailSheet
+        place={selectedPlace}
+        distance={
+          selectedPlace
+            ? getDistanceFromLatLonInKm(
+                location.latitude,
+                location.longitude,
+                selectedPlace.lat,
+                selectedPlace.lon,
+              )
+            : 0
+        }
+        onClose={() => setSelectedPlace(null)}
+      />
     </View>
   );
 }
@@ -121,9 +203,19 @@ function MapScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FFFDF8", // Soft sand color
   },
-  map: {
+
+  centerContainer: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FFFDF8",
+  },
+
+  globalFont: {
+    fontFamily: "Afacad",
+    color: Colors.darkNeutral,
   },
 });
 

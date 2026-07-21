@@ -7,6 +7,7 @@ import {
   ImageBackground,
   Image,
   Dimensions,
+  Modal,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { QUESTS } from "../models/quests";
@@ -20,39 +21,43 @@ import { SwiperFlatList } from "react-native-swiper-flatlist";
 
 function DailyQuestScreen({ navigation }) {
   return (
-    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
-      <GoBack navigation={navigation}/>
-      <SwiperFlatList
-        autoplay={false}
-        showPagination={false}
-        data={QUESTS}
-        renderItem={({ item }) => (
-          <ImageBackground style={styles.questImg} source={item.img}>
-            <View style={styles.questContainer}>
-              <View style={styles.questCard}>
-                <Text style={styles.questName}>
-                  {item.name ? item.name : "name blank"}
-                </Text>
-                <Text style={styles.questText}>
-                  {item ? item.description : "description blank"}
-                </Text>
-              </View>
-              <View style={styles.questSelectionBtn}>
-                <Pressable
-                  onPress={() =>
-                    navigation.navigate("SelectedQuest", { questId: item.id })
-                  }
-                >
-                  <Text style={[styles.globalFont, styles.questGoBtn]}>
-                    Let's do this!
-                  </Text>
-                </Pressable>
-              </View>
+    <ImageBackground
+      source={require("../assets/quests/sand.png")}
+      style={{ resizeMode: "cover", flex: 1 }}
+    >
+      <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
+        <GoBack navigation={navigation} />
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          style={styles.sv}
+          contentContainerStyle={styles.scrollContent}
+        >
+          {QUESTS.map((quest, index) => (
+            <View
+              key={quest.id}
+              style={[
+                styles.stop,
+                {
+                  alignSelf: index % 2 === 0 ? "flex-start" : "flex-end",
+                },
+              ]}
+            >
+              <Pressable
+                onPress={() =>
+                  navigation.navigate("SelectedQuest", { questId: quest.id })
+                }
+              >
+                <View style={styles.shell}>
+                  <Image source={require('../assets/quests/shell.png')} style={{ width: 30, height: 30, resizeMode: 'cover', flex: 1}}/>
+                </View>
+                
+                <Text style={[styles.globalFont, {textAlign: "center"}]}>{quest.name}</Text>
+              </Pressable>
             </View>
-          </ImageBackground>
-        )}
-      />
-    </SafeAreaView>
+          ))}
+        </ScrollView>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 
@@ -66,6 +71,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
   },
+  sv: {
+    flex: 1,
+    paddingBottom: -100
+  },
+  scrollContent: {
+    flexGrow: 1,
+  },
   globalFont: {
     fontFamily: "Afacad",
     letterSpacing: 1,
@@ -75,7 +87,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   questCard: {
-    marginHorizontal: "5%"
+    marginHorizontal: "5%",
   },
   questContainer: {
     flex: 1,
@@ -84,7 +96,7 @@ const styles = StyleSheet.create({
     marginBottom: "30%",
   },
   questGoBtn: {
-    textAlign: "center"
+    textAlign: "center",
   },
   questName: {
     fontSize: 20,
@@ -99,6 +111,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingBottom: 20,
     textAlign: "center",
+  },
+  stop: {
+    width: "70%",
+    marginVertical: 25,
+    paddingBottom: 40
+  },
+
+  shell: {
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

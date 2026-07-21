@@ -1,14 +1,14 @@
 import { Alert, Pressable, Text, View, StyleSheet, Image } from "react-native";
+
 import {
   launchCameraAsync,
   useCameraPermissions,
   PermissionStatus,
 } from "expo-image-picker";
-import { useState } from "react";
+
 import Colors from "../constants/colors";
 
-function ImagePicker({ rotation }) {
-  const [imagePicked, setImagePicked] = useState();
+function ImagePicker({ rotation, image, onPickImage }) {
   const [cameraPermissionInfo, requestPermission] = useCameraPermissions();
 
   async function checkPermissionsHandler() {
@@ -19,43 +19,46 @@ function ImagePicker({ rotation }) {
     }
 
     if (cameraPermissionInfo.status === PermissionStatus.DENIED) {
-      Alert.alert("Permission Denied", "Camera permission was denied :(");
+      Alert.alert("Permission Denied", "Camera permission denied.");
+
       return false;
     }
 
     return true;
   }
+
   async function cameraLaunchingHandler() {
     const hasPermission = await checkPermissionsHandler();
+
     if (!hasPermission) {
       return;
     }
 
-    const image = await launchCameraAsync({
+    const result = await launchCameraAsync({
       allowsEditing: true,
       aspect: [16, 9],
       quality: 0.5,
     });
-    console.log(image);
 
-    setImagePicked(image.uri);
+    if (!result.canceled) {
+      onPickImage(result.assets[0].uri);
+    }
   }
 
   let imgPreview = <Text style={styles.text}>+</Text>;
 
-  if (imagePicked) {
-    imgPreview = <Image source={{ uri: imagePicked }} />;
+  if (image) {
+    imgPreview = <Image source={{ uri: image }} style={styles.img} />;
   }
 
   return (
     <View
-      style={{
-        transform: rotation,
-        borderRadius: 10,
-        borderColor: "#dedede",
-        borderWidth: 3,
-        backgroundColor: Colors.lightGrey2
-      }}
+      style={[
+        styles.wrapper,
+        {
+          transform: rotation,
+        },
+      ]}
     >
       <Pressable onPress={cameraLaunchingHandler}>
         <View style={styles.img}>{imgPreview}</View>
@@ -64,18 +67,25 @@ function ImagePicker({ rotation }) {
   );
 }
 
+export default ImagePicker;
+
 const styles = StyleSheet.create({
-  img: {
-    height: 150,
-    width: 130,
+  wrapper: {
+    borderRadius: 10,
+    borderColor: "#dedede",
+    borderWidth: 3,
+    backgroundColor: Colors.lightGrey2,
   },
+
+  img: {
+    width: 130,
+    height: 150,
+    overflow: "hidden",
+  },
+
   text: {
-    fontFamily: "Afacad",
     fontSize: 20,
-    color: Colors.lightGrey,
     textAlign: "center",
-    justifyContent: "center"
+    marginTop: 60,
   },
 });
-
-export default ImagePicker;

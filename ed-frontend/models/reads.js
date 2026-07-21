@@ -2,7 +2,7 @@ const QUICK_READS = [
   {
     id: "1",
     title: "What Are Eating Disorders?",
-    img: require("../assets/reads/lighthouse.png"),
+    img: require("../assets/reads/sunset.png"),
     urlSource:
       "https://www.cci.health.wa.gov.au/~/media/CCI/Consumer-Modules/Break-Free-From-ED/Break-Free-From-ED---06---Eating-For-Recovery---Part-1.pdf",
     cardSummary:
@@ -50,7 +50,7 @@ const QUICK_READS = [
   {
     id: "2",
     title: "Why Eating Disorders Get 'Stuck' to You",
-    img: require("../assets/reads/anchor.png"),
+    img: require("../assets/reads/brain.png"),
     urlSource:
       "https://www.cci.health.wa.gov.au/~/media/CCI/Consumer-Modules/Break-Free-From-ED/Break-Free-From-ED---02---What-Keeps-Eating-Disorders-Going.pdf",
     cardSummary:
@@ -92,17 +92,22 @@ const QUICK_READS = [
           "You cannot recover while trying to lose weight. Weight loss goals require the exact behaviors (restriction, rules) that keep the 'vicious cycles' spinning. Recovery requires prioritizing nutrition first to 're-power' the brain so you can eventually tackle the underlying beliefs. Key Takeaway: Early behavioral change—like normalizing eating—is the #1 predictor of a full recovery.",
         ],
       },
+      {
+        subtitle: "Refrences",
+        paragraphs: [
+          "'What Keeps Eating Disorders Going?.' Centre for Clinical Interventions, July 2022, www.cci.health.wa.gov.au/~/media/CCI/Consumer-Modules/Break-Free-From-ED/Break-Free-From-ED---02---What-Keeps-Eating-Disorders-Going.pdf.",
+        ],
+      },
     ],
-    citation:
-      "'What Keeps Eating Disorders Going?.' Centre for Clinical Interventions, July 2022, www.cci.health.wa.gov.au/~/media/CCI/Consumer-Modules/Break-Free-From-ED/Break-Free-From-ED---02---What-Keeps-Eating-Disorders-Going.pdf. ",
   },
   {
     id: "3",
     title: "Understanding the Number on the Scale",
-    img: require("../assets/reads/scale.png"),
+    img: require("../assets/reads/nums.png"),
     urlSource:
       "https://www.cci.health.wa.gov.au/~/media/CCI/Consumer-Modules/Break-Free-From-ED/Break-Free-From-ED---03---Understanding-the-Number-On-the-Scale.pdf",
-    cardSummary: "Explore factors that affect the number on the scale. ",
+    cardSummary:
+      "Explore factors that affect the number on the scale and not be consumed by it.",
     sections: [
       {
         subtitle: "Understanding the Number on the Scale",
@@ -123,7 +128,7 @@ const QUICK_READS = [
         subtitle: "The Genetic 'Set Point'",
         paragraphs: [
           "With all the diet and exercise routines out there, it's easy to think we have full control of our weight but that is far from true. Like other aspects of your physical and psychological makeup (hair color, height, etc) genetics plays a huge role in your weight too.",
-          "Every person has a biological Set Point Weight Range--this is a range can span anywhere between 6-7lbs, however, this is not a fully set number as one person's set point weight range can vary from person to person. When you eat regularly and sufficiently, your body naturally seeks this range as it is where your body functions at its healthiest.",
+          "Every person has a biological Set Point Weight Range--this is a range that can span anywhere between 6 - 7lbs, however, this is not a fully set number as one person's set point weight range can vary from person to person. When you eat regularly and sufficiently, your body naturally seeks this range as it is where your body functions at its healthiest.",
           "It is not recommended to fight against your genetic set point weight as it is unsustainable long term and can lead to major health complications. According to Dr. Targowski in 'Break Free From ED' when trying to recover from an eating disorder, '...it can help to remind yourself that when you normalise your eating and other weight control behaviours, your body will naturally tend towards its genetic set point range and will not keep going up and up uncontrollably' (3, Targowski).",
         ],
       },
@@ -142,14 +147,14 @@ const QUICK_READS = [
           "One may think that just simply avoiding the act of weighing oneself will solve this anxious issue but it's hardly unlikely to live your entire life without doing so.",
           "According to Dr. Targowski, clinicians recommend weighing yourself once a week to track trends over time rather than daily snapshots (5, Targowski).",
           "Before stepping on the scale, predict the number. Most people find they predict a much higher number than the actual result.",
-          "Observe your weight and only after 4 weeks, draw conclusions. This will help you see if your weight is stable or is moving towards a healthy weight range. The goal is to reach a point where you no longer have strong fears about the scale and eventually stop needing to track it weekly altogether."
+          "Observe your weight and only after 4 weeks, draw conclusions. This will help you see if your weight is stable or is moving towards a healthy weight range. The goal is to reach a point where you no longer have strong fears about the scale and eventually stop needing to track it weekly altogether.",
         ],
       },
       {
         subtitle: "Final Note",
         paragraphs: [
           "There are many factors that contribute to your weight flactuations throughout the day. Once you normalize your eating habits and behaviors you'll notice your body will naturally stablize iteself.",
-          "Remember that you are worth more than a number on a scale! You have dreams and goals and amazing skills so please don't ever be fixated onto a meaningless number."
+          "Remember that you are worth more than a number on a scale! You have dreams and goals and amazing skills so please don't ever be fixated onto a meaningless number.",
         ],
       },
     ],
@@ -178,8 +183,8 @@ const QUICK_READS = [
     ],
   },*/ {
     id: "4",
-    title: "Food and Energy",
-    img: require("../assets/reads/scale.png"),
+    title: "Exploring Energy",
+    img: require("../assets/reads/fruit.png"),
     urlSource:
       "https://www.cci.health.wa.gov.au/~/media/CCI/Consumer-Modules/Break-Free-From-ED/Break-Free-From-ED---06---Eating-For-Recovery---Part-1.pdf",
     cardSummary:
@@ -213,7 +218,7 @@ const QUICK_READS = [
         subtitle: "Emotional and High-Energy Impacts",
         paragraphs: [
           "While restriction is a primary trigger, stress, boredom, or loneliness can also lead to loss of control of their eating.",
-          "After a binge, one's blood sugar and energy levels can spike and can cause physical discomfort such as '…fatigue, dizziness, brain fog and a range of gastrointestinal changes, like discomfort and nausea, as the body works to digest the food consumed' (5, Targowski)."
+          "After a binge, one's blood sugar and energy levels can spike and can cause physical discomfort such as '…fatigue, dizziness, brain fog and a range of gastrointestinal changes, like discomfort and nausea, as the body works to digest the food consumed' (5, Targowski).",
         ],
       },
       {
@@ -229,15 +234,108 @@ const QUICK_READS = [
         subtitle: "Final Note",
         paragraphs: [
           "At whatever stage you are in your recovery journey, just remember you did amazing today! :D",
-          "It's okay if you have a lapse every now and then, always keep your goals in mind and never give up. I can promise you are strong enough to overcome all of this fear, anxiety, and overthinking!"
+          "It's okay if you have a lapse every now and then, always keep your goals in mind and never give up. I can promise you are strong enough to overcome all of this fear, anxiety, and overthinking!",
         ],
       },
     ],
   },
   {
     id: "5",
+    title: "Fueling Your Body With Care",
+    img: require("../assets/reads/food.png"),
+    urlSource: "https://www.health.harvard.edu/topics/nutrition",
+    cardSummary:
+      "Nutrition is about eating a regular, balanced diet. Good nutrition keeps you in good health.",
+    sections: [
+      {
+        subtitle: "Food Is More Than Just Calories",
+        paragraphs: [
+          "When people hear the word calories, they often think of numbers, diets, or weight. But in reality, calories are simply units of energy. Every heartbeat, every breath, every thought, and every step you take requires energy. Having proper nutrition through food is how your body receives that energy.",
+          "Good nutrition relies on a balanced diet that provides both macronutrients and micronutrients.",
+          "Macronutrients are carbohydrates, protein, and fat. They supply energy (in the form of calories) and serve as the building blocks for muscles and tissues.",
+          "Micronutrients are individual vitamins and minerals. They are divided into four categories: water-soluble vitamins, fat-soluble vitamins, microminerals, and trace minerals. They support bodily functions and prevent chronic diseases like heart disease, diabetes, and cancer.",
+        ],
+      },
+      {
+        subtitle: "What Happens When You Eat?",
+        paragraphs: [
+          "When you eat, your digestive system breaks food into nutrients that your body can use.",
+          "Carbohydrates are our body's preferred source of energy. Carbs are broken down into glucose, which powers your brain, muscles, nervous system, and organs.",
+          "Proteins are broken down into amino acids which help repair muscles, build tissues, produce enzymes and hormones, and support your overall your immune system.",
+          "Believe it or not, fat is also an essential macronutrient to our body's functionalities. Fat is broken down into fatty acids which in turn support brain health, hormone production, keeping cell membranes strong, absorbing vitamins, and long lasting energy.",
+          "Although they don't provide calories, micronutrients like vitamins and minerals allow countless body processes to happen too. From producing red blood cells to maintaining healthy bones and nerves.",
+        ],
+      },
+      {
+        subtitle: "What Is Energy Expenditure?",
+        paragraphs: [
+          "Even while laying down all day or sleeping, your body still requires you to give it proper fuelment. Everyday your body requires you to nourish yourself, this is known as your Total Daily Energy Expenditure (TDEE).",
+          "TDEE is simply the total amount of energy your body uses in one day. TDEE has 4 different components to it.",
+          "These components are Basal Metabolic Rate (BMR), Non-Exercise Activity Thermogenesis (NEAT), Thermic Effect of Food  (TED), and Exercise Activity Thermogenesis (EAT).",
+        ],
+      },
+      {
+        subtitle: "1. Basal Metabolic Rate (BMR)",
+        paragraphs: [
+          "Your basal metabolic rate is the amount of energy your body needs in order to simply stay alive.",
+          "Even if you stayed in bed all day, your body would still need energy for breathing, pumping blood throughout your whole body and organs, maintaining your body temperature, brain activity, cell repair, and keeping your organs functioning, etc.",
+          "BMR accounts for the largest percentage. This is about 60% - 70% of your total daily energy use.",
+        ],
+      },
+      {
+        subtitle: "2. Non-Exercise Activity Thermogenesis (NEAT)",
+        paragraphs: [
+          "NEAT is the total daily energy use from all daily movements that are not structured workouts. This includes walking around the house, doing chores, typing, fidgeting, and even standing.",
+          "This varies as it depends how much you move around throughout the day but it is estimated that NEAT accounts to about 15% - 20% of your total daily energy use.",
+        ],
+      },
+      {
+        subtitle: "3. Thermic Effect of Food (TEF)",
+        paragraphs: [
+          "Even digesting the food you eat requires energy. Not only digesting but also properly absorbing the nutrients, transporting those nutrients throughout your body, and storing such energy for later use.",
+          "TEF depends on the composition of your food intake, typically protein has a higher thermic effect (in comparision to the other macronutrients) as it is a more complex molecule to break down.",
+          "About 10% of your total daily energy is used for TEF.",
+        ],
+      },
+      {
+        subtitle: "4. Exercise Activity Thermogenesis (EAT)",
+        paragraphs: [
+          "EAT is the energy used during intentional activity such as a gym session or a run.",
+          "Funny enough, EAT only uses up about 5% - 10% of your daily energy expenditure.",
+          "Of course, you can increase this but on average it will be the smallest component to your total daily energy use."
+        ],
+      },
+      {
+        subtitle: "What Happens When Your Body is Low on Energy?",
+        paragraphs: [
+          "As mentioned before, your body is constantly working to keep you alive. However, when energy intake stays too low for an extended period, the body begins conserving energy to protect itself.",
+          "Certain survival responses can include fatigue, getting cold, having trouble concentrating (despite weighing 2% of your bodyweight, your brain takes up to 20% of the body's total energy), hormonal changes (for women, losing your period), slower recovery from a wound--only to name a few.",
+          "It is important to note that if you are having difficulty breathing or having odd heart palpitations contact your health care provider as soon as possible. These are serious signs you need proper medical attention, else the damages could be irreversible!",
+        ],
+      },
+      {
+        subtitle: "Every Food Has a Purpose",
+        paragraphs: [
+          "Sometimes foods are labeled as 'good' or 'bad', but food is more than this. Food keeps you alive, helps your heart pump blood, keeps your lungs strong so you can take a deep breath after a long day, and keeps your eyes sharp to see a beautiful sunset.",
+          "If you've been restricting food, skipping meals, or struggling with an eating disorder, your body may need additional nourishment while healing. Talk to a registered dietitian or your medical provider for a proper care plan.",
+          "All kinds of foods belong on your plate. Healing takes time, and every meal is one opportunity to provide your body with the resources it needs. Remember, food isn't something you have to 'earn' or should be restricted as a form of 'punishment', it's the most basic forms of care you can offer yourself. ",
+        ],
+      },
+      {
+        subtitle: "References",
+        paragraphs: [
+          "Academy of Nutrition and Dietetics. (n.d.). Food as Fuel. https://www.eatright.org",
+          "Institute of Medicine. (2005). Dietary Reference Intakes for Energy, Carbohydrate, Fiber, Fat, Fatty Acids, Cholesterol, Protein, and Amino Acids.",
+          "Hall, K. D., et al. (2012). Energy balance and its components: implications for body weight regulation. American Journal of Clinical Nutrition, 95(4), 989-994.",
+          "Harvard T.H. Chan School of Public Health. The Nutrition Source. https://www.hsph.harvard.edu/nutritionsource/",
+        ],
+      },
+    ],
+  },
+  {
+    id: "6",
     title: "Binge Eating",
-    img: require("../assets/reads/scale.png"),
+    img: require("../assets/reads/clouds.png"),
     urlSource:
       "https://www.cci.health.wa.gov.au/~/media/CCI/Consumer-Modules/Break-Free-From-ED/Break-Free-From-ED---06---Eating-For-Recovery---Part-1.pdf",
     cardSummary:
@@ -284,8 +382,44 @@ const QUICK_READS = [
           "Keep trying, I know you can do this!",
         ],
       },
+      {
+        subtitle: "References",
+        paragraphs: [
+          "Academy of Nutrition and Dietetics. (n.d.). Food as Fuel. https://www.eatright.org",
+        ],
+      },
     ],
   },
+  /* {
+    id: "5",
+    title: "",
+    img: ,
+    urlSource: "https://www.health.harvard.edu/topics/nutrition",
+    cardSummary: "",
+    sections: [
+      {
+        subtitle: "",
+        paragraphs: [
+          "",
+          "",
+        ]
+      },
+      {
+        subtitle: "",
+        paragraphs: [
+          "",
+          "",
+        ]
+      },
+      {
+        subtitle: "",
+        paragraphs: [
+          "",
+          "",
+        ]
+      }
+    ]
+  }, */
 ];
 
 export { QUICK_READS };

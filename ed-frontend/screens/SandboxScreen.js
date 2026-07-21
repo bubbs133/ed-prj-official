@@ -5,6 +5,7 @@ import {
   ScrollView,
   Pressable,
   FlatList,
+  TouchableOpacity
 } from "react-native";
 import { useState, useEffect, useRef, useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -50,7 +51,7 @@ function SandboxSreen({ navigation }) {
               <Text style={[styles.sectionHeading, styles.globalFont]}>
                 Official Resources
               </Text>
-              <Pressable
+              <TouchableOpacity
                 style={{ width: "100%" }}
                 onPress={() => navigation.navigate('Resources')}
               >
@@ -65,7 +66,7 @@ function SandboxSreen({ navigation }) {
                   fillColor={Colors.lightCoffeeBrown}
                   fontColor={Colors.cream}
                 />
-              </Pressable>
+              </TouchableOpacity>
             </View>
             <View style={styles.activitySection}>
               <Text style={[styles.sectionHeading, styles.globalFont]}>
@@ -81,7 +82,7 @@ function SandboxSreen({ navigation }) {
                   marginBottom: 10,
                 }}
                 renderItem={({ item }) => (
-                  <Pressable
+                  <TouchableOpacity
                     style={{ width: "48%" }}
                     onPress={() => navigation.navigate(item.screen)}
                   >
@@ -95,7 +96,7 @@ function SandboxSreen({ navigation }) {
                       fillColor={item.color}
                       fontColor={item.fontColor}
                     />
-                  </Pressable>
+                  </TouchableOpacity>
                 )}
               />
             </View>

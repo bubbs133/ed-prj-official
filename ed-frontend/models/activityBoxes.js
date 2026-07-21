@@ -22,7 +22,7 @@ const DAILY_ACTIVITIES = [
     fontColor: Colors.secondMarineBlue,
     img: require("../assets/pinkbubbleoutline.png"),
     screen: "Chatbot",
-  },*/
+  },
   {
     id: "carelog",
     title: "Care Log",
@@ -34,6 +34,17 @@ const DAILY_ACTIVITIES = [
     //screen: "Tracking",
     screen: "Assessment"
   },
+  {
+    id: "stickers",
+    title: "Stickers",
+    description: "Earn stickers for showing up!",
+    color: Colors.greyish,
+    border: Colors.lightCoffeeBrown,
+    fontColor: Colors.lightCoffeeBrown,
+    img: require("../assets/icons/waves.png"),
+    //screen: "Tracking",
+    screen: "StickersScreen",
+  },*/
   {
     id: "journal",
     title: "Journal",

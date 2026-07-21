@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Dimensions,
+  Pressable,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import GoBack from "../components/GoBack";
@@ -31,7 +32,10 @@ const GeneralInsightsScreen = ({ navigation }) => {
         throw new Error("Not authenticated");
       }
 
-      const response = await fetch("http://127.0.0.1:8000/weekly-insights/", {
+      const url = "http://127.0.0.1:8000/weekly-insights/"
+      //const url = "http://192.168.0.125:8000/weekly-insights/";
+
+      const response = await fetch(url, {
         method: "GET",
         headers: {
           Authorization: `Token ${authContext.token}`,
@@ -66,18 +70,6 @@ const GeneralInsightsScreen = ({ navigation }) => {
     urge_intensity: "UrgeScreen",
   };
 
-  const featureColors = {
-    stress_level: "#E8A87C",
-    energy_level: "#7DD3C0",
-    num_meals: "#93B3C2",
-    sleep_hours: "#B5A7E8",
-    exercise_minutes: "#A8D8A8",
-    emotional_distress: "#F4A1A8",
-    restriction: "#FFB6C1",
-    binge_urge: "#DEB887",
-    urge_intensity: Colors.greyish,
-  };
-
   if (loading) {
     return (
       <View style={styles.container}>
@@ -96,8 +88,23 @@ const GeneralInsightsScreen = ({ navigation }) => {
         <SafeAreaView edges={["top", "left", "right"]}>
           <View style={styles.contentContainer}>
             <GoBack navigation={navigation} />
-            <Text style={[styles.globalFont, styles.heading]}>Error</Text>
-            <Text style={styles.globalFont}>{error}</Text>
+            <Text style={[styles.globalFont, styles.heading]}>Uh oh!</Text>
+            <Text
+              style={[
+                styles.globalFont,
+                { textAlign: "center", fontSize: 15, paddingBottom: 40 },
+              ]}
+            >
+              {error}
+            </Text>
+            <Pressable
+              onPress={() => navigation.navigate("Assessment")}
+              style={{ justifyContent: "center", alignItems: "center" }}
+            >
+              <Text style={[styles.globalFont, styles.checkinBtnText]}>
+                Let's check in!
+              </Text>
+            </Pressable>
           </View>
         </SafeAreaView>
       </View>
@@ -110,7 +117,7 @@ const GeneralInsightsScreen = ({ navigation }) => {
         <SafeAreaView edges={["top", "left", "right"]}>
           <View style={styles.contentContainer}>
             <GoBack navigation={navigation} />
-            <Text style={[styles.globalFont, styles.heading]}>No Data</Text>
+            <Text style={[styles.globalFont, styles.heading]}>Uh oh!</Text>
             <Text style={styles.globalFont}>
               Submit some care logs to see some data! :D
             </Text>
@@ -124,7 +131,7 @@ const GeneralInsightsScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <SafeAreaView edges={["top", "left", "right"]}>
           <View style={styles.contentContainer}>
             <GoBack navigation={navigation} />
@@ -263,6 +270,18 @@ const styles = StyleSheet.create({
   },
   summaryBox: {
     //backgroundColor: "#F0F0F0",
+  },
+  checkinBtnText: {
+    textAlign: "center",
+    backgroundColor: Colors.greyish,
+    height: "auto",
+    width: "auto",
+    borderRadius: 7,
+    color: Colors.lightCoffeeBrown,
+    fontWeight: 700,
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
 });
 

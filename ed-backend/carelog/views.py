@@ -73,7 +73,7 @@ def dashboard_recommendations(request):
 
     if not latest_entry:
         return Response(
-            {"detail": "No care log data for user"}, status=status.HTTP_404_NOT_FOUND
+            {"detail": "No care log data for this user."}, status=status.HTTP_404_NOT_FOUND
         )
 
     serializer = CareLogSerializer(latest_entry)
@@ -99,7 +99,7 @@ def weekly_insights(request):
     if not weekly_entries.exists():
 
         return Response(
-            {"detail": "No care log data for this week"},
+            {"detail": "No care log data available for this week, try checking in today!"},
             status=status.HTTP_404_NOT_FOUND,
         )
 

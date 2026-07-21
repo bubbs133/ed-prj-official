@@ -72,13 +72,9 @@ export default SettingsScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.lightNeutral,
+    backgroundColor: "#fff",
     alignItems: "flex-start",
     justifyContent: "flex-start",
-  },
-  backgroundImg: {
-    resizeMode: "stretch",
-    flex: 1,
   },
   contentContainer: {
     //marginTop: "17%",

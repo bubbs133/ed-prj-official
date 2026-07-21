@@ -5,7 +5,8 @@ users_app = "users"
 
 urlpatterns = [
     path("users/", views.user_list, name="user_list"),
-    path("login/", views.login_user, name="login_user")
+    path("login/", views.login_user, name="login_user"),
+    path("user-summary/", views.user_profile_summary, name="user_profile_summary"),
     #path('register/', RegisterView.as_view(), name='register'),
     #path("logout/", views.logout_user, name='logout_user'),
     #path("home/", views.home, name="home"),

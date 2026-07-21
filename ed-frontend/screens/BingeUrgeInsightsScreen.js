@@ -69,11 +69,11 @@ function BingeUrgeInsightsScreen({ navigation }) {
 
   const getInsight = () => {
     if (average > 6) {
-      return "Strong binge urges this week. Remember: urges are temporary and will pass. Use your coping strategies and be compassionate with yourself. 💙";
+      return "Strong binge urges this week. Remember: urges are temporary and will pass. Use your coping strategies and be compassionate with yourself.";
     } else if (average > 3) {
-      return "Moderate binge urges. You're managing them with your tools. Keep practicing your strategies - they're working! 😊";
+      return "Moderate binge urges. You're managing them with your tools. Keep practicing your strategies - they're working!";
     } else {
-      return "Low binge urges - great work! Your recovery strategies are helping. Keep doing what you're doing! 🌟";
+      return "Low binge urges - great work! Your recovery strategies are helping. Keep doing what you're doing!";
     }
   };
 
@@ -135,10 +135,10 @@ function BingeUrgeInsightsScreen({ navigation }) {
                 {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
                   (day, idx) => (
                     <View key={idx} style={styles.dayBox}>
-                      <Text style={[styles.globalFont, styles.dayLabel]}>
+                      <Text style={[styles.globalFont, styles.dayLabel, {color: Colors.darkNeutral}]}>
                         {day}
                       </Text>
-                      <Text style={[styles.globalFont, styles.dayValue]}>
+                      <Text style={[styles.globalFont, styles.dayValue, {color: Colors.darkNeutral}]}>
                         {entries[idx]?.toFixed(0) || "-"}
                       </Text>
                     </View>
@@ -152,7 +152,7 @@ function BingeUrgeInsightsScreen({ navigation }) {
                 <Text style={[styles.globalFont, styles.subtitles]}>
                   General Insights
                 </Text>
-                <Text style={styles.globalFont}>{getInsight()}</Text>
+                <Text style={[styles.globalFont]}>{getInsight()}</Text>
               </View>
 
               <View style={styles.section}>
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
   trendBox: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#F5EEDB",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 10,
     padding: 12,
   },
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
   },
   dayBox: {
     alignItems: "center",
-    backgroundColor: "#DEB887",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 8,
     padding: 8,
     width: "13%",
@@ -295,7 +295,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   suggestion: {
-    backgroundColor: "#DEB887",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 12,
     padding: 12,
   },

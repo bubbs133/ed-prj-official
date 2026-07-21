@@ -48,7 +48,10 @@ function AssessmentScreen({ navigation }) {
 
   async function submitHandler() {
     try {
-      const result = await fetch("http://127.0.0.1:8000/care-log-cluster/", {
+      const url = "http://127.0.0.1:8000/care-log-cluster/";
+      //const url = "http://192.168.0.125:8000/care-log-cluster/";
+
+      const result = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -166,13 +169,13 @@ function AssessmentScreen({ navigation }) {
             </View>
             <Text style={[styles.modalTitle, styles.globalFont]}>Awesome!</Text>
             <Text style={[styles.modalText, styles.globalFont]}>
-              Your assessment has been successfully submitted.
+              Your care log has been successfully submitted.
             </Text>
             <Pressable
               style={styles.modalButton}
               onPress={() => {
                 setModalVisible(false);
-                navigation.goBack();
+                navigation.navigate("Home");
               }}
             >
               <Text
@@ -243,7 +246,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 150, // Huge for numbers
     color: Colors.darkNeutral,
-    paddingTop: "20%"
+    paddingTop: "20%",
   },
   footer: {
     paddingBottom: 20,

@@ -24,8 +24,8 @@ function LoginScreen({ navigation }) {
 
   async function loginHandler() {
     try {
-      const url = "http://127.0.0.1:8000/login/";
-      //const url = "http://192.168.0.125:8000/login/";
+      //const url = "http://127.0.0.1:8000/login/";
+      const url = "http://192.168.0.125:8000/login/";
       let response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -38,7 +38,10 @@ function LoginScreen({ navigation }) {
 
       if (response.ok && data.token) {
         console.log("Login successful, token:", data.token);
-        await authCtx.authenticate(data.token);
+        await authCtx.authenticate(data.token, {
+          username: data.username,
+          email: data.email,
+        });
         setUsername("");
         setPassword("");
         navigation.navigate("TabNav");

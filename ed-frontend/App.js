@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
 } from "react-native";
 import LoginScreen from "./screens/LoginScreen";
 import { NavigationContainer } from "@react-navigation/native";
@@ -121,21 +122,28 @@ export default function App() {
           name="Home"
           component={HomeScreen}
           options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="home-outline" color="#42190D" size={19} />
+            tabBarIcon: ({ color, size, focused }) => (
+              <Ionicons
+                name={focused ? "home" : "home-outline"}
+                color={focused ? Colors.darkNeutral : Colors.lightGrey}
+                size={19}
+              />
             ),
           }}
         />
         <Tab.Screen
-          name="Sandbox"
-          component={SandboxScreen}
+          name="Resources"
+          component={ResourcesScreen}
           options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="leaf-outline" color="#42190D" size={19} />
+            tabBarIcon: ({ focused }) => (
+              <Image
+                style={{ height: 19, width: 19, tintColor: Colors.lightGrey }}
+                source={require("./assets/icons/floater.png")}
+              />
             ),
           }}
         />
-       { /*<Tab.Screen
+        {/*<Tab.Screen
           name="Chatbot"
           component={BotIntro}
           options={{
@@ -148,8 +156,12 @@ export default function App() {
           name="Profile"
           component={ProfileScreen}
           options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="person-outline" color="#42190D" size={19} />
+            tabBarIcon: ({ color, size, focused }) => (
+              <Ionicons
+                name={focused ? "person" : "person-outline"}
+                color={focused ? Colors.darkNeutral : Colors.lightGrey}
+                size={19}
+              />
             ),
           }}
         />
@@ -172,7 +184,7 @@ export default function App() {
             headerBackTitleVisible: false,
             title: "",
             headerStyle: {
-              backgroundColor: "white"
+              backgroundColor: "white",
             },
           }}
         />
@@ -186,17 +198,35 @@ export default function App() {
         <Stack.Screen name="Read" component={ReadScreen} />
         <Stack.Screen name="SelectedQuest" component={SelectedQuestScreen} />
         <Stack.Screen name="QuickReadsList" component={QuickReadsListScreen} />
-        <Stack.Screen name="GeneralInsights" component={GeneralInsightsScreen} />
+        <Stack.Screen
+          name="GeneralInsights"
+          component={GeneralInsightsScreen}
+        />
         <Stack.Screen name="StressScreen" component={StressInsightsScreen} />
         <Stack.Screen name="BingeScreen" component={BingeUrgeInsightsScreen} />
-        <Stack.Screen name="EmotionalDistressScreen" component={EmotionalDistressInsightsScreen} />
+        <Stack.Screen
+          name="EmotionalDistressScreen"
+          component={EmotionalDistressInsightsScreen}
+        />
         <Stack.Screen name="EnergyScreen" component={EnergyInsightsScreen} />
-        <Stack.Screen name="ExerciseScreen" component={ExerciseInsightsScreen} />
+        <Stack.Screen
+          name="ExerciseScreen"
+          component={ExerciseInsightsScreen}
+        />
         <Stack.Screen name="MealsScreen" component={MealsInsightsScreen} />
-        <Stack.Screen name="RestrictionScreen" component={RestrictionInsightsScreen} />
+        <Stack.Screen
+          name="RestrictionScreen"
+          component={RestrictionInsightsScreen}
+        />
         <Stack.Screen name="SleepScreen" component={SleepInsightsScreen} />
-        <Stack.Screen name="UrgeScreen" component={UrgeIntensityInsightsScreen} />
-        <Stack.Screen name="StickersScreen" component={StickerCollectionScreen} />
+        <Stack.Screen
+          name="UrgeScreen"
+          component={UrgeIntensityInsightsScreen}
+        />
+        <Stack.Screen
+          name="StickersScreen"
+          component={StickerCollectionScreen}
+        />
         <Stack.Screen name="Map" component={MapScreen} />
         <Stack.Screen name="Resources" component={ResourcesScreen} />
         {/*
@@ -216,7 +246,7 @@ export default function App() {
   return (
     <AuthContextProvider>
       <NavigationContainer>
-        <RootNavigator/>
+        <RootNavigator />
       </NavigationContainer>
     </AuthContextProvider>
   );

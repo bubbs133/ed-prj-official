@@ -59,10 +59,9 @@ function JournalScreen({ navigation }) {
   }, []);
 
   async function submitHandler() {
-    console.log("workss");
     try {
       const url = "http://127.0.0.1:8000/journal/";
-      //const url = "http://92.168.0.125/journal";
+      //const url = "http://192.168.0.125:8000/journal/";
       let result = await fetch(url, {
         method: "POST",
         headers: {
@@ -138,10 +137,10 @@ function JournalScreen({ navigation }) {
               <Text style={{ fontSize: 50 }}>✨</Text>
             </View>
             <Text style={[styles.modalTitle, styles.globalFont]}>
-              "Awesome"
+              Awesome
             </Text>
             <Text style={[styles.modalText, styles.globalFont]}>
-              "Your journal entry has been successfully submitted."
+              Your journal entry has been successfully submitted.
             </Text>
             <Pressable
               style={styles.modalButton}

@@ -5,6 +5,7 @@ import {
   ScrollView,
   Pressable,
   FlatList,
+  TouchableOpacity
 } from "react-native";
 import { useState, useEffect, useRef, useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -39,7 +40,7 @@ function QuickReadsListScreen({ navigation }) {
             numColumns={1}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <Pressable
+              <TouchableOpacity
                 style={{ width: "100%" }}
                 onPress={() => navigation.navigate("Read", { readId: item.id })}
               >
@@ -50,7 +51,7 @@ function QuickReadsListScreen({ navigation }) {
                   height={120}
                   width={"100%"}
                 />
-              </Pressable>
+              </TouchableOpacity>
             )}
           />
         </View>

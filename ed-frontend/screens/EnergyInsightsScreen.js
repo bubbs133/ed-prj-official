@@ -72,11 +72,11 @@ function EnergyInsightsScreen({ navigation }) {
 
   const getInsight = () => {
     if (average > 7) {
-      return "Excellent energy levels! You're feeling great and capable. This is a perfect time to tackle challenges and stay active. Keep this momentum! 🚀";
+      return "Excellent energy levels! You're feeling great and capable. This is a perfect time to tackle challenges and stay active. Keep this momentum!";
     } else if (average > 4) {
-      return "Moderate energy levels - steady and balanced. You're managing well. Try to maintain this consistency. 😊";
+      return "Moderate energy levels - steady and balanced. You're managing well. Try to maintain this consistency.";
     } else {
-      return "Low energy this week. Your body may need more rest, sleep, or nourishment. Be gentle with yourself and prioritize recovery. 🌙";
+      return "Low energy this week. Your body may need more rest, sleep, or nourishment. Be gentle with yourself and prioritize recovery.";
     }
   };
 
@@ -110,7 +110,7 @@ function EnergyInsightsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <SafeAreaView edges={["top", "left", "right"]}>
           <View style={styles.contentContainer}>
             <GoBack navigation={navigation} />
@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
   },
   dayBox: {
     alignItems: "center",
-    backgroundColor: "#7DD3C0",
+    backgroundColor: Colors.lightCoffeeBrown,
     borderRadius: 8,
     padding: 8,
     width: "13%",
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   suggestion: {
-    backgroundColor: "#7DD3C0",
+    backgroundColor: Colors.lightCoffeeBrown,
     borderRadius: 12,
     padding: 12,
   },

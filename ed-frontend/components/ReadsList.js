@@ -38,16 +38,16 @@ function ReadsList({ itemTitle, imgPath, details, height, width }) {
         <Text style={[styles.itemTitle, styles.globalFont]}>{itemTitle}</Text>
         <Text style={[styles.details, styles.globalFont]}>{details}</Text>
       </View>
-      {/*<Pressable
+      <Pressable
         style={styles.bookmark}
         onPress={() => setIsBookmarked(!isBookmarked)}
       >
-        <Ionicons
+        {/*<Ionicons
           name={isBookmarked ? "bookmark" : "bookmark-outline"}
-          color="#42190D"
+          color={Colors.lightGrey}
           size={22}
-        />
-      </Pressable>*/}
+        />*/}
+      </Pressable>
     </View>
   );
 }

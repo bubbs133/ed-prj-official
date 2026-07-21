@@ -2,7 +2,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Pressable,
+  TouchableOpacity,
   ScrollView,
   Linking,
 } from "react-native";
@@ -43,11 +43,9 @@ function ResourcesScreen({ navigation }) {
   ];
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsHorizontalScrollIndicator={false}>
+    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View>
-          <GoBack navigation={navigation} />
-
           <View style={styles.top}>
             <Text style={[styles.heading, styles.globalFont]}>Resources</Text>
 
@@ -58,24 +56,23 @@ function ResourcesScreen({ navigation }) {
           </View>
         </View>
 
-        <Pressable
-          style={styles.mapButton}
-          onPress={() => navigation.navigate("Map")}
-        >
-          <Text style={[styles.buttonText, styles.globalFont]}>
+        <View style={styles.mapButton}>
+          <Text
+            style={[styles.buttonText, styles.globalFont, { marginBottom: 8 }]}
+          >
             Find Local Help Centers
           </Text>
           <Text style={[styles.resourceDescription, styles.globalFont]}>
             Find profressional help near your area and connect with them today.
           </Text>
-          <Pressable
+          <TouchableOpacity
             style={styles.actionButtonMap}
             onPress={() => navigation.navigate("Map")}
           >
             <Ionicons name="map-outline" size={18} color="white" />
             <Text style={[styles.actionText, styles.globalFont]}>Map</Text>
-          </Pressable>
-        </Pressable>
+          </TouchableOpacity>
+        </View>
 
         {resources.map((resource, index) => (
           <View key={index} style={styles.resourceCard}>
@@ -88,7 +85,7 @@ function ResourcesScreen({ navigation }) {
             </Text>
 
             <View style={styles.actions}>
-              <Pressable
+              <TouchableOpacity
                 style={styles.actionButton}
                 onPress={() => Linking.openURL(resource.website)}
               >
@@ -96,10 +93,10 @@ function ResourcesScreen({ navigation }) {
                 <Text style={[styles.actionText, styles.globalFont]}>
                   Website
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
 
               {resource.call && (
-                <Pressable
+                <TouchableOpacity
                   style={styles.actionButton}
                   onPress={() => Linking.openURL(`tel:${resource.call}`)}
                 >
@@ -107,11 +104,11 @@ function ResourcesScreen({ navigation }) {
                   <Text style={[styles.actionText, styles.globalFont]}>
                     Call
                   </Text>
-                </Pressable>
+                </TouchableOpacity>
               )}
 
               {resource.text && (
-                <Pressable
+                <TouchableOpacity
                   style={styles.actionButton}
                   onPress={() => Linking.openURL(`sms:${resource.text}`)}
                 >
@@ -119,7 +116,7 @@ function ResourcesScreen({ navigation }) {
                   <Text style={[styles.actionText, styles.globalFont]}>
                     Text
                   </Text>
-                </Pressable>
+                </TouchableOpacity>
               )}
             </View>
           </View>

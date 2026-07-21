@@ -1,14 +1,6 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { QUICK_READS } from "../models/reads";
-import {
-  Text,
-  ScrollView,
-  View,
-  StyleSheet,
-  Dimensions,
-  Pressable,
-  FlatList,
-} from "react-native";
+import { Text, View, StyleSheet, Dimensions, ScrollView } from "react-native";
 import GoBack from "../components/GoBack";
 import { useEffect, useState, useRef } from "react";
 import { SwiperFlatList } from "react-native-swiper-flatlist";
@@ -25,16 +17,8 @@ export default function ReadScreen({ route, navigation }) {
   const sections = read.sections;
   const currentSection = sections[currentIndex];
 
-  function handleNext() {
-    if (currentIndex < sections.length - 1) {
-      setCurrentIndex((prev) => prev + 1);
-    } else {
-      navigation.goBack();
-    }
-  }
-
   return (
-    <SafeAreaView style={styles.container} >
+    <SafeAreaView style={styles.container}>
       <View style={styles.contentContainer}>
         <View>
           <GoBack navigation={navigation} />
@@ -44,25 +28,39 @@ export default function ReadScreen({ route, navigation }) {
             {currentIndex + 1} / {sections.length}
           </Text>
         </View>
-        <ScrollView style={styles.scrollview} contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
-          <Pressable onPress={handleNext} style={styles.pressable}>
-            <View style={styles.readContainer}>
-              <Text style={styles.readSubtitle}>{currentSection.subtitle}</Text>
+        <SwiperFlatList
+          horizontal
+          showPagination={false}
+          index={0}
+          //paginationStyleItem={{ width: 8, height: 8 }}
+          //paginationStyleItemActive={{ width: 18 }}
+          disableGesture={false}
+          onChangeIndex={({ index }) => setCurrentIndex(index)}
+          data={sections}
+          keyExtractor={(_, index) => index.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.page}>
+              <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={styles.scrollContent}
+              >
+                <Text style={styles.readSubtitle}>{item.subtitle}</Text>
 
-              {(currentSection.paragraphs).map((p, index) => (
-                <Text key={index} style={styles.readContent}>
-                  {p}
-                </Text>
-              ))}
+                {item.paragraphs.map((paragraph, i) => (
+                  <Text key={i} style={styles.readContent}>
+                    {paragraph}
+                  </Text>
+                ))}
+              </ScrollView>
             </View>
-          </Pressable>
-        </ScrollView>
+          )}
+        />
       </View>
     </SafeAreaView>
   );
 }
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   globalFont: {
@@ -74,7 +72,12 @@ const styles = StyleSheet.create({
     marginHorizontal: "5%",
   },
   scrollContent: {
-    paddingBottom: 250
+    paddingBottom: 80,
+  },
+  page: {
+    width: width * 0.9,
+    flex: 1,
+    height: height * 0.8
   },
   progress: {
     textAlign: "center",

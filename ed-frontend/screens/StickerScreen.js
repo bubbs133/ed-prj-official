@@ -14,6 +14,7 @@ import GoBack from "../components/GoBack";
 import { AuthContext } from "../auth/auth-context";
 
 const API_URL = "http://127.0.0.1:8000/stickers/";
+//const API_URL = "http://192.168.0.125:8000/stickers/";
 
 function StickerCollectionScreen({ navigation }) {
   const authCtx = useContext(AuthContext);
@@ -120,7 +121,7 @@ function StickerCollectionScreen({ navigation }) {
 
           {!item.unlocked && (
             <View style={styles.lockOverlay}>
-              <Text style={styles.lockText}>Locked</Text>
+              <Text style={[styles.lockText, styles.globalFont]}>Locked</Text>
             </View>
           )}
         </View>

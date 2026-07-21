@@ -28,7 +28,10 @@ function MealsInsightsScreen({ navigation }) {
       setLoading(true);
       if (!authContext.token) throw new Error("Not authenticated");
 
-      const response = await fetch("http://127.0.0.1:8000/weekly-insights/", {
+      const url = "http://127.0.0.1:8000/weekly-insights/"
+      //const url = "http://192.168.0.125:8000/weekly-insights/"
+
+      const response = await fetch(url, {
         method: "GET",
         headers: {
           Authorization: `Token ${authContext.token}`,
@@ -71,11 +74,11 @@ function MealsInsightsScreen({ navigation }) {
 
   const getInsight = () => {
     if (average >= 2.5) {
-      return "Excellent meal consistency! You're fueling your body well. Regular eating patterns support stable energy and mood. Keep it up! 🍽️";
+      return "Excellent meal consistency! You're fueling your body well. Regular eating patterns support stable energy and mood. Keep it up!";
     } else if (average >= 2) {
-      return "Good meal frequency - you're doing well! Consider aiming for more consistency to optimize your energy and wellbeing. 😊";
+      return "Good meal frequency - you're doing well! Consider aiming for more consistency to optimize your energy and wellbeing.";
     } else {
-      return "Meal frequency is lower than recommended. Regular meals help stabilize energy, mood, and support your recovery. Try aiming for 3+ meals daily. 💪";
+      return "Meal frequency is lower than recommended. Regular meals help stabilize energy, mood, and support your recovery. Try aiming for 3+ meals daily.";
     }
   };
 
@@ -114,7 +117,7 @@ function MealsInsightsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <SafeAreaView edges={["top", "left", "right"]}>
           <View style={styles.contentContainer}>
             <GoBack navigation={navigation} />
