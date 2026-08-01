@@ -18,70 +18,70 @@ function PlaceDetailSheet({ place, distance, onClose }) {
     }
   }, [place]);
 
-  if (!place) {
-    return null;
-  }
-
   return (
     <BottomSheet
       ref={sheetRef}
-      index={0}
+      index={-1}
       snapPoints={snapPoints}
       enablePanDownToClose
       onClose={onClose}
     >
       <View style={styles.content}>
-        <Text style={styles.icon}>🐚</Text>
+        {place && (
+          <>
+            <Text style={styles.title}>
+              {place.tags?.name || "Healthcare Facility"}
+            </Text>
 
-        <Text style={styles.title}>
-          {place.tags?.name || "Healthcare Facility"}
-        </Text>
+            <Text style={styles.subtitle}>
+              {place.tags?.healthcare || place.tags?.office || "Healthcare"}
+            </Text>
 
-        <Text style={styles.subtitle}>
-          {place.tags?.healthcare || place.tags?.office || "Healthcare"}
-        </Text>
+            <View style={styles.infoSection}>
+              <Text style={styles.label}>Address</Text>
 
-        <View style={styles.infoSection}>
-          <Text style={styles.label}>📍 Address</Text>
+              <Text style={styles.value}>
+                {place.tags?.["addr:housenumber"]} {place.tags?.["addr:street"]}
+                {"\n"}
+                {place.tags?.["addr:city"]}
+              </Text>
+            </View>
 
-          <Text style={styles.value}>
-            {place.tags?.["addr:housenumber"]} {place.tags?.["addr:street"]}
-            {"\n"}
-            {place.tags?.["addr:city"]}
-          </Text>
-        </View>
+            <View style={styles.infoSection}>
+              <Text style={styles.label}>Phone</Text>
 
-        <View style={styles.infoSection}>
-          <Text style={styles.label}>☎ Phone</Text>
+              <Text style={styles.value}>
+                {place.tags?.phone || "Unavailable"}
+              </Text>
+            </View>
 
-          <Text style={styles.value}>{place.tags?.phone || "Unavailable"}</Text>
-        </View>
+            <View style={styles.infoSection}>
+              <Text style={styles.label}>Distance</Text>
 
-        <View style={styles.infoSection}>
-          <Text style={styles.label}>🚗 Distance</Text>
+              <Text style={styles.value}>{distance.toFixed(1)} km away</Text>
+            </View>
 
-          <Text style={styles.value}>{distance.toFixed(1)} km away</Text>
-        </View>
+            <View style={styles.buttons}>
+              <Pressable
+                style={styles.callButton}
+                onPress={() => Linking.openURL(`tel:${place.tags?.phone}`)}
+              >
+                <Text style={styles.buttonText}>Call</Text>
+              </Pressable>
 
-        <View style={styles.buttons}>
-          <Pressable
-            style={styles.callButton}
-            onPress={() => Linking.openURL(`tel:${place.tags?.phone}`)}
-          >
-            <Text style={styles.buttonText}>Call</Text>
-          </Pressable>
-
-          <Pressable
-            style={styles.directionButton}
-            onPress={() => {
-              Linking.openURL(
-                `https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lon}`,
-              );
-            }}
-          >
-            <Text style={styles.buttonText}>Directions</Text>
-          </Pressable>
-        </View>
+              <Pressable
+                style={styles.directionButton}
+                onPress={() => {
+                  Linking.openURL(
+                    `https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lon}`,
+                  );
+                }}
+              >
+                <Text style={styles.buttonText}>Directions</Text>
+              </Pressable>
+            </View>
+          </>
+        )}
       </View>
     </BottomSheet>
   );

@@ -9,18 +9,12 @@ function PlaceCard({ place, distance, onPress }) {
 
   return (
     <Pressable style={styles.card} onPress={onPress}>
-      <View style={styles.left}>
-        <Text style={styles.icon}>🐚</Text>
-      </View>
-
       <View style={styles.middle}>
         <Text style={styles.title}>
           {place.tags?.name || "Healthcare Facility"}
         </Text>
 
-        <Text style={styles.type}>{healthcareType}</Text>
-
-        <Text style={styles.distance}>📍 {distance.toFixed(1)} km away</Text>
+        <Text style={styles.distance}>{distance.toFixed(1)} km away</Text>
       </View>
 
       <View style={styles.right}>
@@ -34,41 +28,21 @@ export default PlaceCard;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "white",
-
     marginHorizontal: 20,
-
     padding: 18,
-
     borderRadius: 22,
-
     marginBottom: 15,
-
     flexDirection: "row",
-
     alignItems: "center",
-
-    shadowColor: "#000",
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    elevation: 4,
+    backgroundColor: Colors.greyish,
   },
-
-  left: {
-    marginRight: 16,
-  },
-
-  icon: {
-    fontSize: 28,
-  },
-
   middle: {
     flex: 1,
   },
 
   title: {
     fontFamily: "Afacad",
-    fontWeight: "700",
+    fontWeight: "500",
     fontSize: 19,
     color: Colors.darkNeutral,
   },
@@ -82,7 +56,7 @@ const styles = StyleSheet.create({
 
   distance: {
     marginTop: 7,
-    color: "#5F8FA5",
+    color: Colors.darkNeutral,
     fontFamily: "Afacad",
     fontSize: 15,
   },

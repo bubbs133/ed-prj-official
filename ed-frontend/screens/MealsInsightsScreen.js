@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
   trendBox: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#E8F4F8",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 10,
     padding: 12,
   },
@@ -289,12 +289,12 @@ const styles = StyleSheet.create({
     fontWeight: 600,
     fontSize: 11,
     marginBottom: 4,
-    color: "#FFFFFF",
+    color: Colors.darkNeutral,
   },
   dayValue: {
     fontSize: 12,
     fontWeight: 600,
-    color: "#FFFFFF",
+    color: Colors.darkNeutral,
   },
   suggestions: {
     gap: 12,

@@ -133,7 +133,12 @@ function MapScreen({ navigation }) {
   const handleSelectPlace = (place) => {
     setSelectedPlace(place);
 
-    mapRef.current?.animateTo(place);
+    mapRef.current?.animateToRegion({
+      latitude: place.lat,
+      longitude: place.lon,
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+    });
   };
 
   // -----------------------------
@@ -162,11 +167,7 @@ function MapScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <GoBack navigation={navigation} />
-
       <HeaderCard />
-
-      <FilterChips />
 
       <MiniMap
         ref={mapRef}

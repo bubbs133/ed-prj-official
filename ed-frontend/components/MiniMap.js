@@ -1,6 +1,7 @@
 import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import { View, StyleSheet } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import Colors from "../constants/colors";
 
 const MiniMap = forwardRef(({ location, places, setSelectedPlace }, ref) => {
   const mapRef = useRef(null);
@@ -47,7 +48,7 @@ const MiniMap = forwardRef(({ location, places, setSelectedPlace }, ref) => {
             longitude: location.longitude,
           }}
           title="You are here"
-          pinColor="#5DADE2"
+          pinColor={Colors.darkNeutral}
         />
 
         {/* Your fetched Overpass places */}

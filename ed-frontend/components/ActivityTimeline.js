@@ -178,15 +178,7 @@ const styles = StyleSheet.create({
 
     alignItems: "center",
 
-    marginBottom: 10,
-
-    shadowColor: "#000",
-
-    shadowOpacity: 0.05,
-
-    shadowRadius: 5,
-
-    elevation: 2,
+    marginBottom: 15,
   },
 
   pressed: {
@@ -232,7 +224,7 @@ const styles = StyleSheet.create({
 
     fontSize: 14,
 
-    color: "#666",
+    color: "#555",
 
     fontFamily: "Afacad",
   },

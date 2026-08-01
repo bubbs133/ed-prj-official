@@ -69,11 +69,11 @@ function SleepInsightsScreen({ navigation }) {
 
   const getInsight = () => {
     if (average >= 7) {
-      return "Excellent sleep! 7+ hours is ideal for recovery, mood, and overall health. You're doing a great job prioritizing rest! 😴";
+      return "Excellent sleep! 7+ hours is ideal for recovery, mood, and overall health. You're doing a great job prioritizing rest!";
     } else if (average >= 6) {
-      return "Good sleep - your body is getting decent rest. Try to aim for 7-8 hours when possible for optimal wellness. 😊";
+      return "Good sleep - your body is getting decent rest. Try to aim for 7-8 hours when possible for optimal wellness.";
     } else {
-      return "Low sleep hours this week. Prioritize getting 7-8 hours nightly. Good sleep is crucial for mental and physical health. 🌙";
+      return "Low sleep hours this week. Prioritize getting 7-8 hours nightly. Good sleep is crucial for mental and physical health.";
     }
   };
 
@@ -107,7 +107,7 @@ function SleepInsightsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <SafeAreaView edges={["top", "left", "right"]}>
           <View style={styles.contentContainer}>
             <GoBack navigation={navigation} />
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   trendBox: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#F0E8F8",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 10,
     padding: 12,
   },
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
   },
   dayBox: {
     alignItems: "center",
-    backgroundColor: "#B5A7E8",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 8,
     padding: 8,
     width: "13%",
@@ -281,19 +281,19 @@ const styles = StyleSheet.create({
     fontWeight: 600,
     fontSize: 11,
     marginBottom: 4,
-    color: "#FFFFFF",
+    color: Colors.darkBlueText,
   },
   dayValue: {
     fontSize: 12,
     fontWeight: 600,
-    color: "#FFFFFF",
+    color: Colors.darkBlueText,
   },
   suggestions: {
     gap: 12,
     marginTop: 10,
   },
   suggestion: {
-    backgroundColor: "#B5A7E8",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 12,
     padding: 12,
   },

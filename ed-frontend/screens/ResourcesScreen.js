@@ -24,7 +24,7 @@ function ResourcesScreen({ navigation }) {
     {
       title: "National Alliance for Eating Disorders",
       description:
-        "Free therapist-led support groups, referrals, and education.",
+        "Free support groups, referrals, and education, led by certified therapists.",
       website: "https://www.allianceforeatingdisorders.com",
       call: "8666621235",
     },
@@ -69,7 +69,7 @@ function ResourcesScreen({ navigation }) {
             style={styles.actionButtonMap}
             onPress={() => navigation.navigate("Map")}
           >
-            <Ionicons name="map-outline" size={18} color="white" />
+            <Ionicons name="map-outline" size={18} color={Colors.darkNeutral} />
             <Text style={[styles.actionText, styles.globalFont]}>Map</Text>
           </TouchableOpacity>
         </View>
@@ -89,7 +89,7 @@ function ResourcesScreen({ navigation }) {
                 style={styles.actionButton}
                 onPress={() => Linking.openURL(resource.website)}
               >
-                <Ionicons name="globe-outline" size={18} color="white" />
+                <Ionicons name="globe-outline" size={18} color={Colors.darkNeutral} />
                 <Text style={[styles.actionText, styles.globalFont]}>
                   Website
                 </Text>
@@ -100,7 +100,7 @@ function ResourcesScreen({ navigation }) {
                   style={styles.actionButton}
                   onPress={() => Linking.openURL(`tel:${resource.call}`)}
                 >
-                  <Ionicons name="call-outline" size={18} color="white" />
+                  <Ionicons name="call-outline" size={18} color={Colors.darkNeutral} />
                   <Text style={[styles.actionText, styles.globalFont]}>
                     Call
                   </Text>
@@ -112,7 +112,7 @@ function ResourcesScreen({ navigation }) {
                   style={styles.actionButton}
                   onPress={() => Linking.openURL(`sms:${resource.text}`)}
                 >
-                  <Ionicons name="chatbubble-outline" size={18} color="white" />
+                  <Ionicons name="chatbubble-outline" size={18} color={Colors.darkNeutral} />
                   <Text style={[styles.actionText, styles.globalFont]}>
                     Text
                   </Text>
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
   actionButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: Colors.lightCoffeeBrown,
+    backgroundColor: Colors.seaBlue2,
     paddingVertical: 8,
     paddingHorizontal: 14,
     borderRadius: 10,
@@ -205,14 +205,14 @@ const styles = StyleSheet.create({
   actionButtonMap: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: Colors.lightCoffeeBrown,
+    backgroundColor: Colors.seaBlue2,
     paddingVertical: 8,
     paddingHorizontal: 14,
     borderRadius: 10,
     width: 77,
   },
   actionText: {
-    color: "white",
+    color: Colors.darkBlueText,
     marginLeft: 6,
     fontWeight: "500",
   },

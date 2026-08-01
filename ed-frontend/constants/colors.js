@@ -16,9 +16,13 @@ const Colors = {
   coffeeBrown: "#3F3A14",
   cream: "#FFF8E5",
   floaterCream: "#E5D4D0",
-  seaBlue2: "#AEC8D5",
-  seaDarkBlue: "#4A7683",
-  lightCoffeeBrown: "#7D7465"
+  seaBlue2: "#bbd3df",
+  seaBlue3: "#c0d2db",
+  seaDarkBlue: "#83a6b1",
+  darkBlueText: "#142124",
+  darkBlueText2: "#141414",
+  lightCoffeeBrown: "#7D7465",
+  darkBrownText: "#554E44"
 };
 
 export default Colors;

@@ -70,11 +70,11 @@ function ExerciseInsightsScreen({ navigation }) {
 
   const getInsight = () => {
     if (average >= 30) {
-      return "Great activity level! You're moving regularly and supporting your physical and mental health. Keep this momentum! 🏃";
+      return "Great activity level! You're moving regularly and supporting your physical and mental health. Keep this momentum!";
     } else if (average >= 15) {
-      return "Good movement! You're getting regular activity. Consider increasing to 30+ minutes daily for more benefits. 😊";
+      return "Good movement! You're getting regular activity. Consider increasing to 30+ minutes daily for more benefits.";
     } else {
-      return "Light activity this week. Even small amounts help! Try incorporating 20-30 minutes of movement daily. Walk, stretch, dance - any movement counts! 💪";
+      return "Light activity this week. Even small amounts help! Try incorporating 20-30 minutes of movement daily. Walk, stretch, dance - any movement counts!";
     }
   };
 
@@ -113,7 +113,7 @@ function ExerciseInsightsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <SafeAreaView edges={["top", "left", "right"]}>
           <View style={styles.contentContainer}>
             <GoBack navigation={navigation} />
@@ -133,13 +133,7 @@ function ExerciseInsightsScreen({ navigation }) {
             </View>
 
             <View style={styles.sections}>
-              <View style={styles.section}>
-                <Text style={[styles.globalFont, styles.subtitles]}>
-                  General Insights
-                </Text>
-                <Text style={styles.globalFont}>{getInsight()}</Text>
-              </View>
-              <View style={[styles.section, { marginBottom: 20 }]}>
+              <View style={[styles.section]}>
                 <Text style={[styles.globalFont, styles.subtitles]}>
                   Daily Breakdown
                 </Text>
@@ -158,14 +152,16 @@ function ExerciseInsightsScreen({ navigation }) {
                   )}
                 </View>
               </View>
+              <View style={styles.section}>
+                <Text style={[styles.globalFont, styles.subtitles]}>
+                  General Insights
+                </Text>
+                <Text style={styles.globalFont}>{getInsight()}</Text>
+              </View>
+  
 
               <View style={styles.sections}>
-                <View style={styles.section}>
-                  <Text style={[styles.globalFont, styles.subtitles]}>
-                    General Insights
-                  </Text>
-                  <Text style={styles.globalFont}>{getInsight()}</Text>
-                </View>
+                
 
                 <View style={styles.section}>
                   <Text style={[styles.globalFont, styles.subtitles]}>
@@ -219,7 +215,7 @@ function ExerciseInsightsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.seaBlue2,
+    backgroundColor: "#fff",
   },
   contentContainer: {
     paddingHorizontal: "5%",
@@ -273,7 +269,7 @@ const styles = StyleSheet.create({
   trendBox: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#E8F8E8",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 10,
     padding: 12,
   },
@@ -287,7 +283,7 @@ const styles = StyleSheet.create({
   },
   dayBox: {
     alignItems: "center",
-    backgroundColor: "#A8D8A8",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 8,
     padding: 8,
     width: "13%",
@@ -296,19 +292,19 @@ const styles = StyleSheet.create({
     fontWeight: 600,
     fontSize: 11,
     marginBottom: 4,
-    color: "#FFFFFF",
+    color: Colors.darkNeutral,
   },
   dayValue: {
     fontSize: 12,
     fontWeight: 600,
-    color: "#FFFFFF",
+    color: Colors.darkNeutral,
   },
   suggestions: {
     gap: 12,
     marginTop: 10,
   },
   suggestion: {
-    backgroundColor: "#A8D8A8",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 12,
     padding: 12,
   },

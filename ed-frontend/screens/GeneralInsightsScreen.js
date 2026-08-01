@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     height: "auto",
     width: "auto",
     borderRadius: 7,
-    color: Colors.lightCoffeeBrown,
+    color: Colors.seaDarkBlue,
     fontWeight: 700,
     fontSize: 16,
     paddingHorizontal: 10,

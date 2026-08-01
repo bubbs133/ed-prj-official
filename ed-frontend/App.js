@@ -1,3 +1,5 @@
+import "react-native-gesture-handler";
+
 import { StatusBar } from "expo-status-bar";
 import {
   SafeAreaViewBase,
@@ -7,6 +9,8 @@ import {
   View,
   Image,
 } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 import LoginScreen from "./screens/LoginScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -135,9 +139,13 @@ export default function App() {
           name="Resources"
           component={ResourcesScreen}
           options={{
-            tabBarIcon: ({ focused }) => (
+            tabBarIcon: ({ color, size, focused }) => (
               <Image
-                style={{ height: 19, width: 19, tintColor: Colors.lightGrey }}
+                style={{
+                  height: 19,
+                  width: 19,
+                  tintColor: focused ? Colors.darkNeutral : Colors.lightGrey,
+                }}
                 source={require("./assets/icons/floater.png")}
               />
             ),
@@ -244,11 +252,13 @@ export default function App() {
   }
 
   return (
-    <AuthContextProvider>
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
-    </AuthContextProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <AuthContextProvider>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </AuthContextProvider>
+    </GestureHandlerRootView>
   );
 
   /*return (

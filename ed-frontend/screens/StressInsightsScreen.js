@@ -112,7 +112,7 @@ function StressInsightsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <SafeAreaView edges={["top", "left", "right"]}>
           <View style={styles.contentContainer}>
             <GoBack navigation={navigation} />
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
   trendBox: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FFF5E6",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 10,
     padding: 12,
   },
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
   },
   dayBox: {
     alignItems: "center",
-    backgroundColor: "#E8A87C",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 8,
     padding: 8,
     width: "13%",
@@ -283,19 +283,19 @@ const styles = StyleSheet.create({
     fontWeight: 600,
     fontSize: 11,
     marginBottom: 4,
-    color: "#FFFFFF",
+    color: Colors.darkBlueText,
   },
   dayValue: {
     fontSize: 12,
     fontWeight: 600,
-    color: "#FFFFFF",
+    color: Colors.darkBlueText,
   },
   suggestions: {
     gap: 12,
     marginTop: 10,
   },
   suggestion: {
-    backgroundColor: "#E8A87C",
+    backgroundColor: Colors.seaBlue2,
     borderRadius: 12,
     padding: 12,
   },

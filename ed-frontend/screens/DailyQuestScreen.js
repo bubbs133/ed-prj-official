@@ -8,6 +8,8 @@ import {
   Image,
   Dimensions,
   Modal,
+  TouchableOpacity,
+  FlatList,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { QUESTS } from "../models/quests";
@@ -21,43 +23,46 @@ import { SwiperFlatList } from "react-native-swiper-flatlist";
 
 function DailyQuestScreen({ navigation }) {
   return (
-    <ImageBackground
-      source={require("../assets/quests/sand.png")}
-      style={{ resizeMode: "cover", flex: 1 }}
-    >
+    <View style={{ resizeMode: "cover", flex: 1 }}>
       <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
-        <GoBack navigation={navigation} />
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={styles.sv}
-          contentContainerStyle={styles.scrollContent}
-        >
-          {QUESTS.map((quest, index) => (
-            <View
-              key={quest.id}
-              style={[
-                styles.stop,
-                {
-                  alignSelf: index % 2 === 0 ? "flex-start" : "flex-end",
-                },
-              ]}
-            >
-              <Pressable
+        <View style={styles.mainContentContainer}>
+          <View>
+            <GoBack navigation={navigation} />
+          </View>
+          <View style={styles.top}>
+            <Text style={[styles.heading, styles.globalFont]}>
+              Daily Quests
+            </Text>
+            <Text style={[styles.screenInfo, styles.globalFont]}>
+              Challenge yourself and your mind by completing quests. Stepping
+              out of your bubble will help you reveal your hidden strengths!
+            </Text>
+          </View>
+          <FlatList
+            style={styles.sv}
+            data={QUESTS}
+            keyExtractor={(item) => item.id}
+            numColumns={2}
+            columnWrapperStyle={{
+              justifyContent: "space-between",
+              marginBottom: 10,
+            }}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={styles.questCard}
                 onPress={() =>
-                  navigation.navigate("SelectedQuest", { questId: quest.id })
+                  navigation.navigate("SelectedQuest", { questId: item.id })
                 }
               >
-                <View style={styles.shell}>
-                  <Image source={require('../assets/quests/shell.png')} style={{ width: 30, height: 30, resizeMode: 'cover', flex: 1}}/>
-                </View>
-                
-                <Text style={[styles.globalFont, {textAlign: "center"}]}>{quest.name}</Text>
-              </Pressable>
-            </View>
-          ))}
-        </ScrollView>
+                <Text style={[styles.globalFont, { textAlign: "center",}]}>
+                  {item.name}
+                </Text>
+              </TouchableOpacity>
+            )}
+          ></FlatList>
+        </View>
       </SafeAreaView>
-    </ImageBackground>
+    </View>
   );
 }
 
@@ -67,13 +72,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     //backgroundColor: Colors.lightNeutral,
+    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
+    paddingHorizontal: "5%",
   },
   sv: {
     flex: 1,
-    paddingBottom: -100
+    paddingBottom: -100,
   },
   scrollContent: {
     flexGrow: 1,
@@ -87,7 +94,13 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   questCard: {
-    marginHorizontal: "5%",
+    backgroundColor: Colors.greyish,
+    height: 150,
+    width: 130,
+    width: "48%",
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center"
   },
   questContainer: {
     flex: 1,
@@ -115,12 +128,29 @@ const styles = StyleSheet.create({
   stop: {
     width: "70%",
     marginVertical: 25,
-    paddingBottom: 40
+    paddingBottom: 40,
   },
 
   shell: {
     alignItems: "center",
     justifyContent: "center",
+  },
+  screenInfo: {
+    marginBottom: 25,
+    fontSize: 15,
+  },
+  globalFont: {
+    fontFamily: "Afacad",
+    letterSpacing: 1,
+  },
+  heading: {
+    fontSize: 23,
+    justifyContent: "flex-start",
+    fontWeight: 500,
+    letterSpacing: 1,
+  },
+  mainContentContainer: {
+    marginHorizontal: "5%",
   },
 });
 

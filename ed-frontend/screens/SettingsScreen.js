@@ -4,6 +4,7 @@ import {
   View,
   Pressable,
   ImageBackground,
+  TouchableOpacity,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AuthContext } from "../auth/auth-context";
@@ -20,8 +21,14 @@ function SettingsScreen({ navigation }) {
     //navigation.navigate("LoginScreen");
   }
   return (
-    <SafeAreaView edges={["top", "left", "right"]}>
-      <View>
+    <SafeAreaView
+      edges={["top", "left", "right"]}
+      style={styles.outerContainer}
+    >
+      <ImageBackground
+        source={require("../assets/main/loginbg2.png")}
+        style={styles.backgroundImg}
+      >
         <View style={styles.contentContainer}>
           <View>
             <GoBack navigation={navigation} />
@@ -56,13 +63,13 @@ function SettingsScreen({ navigation }) {
             <Ionicons name="chevron-forward-outline" />
           </View>
           <View style={styles.element}>
-            <Pressable onPress={logoutHandler}>
+            <TouchableOpacity onPress={logoutHandler}>
               <Text style={[styles.section, styles.globalFont]}>Logout</Text>
-            </Pressable>
+            </TouchableOpacity>
             {/*<Ionicons name="chevron-forward-outline" />*/}
           </View>
         </View>
-      </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 }
@@ -70,14 +77,12 @@ function SettingsScreen({ navigation }) {
 export default SettingsScreen;
 
 const styles = StyleSheet.create({
-  container: {
+  outerContainer: {
     flex: 1,
+    justifyContent: "space-between",
     backgroundColor: "#fff",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
   },
   contentContainer: {
-    //marginTop: "17%",
     paddingLeft: "5%",
     paddingRight: "5%",
   },
@@ -101,5 +106,9 @@ const styles = StyleSheet.create({
   },
   section: {
     fontSize: 16,
+  },
+  backgroundImg: {
+    resizeMode: "cover",
+    flex: 1,
   },
 });

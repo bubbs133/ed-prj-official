@@ -88,7 +88,7 @@ function TrackingScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <View style={[styles.contentContainer]}>
             <View style={styles.top}>

@@ -10,7 +10,9 @@ import {
   ScrollView,
   Alert,
   Platform,
+  TouchableOpacity,
   KeyboardAvoidingView,
+  Image,
 } from "react-native";
 import { useState, useContext } from "react";
 import { CARELOG_QUESTIONS } from "../models/carelogQuestions";
@@ -124,7 +126,9 @@ function AssessmentScreen({ navigation }) {
               ]}
               keyboardType={isLast ? "default" : "decimal-pad"}
               multiline={isLast}
-              caretHidden={true}
+              caretHidden={false}
+              cursorColor={Colors.darkNeutral}
+              selectionColor={Colors.darkNeutral}
               //placeholder={isLast ? "Type your thoughts here..." : null}
               value={answers[currentQuestionIdx] || ""}
               onChangeText={(text) => {
@@ -145,7 +149,7 @@ function AssessmentScreen({ navigation }) {
               )}
             </View>
 
-            <Pressable
+            <TouchableOpacity
               style={[
                 styles.btn,
                 !canMoveForward && !firstQuestion && { opacity: 0.5 },
@@ -156,7 +160,7 @@ function AssessmentScreen({ navigation }) {
               <Text style={[styles.btnTitle, styles.globalFont]}>
                 {isLast ? "Done!" : "Next"}
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -165,13 +169,16 @@ function AssessmentScreen({ navigation }) {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.modalIconContainer}>
-              <Text style={{ fontSize: 50 }}>✨</Text>
+              <Image
+                style={{ width: 50, height: 50 }}
+                source={require("../assets/icons/darkstar.png")}
+              />
             </View>
             <Text style={[styles.modalTitle, styles.globalFont]}>Awesome!</Text>
             <Text style={[styles.modalText, styles.globalFont]}>
               Your care log has been successfully submitted.
             </Text>
-            <Pressable
+            <TouchableOpacity
               style={styles.modalButton}
               onPress={() => {
                 setModalVisible(false);
@@ -186,7 +193,7 @@ function AssessmentScreen({ navigation }) {
               >
                 Close
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -198,13 +205,16 @@ function AssessmentScreen({ navigation }) {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.modalIconContainer}>
-              <Text style={{ fontSize: 50 }}>❌</Text>
+              <Image
+                style={{ width: 50, height: 50 }}
+                source={require("../assets/icons/darkstar.png")}
+              />
             </View>
             <Text style={[styles.modalTitle, styles.globalFont]}>Uh oh!</Text>
             <Text style={[styles.modalText, styles.globalFont]}>
               Care log not submitted, please try again.
             </Text>
-            <Pressable
+            <TouchableOpacity
               style={styles.modalButton}
               onPress={() => {
                 setErrorModalVisible(false);
@@ -219,7 +229,7 @@ function AssessmentScreen({ navigation }) {
               >
                 Close
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -312,6 +322,16 @@ const styles = StyleSheet.create({
   },
   modalIconContainer: {
     marginBottom: 20,
+  },
+  actionButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: Colors.seaBlue2,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 10,
+    marginLeft: 15,
+    marginTop: 15,
   },
 });
 

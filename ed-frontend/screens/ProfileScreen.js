@@ -147,13 +147,13 @@ export default function ProfileScreen({ navigation }) {
                   </Text>
                 </View>
 
-                <View style={styles.statRow}>
+                {/*<View style={styles.statRow}>
                   <Text style={styles.globalFont}>Streak</Text>
 
                   <Text style={[styles.value, styles.globalFont]}>
                     {profileData?.stats?.streak} days
                   </Text>
-                </View>
+                </View>*/}
               </View>
             )}
           </View>
@@ -210,7 +210,7 @@ const styles = StyleSheet.create({
     width: 75,
     height: 75,
     borderRadius: 40,
-    backgroundColor: Colors.seaBlue2,
+    backgroundColor: Colors.seaDarkBlue,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 10,

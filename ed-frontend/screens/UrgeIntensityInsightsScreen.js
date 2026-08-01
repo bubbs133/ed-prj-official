@@ -108,7 +108,7 @@ function UrgeIntensityInsightsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <SafeAreaView edges={["top", "left", "right"]}>
           <View style={styles.contentContainer}>
             <GoBack navigation={navigation} />
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   light: {
-    color: "#fff"
+    color: Colors.darkBlueText
   },
   bold: {
     fontWeight: 600,
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
   trendBox: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: Colors.lightCoffeeBrown,
+    backgroundColor: Colors.seaDarkBlue,
     borderRadius: 10,
     padding: 12,
   },
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
   },
   dayBox: {
     alignItems: "center",
-    backgroundColor: Colors.lightCoffeeBrown,
+    backgroundColor: Colors.seaDarkBlue,
     borderRadius: 8,
     padding: 8,
     width: "13%",
@@ -281,19 +281,19 @@ const styles = StyleSheet.create({
     fontWeight: 600,
     fontSize: 11,
     marginBottom: 4,
-    color: "#FFFFFF",
+    color: Colors.darkBlueText,
   },
   dayValue: {
     fontSize: 12,
     fontWeight: 600,
-    color: "#FFFFFF",
+    color: Colors.darkBlueText,
   },
   suggestions: {
     gap: 12,
     marginTop: 10,
   },
   suggestion: {
-    backgroundColor: Colors.lightCoffeeBrown,
+    backgroundColor: Colors.seaDarkBlue,
     borderRadius: 12,
     padding: 12,
   },

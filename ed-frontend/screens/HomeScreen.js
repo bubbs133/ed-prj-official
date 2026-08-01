@@ -191,7 +191,7 @@ function HomeScreen({ navigation }) {
       disabled: !biggestImprovement,
 
       backgroundColor: Colors.seaDarkBlue,
-      fontColor: Colors.seaBlue2,
+      fontColor: Colors.darkBlueText,
     },
     {
       key: "strongestHabit",
@@ -207,8 +207,8 @@ function HomeScreen({ navigation }) {
           ? featureScreenMap[strongestHabit.key]
           : null,
       disabled: !strongestHabit,
-      backgroundColor: Colors.lightCoffeeBrown,
-      fontColor: Colors.floaterCream,
+      backgroundColor: Colors.greyish,
+      fontColor: Colors.darkBrownText,
     },
     {
       key: "gentleFocus",
@@ -227,19 +227,19 @@ function HomeScreen({ navigation }) {
       disabled: !gentleFocus,
 
       backgroundColor: Colors.greyish,
-      fontColor: Colors.lightCoffeeBrown,
+      fontColor: Colors.darkBrownText,
     },
     {
       key: "fullInsights",
-      img: require("../assets/icons/seastar.png"),
+      img: require("../assets/icons/bucket.png"),
       title: "Full Insights",
-      subtitle: null,
+      subtitle: "See more",
       value: weeklyInsights?.entries_count
         ? `${weeklyInsights.entries_count} entries`
         : "",
       screen: "GeneralInsights",
       backgroundColor: Colors.seaBlue2,
-      fontColor: Colors.seaDarkBlue,
+      fontColor: Colors.darkBlueText,
       whiteText: true,
     },
   ];
@@ -316,7 +316,7 @@ function HomeScreen({ navigation }) {
                   width={"100%"}
                   borderColor={null}
                   fillColor={Colors.seaBlue2}
-                  fontColor={Colors.seaDarkBlue}
+                  fontColor={Colors.darkBlueText}
                 />
               </TouchableOpacity>
             </View>

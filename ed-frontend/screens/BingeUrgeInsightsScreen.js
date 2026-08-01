@@ -112,7 +112,7 @@ function BingeUrgeInsightsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <SafeAreaView edges={["top", "left", "right"]}>
           <View style={styles.contentContainer}>
             <GoBack navigation={navigation} />

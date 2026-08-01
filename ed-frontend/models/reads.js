@@ -245,7 +245,7 @@ const QUICK_READS = [
     img: require("../assets/reads/food.png"),
     urlSource: "https://www.health.harvard.edu/topics/nutrition",
     cardSummary:
-      "Nutrition is about eating a regular, balanced diet. Good nutrition keeps you in good health.",
+      "Nutrition is about eating a regular, balanced diet. Good nutrition keeps you in good health from head to toes.",
     sections: [
       {
         subtitle: "Food Is More Than Just Calories",

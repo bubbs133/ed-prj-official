@@ -9,7 +9,9 @@ import {
   ImageBackground,
   KeyboardAvoidingView,
   Platform,
+  Image,
   Modal,
+  TouchableOpacity,
 } from "react-native";
 import { useState, useEffect, useContext } from "react";
 import { journalPrompts } from "../models/journalPrompts";
@@ -120,13 +122,12 @@ function JournalScreen({ navigation }) {
             />
           </ScrollView>
           <View style={styles.footer}>
-            <PrimaryButton
-              style={styles.submitbtn}
-              buttonTitle={"Submit"}
-              handler={submitHandler}
-              border={"transparent"}
-              fill={Colors.lightCoffeeBrown}
-            />
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={submitHandler}
+            >
+              <Text style={[styles.actionText, styles.globalFont]}>Submit</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -134,15 +135,16 @@ function JournalScreen({ navigation }) {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.modalIconContainer}>
-              <Text style={{ fontSize: 50 }}>✨</Text>
+              <Image
+                style={{ width: 50, height: 50 }}
+                source={require("../assets/icons/darkstar.png")}
+              />
             </View>
-            <Text style={[styles.modalTitle, styles.globalFont]}>
-              Awesome
-            </Text>
+            <Text style={[styles.modalTitle, styles.globalFont]}>Awesome</Text>
             <Text style={[styles.modalText, styles.globalFont]}>
               Your journal entry has been successfully submitted.
             </Text>
-            <Pressable
+            <TouchableOpacity
               style={styles.modalButton}
               onPress={() => {
                 setModalVisible(false);
@@ -157,23 +159,28 @@ function JournalScreen({ navigation }) {
               >
                 Close
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
-      <Modal animationType="fade" transparent={true} visible={errorModalVisible}>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={errorModalVisible}
+      >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.modalIconContainer}>
-              <Text style={{ fontSize: 50 }}>❌</Text>
+              <Image
+                style={{ width: 50, height: 50 }}
+                source={require("../assets/icons/darkstar.png")}
+              />
             </View>
-            <Text style={[styles.modalTitle, styles.globalFont]}>
-              Uh oh!
-            </Text>
+            <Text style={[styles.modalTitle, styles.globalFont]}>Uh oh!</Text>
             <Text style={[styles.modalText, styles.globalFont]}>
               Journal entry not submitted, please try again.
             </Text>
-            <Pressable
+            <TouchableOpacity
               style={styles.modalButton}
               onPress={() => {
                 setErrorModalVisible(false);
@@ -188,7 +195,7 @@ function JournalScreen({ navigation }) {
               >
                 Close
               </Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -199,6 +206,7 @@ function JournalScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#fff",
   },
   mainWrapper: {
     flex: 1,
@@ -276,6 +284,16 @@ const styles = StyleSheet.create({
   modalButtonText: {
     color: "white",
     fontWeight: "bold",
+  },
+  actionButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: Colors.seaBlue2,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 10,
+    marginLeft: 15,
+    marginTop: 15,
   },
 });
 

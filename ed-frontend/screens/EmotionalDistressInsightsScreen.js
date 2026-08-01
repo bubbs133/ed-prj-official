@@ -113,7 +113,7 @@ function EmotionalDistressInsightsScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <ScrollView showsHorizontalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <SafeAreaView edges={["top", "left", "right"]}>
           <View style={styles.contentContainer}>
             <GoBack navigation={navigation} />
@@ -162,10 +162,10 @@ function EmotionalDistressInsightsScreen({ navigation }) {
                 <View style={styles.suggestions}>
                   {getSuggestions().map((suggestion, index) => (
                     <View key={index} style={styles.suggestion}>
-                      <Text style={[styles.globalFont, styles.bold, {color: "#fff"}]}>
+                      <Text style={[styles.globalFont, styles.bold, {color: Colors.darkBlueText}]}>
                         {suggestion.title}
                       </Text>
-                      <Text style={[styles.globalFont, {color: "#fff"}]}>
+                      <Text style={[styles.globalFont, {color: Colors.darkBlueText}]}>
                         {suggestion.description}
                       </Text>
                     </View>
@@ -178,18 +178,18 @@ function EmotionalDistressInsightsScreen({ navigation }) {
                   Trends
                 </Text>
                 <View style={styles.trendBox}>
-                  <Text style={[styles.globalFont, styles.trendArrow, {color: "#fff"}]}>
+                  <Text style={[styles.globalFont, styles.trendArrow, {color: Colors.darkBlueText}]}>
                     {trend_direction}
                   </Text>
                   <View>
-                    <Text style={[styles.globalFont, styles.bold, {color: "#fff"}]}>
+                    <Text style={[styles.globalFont, styles.bold, {color: Colors.darkBlueText}]}>
                       {trend === "increasing"
                         ? "Increasing"
                         : trend === "decreasing"
                           ? "Decreasing"
                           : "Stable"}
                     </Text>
-                    <Text style={[styles.globalFont, {color: "#fff"}]}>
+                    <Text style={[styles.globalFont, {color: Colors.darkBlueText}]}>
                       Change: {trend_value}/10
                     </Text>
                   </View>
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
   trendBox: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: Colors.lightCoffeeBrown,
+    backgroundColor: Colors.seaDarkBlue,
     borderRadius: 10,
     padding: 12,
   },
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
   },
   dayBox: {
     alignItems: "center",
-    backgroundColor: Colors.lightCoffeeBrown,
+    backgroundColor: Colors.seaDarkBlue,
     borderRadius: 8,
     padding: 8,
     width: "13%",
@@ -283,19 +283,19 @@ const styles = StyleSheet.create({
     fontWeight: 600,
     fontSize: 11,
     marginBottom: 4,
-    color: "#FFFFFF",
+    color: Colors.darkBlueText,
   },
   dayValue: {
     fontSize: 12,
     fontWeight: 600,
-    color: "#FFFFFF",
+    color: Colors.darkBlueText,
   },
   suggestions: {
     gap: 12,
     marginTop: 10,
   },
   suggestion: {
-    backgroundColor: Colors.lightCoffeeBrown,
+    backgroundColor: Colors.seaDarkBlue,
     borderRadius: 12,
     padding: 12,
   },
