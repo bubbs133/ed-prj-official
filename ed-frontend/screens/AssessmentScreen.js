@@ -75,11 +75,13 @@ function AssessmentScreen({ navigation }) {
       });
 
       const data = await result.json();
-      console.log(data);
-      setModalVisible(!modalVisible);
+      if (!result.ok) {
+        throw new Error(data?.detail || "Care log submit failed");
+      }
+      setModalVisible(true);
     } catch (error) {
       console.log(error);
-      setErrorModalVisible(!errorModalVisible);
+      setErrorModalVisible(true);
       //Alert.alert("Care log not added", "Please try again");
     }
   }

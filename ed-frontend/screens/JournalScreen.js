@@ -65,7 +65,7 @@ function JournalScreen({ navigation }) {
     try {
       const url = `${API_BASE_URL}/journal/`;
       //const url = `${API_BASE_URL}/journal/`;
-      let result = await fetch(url, {
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,15 +75,14 @@ function JournalScreen({ navigation }) {
           entry: entry,
         }),
       });
-      result = await result.json();
-      if (result) {
-        console.log("Entry added", result);
-        setModalVisible(!modalVisible);
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result?.detail || "Journal submit failed");
       }
+      setModalVisible(true);
     } catch (error) {
       console.log("Error:", error);
-      //setModalVisible(modalVisible);
-      setErrorModalVisible(!errorModalVisible);
+      setErrorModalVisible(true);
       //Alert.alert("Entry not added", "Please try again");
     }
   }

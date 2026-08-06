@@ -49,7 +49,7 @@ function SelectedQuestScreen({ route, navigation }) {
       //const url = `${API_BASE_URL}/quest/submit/`;
       const url = `${API_BASE_URL}/quest/submit/`;
 
-      let result = await fetch(url, {
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           Authorization: `Token ${authCtx.token}`,
@@ -57,15 +57,17 @@ function SelectedQuestScreen({ route, navigation }) {
         body: formData,
       });
 
-      result = await result.json();
-
-      console.log(result);
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result?.detail || "Quest submit failed");
+      }
 
       setQuestSummary("");
-
       setQuestImages([null, null, null, null]);
+      setModalVisible(true);
     } catch (error) {
       console.log(error);
+      setErrorModalVisible(true);
     }
   }
   return (
