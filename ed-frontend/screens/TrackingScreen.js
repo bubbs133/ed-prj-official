@@ -40,7 +40,7 @@ function TrackingScreen({ navigation }) {
   async function submitHandler() {
     try {
       const url = `${API_BASE_URL}/care-log-cluster/`;
-      let result = await fetch(url, {
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -59,27 +59,25 @@ function TrackingScreen({ navigation }) {
           notes: notes,
         }),
       });
-      result = await result.json();
-      if (result) {
-        //console.log("Entry added", result);
-        // clear form fields
-        setUrgeIntensity(0);
-        setBingeUrge("");
-        setRestriction("");
-        setEmotionalDistress("");
-        setStressLevel("");
-        setEnergyLevel("");
-        setSleepHours("");
-        setNumMeals("");
-        setExerciseMins("");
-        setNotes("");
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result?.detail || "Submit failed");
       }
+      // clear form fields
+      setUrgeIntensity(0);
+      setBingeUrge("");
+      setRestriction("");
+      setEmotionalDistress("");
+      setStressLevel("");
+      setEnergyLevel("");
+      setSleepHours("");
+      setNumMeals("");
+      setExerciseMins("");
+      setNotes("");
+      navigation.navigate("TabNav");
     } catch (error) {
       console.log("Error:", error);
       Alert.alert("Entry not added", "Please try again");
-    } finally {
-      //Alert.alert("Entry added!", "Greate job! :D");
-      navigation.navigate("Home", result);
     }
   }
 

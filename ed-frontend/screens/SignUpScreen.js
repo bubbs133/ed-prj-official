@@ -6,11 +6,10 @@ import {
   Button,
   ImageBackground,
   Pressable,
+  Alert,
 } from "react-native";
 import { useContext, useState } from "react";
 import Input from "../components/Input";
-import { createUser } from "../auth/auth";
-import { getAuth } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../auth/auth-context";
 import Colors from "../constants/colors";
@@ -28,8 +27,7 @@ function SignUpScreen({ navigation, onLogin }) {
   async function signupHandler() {
     try {
       const url = `${API_BASE_URL}/users/`;
-      //const url = `${API_BASE_URL}/users/`;
-      let result = await fetch(url, {
+      const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -38,15 +36,25 @@ function SignUpScreen({ navigation, onLogin }) {
           password: password,
         }),
       });
-      result = await result.json();
-      if (result) {
-        console.log("User added", result);
+      const data = await response.json();
+      if (response.ok && data.token) {
+        await authCtx.authenticate(data.token, { username, email });
         setEmail("");
         setUsername("");
         setPassword("");
+        navigation.navigate("TabNav");
+      } else {
+        Alert.alert(
+          "Sign up failed",
+          data.detail ||
+            data.username?.[0] ||
+            data.email?.[0] ||
+            data.password?.[0] ||
+            "Please try again"
+        );
       }
     } catch (error) {
-      console.log("Error:", error);
+      console.log("Signup error:", error);
       Alert.alert("User not added", "Please try again");
     }
   }
