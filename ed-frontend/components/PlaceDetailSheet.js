@@ -1,9 +1,24 @@
 import React, { useMemo, useRef, useEffect } from "react";
-import { View, Text, StyleSheet, Pressable, Linking } from "react-native";
+import { View, Text, StyleSheet, Pressable, Linking, Alert } from "react-native";
 
 import BottomSheet from "@gorhom/bottom-sheet";
 
 import Colors from "../constants/colors";
+
+async function openLink(url) {
+  if (!url) return;
+  try {
+    const supported = await Linking.canOpenURL(url);
+    if (supported) {
+      await Linking.openURL(url);
+    } else {
+      Alert.alert("Unavailable", "This action isn't supported on your device.");
+    }
+  } catch (error) {
+    console.log("Linking error:", error);
+    Alert.alert("Unavailable", "Couldn't open this link.");
+  }
+}
 
 function PlaceDetailSheet({ place, distance, onClose }) {
   const sheetRef = useRef();
@@ -58,24 +73,30 @@ function PlaceDetailSheet({ place, distance, onClose }) {
             <View style={styles.infoSection}>
               <Text style={styles.label}>Distance</Text>
 
-              <Text style={styles.value}>{distance.toFixed(1)} km away</Text>
+              <Text style={styles.value}>
+                {distance != null ? distance.toFixed(1) : "?"} km away
+              </Text>
             </View>
 
             <View style={styles.buttons}>
               <Pressable
                 style={styles.callButton}
-                onPress={() => Linking.openURL(`tel:${place.tags?.phone}`)}
+                onPress={() =>
+                  place.tags?.phone
+                    ? openLink(`tel:${place.tags.phone}`)
+                    : Alert.alert("Unavailable", "No phone number listed.")
+                }
               >
                 <Text style={styles.buttonText}>Call</Text>
               </Pressable>
 
               <Pressable
                 style={styles.directionButton}
-                onPress={() => {
-                  Linking.openURL(
+                onPress={() =>
+                  openLink(
                     `https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lon}`,
-                  );
-                }}
+                  )
+                }
               >
                 <Text style={styles.buttonText}>Directions</Text>
               </Pressable>
