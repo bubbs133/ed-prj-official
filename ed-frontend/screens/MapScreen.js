@@ -7,7 +7,6 @@ import Colors from "../constants/colors";
 import GoBack from "../components/GoBack";
 
 import HeaderCard from "../components/HeaderCard";
-import FilterChips from "../components/FilterChips";
 import MiniMap from "../components/MiniMap";
 import PlaceList from "../components/PlaceList";
 import PlaceDetailSheet from "../components/PlaceDetailSheet";
@@ -22,22 +21,28 @@ function MapScreen({ navigation }) {
 
   useEffect(() => {
     (async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
+      try {
+        const { status } = await Location.requestForegroundPermissionsAsync();
 
-      if (status !== "granted") {
-        Alert.alert("Permission denied", "Location permission is required.");
+        if (status !== "granted") {
+          Alert.alert("Permission denied", "Location permission is required.");
+          setLoading(false);
+          return;
+        }
+
+        const userLocation = await Location.getCurrentPositionAsync({});
+
+        setLocation(userLocation.coords);
+
+        await fetchPlaces(
+          userLocation.coords.latitude,
+          userLocation.coords.longitude,
+        );
+      } catch (error) {
+        console.log("Location error:", error);
+        Alert.alert("Location error", "Could not get your location.");
         setLoading(false);
-        return;
       }
-
-      const userLocation = await Location.getCurrentPositionAsync({});
-
-      setLocation(userLocation.coords);
-
-      await fetchPlaces(
-        userLocation.coords.latitude,
-        userLocation.coords.longitude,
-      );
     })();
   }, []);
 
@@ -133,12 +138,7 @@ function MapScreen({ navigation }) {
   const handleSelectPlace = (place) => {
     setSelectedPlace(place);
 
-    mapRef.current?.animateToRegion({
-      latitude: place.lat,
-      longitude: place.lon,
-      latitudeDelta: 0.01,
-      longitudeDelta: 0.01,
-    });
+    mapRef.current?.animateTo(place);
   };
 
   // -----------------------------
@@ -167,7 +167,7 @@ function MapScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <HeaderCard />
+      <HeaderCard navigation={navigation} />
 
       <MiniMap
         ref={mapRef}
