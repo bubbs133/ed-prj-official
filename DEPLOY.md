@@ -43,31 +43,25 @@ Set these in Dokploy (Environment) or the root `.env` for compose:
 You can instead use a Dokploy-managed Postgres and drop the `db` service —
 just set `DATABASE_URL` to that instance.
 
-## 4. Migrating existing SQLite data to Postgres
+## 4. Database
 
-The old data lives in `ed-backend/db.sqlite3`. Export it from an environment
-that has the Django deps (e.g. your current dev machine), then load it into the
-Postgres-backed container.
+Postgres only — there is no sqlite fallback. `migrate` runs automatically on
+boot (see `ed-backend/entrypoint.sh`) and creates the schema on the empty
+Postgres volume; the app starts with a fresh database.
 
-```bash
-# From ed-backend, against the OLD sqlite DB (leave DATABASE_URL unset):
-python manage.py dumpdata \
-  --natural-foreign --natural-primary \
-  -e contenttypes -e auth.permission -e admin.logentry -e sessions.session \
-  --indent 2 > seed.json
+Create the first admin by setting these before deploy (the entrypoint runs
+`createsuperuser --noinput`, skipping if the user already exists):
+
+```
+DJANGO_SUPERUSER_USERNAME=admin
+DJANGO_SUPERUSER_EMAIL=admin@your-domain.com
+DJANGO_SUPERUSER_PASSWORD=<long random>
 ```
 
-Then either:
-
-- **Automatic seed:** put `seed.json` in `ed-backend/`, set
-  `LOAD_INITIAL_DATA=/app/seed.json`, and deploy (loaded once after migrate); or
-- **Manual:** `docker compose exec web python manage.py loaddata /app/seed.json`
-
-Auth tokens are preserved, so existing users stay logged in. Content types and
-permissions are excluded so they regenerate cleanly on Postgres.
-
-> Note: `db.sqlite3` is still tracked in git as the data source for this
-> migration. Once migrated, consider `git rm --cached ed-backend/db.sqlite3`.
+> The old `db.sqlite3` was removed from the repo: it contained real password
+> hashes and a live auth token. It remains in git history and the repo is
+> public — rotate those credentials, purge the history (`git filter-repo`),
+> and consider making the repo private. See §6.
 
 ## 5. Frontend configuration
 
@@ -80,3 +74,23 @@ GOOGLE_MAPS_ANDROID_API_KEY=<your key>   # Android maps only; iOS uses Apple Map
 
 Restart Metro with a clean cache after changing env: `npx expo start -c`.
 For a production build use EAS (`eas build`).
+
+## 6. Security follow-ups (leaked `db.sqlite3`)
+
+`ed-backend/db.sqlite3` was committed to a **public** repo. It exposed:
+
+- superuser `admin` (`avaleria1x969@gmail.com`) — pbkdf2 hash
+- user `bubbs` (`bubbs@gmail.com`) — pbkdf2 hash
+- a non-expiring DRF auth token for `bubbs`
+
+Removing the file from the working tree does **not** un-leak it (still in history
+and possibly cached/cloned). Required actions:
+
+1. **Rotate** — treat both accounts and the token as compromised. Fresh Postgres
+   DB starts clean; recreate the admin via `DJANGO_SUPERUSER_*` (§4). If any old
+   credential is reused elsewhere, change it.
+2. **Purge history** — `git filter-repo --path ed-backend/db.sqlite3 --invert-paths`,
+   then force-push. Rewrites history for all clones.
+3. **Repo visibility** — make it private, or accept the leak as permanent.
+4. **`SECRET_KEY`** — the fallback in `settings.py` / compose default is public;
+   always set a real `DJANGO_SECRET_KEY` in the environment.

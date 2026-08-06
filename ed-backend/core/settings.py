@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 
 import dj_database_url
+from django.core.exceptions import ImproperlyConfigured
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -122,11 +123,20 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# Uses DATABASE_URL when set (e.g. postgres://user:pass@host:5432/db),
-# otherwise falls back to local sqlite for development.
+# Postgres only. DATABASE_URL is required (compose/Dokploy inject it pointing at
+# the db service; locally, set it in ed-backend/.env — see .env.example). No
+# hardcoded credentials and no sqlite fallback: a missing/misconfigured URL
+# fails loud here instead of silently connecting to the wrong database.
+DATABASE_URL = os.environ.get("DATABASE_URL")
+if not DATABASE_URL:
+    raise ImproperlyConfigured(
+        "DATABASE_URL is not set. Point it at Postgres "
+        "(e.g. postgres://user:pass@host:5432/db); see .env.example."
+    )
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+    'default': dj_database_url.parse(
+        DATABASE_URL,
         conn_max_age=600,
         conn_health_checks=True,
     )
