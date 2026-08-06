@@ -175,7 +175,6 @@ def user_profile_summary(request):
 @permission_classes([AllowAny])
 def login_user(request):
     if request.method == "POST":
-        print("REQUEST DATA RECEIVED:", request.data)
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.validated_data["user"]
@@ -183,5 +182,4 @@ def login_user(request):
             return Response(
                 {"token": token.key, "username": user.username, "email": user.email}
             )
-        print("Serializer Errors:", serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
