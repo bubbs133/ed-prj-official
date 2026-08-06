@@ -130,21 +130,19 @@ function StressInsightsScreen({ navigation }) {
             </View>
             <View style={[styles.section, { marginBottom: 20 }]}>
               <Text style={[styles.globalFont, styles.subtitles]}>
-                Daily Breakdown
+                Recent Entries
               </Text>
               <View style={styles.dailyGrid}>
-                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
-                  (day, idx) => (
-                    <View key={idx} style={styles.dayBox}>
-                      <Text style={[styles.globalFont, styles.dayLabel]}>
-                        {day}
-                      </Text>
-                      <Text style={[styles.globalFont, styles.dayValue]}>
-                        {entries[idx]?.toFixed(0) || "-"}
-                      </Text>
-                    </View>
-                  ),
-                )}
+                {(entries || []).slice(-7).map((value, idx) => (
+                  <View key={idx} style={styles.dayBox}>
+                    <Text style={[styles.globalFont, styles.dayLabel]}>
+                      {`#${idx + 1}`}
+                    </Text>
+                    <Text style={[styles.globalFont, styles.dayValue]}>
+                      {typeof value === "number" ? value.toFixed(0) : "-"}
+                    </Text>
+                  </View>
+                ))}
               </View>
             </View>
 

@@ -30,12 +30,28 @@ const FEATURE_CONFIGS = {
     format: (avg) => `${avg}/10`,
   },
   stress_level: { positive: false, unit: "/10", format: (avg) => `${avg}/10` },
-  energy_level: { positive: true, unit: "/10", format: (avg) => `${avg}/10` },
-  sleep_hours: { positive: true, unit: "hrs", format: (avg) => `${avg} hrs` },
-  num_meals: { positive: true, unit: "/day", format: (avg) => `${avg}/day` },
+  energy_level: {
+    positive: true,
+    unit: "/10",
+    target: 10,
+    format: (avg) => `${avg}/10`,
+  },
+  sleep_hours: {
+    positive: true,
+    unit: "hrs",
+    target: 8,
+    format: (avg) => `${avg} hrs`,
+  },
+  num_meals: {
+    positive: true,
+    unit: "/day",
+    target: 3,
+    format: (avg) => `${avg}/day`,
+  },
   exercise_minutes: {
     positive: true,
     unit: "min",
+    target: 60,
     format: (avg) => `${avg} min`,
   },
 };
@@ -100,10 +116,14 @@ function HomeScreen({ navigation }) {
 
     if (!positiveFeatures.length) return null;
 
+    // Normalize each feature against its own target so metrics on different
+    // scales (e.g. exercise minutes vs energy /10) are comparable.
     return positiveFeatures.reduce((best, [key, data]) => {
+      const target = FEATURE_CONFIGS[key]?.target || 1;
       const average = data.average ?? -Infinity;
-      if (!best || average > best.average) {
-        return { key, data, average };
+      const score = average === -Infinity ? -Infinity : average / target;
+      if (!best || score > best.score) {
+        return { key, data, average, score };
       }
       return best;
     }, null);
