@@ -50,13 +50,17 @@ function AuthContextProvider({ children }) {
 
   async function logout() {
     setAuthToken(null);
-    await AsyncStorage.removeItem("token");
+    setUsername(null);
+    setEmail(null);
+    await AsyncStorage.multiRemove(["token", "username", "email"]);
   }
 
   return (
     <AuthContext.Provider
       value={{
         token: authToken,
+        username: username,
+        email: email,
         isAuthenticated: !!authToken,
         authenticate,
         logout,

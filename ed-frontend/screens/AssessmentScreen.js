@@ -185,7 +185,7 @@ function AssessmentScreen({ navigation }) {
               style={styles.modalButton}
               onPress={() => {
                 setModalVisible(false);
-                navigation.navigate("Home");
+                navigation.navigate("TabNav");
               }}
             >
               <Text
