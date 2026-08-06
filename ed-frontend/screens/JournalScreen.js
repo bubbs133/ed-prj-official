@@ -30,10 +30,7 @@ function JournalScreen({ navigation }) {
   const authCtx = useContext(AuthContext);
 
   const [journalPrompt, setJournalPrompt] = useState("");
-  const [entryAuthor, setEntryAuthor] = useState("");
-  const [title, setTitle] = useState("");
   const [entry, setEntry] = useState("");
-  const [mood, setMood] = useState("");
 
   function displayDate() {
     const today = new Date();

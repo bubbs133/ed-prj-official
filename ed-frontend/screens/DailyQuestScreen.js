@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
   },
   sv: {
     flex: 1,
-    paddingBottom: -100,
   },
   scrollContent: {
     flexGrow: 1,
@@ -96,7 +95,6 @@ const styles = StyleSheet.create({
   questCard: {
     backgroundColor: Colors.greyish,
     height: 150,
-    width: 130,
     width: "48%",
     borderRadius: 25,
     justifyContent: "center",
