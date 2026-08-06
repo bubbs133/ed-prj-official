@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@env";
 import {
   Alert,
   Pressable,
@@ -62,8 +63,8 @@ function JournalScreen({ navigation }) {
 
   async function submitHandler() {
     try {
-      const url = "http://127.0.0.1:8000/journal/";
-      //const url = "http://192.168.0.125:8000/journal/";
+      const url = `${API_BASE_URL}/journal/`;
+      //const url = `${API_BASE_URL}/journal/`;
       let result = await fetch(url, {
         method: "POST",
         headers: {

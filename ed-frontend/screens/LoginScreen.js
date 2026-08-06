@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@env";
 import {
   View,
   TextInput,
@@ -24,8 +25,8 @@ function LoginScreen({ navigation }) {
 
   async function loginHandler() {
     try {
-      const url = "http://127.0.0.1:8000/login/";
-      //const url = "http://192.168.0.125:8000/login/";
+      const url = `${API_BASE_URL}/login/`;
+      //const url = `${API_BASE_URL}/login/`;
       let response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

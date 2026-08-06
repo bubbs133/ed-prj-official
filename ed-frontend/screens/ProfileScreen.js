@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@env";
 import React, { useState, useEffect, useContext } from "react";
 
 import {
@@ -43,7 +44,7 @@ export default function ProfileScreen({ navigation }) {
       }
 
       try {
-        const response = await fetch("http://127.0.0.1:8000/user-summary/", {
+        const response = await fetch(`${API_BASE_URL}/user-summary/`, {
           headers: {
             Authorization: `Token ${authCtx.token}`,
           },

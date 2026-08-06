@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@env";
 import {
   View,
   Text,
@@ -30,7 +31,7 @@ function StressInsightsScreen({ navigation }) {
         throw new Error("Not authenticated");
       }
 
-      const response = await fetch("http://127.0.0.1:8000/weekly-insights/", {
+      const response = await fetch(`${API_BASE_URL}/weekly-insights/`, {
         method: "GET",
         headers: {
           Authorization: `Token ${authContext.token}`,

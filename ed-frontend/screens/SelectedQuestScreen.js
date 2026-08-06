@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@env";
 import {
   StyleSheet,
   Text,
@@ -45,8 +46,8 @@ function SelectedQuestScreen({ route, navigation }) {
           type: "image/jpeg",
         });
       });
-      //const url = "http://127.0.0.1:8000/quest/submit/";
-      const url = "http://192.168.0.125:8000/quest/submit/";
+      //const url = `${API_BASE_URL}/quest/submit/`;
+      const url = `${API_BASE_URL}/quest/submit/`;
 
       let result = await fetch(url, {
         method: "POST",

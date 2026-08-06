@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@env";
 import {
   Alert,
   Pressable,
@@ -38,7 +39,7 @@ function TrackingScreen({ navigation }) {
 
   async function submitHandler() {
     try {
-      const url = "http://127.0.0.1:8000/care-log-cluster/";
+      const url = `${API_BASE_URL}/care-log-cluster/`;
       let result = await fetch(url, {
         method: "POST",
         headers: {
