@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@env";
 import {
   View,
   Text,
@@ -14,6 +15,19 @@ import React, { useState, useEffect, useContext } from "react";
 import Colors from "../constants/colors";
 import * as Progress from "react-native-progress";
 import { AuthContext } from "../auth/auth-context";
+
+// The weekly-insights API returns label/average/trend but no unit, so map it here.
+const FEATURE_UNITS = {
+  urge_intensity: "/10",
+  binge_urge: "/10",
+  restriction: "/10",
+  emotional_distress: "/10",
+  stress_level: "/10",
+  energy_level: "/10",
+  sleep_hours: "hrs",
+  num_meals: "/day",
+  exercise_minutes: "min",
+};
 
 const GeneralInsightsScreen = ({ navigation }) => {
   const [weeklyData, setWeeklyData] = useState(null);
@@ -32,8 +46,8 @@ const GeneralInsightsScreen = ({ navigation }) => {
         throw new Error("Not authenticated");
       }
 
-      const url = "http://127.0.0.1:8000/weekly-insights/"
-      //const url = "http://192.168.0.125:8000/weekly-insights/";
+      const url = `${API_BASE_URL}/weekly-insights/`
+      //const url = `${API_BASE_URL}/weekly-insights/`;
 
       const response = await fetch(url, {
         method: "GET",
@@ -174,7 +188,9 @@ const GeneralInsightsScreen = ({ navigation }) => {
                     <Text style={[styles.globalFont, styles.cardValue]}>
                       {featureData.average}
                     </Text>
-                    <Text style={styles.globalFont}>{featureData.unit}</Text>
+                    <Text style={styles.globalFont}>
+                      {FEATURE_UNITS[featureKey]}
+                    </Text>
                   </View>
 
                   {/*<View style={styles.cardProgress}>

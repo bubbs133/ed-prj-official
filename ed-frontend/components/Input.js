@@ -1,10 +1,10 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import Colors from "../constants/colors";
 
-function Input({ lable, textInputConfig }) {
+function Input({ label, textInputConfig }) {
   return (
     <View>
-      <Text style={styles.textLabel}>{lable}</Text>
+      <Text style={styles.textLabel}>{label}</Text>
       <TextInput style={styles.loginInputBox} {...textInputConfig} />
     </View>
   );

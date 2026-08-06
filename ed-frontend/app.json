@@ -32,7 +32,14 @@
       [
         "expo-image-picker",
         {
-          "cameraPermission": "The app accesses your photos to let you share them with your friends."
+          "photosPermission": "umi accesses your photos so you can attach images to your quest reflections.",
+          "cameraPermission": "umi accesses your camera so you can add photos to your quest reflections."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "umi uses your location to show nearby professional support and resources."
         }
       ]
     ]

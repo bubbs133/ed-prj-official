@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.env
+staticfiles/
+*.log
+
+# Never commit a database (contained leaked user hashes + auth token). Postgres only.
+*.sqlite3

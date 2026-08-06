@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@env";
 import {
   StyleSheet,
   Text,
@@ -50,8 +51,8 @@ function AssessmentScreen({ navigation }) {
 
   async function submitHandler() {
     try {
-      const url = "http://127.0.0.1:8000/care-log-cluster/";
-      //const url = "http://192.168.0.125:8000/care-log-cluster/";
+      const url = `${API_BASE_URL}/care-log-cluster/`;
+      //const url = `${API_BASE_URL}/care-log-cluster/`;
 
       const result = await fetch(url, {
         method: "POST",
@@ -74,11 +75,13 @@ function AssessmentScreen({ navigation }) {
       });
 
       const data = await result.json();
-      console.log(data);
-      setModalVisible(!modalVisible);
+      if (!result.ok) {
+        throw new Error(data?.detail || "Care log submit failed");
+      }
+      setModalVisible(true);
     } catch (error) {
       console.log(error);
-      setErrorModalVisible(!errorModalVisible);
+      setErrorModalVisible(true);
       //Alert.alert("Care log not added", "Please try again");
     }
   }
@@ -182,7 +185,7 @@ function AssessmentScreen({ navigation }) {
               style={styles.modalButton}
               onPress={() => {
                 setModalVisible(false);
-                navigation.navigate("Home");
+                navigation.navigate("TabNav");
               }}
             >
               <Text

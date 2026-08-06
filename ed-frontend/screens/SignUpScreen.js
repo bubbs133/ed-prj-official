@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@env";
 import {
   StyleSheet,
   Text,
@@ -5,11 +6,10 @@ import {
   Button,
   ImageBackground,
   Pressable,
+  Alert,
 } from "react-native";
 import { useContext, useState } from "react";
 import Input from "../components/Input";
-import { createUser } from "../auth/auth";
-import { getAuth } from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../auth/auth-context";
 import Colors from "../constants/colors";
@@ -26,9 +26,8 @@ function SignUpScreen({ navigation, onLogin }) {
 
   async function signupHandler() {
     try {
-      const url = "http://127.0.0.1:8000/users/";
-      //const url = "http://192.168.0.125:8000/users/";
-      let result = await fetch(url, {
+      const url = `${API_BASE_URL}/users/`;
+      const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -37,15 +36,25 @@ function SignUpScreen({ navigation, onLogin }) {
           password: password,
         }),
       });
-      result = await result.json();
-      if (result) {
-        console.log("User added", result);
+      const data = await response.json();
+      if (response.ok && data.token) {
+        await authCtx.authenticate(data.token, { username, email });
         setEmail("");
         setUsername("");
         setPassword("");
+        navigation.navigate("TabNav");
+      } else {
+        Alert.alert(
+          "Sign up failed",
+          data.detail ||
+            data.username?.[0] ||
+            data.email?.[0] ||
+            data.password?.[0] ||
+            "Please try again"
+        );
       }
     } catch (error) {
-      console.log("Error:", error);
+      console.log("Signup error:", error);
       Alert.alert("User not added", "Please try again");
     }
   }
@@ -71,7 +80,7 @@ function SignUpScreen({ navigation, onLogin }) {
       <View style={styles.mainContainer}>
         <View style={styles.inputElements}>
           <Input
-            lable="email"
+            label="email"
             textInputConfig={{
               value: email,
               onChangeText: setEmail,
@@ -82,7 +91,7 @@ function SignUpScreen({ navigation, onLogin }) {
         </View>
         <View style={styles.inputElements}>
           <Input
-            lable="username"
+            label="username"
             textInputConfig={{
               value: username,
               onChangeText: setUsername,
@@ -93,7 +102,7 @@ function SignUpScreen({ navigation, onLogin }) {
         </View>
         <View style={styles.inputElements}>
           <Input
-            lable="password"
+            label="password"
             textInputConfig={{
               value: password,
               onChangeText: setPassword,

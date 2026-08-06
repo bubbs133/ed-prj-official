@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@env";
 import {
   View,
   TextInput,
@@ -8,9 +9,8 @@ import {
   Pressable,
   ImageBackground,
 } from "react-native";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import Input from "../components/Input";
-import { loginUser } from "../auth/auth";
 import { StackActions } from "@react-navigation/native";
 import { AuthContext } from "../auth/auth-context";
 import Colors from "../constants/colors";
@@ -24,8 +24,8 @@ function LoginScreen({ navigation }) {
 
   async function loginHandler() {
     try {
-      const url = "http://127.0.0.1:8000/login/";
-      //const url = "http://192.168.0.125:8000/login/";
+      const url = `${API_BASE_URL}/login/`;
+      //const url = `${API_BASE_URL}/login/`;
       let response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -37,7 +37,6 @@ function LoginScreen({ navigation }) {
       const data = await response.json();
 
       if (response.ok && data.token) {
-        console.log("Login successful, token:", data.token);
         await authCtx.authenticate(data.token, {
           username: data.username,
           email: data.email,
@@ -54,10 +53,6 @@ function LoginScreen({ navigation }) {
     }
   }
 
-  useEffect(() => {
-    console.log("AUTH TOKEN UPDATED:", authCtx.token);
-  }, [authCtx.token]);
-
   return (
     <ImageBackground
       source={require("../assets/main/loginbg2.png")}
@@ -67,7 +62,7 @@ function LoginScreen({ navigation }) {
         <View style={styles.inputContainer}>
           <View style={styles.inputElements}>
             <Input
-              lable="username"
+              label="username"
               textInputConfig={{
                 value: username,
                 onChangeText: setUsername,
@@ -78,7 +73,7 @@ function LoginScreen({ navigation }) {
           </View>
           <View style={styles.inputElements}>
             <Input
-              lable="password"
+              label="password"
               textInputConfig={{
                 value: password,
                 onChangeText: setPassword,

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Linking,
+  Alert,
 } from "react-native";
 import React from "react";
 import GoBack from "../components/GoBack";
@@ -41,6 +42,21 @@ function ResourcesScreen({ navigation }) {
       text: "741741",
     },
   ];
+
+  async function openLink(url) {
+    if (!url) return;
+    try {
+      const supported = await Linking.canOpenURL(url);
+      if (supported) {
+        await Linking.openURL(url);
+      } else {
+        Alert.alert("Unavailable", "This action isn't supported on your device.");
+      }
+    } catch (error) {
+      console.log("Linking error:", error);
+      Alert.alert("Unavailable", "Couldn't open this link.");
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
@@ -87,7 +103,7 @@ function ResourcesScreen({ navigation }) {
             <View style={styles.actions}>
               <TouchableOpacity
                 style={styles.actionButton}
-                onPress={() => Linking.openURL(resource.website)}
+                onPress={() => openLink(resource.website)}
               >
                 <Ionicons name="globe-outline" size={18} color={Colors.darkNeutral} />
                 <Text style={[styles.actionText, styles.globalFont]}>
@@ -98,7 +114,7 @@ function ResourcesScreen({ navigation }) {
               {resource.call && (
                 <TouchableOpacity
                   style={styles.actionButton}
-                  onPress={() => Linking.openURL(`tel:${resource.call}`)}
+                  onPress={() => openLink(`tel:${resource.call}`)}
                 >
                   <Ionicons name="call-outline" size={18} color={Colors.darkNeutral} />
                   <Text style={[styles.actionText, styles.globalFont]}>
@@ -110,7 +126,7 @@ function ResourcesScreen({ navigation }) {
               {resource.text && (
                 <TouchableOpacity
                   style={styles.actionButton}
-                  onPress={() => Linking.openURL(`sms:${resource.text}`)}
+                  onPress={() => openLink(`sms:${resource.text}`)}
                 >
                   <Ionicons name="chatbubble-outline" size={18} color={Colors.darkNeutral} />
                   <Text style={[styles.actionText, styles.globalFont]}>

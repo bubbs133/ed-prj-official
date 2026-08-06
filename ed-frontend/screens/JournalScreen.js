@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@env";
 import {
   Alert,
   Pressable,
@@ -29,10 +30,7 @@ function JournalScreen({ navigation }) {
   const authCtx = useContext(AuthContext);
 
   const [journalPrompt, setJournalPrompt] = useState("");
-  const [entryAuthor, setEntryAuthor] = useState("");
-  const [title, setTitle] = useState("");
   const [entry, setEntry] = useState("");
-  const [mood, setMood] = useState("");
 
   function displayDate() {
     const today = new Date();
@@ -62,9 +60,9 @@ function JournalScreen({ navigation }) {
 
   async function submitHandler() {
     try {
-      const url = "http://127.0.0.1:8000/journal/";
-      //const url = "http://192.168.0.125:8000/journal/";
-      let result = await fetch(url, {
+      const url = `${API_BASE_URL}/journal/`;
+      //const url = `${API_BASE_URL}/journal/`;
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,15 +72,14 @@ function JournalScreen({ navigation }) {
           entry: entry,
         }),
       });
-      result = await result.json();
-      if (result) {
-        console.log("Entry added", result);
-        setModalVisible(!modalVisible);
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result?.detail || "Journal submit failed");
       }
+      setModalVisible(true);
     } catch (error) {
       console.log("Error:", error);
-      //setModalVisible(modalVisible);
-      setErrorModalVisible(!errorModalVisible);
+      setErrorModalVisible(true);
       //Alert.alert("Entry not added", "Please try again");
     }
   }

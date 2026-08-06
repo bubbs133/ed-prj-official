@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@env";
 import {
   View,
   Text,
@@ -24,8 +25,8 @@ function RestrictionInsightsScreen({ navigation }) {
   }, [authContext.token]);
 
   const fetchWeeklyInsights = async () => {
-    const url = "http://127.0.0.1:8000/weekly-insights/"
-    //const url = "http://192.168.0.125:8000/weekly-insights/"
+    const url = `${API_BASE_URL}/weekly-insights/`
+    //const url = `${API_BASE_URL}/weekly-insights/`
     try {
       setLoading(true);
       if (!authContext.token) throw new Error("Not authenticated");

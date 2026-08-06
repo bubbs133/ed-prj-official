@@ -1,0 +1,42 @@
+# Deploy target for Dokploy (Docker Compose app type).
+# Set secrets via Dokploy's Environment settings; defaults below are dev-only.
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-umi}
+      POSTGRES_USER: ${POSTGRES_USER:-umi}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-umi}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-umi} -d ${POSTGRES_DB:-umi}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  web:
+    build: ./ed-backend
+    restart: unless-stopped
+    environment:
+      DJANGO_DEBUG: ${DJANGO_DEBUG:-false}
+      DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY:-dev-insecure-change-me}
+      DJANGO_ALLOWED_HOSTS: ${DJANGO_ALLOWED_HOSTS:-*}
+      DJANGO_CSRF_TRUSTED_ORIGINS: ${DJANGO_CSRF_TRUSTED_ORIGINS:-}
+      DATABASE_URL: postgres://${POSTGRES_USER:-umi}:${POSTGRES_PASSWORD:-umi}@db:5432/${POSTGRES_DB:-umi}
+      DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME:-}
+      DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL:-}
+      DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD:-}
+      LOAD_INITIAL_DATA: ${LOAD_INITIAL_DATA:-}
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "${WEB_PORT:-8000}:8000"
+    volumes:
+      - media:/app/media
+
+volumes:
+  pgdata:
+  media:

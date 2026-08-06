@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@env";
 import {
   Alert,
   Pressable,
@@ -9,7 +10,7 @@ import {
   FlatList,
   ImageBackground,
 } from "react-native";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SecondButton from "../components/SecondButton";
 import MainButton from "../components/MainButton";
@@ -38,8 +39,8 @@ function TrackingScreen({ navigation }) {
 
   async function submitHandler() {
     try {
-      const url = "http://127.0.0.1:8000/care-log-cluster/";
-      let result = await fetch(url, {
+      const url = `${API_BASE_URL}/care-log-cluster/`;
+      const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,33 +59,27 @@ function TrackingScreen({ navigation }) {
           notes: notes,
         }),
       });
-      result = await result.json();
-      if (result) {
-        //console.log("Entry added", result);
-        // clear form fields
-        setUrgeIntensity(0);
-        setBingeUrge("");
-        setRestriction("");
-        setEmotionalDistress("");
-        setStressLevel("");
-        setEnergyLevel("");
-        setSleepHours("");
-        setNumMeals("");
-        setExerciseMins("");
-        setNotes("");
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result?.detail || "Submit failed");
       }
+      // clear form fields
+      setUrgeIntensity(0);
+      setBingeUrge("");
+      setRestriction("");
+      setEmotionalDistress("");
+      setStressLevel("");
+      setEnergyLevel("");
+      setSleepHours("");
+      setNumMeals("");
+      setExerciseMins("");
+      setNotes("");
+      navigation.navigate("TabNav");
     } catch (error) {
       console.log("Error:", error);
       Alert.alert("Entry not added", "Please try again");
-    } finally {
-      //Alert.alert("Entry added!", "Greate job! :D");
-      navigation.navigate("Home", result);
     }
   }
-
-  useEffect(() => {
-    console.log("TOKEN IN CARE LOG SCREEN:", authCtx.token);
-  }, []);
 
   return (
     <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>

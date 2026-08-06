@@ -10,6 +10,7 @@ const Colors = {
   burgandyOnClick: "#763D3D",
   whiteish: "#FDFDFD",
   marineBlue: "#3E558F",
+  primaryBlue: "#3E558F",
   seaBlue: "#9DBBED",
   greyish: "#F4F4F4",
   secondMarineBlue: "#6F86B1",

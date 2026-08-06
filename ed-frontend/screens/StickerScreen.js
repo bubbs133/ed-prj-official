@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@env";
 import React, { useState, useEffect, useContext } from "react";
 import {
   View,
@@ -13,8 +14,8 @@ import Colors from "../constants/colors";
 import GoBack from "../components/GoBack";
 import { AuthContext } from "../auth/auth-context";
 
-const API_URL = "http://127.0.0.1:8000/stickers/";
-//const API_URL = "http://192.168.0.125:8000/stickers/";
+const API_URL = `${API_BASE_URL}/stickers/`;
+//const API_URL = `${API_BASE_URL}/stickers/`;
 
 function StickerCollectionScreen({ navigation }) {
   const authCtx = useContext(AuthContext);

@@ -21,8 +21,13 @@ from quests.models import Quest
 @permission_classes([AllowAny])
 def user_list(request):
     if request.method == "GET":
-        users = User.objects.all()
-        serializer = SignUpSerializer(users, many=True)
+        # Never expose the full user table. Return only the caller's own record.
+        if not request.user or not request.user.is_authenticated:
+            return Response(
+                {"detail": "Authentication required."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+        serializer = SignUpSerializer(request.user)
         return JsonResponse(serializer.data, safe=False)
     if request.method == "POST":
         serializer = SignUpSerializer(data=request.data)
@@ -99,7 +104,7 @@ def user_profile_summary(request):
             }
         )
 
-        quests = Quest.objects.filter(user=user).order_by("-date_created")
+    quests = Quest.objects.filter(user=user).order_by("-date_created")
 
     for quest in quests:
 
@@ -170,7 +175,6 @@ def user_profile_summary(request):
 @permission_classes([AllowAny])
 def login_user(request):
     if request.method == "POST":
-        print("REQUEST DATA RECEIVED:", request.data)
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.validated_data["user"]
@@ -178,5 +182,4 @@ def login_user(request):
             return Response(
                 {"token": token.key, "username": user.username, "email": user.email}
             )
-        print("Serializer Errors:", serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

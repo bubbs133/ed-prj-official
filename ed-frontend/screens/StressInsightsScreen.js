@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "@env";
 import {
   View,
   Text,
@@ -30,7 +31,7 @@ function StressInsightsScreen({ navigation }) {
         throw new Error("Not authenticated");
       }
 
-      const response = await fetch("http://127.0.0.1:8000/weekly-insights/", {
+      const response = await fetch(`${API_BASE_URL}/weekly-insights/`, {
         method: "GET",
         headers: {
           Authorization: `Token ${authContext.token}`,
@@ -129,21 +130,19 @@ function StressInsightsScreen({ navigation }) {
             </View>
             <View style={[styles.section, { marginBottom: 20 }]}>
               <Text style={[styles.globalFont, styles.subtitles]}>
-                Daily Breakdown
+                Recent Entries
               </Text>
               <View style={styles.dailyGrid}>
-                {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
-                  (day, idx) => (
-                    <View key={idx} style={styles.dayBox}>
-                      <Text style={[styles.globalFont, styles.dayLabel]}>
-                        {day}
-                      </Text>
-                      <Text style={[styles.globalFont, styles.dayValue]}>
-                        {entries[idx]?.toFixed(0) || "-"}
-                      </Text>
-                    </View>
-                  ),
-                )}
+                {(entries || []).slice(-7).map((value, idx) => (
+                  <View key={idx} style={styles.dayBox}>
+                    <Text style={[styles.globalFont, styles.dayLabel]}>
+                      {`#${idx + 1}`}
+                    </Text>
+                    <Text style={[styles.globalFont, styles.dayValue]}>
+                      {typeof value === "number" ? value.toFixed(0) : "-"}
+                    </Text>
+                  </View>
+                ))}
               </View>
             </View>
 
