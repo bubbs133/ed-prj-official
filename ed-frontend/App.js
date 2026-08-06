@@ -35,7 +35,6 @@ import Colors from "./constants/colors";
 import Chatbot from "./screens/Chatbot";
 import TrackingScreen from "./screens/TrackingScreen";
 import ChatroomScreen from "./screens/ChatroomScreen";
-import SandboxScreen from "./screens/SandboxScreen";
 import ReadScreen from "./screens/ReadScreen";
 import { AuthContext } from "./auth/auth-context";
 import AuthContextProvider from "./auth/auth-context";
@@ -237,10 +236,6 @@ export default function App() {
         />
         <Stack.Screen name="Map" component={MapScreen} />
         <Stack.Screen name="Resources" component={ResourcesScreen} />
-        {/*
-        <Stack.Screen name="Meals" component={FoodTrackingScreen} />
-        <Stack.Screen name="Exercises" component={ExerciseTrackingScreen} />
-        */}
       </Stack.Navigator>
     );
   }

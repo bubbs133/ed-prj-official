@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { useContext, useState, useEffect } from "react";
 import Input from "../components/Input";
-import { loginUser } from "../auth/auth";
 import { StackActions } from "@react-navigation/native";
 import { AuthContext } from "../auth/auth-context";
 import Colors from "../constants/colors";

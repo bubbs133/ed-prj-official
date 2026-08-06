@@ -14,7 +14,6 @@ import Boxes from "../components/Boxes";
 import Colors from "../constants/colors";
 import { AuthContext } from "../auth/auth-context";
 import { DAILY_ACTIVITIES } from "../models/activityBoxes";
-import { colors } from "react-native-swiper-flatlist/src/themes";
 
 const FEATURE_CONFIGS = {
   urge_intensity: {
