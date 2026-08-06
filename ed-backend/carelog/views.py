@@ -21,13 +21,12 @@ import datetime
 
 # Create your views here.
 @api_view(["GET"])
+@permission_classes([IsAuthenticated])
 def care_log_list(request):
-    if request.method == "GET":
-        care_log_entry = CareLog.objects.all()
-        serializer = CareLogSerializer(care_log_entry, many=True)
-        care_log_data = serializer.data
-        return Response(care_log_data)
-    return Response(care_log_data.errors, status=status.HTTP_400_BAD_REQUEST)
+    # Only return the authenticated user's own care logs.
+    care_log_entry = CareLog.objects.filter(user=request.user).order_by("-date_created")
+    serializer = CareLogSerializer(care_log_entry, many=True)
+    return Response(serializer.data)
 
 
 @api_view(["POST"])
