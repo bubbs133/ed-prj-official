@@ -80,7 +80,7 @@ function SignUpScreen({ navigation, onLogin }) {
       <View style={styles.mainContainer}>
         <View style={styles.inputElements}>
           <Input
-            lable="email"
+            label="email"
             textInputConfig={{
               value: email,
               onChangeText: setEmail,
@@ -91,7 +91,7 @@ function SignUpScreen({ navigation, onLogin }) {
         </View>
         <View style={styles.inputElements}>
           <Input
-            lable="username"
+            label="username"
             textInputConfig={{
               value: username,
               onChangeText: setUsername,
@@ -102,7 +102,7 @@ function SignUpScreen({ navigation, onLogin }) {
         </View>
         <View style={styles.inputElements}>
           <Input
-            lable="password"
+            label="password"
             textInputConfig={{
               value: password,
               onChangeText: setPassword,

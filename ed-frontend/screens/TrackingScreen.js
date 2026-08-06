@@ -10,7 +10,7 @@ import {
   FlatList,
   ImageBackground,
 } from "react-native";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SecondButton from "../components/SecondButton";
 import MainButton from "../components/MainButton";
@@ -80,10 +80,6 @@ function TrackingScreen({ navigation }) {
       Alert.alert("Entry not added", "Please try again");
     }
   }
-
-  useEffect(() => {
-    console.log("TOKEN IN CARE LOG SCREEN:", authCtx.token);
-  }, []);
 
   return (
     <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
