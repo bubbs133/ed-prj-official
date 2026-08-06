@@ -190,6 +190,7 @@ function HomeScreen({ navigation }) {
     {
       key: "biggestImprovement",
       img: require("../assets/icons/seastar.png"),
+      imgColor: Colors.darkBlueText,
       title: "Biggest Improvement",
 
       subtitle: biggestImprovement?.key
@@ -216,6 +217,7 @@ function HomeScreen({ navigation }) {
     {
       key: "strongestHabit",
       img: require("../assets/icons/sun.png"),
+      imgColor: Colors.darkBrownText,
       title: "Strongest Habit",
       subtitle: strongestHabit?.data?.label || "",
       value:
@@ -233,6 +235,7 @@ function HomeScreen({ navigation }) {
     {
       key: "gentleFocus",
       img: require("../assets/icons/fish.png"),
+      imgColor: Colors.darkBrownText,
       title: "Gentle Focus",
 
       subtitle: gentleFocus?.key ? gentleFocus.key.replace("_", " ") : "",
@@ -252,6 +255,7 @@ function HomeScreen({ navigation }) {
     {
       key: "fullInsights",
       img: require("../assets/icons/bucket.png"),
+      imgColor: Colors.darkBlueText,
       title: "Full Insights",
       subtitle: "See more",
       value: weeklyInsights?.entries_count
@@ -331,12 +335,13 @@ function HomeScreen({ navigation }) {
                   style={[styles.resourcesBox]}
                   itemTitle="Care Log"
                   description="Gently observe yourself and your habits."
-                  imgPath={require("../assets/icons/waterblue.png")}
+                  imgPath={require("../assets/icons/newwaves.png")}
                   height={110}
                   width={"100%"}
                   borderColor={null}
                   fillColor={Colors.seaBlue2}
                   fontColor={Colors.darkBlueText}
+                  imgTint={Colors.darkBlueText}
                 />
               </TouchableOpacity>
             </View>
@@ -361,7 +366,7 @@ function HomeScreen({ navigation }) {
                       }
                     }}
                   >
-                    <Image source={card.img} style={styles.insightImg} />
+                    <Image source={card.img} style={[styles.insightImg, {tintColor: card.imgColor}]} />
                     <Text
                       style={[
                         styles.globalFont,
@@ -435,34 +440,12 @@ function HomeScreen({ navigation }) {
                       borderColor={item.border}
                       fillColor={item.color}
                       fontColor={item.fontColor}
+                      imgTint={item.imgColor}
                     />
                   </TouchableOpacity>
                 )}
               />
             </View>
-            {/*<View style={styles.activitySection}>
-              <Text style={[styles.sectionHeading, styles.globalFont]}>
-                Check-In
-              </Text>
-              <Pressable
-                style={{ width: "100%" }}
-                onPress={() => {
-                  setActiveModal(!activeModal);
-                }}
-              >
-                <Boxes
-                  style={[styles.resourcesBox]}
-                  itemTitle="Care Log"
-                  description="Gently observe yourself and your habits."
-                  imgPath={require("../assets/toolbox.png")}
-                  height={110}
-                  width={"100%"}
-                  borderColor={Colors.marineBlue}
-                  fillColor={Colors.limeGreen}
-                  fontColor={Colors.marineBlue}
-                />
-              </Pressable>
-            </View>*/}
           </View>
         </View>
       </ScrollView>

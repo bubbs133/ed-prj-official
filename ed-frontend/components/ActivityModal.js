@@ -81,7 +81,7 @@ export default function ActivityModal({ visible, activity, onClose }) {
     if (activity.type === "quest") {
       return (
         <>
-          <Text style={styles.label}>Quest Completed 🏖️</Text>
+          <Text style={styles.label}>Quest Completed</Text>
 
           <Text style={styles.bodyText}>
             {activity.details?.quest_summary || activity.preview}

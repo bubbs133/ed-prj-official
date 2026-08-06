@@ -11,6 +11,7 @@ const DAILY_ACTIVITIES = [
     border: Colors.seaDarkBlue,
     fontColor: Colors.darkBlueText,
     img: require("../assets/icons/shell.png"),
+    imgColor: Colors.darkBlueText,
     screen: "Quests",
   },
   /*{
@@ -53,6 +54,7 @@ const DAILY_ACTIVITIES = [
     border: Colors.lightCoffeeBrown,
     fontColor: Colors.darkBrownText,
     img: require("../assets/icons/beachball.png"),
+    imgColor: Colors.darkBrownText,
     screen: "Journal",
   },
   {
@@ -63,6 +65,7 @@ const DAILY_ACTIVITIES = [
     border: Colors.seaBlue2,
     fontColor: Colors.darkBlueText,
     img: require("../assets/icons/umbrella.png"),
+    imgColor: Colors.darkBlueText,
     screen: "QuickReadsList",
   },
 ];

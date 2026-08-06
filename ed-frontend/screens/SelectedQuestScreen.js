@@ -8,7 +8,7 @@ import {
   Dimensions,
   KeyboardAvoidingView,
   Modal,
-  Platform
+  Platform,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { QUESTS } from "../models/quests";
@@ -81,7 +81,13 @@ function SelectedQuestScreen({ route, navigation }) {
             <GoBack navigation={navigation} />
           </View>
           <View style={styles.mainContentContainer}>
-            <Text style={[styles.globalFont, styles.questInfo, {fontWeight: 500, fontSize: 17, paddingBottom: 10}]}>
+            <Text
+              style={[
+                styles.globalFont,
+                styles.questInfo,
+                { fontWeight: 500, fontSize: 17, paddingBottom: 10 },
+              ]}
+            >
               {quest.name}
             </Text>
             <Text style={[styles.globalFont, styles.questInfo]}>
@@ -134,7 +140,7 @@ function SelectedQuestScreen({ route, navigation }) {
             </View>
             <View style={styles.inputContainer}>
               <Text style={[styles.globalFont, styles.question]}>
-              Any Thoughts?
+                Any Thoughts?
               </Text>
               <TextInput
                 style={[styles.globalFont, styles.textInput]}
@@ -157,7 +163,10 @@ function SelectedQuestScreen({ route, navigation }) {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.modalIconContainer}>
-              <Text style={{ fontSize: 50 }}>✨</Text>
+              <Image
+                style={{ width: 50, height: 50 }}
+                source={require("../assets/icons/check.png")}
+              />
             </View>
             <Text style={[styles.modalTitle, styles.globalFont]}>Awesome</Text>
             <Text style={[styles.modalText, styles.globalFont]}>
@@ -190,7 +199,10 @@ function SelectedQuestScreen({ route, navigation }) {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.modalIconContainer}>
-              <Text style={{ fontSize: 50 }}>❌</Text>
+              <Image
+                style={{ width: 50, height: 50 }}
+                source={require("../assets/icons/exclaim.png")}
+              />
             </View>
             <Text style={[styles.modalTitle, styles.globalFont]}>Uh oh!</Text>
             <Text style={[styles.modalText, styles.globalFont]}>
@@ -232,7 +244,7 @@ const styles = StyleSheet.create({
   globalFont: {
     fontFamily: "Afacad",
     letterSpacing: 1.2,
-    color: Colors.darkNeutral
+    color: Colors.darkNeutral,
   },
   mainContentContainer: {
     justifyContent: "center",
@@ -241,7 +253,7 @@ const styles = StyleSheet.create({
   },
   questInfo: {
     textAlign: "center",
-    fontSize: 15
+    fontSize: 15,
   },
   imgsContainer: {
     rowGap: 30,
@@ -273,8 +285,8 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   textInput: {
-    fontSize: 16
-  }
+    fontSize: 16,
+  },
 });
 
 export default SelectedQuestScreen;

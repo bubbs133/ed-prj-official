@@ -11,6 +11,7 @@ function Boxes({
   borderColor,
   fillColor,
   fontColor,
+  imgTint
 }) {
   return (
     <View
@@ -28,7 +29,7 @@ function Boxes({
         color: fontColor,
       }}
     >
-      <Image source={imgPath} style={styles.img}></Image>
+      <Image source={imgPath} style={[styles.img, {tintColor: imgTint}]}></Image>
       <View style={styles.bottom}>
         <Text
           style={[styles.itemTitle, styles.globalFont, { color: fontColor }]}

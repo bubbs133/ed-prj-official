@@ -174,7 +174,7 @@ function AssessmentScreen({ navigation }) {
             <View style={styles.modalIconContainer}>
               <Image
                 style={{ width: 50, height: 50 }}
-                source={require("../assets/icons/darkstar.png")}
+                source={require("../assets/icons/check.png")}
               />
             </View>
             <Text style={[styles.modalTitle, styles.globalFont]}>Awesome!</Text>
@@ -210,7 +210,7 @@ function AssessmentScreen({ navigation }) {
             <View style={styles.modalIconContainer}>
               <Image
                 style={{ width: 50, height: 50 }}
-                source={require("../assets/icons/darkstar.png")}
+                source={require("../assets/icons/exclaim.png")}
               />
             </View>
             <Text style={[styles.modalTitle, styles.globalFont]}>Uh oh!</Text>
