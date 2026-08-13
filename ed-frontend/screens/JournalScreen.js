@@ -58,7 +58,7 @@ function JournalScreen({ navigation }) {
     generateRndPrompt(rndNum);
   }, []);
 
-  async function submitHandler() {
+  /*async function submitHandler() {
     try {
       const url = `${API_BASE_URL}/journal/`;
       //const url = `${API_BASE_URL}/journal/`;
@@ -81,6 +81,43 @@ function JournalScreen({ navigation }) {
       console.log("Error:", error);
       setErrorModalVisible(true);
       //Alert.alert("Entry not added", "Please try again");
+    }
+  } */
+
+  async function submitHandler() {
+    try {
+      const url = `${API_BASE_URL}/journal/`;
+
+      console.log("URL:", url);
+      console.log("TOKEN EXISTS:", !!authCtx.token);
+      console.log("TOKEN:", authCtx.token);
+      console.log("ENTRY:", entry);
+
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Token ${authCtx.token}`,
+        },
+        body: JSON.stringify({
+          entry: entry,
+        }),
+      });
+
+      console.log("STATUS:", response.status);
+
+      const result = await response.json();
+
+      console.log("RESPONSE:", result);
+
+      if (!response.ok) {
+        throw new Error(result?.detail || "Journal submit failed");
+      }
+
+      setModalVisible(true);
+    } catch (error) {
+      console.log("JOURNAL ERROR:", error);
+      setErrorModalVisible(true);
     }
   }
 
@@ -274,7 +311,7 @@ const styles = StyleSheet.create({
   },
   modalButton: {
     backgroundColor: Colors.darkNeutral,
-    borderRadius: 20,
+    borderRadius: 10,
     paddingHorizontal: 40,
     paddingVertical: 5,
   },

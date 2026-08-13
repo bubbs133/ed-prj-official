@@ -25,7 +25,7 @@ const journalPrompts = [
   {
     id: 6,
     prompt:
-      "What's one way you're 'launching' a new version of yourself? Be gentle with yourself :)",
+      "What's one way you're 'launching' a new version of yourself? Be gentle with yourself.",
   },
   {
     id: 7,
@@ -80,8 +80,16 @@ const journalPrompts = [
   {
     id: 17,
     prompt:
-      "Make a list of the common negative thoughts you have about your body that you repeat to yourself often. Then next to it, write out how you would respond to your best friend or a loved one saying these things about themselves. Then, compare the differences between the two statements. Why is there such a big difference between the way you speak to yourself and those you care about? In what ways could you begin changing the way you speak to yourself about your body?",
+      "Make a list of the common negative thoughts you have about your body, think about how you would respond if a loved one did the same. Compare the differences, why is there such a big difference between the two? In what ways could you begin changing the way you speak to yourself about your body?",
   },
+  {
+    id: 18,
+    prompt: "Who is someone in my life who models a positive relationship with food and body? Why do you think they model this? Is it possible to adopt some of these models?"
+  },
+  {
+    id: 19,
+    promt: "What are barriers you are currently facing in finding peace and freedom around your relationship with food?"
+  }
 ];
 
 export { journalPrompts };

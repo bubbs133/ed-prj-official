@@ -54,6 +54,11 @@ function AssessmentScreen({ navigation }) {
       const url = `${API_BASE_URL}/care-log-cluster/`;
       //const url = `${API_BASE_URL}/care-log-cluster/`;
 
+      console.log("URL:", url);
+      console.log("TOKEN EXISTS:", !!authCtx.token);
+      console.log("TOKEN:", authCtx.token);
+      //console.log("ENTRY:", entry);
+
       const result = await fetch(url, {
         method: "POST",
         headers: {
@@ -74,13 +79,19 @@ function AssessmentScreen({ navigation }) {
         }),
       });
 
+      console.log("STATUS:", result.status);
+
       const data = await result.json();
+
+      console.log("RESPONSE:", result);
+
       if (!result.ok) {
         throw new Error(data?.detail || "Care log submit failed");
       }
       setModalVisible(true);
     } catch (error) {
       console.log(error);
+      console.log("CARELOG ERROR:", error);
       setErrorModalVisible(true);
       //Alert.alert("Care log not added", "Please try again");
     }
@@ -243,6 +254,7 @@ function AssessmentScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FAF8F4"
   },
   mainContainer: {
     flex: 1,
@@ -297,7 +309,7 @@ const styles = StyleSheet.create({
   },
   modalButton: {
     backgroundColor: Colors.darkNeutral,
-    borderRadius: 20,
+    borderRadius: 10,
     paddingHorizontal: 40,
     paddingVertical: 5,
   },

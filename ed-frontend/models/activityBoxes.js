@@ -2,12 +2,23 @@ import Colors from "../constants/colors";
 
 const DAILY_ACTIVITIES = [
   {
+    id: "carelog",
+    title: "Care Log",
+    description: "Gently observe yourself and your habits.",
+    color: Colors.greyish,
+    border: Colors.lightCoffeeBrown,
+    fontColor: Colors.lightCoffeeBrown,
+    img: require("../assets/icons/newwaves.png"),
+    //screen: "Tracking",
+    screen: "Assessment",
+  },
+  {
     id: "quests",
     title: "Quests",
     description: "Challenge yourself and your mind by completing quests.",
     //color: Colors.pastelBlue,
     //border: Colors.darkBlue,
-    color: Colors.seaBlue2,
+    color: Colors.greyish,
     border: Colors.seaDarkBlue,
     fontColor: Colors.darkBlueText,
     img: require("../assets/icons/shell.png"),
@@ -23,17 +34,6 @@ const DAILY_ACTIVITIES = [
     fontColor: Colors.secondMarineBlue,
     img: require("../assets/pinkbubbleoutline.png"),
     screen: "Chatbot",
-  },
-  {
-    id: "carelog",
-    title: "Care Log",
-    description: "Gently observe yourself and your habits.",
-    color: Colors.greyish,
-    border: Colors.lightCoffeeBrown,
-    fontColor: Colors.lightCoffeeBrown,
-    img: require("../assets/icons/waves.png"),
-    //screen: "Tracking",
-    screen: "Assessment"
   },
   {
     id: "stickers",
@@ -61,7 +61,7 @@ const DAILY_ACTIVITIES = [
     id: "quickReads",
     title: "Quick Reads",
     description: "Learn about eating disorders, nutrition, and sport science!",
-    color: Colors.seaDarkBlue,
+    color: Colors.greyish,
     border: Colors.seaBlue2,
     fontColor: Colors.darkBlueText,
     img: require("../assets/icons/umbrella.png"),
@@ -70,26 +70,4 @@ const DAILY_ACTIVITIES = [
   },
 ];
 
-const CHECK_INS = [
-  {
-    id: "carelog",
-    title: "Care Log",
-    description: "Gently observe yourself and your habits.",
-    color: Colors.limeGreen,
-    border: Colors.marineBlue,
-    fontColor: Colors.marineBlue,
-    //img: require("../assets/foodgreen.png"),
-    screen: "Tracking",
-  },
-  /*{
-    id: "assessment",
-    title: "Self-Assessment",
-    description: "Take the self-assessment to check in on your symptoms.",
-    color: Colors.lightPink,
-    border: Colors.darkPink,
-    img: require("../assets/quizpink.png"),
-    screen: "Assessment",
-  },*/
-];
-
-export { DAILY_ACTIVITIES, CHECK_INS };
+export { DAILY_ACTIVITIES };

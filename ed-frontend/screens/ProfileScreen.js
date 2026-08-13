@@ -41,6 +41,10 @@ export default function ProfileScreen({ navigation }) {
         setLoading(false);
 
         return;
+      } else {
+        console.log("URL:", url);
+        console.log("TOKEN EXISTS:", !!authCtx.token);
+        console.log("TOKEN:", authCtx.token);
       }
 
       try {
@@ -50,15 +54,20 @@ export default function ProfileScreen({ navigation }) {
           },
         });
 
+        console.log("STATUS:", response.status);
+
         if (!response.ok) {
           throw new Error("Unable to load profile data.");
         }
 
         const data = await response.json();
 
+        console.log("RESPONSE:", response);
+
         setProfileData(data);
       } catch (err) {
         setError(err.message || "Unable to fetch profile.");
+        console.log("PROFILE ERROR:", error);
       } finally {
         setLoading(false);
       }
@@ -211,7 +220,7 @@ const styles = StyleSheet.create({
     width: 75,
     height: 75,
     borderRadius: 40,
-    backgroundColor: Colors.seaDarkBlue,
+    backgroundColor: Colors.homeBlue,
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 10,

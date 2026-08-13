@@ -33,29 +33,36 @@ const GeneralInsightsScreen = ({ navigation }) => {
   const [weeklyData, setWeeklyData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const authContext = useContext(AuthContext);
+  
+  const authCtx = useContext(AuthContext);
 
   useEffect(() => {
     fetchWeeklyInsights();
-  }, [authContext.token]);
+  }, [authCtx.token]);
 
   const fetchWeeklyInsights = async () => {
     try {
       setLoading(true);
-      if (!authContext.token) {
+      if (!authCtx.token) {
         throw new Error("Not authenticated");
       }
 
       const url = `${API_BASE_URL}/weekly-insights/`
       //const url = `${API_BASE_URL}/weekly-insights/`;
 
+      console.log("URL:", url);
+      console.log("TOKEN EXISTS:", !!authCtx.token);
+      console.log("TOKEN:", authCtx.token);
+
       const response = await fetch(url, {
         method: "GET",
         headers: {
-          Authorization: `Token ${authContext.token}`,
+          Authorization: `Token ${authCtx.token}`,
           "Content-Type": "application/json",
         },
       });
+
+      console.log("STATUS:", response.status);
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -63,10 +70,14 @@ const GeneralInsightsScreen = ({ navigation }) => {
       }
 
       const data = await response.json();
+
+      console.log("RESPONSE:", response);
+
       setWeeklyData(data);
     } catch (err) {
       setError(err.message);
       console.error("Error fetching weekly insights:", err);
+      console.log("CARELOG ERROR:", error);
     } finally {
       setLoading(false);
     }

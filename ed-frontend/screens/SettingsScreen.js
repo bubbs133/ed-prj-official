@@ -26,12 +26,12 @@ function SettingsScreen({ navigation }) {
       style={styles.outerContainer}
     >
       <ImageBackground
-        source={require("../assets/main/loginbg2.png")}
+        source={require("../assets/main/settings.png")}
         style={styles.backgroundImg}
       >
         <View style={styles.contentContainer}>
           <View>
-            <GoBack navigation={navigation} />
+            {/*<GoBack navigation={navigation} />*/}
             <Text style={[styles.header, styles.globalFont]}>Settings</Text>
           </View>
           <View style={styles.element}>
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingLeft: "5%",
     paddingRight: "5%",
+    marginTop: 30
   },
   globalFont: {
     fontFamily: "Afacad",

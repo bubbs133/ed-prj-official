@@ -45,6 +45,10 @@ const QUICK_READS = [
           "Recovery isn't linear: You will have moments when you want to give up and feel completely hopeless, but don't give into these thoughts. Lapses are normal, just keep trying, sooner or later you'll be free from the ED!",
         ],
       },
+      {
+        subtitle: "Refrences",
+        paragraphs: ["• Break Free From ED: Eating For Recovery Part 1 by K. Targowski et al"],
+      },
     ],
   },
   {
@@ -94,15 +98,13 @@ const QUICK_READS = [
       },
       {
         subtitle: "Refrences",
-        paragraphs: [
-          "'What Keeps Eating Disorders Going?.' Centre for Clinical Interventions, July 2022, www.cci.health.wa.gov.au/~/media/CCI/Consumer-Modules/Break-Free-From-ED/Break-Free-From-ED---02---What-Keeps-Eating-Disorders-Going.pdf.",
-        ],
+        paragraphs: ["• Break Free From ED: What Keeps Eating Disorders Going? by K. Targowski et al"],
       },
     ],
   },
   {
     id: "3",
-    title: "Understanding the Number on the Scale",
+    title: "Digging Into The Scale Number",
     img: require("../assets/reads/nums.png"),
     urlSource:
       "https://www.cci.health.wa.gov.au/~/media/CCI/Consumer-Modules/Break-Free-From-ED/Break-Free-From-ED---03---Understanding-the-Number-On-the-Scale.pdf",
@@ -157,8 +159,13 @@ const QUICK_READS = [
           "Remember that you are worth more than a number on a scale! You have dreams and goals and amazing skills so please don't ever be fixated onto a meaningless number.",
         ],
       },
+      {
+        subtitle: "Refrences",
+        paragraphs: [
+          "• Break Free From ED: Understanding the Number on the Scale by K. Targowski et al",
+        ],
+      },
     ],
-    citation: "ii",
   },
   /*{
     id: "3",
@@ -237,6 +244,12 @@ const QUICK_READS = [
           "It's okay if you have a lapse every now and then, always keep your goals in mind and never give up. I can promise you are strong enough to overcome all of this fear, anxiety, and overthinking!",
         ],
       },
+      {
+        subtitle: "Refrences",
+        paragraphs: [
+          "• Break Free From ED: Eating For Recovery by K. Targowski et al",
+        ],
+      },
     ],
   },
   {
@@ -302,7 +315,7 @@ const QUICK_READS = [
         paragraphs: [
           "EAT is the energy used during intentional activity such as a gym session or a run.",
           "Funny enough, EAT only uses up about 5% - 10% of your daily energy expenditure.",
-          "Of course, you can increase this but on average it will be the smallest component to your total daily energy use."
+          "Of course, you can increase this but on average it will be the smallest component to your total daily energy use.",
         ],
       },
       {
@@ -324,10 +337,10 @@ const QUICK_READS = [
       {
         subtitle: "References",
         paragraphs: [
-          "Academy of Nutrition and Dietetics. (n.d.). Food as Fuel. https://www.eatright.org",
-          "Institute of Medicine. (2005). Dietary Reference Intakes for Energy, Carbohydrate, Fiber, Fat, Fatty Acids, Cholesterol, Protein, and Amino Acids.",
-          "Hall, K. D., et al. (2012). Energy balance and its components: implications for body weight regulation. American Journal of Clinical Nutrition, 95(4), 989-994.",
-          "Harvard T.H. Chan School of Public Health. The Nutrition Source. https://www.hsph.harvard.edu/nutritionsource/",
+          "• Food as Fuel on Academy of Nutrition and Dietetics",
+          "• Dietary Reference Intakes for Energy, Carbohydrate, Fiber, Fat, Fatty Acids, Cholesterol, Protein, and Amino Acids on Institute of Medicine (2005)",
+          "• Energy Balance and its Components: Implications for Body Weight Regulation by Hall, K. D., et al. (2012) on American Journal of Clinical Nutrition",
+          "• The Nutrition Source by T.H. on Harvard School of Public Health",
         ],
       },
     ],
@@ -369,9 +382,9 @@ const QUICK_READS = [
         subtitle: "Core Recovery Strategies",
         paragraphs: [
           "In the guide Break Free from ED, Dr. Targowski suggests that regular eating (3 meals and 2 - 3 snacks daily, no foods forbidden) is the essential foundation for recovery. Once is this is set, one can try the following recovery strategies:",
-          "~ Urge Surfing: View the urge to binge as a wave, at first the feeling will be strong and hard to resist but over time the feeling will subside. As Dr. Targowski suggests, '…even the most intense emotions can't last forever, and we can learn to ride them out' (5, Targowski).",
-          "~ Delay and Distract: When an urge hits, commit to waiting a couple of minutes, even 5 - 10 minutes for starters, you can choose to increase this over time. During the delay, engage in a distracting activity like gardening, reading, or calling a friend. Set a timer on your phone so you avoid staring at a clock during this time and see what happens to the urge. It's okay if this is challenging at first, over time this will be a skill you have strengthen.",
-          "~ Mindful Eating: If a binge does occur, sitting at a table and focusing on the taste and texture of the food can help 'break the autopilot' and reduce the episode's size.",
+          "• Urge Surfing: View the urge to binge as a wave, at first the feeling will be strong and hard to resist but over time the feeling will subside. As Dr. Targowski suggests, '…even the most intense emotions can't last forever, and we can learn to ride them out' (5, Targowski).",
+          "• Delay and Distract: When an urge hits, commit to waiting a couple of minutes, even 5 - 10 minutes for starters, you can choose to increase this over time. During the delay, engage in a distracting activity like gardening, reading, or calling a friend. Set a timer on your phone so you avoid staring at a clock during this time and see what happens to the urge. It's okay if this is challenging at first, over time this will be a skill you have strengthen.",
+          "• Mindful Eating: If a binge does occur, sitting at a table and focusing on the taste and texture of the food can help 'break the autopilot' and reduce the episode's size.",
         ],
       },
       {
@@ -385,7 +398,7 @@ const QUICK_READS = [
       {
         subtitle: "References",
         paragraphs: [
-          "Academy of Nutrition and Dietetics. (n.d.). Food as Fuel. https://www.eatright.org",
+          "• Break Free From ED: Binge Eating by K. Targowski et al"
         ],
       },
     ],

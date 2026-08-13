@@ -4,6 +4,7 @@ import {
   Text,
   View,
   ImageBackground,
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
 import Colors from "../constants/colors";
@@ -27,14 +28,14 @@ function LandingScreen({ navigation }) {
       <View style={styles.container}>
         <View style={styles.btns}>
           <View>
-            <Pressable style={styles.loginbtn} onPressIn={loginButtonHandler}>
+            <TouchableOpacity style={styles.loginbtn} onPressIn={loginButtonHandler}>
               <Text style={styles.btnTitles}>Login</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View>
-            <Pressable style={styles.signupbtn} onPress={signupButtonHandler}>
+            <TouchableOpacity style={styles.signupbtn} onPress={signupButtonHandler}>
               <Text style={styles.btnTitles}>Signup</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -57,30 +58,31 @@ const styles = StyleSheet.create({
     bottom: 35,
   },
   loginbtn: {
-    borderRadius: 50,
+    borderRadius: 10,
     height: 37,
     width: 300,
-    backgroundColor: "transparent",
+    backgroundColor: Colors.landingBlue,
     marginBottom: 10,
     marginTop: 10,
-    borderColor: Colors.floaterCream,
+    //borderColor: Colors.floaterCream,
+    borderColor: Colors.landingBlue,
     //borderColor: "#42190D",
     //borderColor: "#9B8E75",
-    borderWidth: 3,
+    borderWidth: 2.5,
     //borderBottomWidth: 4,
     //borderRightWidth: 4
   },
   signupbtn: {
-    borderRadius: 50,
+    borderRadius: 10,
     height: 37,
     width: 300,
     backgroundColor: "transparent",
     marginBottom: 10,
     marginTop: 10,
     //borderColor: "#ADBCBE",
-    borderColor: Colors.floaterCream,
+    borderColor: Colors.landingBlue,
     //borderColor: "#C0D0E1",
-    borderWidth: 3,
+    borderWidth: 2.5,
     //borderBottomWidth: 4,
     //borderRightWidth: 4
   },
