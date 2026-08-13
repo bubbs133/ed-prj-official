@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
   loginInputBox: {
     borderWidth: 2,
-    borderRadius: 50,
+    borderRadius: 10,
     height: 35,
     flexDirection: "row",
     borderColor: Colors.darkNeutral,

@@ -9,7 +9,8 @@ import {
   Image,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import Boxes from "../components/Boxes";
 import Colors from "../constants/colors";
 import { AuthContext } from "../auth/auth-context";
@@ -59,6 +60,7 @@ function HomeScreen({ navigation }) {
   const [weeklyInsights, setWeeklyInsights] = useState(null);
   const [weeklyInsightsError, setWeeklyInsightsError] = useState(null);
   const [weeklyInsightsLoading, setWeeklyInsightsLoading] = useState(true);
+  const [weeklyData, setWeeklyData] = useState(null);
   const authCtx = useContext(AuthContext);
 
   // ****** DISPLAY DATE ****** //
@@ -211,7 +213,7 @@ function HomeScreen({ navigation }) {
 
       disabled: !biggestImprovement,
 
-      backgroundColor: Colors.seaDarkBlue,
+      backgroundColor: Colors.greyish,
       fontColor: Colors.darkBlueText,
     },
     {
@@ -262,7 +264,7 @@ function HomeScreen({ navigation }) {
         ? `${weeklyInsights.entries_count} entries`
         : "",
       screen: "GeneralInsights",
-      backgroundColor: Colors.seaBlue2,
+      backgroundColor: Colors.homeBlue,
       fontColor: Colors.darkBlueText,
       whiteText: true,
     },
@@ -288,8 +290,14 @@ function HomeScreen({ navigation }) {
       });
 
       const json = await response.json();
+
+      console.log("WEEKLY INSIGHTS RESPONSE:", json);
+      console.log("CHECK IN DAYS:", json.check_in_days);
+
       if (!response.ok) {
         throw new Error(json.detail || "Unable to fetch weekly insights.");
+      } else {
+        console.log(authCtx.token);
       }
 
       setWeeklyInsights(json);
@@ -300,56 +308,72 @@ function HomeScreen({ navigation }) {
     }
   }
 
-  useEffect(() => {
-    if (authCtx.token) {
-      fetchWeeklyInsights();
-    }
-  }, [authCtx.token]);
+  useFocusEffect(
+    useCallback(() => {
+      if (authCtx.token) {
+        fetchWeeklyInsights();
+      }
+    }, [authCtx.token]),
+  );
 
   return (
     <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.topContainer}>
-          <View>
-            <Text style={[styles.introText, styles.globalFont]}>Hi there!</Text>
-            <View>
-              <Text style={[styles.date, styles.globalFont]}>
-                {date[1]}, {date[0]}{" "}
+          <View style={styles.topContainerTwo}>
+            <View style={styles.leftSide}>
+              <Text style={[styles.introText, styles.globalFont]}>
+                Welcome {authCtx.username}!
               </Text>
+
+              <Text style={[styles.date, styles.globalFont]}>
+                {date[1]}, {date[0]}
+              </Text>
+
               <Text style={[styles.globalFont, styles.introPhrase]}>
                 Whether you fell yesterday, fall today or tomorrow, remember
-                that every day is a another opportunity to try again.{"\n"}
+                that every day is another opportunity to try again.
               </Text>
+            </View>
+
+            <View style={styles.rightSide}>
+              <Image
+                source={require("../assets/main/ball.png")}
+                style={styles.ballImg}
+                resizeMode="contain"
+              />
+            </View>
+          </View>
+          <View style={{paddingBottom: 23}}>
+            <Text style={[styles.sectionHeading, styles.globalFont]}>
+              Your Journey This Week
+            </Text>
+            <View style={styles.dailyGrid}>
+              {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
+                (day, idx) => {
+                  const checkedIn =
+                    weeklyInsights?.check_in_days?.[day] ?? false;
+
+                  return (
+                    <View
+                      key={idx}
+                      style={[styles.dayBox, checkedIn && styles.checkedDayBox]}
+                    >
+                      <Text style={[styles.globalFont, styles.dayLabel]}>
+                        {day}
+                      </Text>
+
+                      <Text style={[styles.globalFont, styles.dayValue]}>
+                        {checkedIn ? "✓" : "—"}
+                      </Text>
+                    </View>
+                  );
+                },
+              )}
             </View>
           </View>
           <View style={styles.activityBoxes}>
             <View style={styles.activitySection}>
-              <Text style={[styles.sectionHeading, styles.globalFont]}>
-                Check-In
-              </Text>
-              <TouchableOpacity
-                style={{ width: "100%" }}
-                onPress={() => navigation.navigate("Assessment")}
-              >
-                <Boxes
-                  style={[styles.resourcesBox]}
-                  itemTitle="Care Log"
-                  description="Gently observe yourself and your habits."
-                  imgPath={require("../assets/icons/newwaves.png")}
-                  height={110}
-                  width={"100%"}
-                  borderColor={null}
-                  fillColor={Colors.seaBlue2}
-                  fontColor={Colors.darkBlueText}
-                  imgTint={Colors.darkBlueText}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.activitySection}>
-              <Text style={[styles.sectionHeading, styles.globalFont]}>
-                Your Journey This Week
-              </Text>
-
               <View style={styles.insightsGrid}>
                 {journeyCards.map((card) => (
                   <TouchableOpacity
@@ -366,7 +390,10 @@ function HomeScreen({ navigation }) {
                       }
                     }}
                   >
-                    <Image source={card.img} style={[styles.insightImg, {tintColor: card.imgColor}]} />
+                    <Image
+                      source={card.img}
+                      style={[styles.insightImg, { tintColor: card.imgColor }]}
+                    />
                     <Text
                       style={[
                         styles.globalFont,
@@ -456,13 +483,14 @@ function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#FAF8F4",
     //backgroundColor: "red",
     alignItems: "flex-start",
     justifyContent: "flex-start",
   },
   topContainer: {
     paddingHorizontal: "5%",
+    paddingBottom: "20%",
   },
   date: {
     fontSize: 17,
@@ -471,6 +499,7 @@ const styles = StyleSheet.create({
   introPhrase: {
     fontSize: 15,
     letterSpacing: 1,
+    paddingTop: 7,
   },
   disabledCard: {
     opacity: 1,
@@ -611,6 +640,56 @@ const styles = StyleSheet.create({
   insightSubtext: {
     fontSize: 13,
     lineHeight: 18,
+  },
+  section: {
+    backgroundColor: "#F5F5F5",
+    borderRadius: 12,
+    padding: 15,
+  },
+  dailyGrid: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  dayBox: {
+    alignItems: "center",
+    backgroundColor: "#93B3C2",
+    borderRadius: 8,
+    padding: 8,
+    width: "13%",
+  },
+  dayLabel: {
+    fontWeight: 600,
+    fontSize: 11,
+    marginBottom: 4,
+    color: Colors.darkNeutral,
+  },
+  dayValue: {
+    fontSize: 12,
+    fontWeight: 600,
+    color: Colors.darkNeutral,
+  },
+  topContainerTwo: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%",
+    paddingBottom: 15,
+    paddingRight: "10%",
+  },
+  leftSide: {
+    flex: 1,
+    paddingRight: 35,
+  },
+  rightSide: {
+    width: 70,
+    height: 70,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  ballImg: {
+    width: 140,
+    height: 140,
+    paddingTop: 40
   },
 });
 

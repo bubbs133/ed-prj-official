@@ -7,6 +7,8 @@ import {
   ImageBackground,
   Pressable,
   Alert,
+  Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import { useContext, useState } from "react";
 import Input from "../components/Input";
@@ -50,7 +52,7 @@ function SignUpScreen({ navigation, onLogin }) {
             data.username?.[0] ||
             data.email?.[0] ||
             data.password?.[0] ||
-            "Please try again"
+            "Please try again",
         );
       }
     } catch (error) {
@@ -108,14 +110,15 @@ function SignUpScreen({ navigation, onLogin }) {
               onChangeText: setPassword,
               autoCorrect: false,
               autoComplete: false,
+              secureTextEntry: true
             }}
           />
         </View>
 
         <View style={styles.signinBtnView}>
-          <Pressable style={styles.signupBtn} onPress={signupHandler}>
+          <TouchableOpacity style={styles.signupBtn} onPress={signupHandler}>
             <Text style={styles.signinBtnTitle}>Sign Up</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </ImageBackground>
@@ -123,6 +126,8 @@ function SignUpScreen({ navigation, onLogin }) {
 }
 
 export default SignUpScreen;
+
+const { height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   backgroundImg: {
@@ -139,24 +144,22 @@ const styles = StyleSheet.create({
     marginBottom: 27,
   },
   signupBtn: {
-    //borderRadius: 50,
-    height: 37,
-    width: 300,
-    //backgroundColor: Colors.lightNeutral,
+    borderRadius: 10,
+    height: 35,
+    width: 150,
+    borderColor: Colors.landingBlue,
     marginBottom: 10,
     marginTop: 10,
-    //borderColor: Colors.darkNeutral,
-    //borderWidth: 2,
-    //borderBottomWidth: 4,
+    borderWidth: 2.5,
+    position: height * 0.2,
   },
   signinBtnView: {
-    position: "absolute",
-    bottom: "22%"
+     paddingTop: 15
   },
   signinBtnTitle: {
     textAlign: "center",
-    fontSize: 19,
-    color: Colors.darkNeutral,
+    fontSize: 16,
+    color: Colors.landingBlue,
     marginTop: 5,
     fontFamily: "Afacad",
     fontWeight: 500,

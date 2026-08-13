@@ -274,11 +274,11 @@ def get_feature_insights(feature_key, average, trend):
 
     if trend == "increasing":
 
-        insights["trend_message"] = "📈 This metric increased this week"
+        insights["trend_message"] = "This metric increased this week"
 
     elif trend == "decreasing":
 
-        insights["trend_message"] = "📉 This metric decreased this week"
+        insights["trend_message"] = "This metric decreased this week"
 
     else:
 

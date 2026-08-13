@@ -33,6 +33,7 @@ import {
 } from "@expo-google-fonts/afacad";
 import Colors from "./constants/colors";
 import Chatbot from "./screens/Chatbot";
+import AssessmentIntroScreen from "./screens/AssessmentIntroScreen";
 import TrackingScreen from "./screens/TrackingScreen";
 import ChatroomScreen from "./screens/ChatroomScreen";
 import ReadScreen from "./screens/ReadScreen";
@@ -106,18 +107,15 @@ export default function App() {
           //tabBarActiveBackgroundColor: Colors.darkPink,
           headerShown: false,
           tabBarStyle: {
-            //backgroundColor: "transparent",
-            //borderTopWidth: 2,
-            //borderWidth: 3,
-            //borderColor: Colors.darkNeutral,
-            //borderTopLeftRadius: 25,
-            //borderTopRightRadius: 25,
-            backgroundColor: Colors.greyish,
-            //backgroundColor: "#fff",
-            height: 60,
-            justifyContent: "center",
-            alignItems: "center",
-            paddingBottom: 0,
+            backgroundColor: Colors.homeBlue,
+            height: 55,
+            bottom: 20,
+            borderRadius: 50,
+            elevation: 10,
+            position: "absolute",
+            marginLeft: 20,
+            marginRight: 20,
+            borderTopWidth: 0,
           },
         }}
       >
@@ -128,10 +126,25 @@ export default function App() {
             tabBarIcon: ({ color, size, focused }) => (
               <Ionicons
                 name={focused ? "home" : "home-outline"}
-                color={focused ? Colors.darkNeutral : Colors.lightGrey}
+                color={focused ? Colors.focusIcon : Colors.lightGrey}
                 size={19}
               />
             ),
+          }}
+        />
+        <Tab.Screen
+          name="Check-In"
+          component={AssessmentIntroScreen}
+          options={{
+            tabBarIcon: ({ color, size, focused }) => (
+              <Text
+                style={{
+                  fontSize: 19,
+                  color: focused ? Colors.focusIcon : Colors.lightGrey,
+                }}
+              >༄</Text>
+            ),
+            tabBarStyle: {display: "none"}
           }}
         />
         <Tab.Screen
@@ -143,7 +156,7 @@ export default function App() {
                 style={{
                   height: 19,
                   width: 19,
-                  tintColor: focused ? Colors.darkNeutral : Colors.lightGrey,
+                  tintColor: focused ? Colors.focusIcon : Colors.lightGrey,
                 }}
                 source={require("./assets/icons/floater.png")}
               />
@@ -166,7 +179,7 @@ export default function App() {
             tabBarIcon: ({ color, size, focused }) => (
               <Ionicons
                 name={focused ? "person" : "person-outline"}
-                color={focused ? Colors.darkNeutral : Colors.lightGrey}
+                color={focused ? Colors.focusIcon : Colors.lightGrey}
                 size={19}
               />
             ),
@@ -196,6 +209,10 @@ export default function App() {
           }}
         />
         <Stack.Screen name="Assessment" component={AssessmentScreen} />
+        <Stack.Screen
+          name="AssessmentIntroScreen"
+          component={AssessmentIntroScreen}
+        />
         <Stack.Screen name="Chatbot" component={Chatbot} />
         <Stack.Screen name="Quests" component={DailyQuestScreen} />
         <Stack.Screen name="ChatbotRoom" component={ChatroomScreen} />
@@ -246,20 +263,24 @@ export default function App() {
     return authCtx.isAuthenticated ? <AuthScreens /> : <UnAuthScreens />;
   }
 
-  return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <AuthContextProvider>
-        <NavigationContainer>
-          <RootNavigator />
-        </NavigationContainer>
-      </AuthContextProvider>
-    </GestureHandlerRootView>
-  );
+  {
+    return (
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <AuthContextProvider>
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </AuthContextProvider>
+      </GestureHandlerRootView>
+    );
+  }
 
   /*return (
+  <GestureHandlerRootView style={{ flex: 1 }}>
     <NavigationContainer>
       <UnAuthScreens />
     </NavigationContainer>
+    </GestureHandlerRootView>
   );*/
 }
 

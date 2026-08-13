@@ -8,6 +8,8 @@ import {
   Alert,
   Pressable,
   ImageBackground,
+  TouchableOpacity,
+  Dimensions,
 } from "react-native";
 import { useContext, useState } from "react";
 import Input from "../components/Input";
@@ -44,12 +46,17 @@ function LoginScreen({ navigation }) {
         setUsername("");
         setPassword("");
         navigation.navigate("TabNav");
+
+        console.log("LOGIN RESPONSE:", data);
       } else {
         Alert.alert("Login failed", data.detail || "Invalid credentials");
       }
     } catch (error) {
       console.log("Login error:", error);
-      Alert.alert("Invalid info!", "Please enter the correct information.");
+      Alert.alert(
+        "Invalid information!",
+        "Please enter the correct information.",
+      );
     }
   }
 
@@ -85,14 +92,16 @@ function LoginScreen({ navigation }) {
           </View>
         </View>
         <View style={styles.loginBtnView}>
-          <Pressable style={styles.loginBtn} onPress={loginHandler}>
+          <TouchableOpacity style={styles.loginBtn} onPress={loginHandler}>
             <Text style={styles.loginBtnTitle}>Login</Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
     </ImageBackground>
   );
 }
+
+const { height } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   backgroundImg: {
@@ -111,23 +120,23 @@ const styles = StyleSheet.create({
     marginBottom: 27,
   },
   loginBtn: {
-    borderRadius: 50,
-    height: 37,
-    width: 300,
-    //borderColor: Colors.floaterCream,
+    borderRadius: 10,
+    height: 35,
+    width: 150,
+    borderColor: Colors.landingBlue,
     marginBottom: 10,
     marginTop: 10,
-    //borderWidth: 3,
+    borderWidth: 2.5,
+    position: height * 0.2,
     //borderBottomWidth: 4,
   },
   loginBtnView: {
-    position: "absolute",
-    top: "36%",
+    paddingTop: 15,
   },
   loginBtnTitle: {
     textAlign: "center",
-    fontSize: 19,
-    color: Colors.darkNeutral,
+    fontSize: 16,
+    color: Colors.landingBlue,
     marginTop: 5,
     fontFamily: "Afacad",
     fontWeight: 500,

@@ -50,7 +50,10 @@ function ResourcesScreen({ navigation }) {
       if (supported) {
         await Linking.openURL(url);
       } else {
-        Alert.alert("Unavailable", "This action isn't supported on your device.");
+        Alert.alert(
+          "Unavailable",
+          "This action isn't supported on your device.",
+        );
       }
     } catch (error) {
       console.log("Linking error:", error);
@@ -61,82 +64,105 @@ function ResourcesScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View>
-          <View style={styles.top}>
-            <Text style={[styles.heading, styles.globalFont]}>Resources</Text>
+        <View style={styles.paddingContainer}>
+          <View>
+            <View style={styles.top}>
+              <Text style={[styles.heading, styles.globalFont]}>Resources</Text>
 
-            <Text style={[styles.screenInfo, styles.globalFont]}>
-              Connect with professionals around you who will give you proper
-              support and guidence, help is closer than you think!
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.mapButton}>
-          <Text
-            style={[styles.buttonText, styles.globalFont, { marginBottom: 8 }]}
-          >
-            Find Local Help Centers
-          </Text>
-          <Text style={[styles.resourceDescription, styles.globalFont]}>
-            Find profressional help near your area and connect with them today.
-          </Text>
-          <TouchableOpacity
-            style={styles.actionButtonMap}
-            onPress={() => navigation.navigate("Map")}
-          >
-            <Ionicons name="map-outline" size={18} color={Colors.darkNeutral} />
-            <Text style={[styles.actionText, styles.globalFont]}>Map</Text>
-          </TouchableOpacity>
-        </View>
-
-        {resources.map((resource, index) => (
-          <View key={index} style={styles.resourceCard}>
-            <Text style={[styles.resourceTitle, styles.globalFont]}>
-              {resource.title}
-            </Text>
-
-            <Text style={[styles.resourceDescription, styles.globalFont]}>
-              {resource.description}
-            </Text>
-
-            <View style={styles.actions}>
-              <TouchableOpacity
-                style={styles.actionButton}
-                onPress={() => openLink(resource.website)}
-              >
-                <Ionicons name="globe-outline" size={18} color={Colors.darkNeutral} />
-                <Text style={[styles.actionText, styles.globalFont]}>
-                  Website
-                </Text>
-              </TouchableOpacity>
-
-              {resource.call && (
-                <TouchableOpacity
-                  style={styles.actionButton}
-                  onPress={() => openLink(`tel:${resource.call}`)}
-                >
-                  <Ionicons name="call-outline" size={18} color={Colors.darkNeutral} />
-                  <Text style={[styles.actionText, styles.globalFont]}>
-                    Call
-                  </Text>
-                </TouchableOpacity>
-              )}
-
-              {resource.text && (
-                <TouchableOpacity
-                  style={styles.actionButton}
-                  onPress={() => openLink(`sms:${resource.text}`)}
-                >
-                  <Ionicons name="chatbubble-outline" size={18} color={Colors.darkNeutral} />
-                  <Text style={[styles.actionText, styles.globalFont]}>
-                    Text
-                  </Text>
-                </TouchableOpacity>
-              )}
+              <Text style={[styles.screenInfo, styles.globalFont]}>
+                Connect with professionals around you who will give you proper
+                support and guidence, help is closer than you think!
+              </Text>
             </View>
           </View>
-        ))}
+
+          <View style={styles.mapButton}>
+            <Text
+              style={[
+                styles.buttonText,
+                styles.globalFont,
+                { marginBottom: 8 },
+              ]}
+            >
+              Find Local Help Centers
+            </Text>
+            <Text style={[styles.resourceDescription, styles.globalFont]}>
+              Find profressional help near your area and connect with them
+              today.
+            </Text>
+            <TouchableOpacity
+              style={styles.actionButtonMap}
+              onPress={() => navigation.navigate("Map")}
+            >
+              <Ionicons
+                name="map-outline"
+                size={18}
+                color={Colors.darkNeutral}
+              />
+              <Text style={[styles.actionText, styles.globalFont]}>Map</Text>
+            </TouchableOpacity>
+          </View>
+
+          {resources.map((resource, index) => (
+            <View key={index} style={styles.resourceCard}>
+              <Text style={[styles.resourceTitle, styles.globalFont]}>
+                {resource.title}
+              </Text>
+
+              <Text style={[styles.resourceDescription, styles.globalFont]}>
+                {resource.description}
+              </Text>
+
+              <View style={styles.actions}>
+                <TouchableOpacity
+                  style={styles.actionButton}
+                  onPress={() => openLink(resource.website)}
+                >
+                  <Ionicons
+                    name="globe-outline"
+                    size={18}
+                    color={Colors.darkNeutral}
+                  />
+                  <Text style={[styles.actionText, styles.globalFont]}>
+                    Website
+                  </Text>
+                </TouchableOpacity>
+
+                {resource.call && (
+                  <TouchableOpacity
+                    style={styles.actionButton}
+                    onPress={() => openLink(`tel:${resource.call}`)}
+                  >
+                    <Ionicons
+                      name="call-outline"
+                      size={18}
+                      color={Colors.darkNeutral}
+                    />
+                    <Text style={[styles.actionText, styles.globalFont]}>
+                      Call
+                    </Text>
+                  </TouchableOpacity>
+                )}
+
+                {resource.text && (
+                  <TouchableOpacity
+                    style={styles.actionButton}
+                    onPress={() => openLink(`sms:${resource.text}`)}
+                  >
+                    <Ionicons
+                      name="chatbubble-outline"
+                      size={18}
+                      color={Colors.darkNeutral}
+                    />
+                    <Text style={[styles.actionText, styles.globalFont]}>
+                      Text
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </View>
+            </View>
+          ))}
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
@@ -147,6 +173,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     padding: 20,
+  },
+  paddingContainer: {
+    paddingBottom: "20%",
   },
   globalFont: {
     fontFamily: "Afacad",
@@ -213,7 +242,7 @@ const styles = StyleSheet.create({
   actionButton: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: Colors.seaBlue2,
+    backgroundColor: Colors.homeBlue,
     paddingVertical: 8,
     paddingHorizontal: 14,
     borderRadius: 10,
@@ -221,7 +250,7 @@ const styles = StyleSheet.create({
   actionButtonMap: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: Colors.seaBlue2,
+    backgroundColor: Colors.homeBlue,
     paddingVertical: 8,
     paddingHorizontal: 14,
     borderRadius: 10,

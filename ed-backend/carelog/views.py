@@ -5,7 +5,13 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from .ml.helper_functions import cluster_user, get_recommendations, get_feature_insights, calculate_trend, aggregate_weekly_feature_data
+from .ml.helper_functions import (
+    cluster_user,
+    get_recommendations,
+    get_feature_insights,
+    calculate_trend,
+    aggregate_weekly_feature_data,
+)
 
 from stickers.rewards.helper_functions import award_points
 
@@ -72,7 +78,8 @@ def dashboard_recommendations(request):
 
     if not latest_entry:
         return Response(
-            {"detail": "No care log data for this user."}, status=status.HTTP_404_NOT_FOUND
+            {"detail": "No care log data for this user."},
+            status=status.HTTP_404_NOT_FOUND,
         )
 
     serializer = CareLogSerializer(latest_entry)
@@ -94,13 +101,6 @@ def weekly_insights(request):
         date_created__date__gte=monday,
         date_created__date__lte=sunday,
     ).order_by("date_created")
-
-    if not weekly_entries.exists():
-
-        return Response(
-            {"detail": "No care log data available for this week, try checking in today!"},
-            status=status.HTTP_404_NOT_FOUND,
-        )
 
     count = weekly_entries.count()
 
@@ -147,6 +147,24 @@ def weekly_insights(request):
             "insights": insights,
         }
 
+    print("TODAY:", today)
+    print("MONDAY:", monday)
+    print("SUNDAY:", sunday)
+
+    for entry in weekly_entries:
+        print("ENTRY:", entry.id, entry.date_created, entry.date_created.date())
+
+    check_in_days = {}
+
+    for i in range(7):
+        day = monday + timedelta(days=i)
+
+        check_in_days[day.strftime("%a")] = weekly_entries.filter(
+            date_created__date=day
+        ).exists()
+
+    print("CHECK IN DAYS:", check_in_days)
+
     return Response(
         {
             "week": {
@@ -155,6 +173,7 @@ def weekly_insights(request):
             },
             "entries_count": count,
             "features": features,
+            "check_in_days": check_in_days,
         },
         status=status.HTTP_200_OK,
     )
