@@ -22,6 +22,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import PrimaryButton from "../components/PrimaryButton";
 import GoBack from "../components/GoBack";
 import { AuthContext } from "../auth/auth-context";
+import PrimaryBtn from "../components/PrimaryBtn";
 
 function JournalScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -155,14 +156,7 @@ function JournalScreen({ navigation }) {
               style={[styles.journalEntryBox, styles.globalFont]}
             />
           </ScrollView>
-          <View style={styles.footer}>
-            <TouchableOpacity
-              style={styles.actionButton}
-              onPress={submitHandler}
-            >
-              <Text style={[styles.actionText, styles.globalFont]}>Submit</Text>
-            </TouchableOpacity>
-          </View>
+          <PrimaryBtn buttonTitle={"Submit"} handler={submitHandler}/>
         </View>
       </KeyboardAvoidingView>
       <Modal animationType="fade" transparent={true} visible={modalVisible}>

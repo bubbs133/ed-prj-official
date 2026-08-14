@@ -44,10 +44,9 @@ const AssessmentIntroScreen = ({ navigation }) => {
             <Text style={[styles.buttonText, styles.globalFont]}>
               Start Care Log
             </Text>
-            <Text style={styles.arrow}>→</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            style={styles.button}
+            style={styles.buttonOutline}
             onPress={() => navigation.goBack()}
           >
             <Text style={[styles.buttonText, styles.globalFont]}>Go Back</Text>
@@ -63,7 +62,7 @@ export default AssessmentIntroScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FAF8F4",
+    backgroundColor: Colors.bgColor,
   },
   globalFont: {
     fontFamily: "Afacad",
@@ -139,10 +138,31 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
+  buttonOutline: {
+    width: "100%",
+    height: 40,
+    borderRadius: 12,
+    backgroundColor: Colors.bgColor,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 14,
+    borderColor: Colors.homeBlue,
+    borderWidth: 2,
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
+  },
   button: {
     width: "100%",
     height: 40,
-    borderRadius: 18,
+    borderRadius: 12,
     backgroundColor: Colors.homeBlue,
     flexDirection: "row",
     alignItems: "center",
@@ -158,12 +178,6 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 3,
   },
-
-  buttonPressed: {
-    opacity: 0.8,
-    transform: [{ scale: 0.98 }],
-  },
-
   buttonText: {
     color: "#FFFFFF",
     fontSize: 16,
