@@ -171,7 +171,7 @@ function ResourcesScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: Colors.bgColor,
     padding: 20,
   },
   paddingContainer: {
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
   },
 
   mapButton: {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: Colors.greyish,
     padding: 18,
     borderRadius: 14,
     marginBottom: 16,
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
   },
 
   resourceCard: {
-    backgroundColor: "#f5f5f5",
+    backgroundColor: Colors.greyish,
     padding: 18,
     borderRadius: 14,
     marginBottom: 16,

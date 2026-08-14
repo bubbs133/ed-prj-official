@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   outerContainer: {
     flex: 1,
     justifyContent: "space-between",
-    backgroundColor: "#fff",
+    backgroundColor: Colors.bgColor,
   },
   contentContainer: {
     paddingLeft: "5%",
@@ -102,8 +102,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingTop: 15,
     paddingBottom: 15,
-    borderBottomColor: Colors.lightGrey,
-    borderBottomWidth: 0,
   },
   section: {
     fontSize: 16,

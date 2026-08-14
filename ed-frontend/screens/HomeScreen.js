@@ -15,6 +15,7 @@ import Boxes from "../components/Boxes";
 import Colors from "../constants/colors";
 import { AuthContext } from "../auth/auth-context";
 import { DAILY_ACTIVITIES } from "../models/activityBoxes";
+import { MESSAGES } from "../models/messages";
 
 const FEATURE_CONFIGS = {
   urge_intensity: {
@@ -61,6 +62,7 @@ function HomeScreen({ navigation }) {
   const [weeklyInsightsError, setWeeklyInsightsError] = useState(null);
   const [weeklyInsightsLoading, setWeeklyInsightsLoading] = useState(true);
   const [weeklyData, setWeeklyData] = useState(null);
+  const [topMessage, setTopMessage] = useState("");
   const authCtx = useContext(AuthContext);
 
   // ****** DISPLAY DATE ****** //
@@ -76,6 +78,21 @@ function HomeScreen({ navigation }) {
     return [formattedDate, dayNameFormatted];
   }
   const date = displayDate();
+
+  // ****** DISPLAY MESSAGE ****** //
+  function generateRandomIndex() {
+    const rndNum = Math.floor(Math.random() * MESSAGES.length);
+    return rndNum;
+  }
+
+  function generateRndPrompt(rndNum) {
+    setTopMessage(MESSAGES[rndNum]);
+  }
+
+  useEffect(() => {
+    const rndNum = generateRandomIndex();
+    generateRndPrompt(rndNum);
+  }, []);
 
   const featureScreenMap = {
     stress_level: "StressScreen",
@@ -331,8 +348,7 @@ function HomeScreen({ navigation }) {
               </Text>
 
               <Text style={[styles.globalFont, styles.introPhrase]}>
-                Whether you fell yesterday, fall today or tomorrow, remember
-                that every day is another opportunity to try again.
+                {topMessage.message}
               </Text>
             </View>
 
@@ -344,7 +360,7 @@ function HomeScreen({ navigation }) {
               />
             </View>
           </View>
-          <View style={{paddingBottom: 23}}>
+          <View style={{ paddingBottom: 23 }}>
             <Text style={[styles.sectionHeading, styles.globalFont]}>
               Your Journey This Week
             </Text>
@@ -689,7 +705,7 @@ const styles = StyleSheet.create({
   ballImg: {
     width: 140,
     height: 140,
-    paddingTop: 40
+    paddingTop: 40,
   },
 });
 

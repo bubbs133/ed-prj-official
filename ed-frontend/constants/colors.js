@@ -25,6 +25,7 @@ const Colors = {
   landingBlue: "#889DB0",
   homeBlue: "#93B3C2",
   focusIcon: "#0d1a42",
+  bgColor: "#FAF8F4"
 };
 
 export default Colors;
