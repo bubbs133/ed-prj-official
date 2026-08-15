@@ -18,7 +18,10 @@ from .ml.helper_functions import (
 # notes). See journal/nlp.py for the implementation + design notes.
 # If this cross-app import ever feels awkward, move nlp.py into a small
 # shared app (e.g. core/nlp.py) and update both imports.
-from journal.nlp.nlp import analyze
+from journal.nlp import analyze
+from journal.models import JournalEntry
+
+import random
 
 from stickers.rewards.helper_functions import award_points
 
@@ -121,36 +124,84 @@ WEEKLY_LANGUAGE_MESSAGES = {
     "default": "A few entries this week had some heavy language in them. Want to take a look together?",
 }
 
+# Shown when the week's entries lean positive and nothing was flagged —
+# worth surfacing on its own, not just silence when things are going well.
+WEEKLY_POSITIVE_MESSAGES = [
+    "Your entries this week sounded steady and self-compassionate.",
+    "A lot of grounded, hopeful language showed up in your entries this week.",
+    "Your reflections this week leaned warm and encouraging — worth noticing.",
+]
 
-def _build_language_insight(weekly_entries):
+WEEKLY_NEUTRAL_MESSAGE = (
+    "Your entries this week were pretty even-keeled. Keeping up with your "
+    "check-ins either way is worth noting."
+)
+
+
+def _build_language_insight(*entry_groups):
     """
-    Roll up per-entry NLP flags into a single weekly signal: how many
-    entries were flagged, what the most common distortion pattern was,
-    and a gentle summary message — the "spike in negative self-talk"
-    signal, computed from stored per-entry results rather than
-    re-analyzing text here.
+    Combine per-entry NLP results from any number of sources (JournalEntry,
+    CareLog, ...) into one weekly signal. Each source just needs to carry
+    the shared `is_flagged` / `distortion_tags` / `sentiment` fields.
+
+    Unlike the earlier version, this always returns a message when there's
+    at least one entry — a week with no distortion flags but a clearly
+    positive tone gets its own message rather than staying silent, since a
+    good week is signal too, not just the absence of a bad one.
     """
-    total = weekly_entries.count()
-    flagged_entries = [e for e in weekly_entries if e.is_flagged]
+    all_entries = []
+    for group in entry_groups:
+        all_entries.extend(group)
+
+    total = len(all_entries)
+
+    if total == 0:
+        return {
+            "total_entries": 0,
+            "flagged_count": 0,
+            "top_distortion": None,
+            "distortion_counts": {},
+            "sentiment_counts": {"positive": 0, "neutral": 0, "negative": 0},
+            "tone": "no_data",
+            "message": None,
+        }
+
+    flagged_entries = [e for e in all_entries if e.is_flagged]
     flagged_count = len(flagged_entries)
 
     tag_counts = {}
-    for entry in weekly_entries:
+    sentiment_counts = {"positive": 0, "neutral": 0, "negative": 0}
+    for entry in all_entries:
         for tag in entry.distortion_tags or []:
             tag_counts[tag] = tag_counts.get(tag, 0) + 1
+        sentiment_counts[entry.sentiment] = sentiment_counts.get(entry.sentiment, 0) + 1
 
     top_tag = max(tag_counts, key=tag_counts.get) if tag_counts else None
+    positive_ratio = sentiment_counts["positive"] / total
+
+    # Flagged language takes priority even in an otherwise positive week —
+    # a self-critical entry sitting next to three good ones is still worth
+    # a gentle look.
+    if flagged_count > 0:
+        tone = "flagged"
+        message = WEEKLY_LANGUAGE_MESSAGES.get(
+            top_tag, WEEKLY_LANGUAGE_MESSAGES["default"]
+        )
+    elif positive_ratio >= 0.5:
+        tone = "positive"
+        message = random.choice(WEEKLY_POSITIVE_MESSAGES)
+    else:
+        tone = "neutral"
+        message = WEEKLY_NEUTRAL_MESSAGE
 
     return {
         "total_entries": total,
         "flagged_count": flagged_count,
         "top_distortion": top_tag,
         "distortion_counts": tag_counts,
-        "message": (
-            WEEKLY_LANGUAGE_MESSAGES.get(top_tag, WEEKLY_LANGUAGE_MESSAGES["default"])
-            if flagged_count > 0
-            else None
-        ),
+        "sentiment_counts": sentiment_counts,
+        "tone": tone,
+        "message": message,
     }
 
 
@@ -215,7 +266,16 @@ def weekly_insights(request):
             "insights": insights,
         }
 
-    language_insight = _build_language_insight(weekly_entries)
+    # Same week window, but pulled from the journal app too — a flagged
+    # journal entry should count toward this signal exactly like a flagged
+    # care log reflection does.
+    weekly_journal_entries = JournalEntry.objects.filter(
+        entry_author=request.user,
+        date_created__date__gte=monday,
+        date_created__date__lte=sunday,
+    )
+
+    language_insight = _build_language_insight(weekly_entries, weekly_journal_entries)
 
     check_in_days = {}
 
