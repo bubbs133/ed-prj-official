@@ -24,9 +24,23 @@ import GoBack from "../components/GoBack";
 import { AuthContext } from "../auth/auth-context";
 import PrimaryBtn from "../components/PrimaryBtn";
 
+const FREE_WRITE_PLACEHOLDER =
+  "Write whatever's on your mind — no prompt, no structure. This is just for you.";
+const PROMPTED_PLACEHOLDER =
+  "Take a moment to ponder and express yourself through the prompt.";
+
 function JournalScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [errorModalVisible, setErrorModalVisible] = useState(false);
+
+  // "prompted" | "free_write"
+  const [entryType, setEntryType] = useState("prompted");
+
+  // Gentle, dismissible nudge shown after a flagged submission. Kept
+  // separate from the success/error modals since it's an invitation, not
+  // a confirmation or an error — it shouldn't feel like a popup you have
+  // to deal with.
+  const [reflectionPrompt, setReflectionPrompt] = useState(null);
 
   const authCtx = useContext(AuthContext);
 
@@ -59,41 +73,20 @@ function JournalScreen({ navigation }) {
     generateRndPrompt(rndNum);
   }, []);
 
-  /*async function submitHandler() {
-    try {
-      const url = `${API_BASE_URL}/journal/`;
-      //const url = `${API_BASE_URL}/journal/`;
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Token ${authCtx.token}`,
-        },
-        body: JSON.stringify({
-          entry: entry,
-        }),
-      });
-      const result = await response.json();
-      if (!response.ok) {
-        throw new Error(result?.detail || "Journal submit failed");
-      }
-      setModalVisible(true);
-    } catch (error) {
-      console.log("Error:", error);
-      setErrorModalVisible(true);
-      //Alert.alert("Entry not added", "Please try again");
+  function switchTab(nextType) {
+    setEntryType(nextType);
+    setEntry("");
+    setReflectionPrompt(null);
+    if (nextType === "prompted") {
+      const rndNum = generateRandomIndex();
+      generateRndPrompt(rndNum);
     }
-  } */
+  }
 
   async function submitHandler() {
     try {
       const url = `${API_BASE_URL}/journal/`;
 
-      console.log("URL:", url);
-      console.log("TOKEN EXISTS:", !!authCtx.token);
-      console.log("TOKEN:", authCtx.token);
-      console.log("ENTRY:", entry);
-
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -102,20 +95,22 @@ function JournalScreen({ navigation }) {
         },
         body: JSON.stringify({
           entry: entry,
+          entry_type: entryType,
         }),
       });
 
-      console.log("STATUS:", response.status);
-
       const result = await response.json();
-
-      console.log("RESPONSE:", result);
 
       if (!response.ok) {
         throw new Error(result?.detail || "Journal submit failed");
       }
 
       setModalVisible(true);
+      // Stash the gentle nudge (if any) so it can show once the success
+      // modal is dismissed, instead of stacking two modals at once.
+      if (result?.reflection_prompt) {
+        setReflectionPrompt(result.reflection_prompt);
+      }
     } catch (error) {
       console.log("JOURNAL ERROR:", error);
       setErrorModalVisible(true);
@@ -123,6 +118,9 @@ function JournalScreen({ navigation }) {
   }
 
   const date = displayDate();
+  const placeholder =
+    entryType === "free_write" ? FREE_WRITE_PLACEHOLDER : PROMPTED_PLACEHOLDER;
+
   return (
     <SafeAreaView
       style={styles.container}
@@ -141,24 +139,63 @@ function JournalScreen({ navigation }) {
             </View>
           </View>
 
+          <View style={styles.tabRow}>
+            <Pressable
+              onPress={() => switchTab("prompted")}
+              style={[styles.tab, entryType === "prompted" && styles.tabActive]}
+            >
+              <Text
+                style={[
+                  styles.tabText,
+                  styles.globalFont,
+                  entryType === "prompted" && styles.tabTextActive,
+                ]}
+              >
+                Prompted
+              </Text>
+            </Pressable>
+            <Pressable
+              onPress={() => switchTab("free_write")}
+              style={[
+                styles.tab,
+                entryType === "free_write" && styles.tabActive,
+              ]}
+            >
+              <Text
+                style={[
+                  styles.tabText,
+                  styles.globalFont,
+                  entryType === "free_write" && styles.tabTextActive,
+                ]}
+              >
+                Free Write
+              </Text>
+            </Pressable>
+          </View>
+
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={styles.scrollArea}
             contentContainerStyle={{ flexGrow: 1 }}
           >
-            <Text style={[styles.prompt, styles.globalFont]}>
-              {journalPrompt.prompt}
-            </Text>
+            {entryType === "prompted" && (
+              <Text style={[styles.prompt, styles.globalFont]}>
+                {journalPrompt.prompt}
+              </Text>
+            )}
             <TextInput
               multiline={true}
-              placeholder="Take a moment to ponder and express yourself through the prompt."
-              onChangeText={(entry) => setEntry(entry)}
+              placeholder={placeholder}
+              value={entry}
+              onChangeText={(text) => setEntry(text)}
               style={[styles.journalEntryBox, styles.globalFont]}
             />
           </ScrollView>
-          <PrimaryBtn buttonTitle={"Submit"} handler={submitHandler}/>
+          <PrimaryBtn buttonTitle={"Submit"} handler={submitHandler} />
         </View>
       </KeyboardAvoidingView>
+
+      {/* Success modal */}
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
@@ -176,7 +213,12 @@ function JournalScreen({ navigation }) {
               style={styles.modalButton}
               onPress={() => {
                 setModalVisible(false);
-                navigation.goBack();
+                setEntry("");
+                if (!reflectionPrompt) {
+                  navigation.goBack();
+                }
+                // if there's a reflection prompt queued, stay on screen so
+                // the soft nudge below can render instead of navigating away
               }}
             >
               <Text
@@ -191,6 +233,8 @@ function JournalScreen({ navigation }) {
           </View>
         </View>
       </Modal>
+
+      {/* Error modal */}
       <Modal
         animationType="fade"
         transparent={true}
@@ -212,7 +256,6 @@ function JournalScreen({ navigation }) {
               style={styles.modalButton}
               onPress={() => {
                 setErrorModalVisible(false);
-                //navigation.goBack();
               }}
             >
               <Text
@@ -227,6 +270,49 @@ function JournalScreen({ navigation }) {
           </View>
         </View>
       </Modal>
+
+      {/* Gentle reflection nudge — a soft banner, not a blocking modal.
+          Deliberately low-pressure: easy to dismiss, framed as an
+          invitation, never appears alongside the success modal. */}
+      {!modalVisible && reflectionPrompt && (
+        <View style={styles.nudgeContainer}>
+          <View style={styles.nudgeCard}>
+            <Text style={[styles.nudgeText, styles.globalFont]}>
+              {reflectionPrompt}
+            </Text>
+            <View style={styles.nudgeActions}>
+              <TouchableOpacity
+                onPress={() => {
+                  setReflectionPrompt(null);
+                  navigation.goBack();
+                }}
+              >
+                <Text style={[styles.nudgeDismiss, styles.globalFont]}>
+                  Not now
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.nudgeCta}
+                onPress={() => {
+                  setReflectionPrompt(null);
+                  // Adjust the route name to whatever your Distortion
+                  // Breaker screen is registered as in the navigator.
+                  navigation.navigate("DistortionBreaker");
+                }}
+              >
+                <Text
+                  style={[
+                    styles.nudgeCtaText,
+                    { fontFamily: "Afacad", fontSize: 16, letterSpacing: 0.5 },
+                  ]}
+                >
+                  Let's try it
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -242,6 +328,36 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingBottom: 10,
+  },
+  tabRow: {
+    flexDirection: "row",
+    marginTop: 10,
+    marginBottom: 5,
+    backgroundColor: "#F0F0F0",
+    borderRadius: 12,
+    padding: 4,
+  },
+  tab: {
+    flex: 1,
+    paddingVertical: 8,
+    borderRadius: 9,
+    alignItems: "center",
+  },
+  tabActive: {
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 2,
+  },
+  tabText: {
+    fontSize: 15,
+    color: "#8A8A8A",
+  },
+  tabTextActive: {
+    color: Colors.darkNeutral,
+    fontWeight: "600",
   },
   scrollArea: {
     flex: 1,
@@ -277,7 +393,7 @@ const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)", // Dims the screen
+    backgroundColor: "rgba(0,0,0,0.5)",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -322,6 +438,46 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginLeft: 15,
     marginTop: 15,
+  },
+  nudgeContainer: {
+    position: "absolute",
+    bottom: 20,
+    left: "5%",
+    right: "5%",
+  },
+  nudgeCard: {
+    backgroundColor: "#FFF7F0",
+    borderRadius: 16,
+    padding: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    elevation: 4,
+  },
+  nudgeText: {
+    fontSize: 15,
+    lineHeight: 21,
+    marginBottom: 12,
+  },
+  nudgeActions: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    gap: 16,
+  },
+  nudgeDismiss: {
+    fontSize: 15,
+    color: "#8A8A8A",
+  },
+  nudgeCta: {
+    backgroundColor: Colors.seaBlue2,
+    borderRadius: 10,
+    paddingHorizontal: 18,
+    paddingVertical: 8,
+  },
+  nudgeCtaText: {
+    color: "white",
   },
 });
 

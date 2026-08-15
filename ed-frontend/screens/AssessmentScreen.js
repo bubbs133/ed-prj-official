@@ -28,6 +28,12 @@ function AssessmentScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [errorModalVisible, setErrorModalVisible] = useState(false);
 
+  // Gentle, dismissible nudge shown after a flagged reflection (question
+  // index 9, the "what did you learn from your care log today?" free
+  // text). Same pattern as JournalScreen — kept separate from the
+  // success/error modals since it's an invitation, not a confirmation.
+  const [reflectionPrompt, setReflectionPrompt] = useState(null);
+
   const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
   const [answers, setAnswers] = useState({});
 
@@ -52,12 +58,6 @@ function AssessmentScreen({ navigation }) {
   async function submitHandler() {
     try {
       const url = `${API_BASE_URL}/care-log-cluster/`;
-      //const url = `${API_BASE_URL}/care-log-cluster/`;
-
-      console.log("URL:", url);
-      console.log("TOKEN EXISTS:", !!authCtx.token);
-      console.log("TOKEN:", authCtx.token);
-      //console.log("ENTRY:", entry);
 
       const result = await fetch(url, {
         method: "POST",
@@ -79,26 +79,26 @@ function AssessmentScreen({ navigation }) {
         }),
       });
 
-      console.log("STATUS:", result.status);
-
       const data = await result.json();
-
-      console.log("RESPONSE:", result);
 
       if (!result.ok) {
         throw new Error(data?.detail || "Care log submit failed");
       }
+
       setModalVisible(true);
+      // Stash the gentle nudge (if any) so it can render once the success
+      // modal is dismissed, instead of stacking two things on the user
+      // at once.
+      if (data?.reflection_prompt) {
+        setReflectionPrompt(data.reflection_prompt);
+      }
     } catch (error) {
-      console.log(error);
       console.log("CARELOG ERROR:", error);
       setErrorModalVisible(true);
-      //Alert.alert("Care log not added", "Please try again");
     }
   }
 
   const currentQuestion = CARELOG_QUESTIONS[currentQuestionIdx];
-  //const currentQuestionOptions = currentQuestion.options;
 
   const lastQuestion = currentQuestionIdx === CARELOG_QUESTIONS.length - 1;
   const firstQuestion = currentQuestionIdx === 0;
@@ -143,7 +143,6 @@ function AssessmentScreen({ navigation }) {
               caretHidden={false}
               cursorColor={Colors.darkNeutral}
               selectionColor={Colors.darkNeutral}
-              //placeholder={isLast ? "Type your thoughts here..." : null}
               value={answers[currentQuestionIdx] || ""}
               onChangeText={(text) => {
                 setAnswers((prev) => ({
@@ -179,6 +178,7 @@ function AssessmentScreen({ navigation }) {
         </View>
       </KeyboardAvoidingView>
 
+      {/* Success modal */}
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
@@ -196,7 +196,12 @@ function AssessmentScreen({ navigation }) {
               style={styles.modalButton}
               onPress={() => {
                 setModalVisible(false);
-                navigation.navigate("TabNav");
+                if (!reflectionPrompt) {
+                  navigation.navigate("TabNav");
+                }
+                // if there's a reflection prompt queued, stay on this
+                // screen so the soft nudge below can render instead of
+                // navigating away immediately
               }}
             >
               <Text
@@ -211,6 +216,8 @@ function AssessmentScreen({ navigation }) {
           </View>
         </View>
       </Modal>
+
+      {/* Error modal */}
       <Modal
         animationType="fade"
         transparent={true}
@@ -232,7 +239,6 @@ function AssessmentScreen({ navigation }) {
               style={styles.modalButton}
               onPress={() => {
                 setErrorModalVisible(false);
-                //navigation.goBack();
               }}
             >
               <Text
@@ -247,6 +253,50 @@ function AssessmentScreen({ navigation }) {
           </View>
         </View>
       </Modal>
+
+      {/* Gentle reflection nudge — a soft banner, not a blocking modal.
+          Only appears once the success modal has been dismissed, and
+          only if the analyzer actually flagged something in the
+          reflection text. */}
+      {!modalVisible && reflectionPrompt && (
+        <View style={styles.nudgeContainer}>
+          <View style={styles.nudgeCard}>
+            <Text style={[styles.nudgeText, styles.globalFont]}>
+              {reflectionPrompt}
+            </Text>
+            <View style={styles.nudgeActions}>
+              <TouchableOpacity
+                onPress={() => {
+                  setReflectionPrompt(null);
+                  navigation.navigate("TabNav");
+                }}
+              >
+                <Text style={[styles.nudgeDismiss, styles.globalFont]}>
+                  Not now
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.nudgeCta}
+                onPress={() => {
+                  setReflectionPrompt(null);
+                  // Adjust the route name to whatever your Distortion
+                  // Breaker screen is registered as in the navigator.
+                  navigation.navigate("DistortionBreaker");
+                }}
+              >
+                <Text
+                  style={[
+                    styles.nudgeCtaText,
+                    { fontFamily: "Afacad", fontSize: 16, letterSpacing: 0.5 },
+                  ]}
+                >
+                  Let's try it
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -254,7 +304,7 @@ function AssessmentScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FAF8F4"
+    backgroundColor: "#FAF8F4",
   },
   mainContainer: {
     flex: 1,
@@ -262,12 +312,9 @@ const styles = StyleSheet.create({
   },
   top: {
     flexDirection: "row",
-    //justifyContent: "space-between",
     alignItems: "center",
-    //paddingVertical: 10,
   },
   input: {
-    //marginTop: "50%",
     textAlign: "center",
     fontSize: 150, // Huge for numbers
     color: Colors.darkNeutral,
@@ -324,7 +371,6 @@ const styles = StyleSheet.create({
   },
   numQuestions: {
     fontSize: 18,
-    //fontWeight: 'bold',
     textAlign: "center",
   },
   questions: {
@@ -347,6 +393,46 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginLeft: 15,
     marginTop: 15,
+  },
+  nudgeContainer: {
+    position: "absolute",
+    bottom: 20,
+    left: "5%",
+    right: "5%",
+  },
+  nudgeCard: {
+    backgroundColor: "#FFF7F0",
+    borderRadius: 16,
+    padding: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    elevation: 4,
+  },
+  nudgeText: {
+    fontSize: 15,
+    lineHeight: 21,
+    marginBottom: 12,
+  },
+  nudgeActions: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    gap: 16,
+  },
+  nudgeDismiss: {
+    fontSize: 15,
+    color: "#8A8A8A",
+  },
+  nudgeCta: {
+    backgroundColor: Colors.seaBlue2,
+    borderRadius: 10,
+    paddingHorizontal: 18,
+    paddingVertical: 8,
+  },
+  nudgeCtaText: {
+    color: "white",
   },
 });
 

@@ -39,10 +39,8 @@ export default function ProfileScreen({ navigation }) {
     async function fetchProfile() {
       if (!authCtx.token) {
         setLoading(false);
-
         return;
       } else {
-        console.log("URL:", url);
         console.log("TOKEN EXISTS:", !!authCtx.token);
         console.log("TOKEN:", authCtx.token);
       }
@@ -61,13 +59,12 @@ export default function ProfileScreen({ navigation }) {
         }
 
         const data = await response.json();
-
-        console.log("RESPONSE:", response);
+        console.log("RESPONSE DATA:", data);
 
         setProfileData(data);
       } catch (err) {
         setError(err.message || "Unable to fetch profile.");
-        console.log("PROFILE ERROR:", error);
+        console.log("PROFILE ERROR:", err.message);
       } finally {
         setLoading(false);
       }
@@ -202,6 +199,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     paddingHorizontal: "5%",
     paddingTop: "5%",
+    paddingBottom: "20%",
   },
 
   settings: {
