@@ -205,12 +205,39 @@ function HomeScreen({ navigation }) {
   const biggestImprovement = getBiggestImprovement();
   const gentleFocus = getGentleFocus();
 
-  // Weekly rollup of the journal/care-log NLP analysis (see
-  // journal/nlp.py + carelog/views.py::_build_language_insight). Only
-  // meaningful when flagged_count > 0 — on a clean week this stays null
-  // and no card renders, on purpose, so the dashboard doesn't nag.
+  // Weekly rollup of the journal/care-log NLP analysis, combined across
+  // both sources (see journal/nlp.py + carelog/views.py::_build_language_insight).
+  // Renders whenever there's at least one entry this week — "tone" tells
+  // us whether to show it as a gentle flag, an encouraging note, or a
+  // neutral check-in. A good week gets surfaced just as much as a hard one.
   const languageInsight = weeklyInsights?.language_insight;
-  const hasLanguageSignal = (languageInsight?.flagged_count ?? 0) > 0;
+  const hasLanguageSignal =
+    !!languageInsight &&
+    languageInsight.tone !== "no_data" &&
+    !!languageInsight.message;
+
+  const LANGUAGE_TONE_STYLES = {
+    flagged: {
+      background: "#FFF7F0",
+      icon: require("../assets/icons/fish.png"),
+      titleColor: Colors.darkBrownText,
+      title: "Language Check-In",
+    },
+    positive: {
+      background: "#EAF6EF",
+      icon: require("../assets/icons/sun.png"),
+      titleColor: Colors.darkBlueText,
+      title: "Noticing Something Good",
+    },
+    neutral: {
+      background: "#F0F0F0",
+      icon: require("../assets/icons/seastar.png"),
+      titleColor: Colors.darkNeutral,
+      title: "Language Check-In",
+    },
+  };
+  const languageToneStyle =
+    LANGUAGE_TONE_STYLES[languageInsight?.tone] || LANGUAGE_TONE_STYLES.neutral;
 
   const journeyCards = [
     {
@@ -390,23 +417,39 @@ function HomeScreen({ navigation }) {
             </View>
           </View>
 
-          {/* Language check-in — only renders when the week's journal /
-              care log reflections actually flagged something. No card on
-              a clean week; this is an invitation, not a persistent nag. */}
+          {/* Language check-in — renders whenever there's at least one
+              journal or care log entry this week, regardless of tone. A
+              positive or neutral week gets its own gentle note instead of
+              staying silent; only a "flagged" week is tappable through to
+              the Distortion Breaker, since the others aren't asking for
+              an action. */}
           {hasLanguageSignal && (
             <TouchableOpacity
-              style={styles.languageCard}
-              activeOpacity={0.85}
+              style={[
+                styles.languageCard,
+                { backgroundColor: languageToneStyle.background },
+              ]}
+              activeOpacity={languageInsight.tone === "flagged" ? 0.85 : 1}
+              disabled={languageInsight.tone !== "flagged"}
               onPress={() => navigation.navigate("DistortionBreaker")}
             >
               <View style={styles.languageCardHeader}>
                 <Image
-                  source={require("../assets/icons/fish.png")}
-                  style={styles.languageCardIcon}
+                  source={languageToneStyle.icon}
+                  style={[
+                    styles.languageCardIcon,
+                    { tintColor: languageToneStyle.titleColor },
+                  ]}
                   resizeMode="contain"
                 />
-                <Text style={[styles.globalFont, styles.languageCardTitle]}>
-                  Language Check-In
+                <Text
+                  style={[
+                    styles.globalFont,
+                    styles.languageCardTitle,
+                    { color: languageToneStyle.titleColor },
+                  ]}
+                >
+                  {languageToneStyle.title}
                 </Text>
               </View>
               <Text style={[styles.globalFont, styles.languageCardText]}>
