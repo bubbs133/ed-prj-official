@@ -3,11 +3,11 @@ import Colors from "../constants/colors";
 const DAILY_ACTIVITIES = [
   {
     id: "carelog",
-    title: "Care Log",
+    title: "Check-In",
     description: "Gently observe yourself and your habits.",
     color: Colors.greyish,
     border: Colors.lightCoffeeBrown,
-    fontColor: Colors.lightCoffeeBrown,
+    fontColor: Colors.darkBlueText,
     img: require("../assets/icons/newwaves.png"),
     //screen: "Tracking",
     screen: "Assessment",

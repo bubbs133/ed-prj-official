@@ -205,6 +205,13 @@ function HomeScreen({ navigation }) {
   const biggestImprovement = getBiggestImprovement();
   const gentleFocus = getGentleFocus();
 
+  // Weekly rollup of the journal/care-log NLP analysis (see
+  // journal/nlp.py + carelog/views.py::_build_language_insight). Only
+  // meaningful when flagged_count > 0 — on a clean week this stays null
+  // and no card renders, on purpose, so the dashboard doesn't nag.
+  const languageInsight = weeklyInsights?.language_insight;
+  const hasLanguageSignal = (languageInsight?.flagged_count ?? 0) > 0;
+
   const journeyCards = [
     {
       key: "biggestImprovement",
@@ -296,7 +303,6 @@ function HomeScreen({ navigation }) {
         throw new Error("Not authenticated");
       }
       const url = `${API_BASE_URL}/weekly-insights/`;
-      //const url = `${API_BASE_URL}/weekly-insights/`;
 
       const response = await fetch(url, {
         method: "GET",
@@ -308,13 +314,8 @@ function HomeScreen({ navigation }) {
 
       const json = await response.json();
 
-      console.log("WEEKLY INSIGHTS RESPONSE:", json);
-      console.log("CHECK IN DAYS:", json.check_in_days);
-
       if (!response.ok) {
         throw new Error(json.detail || "Unable to fetch weekly insights.");
-      } else {
-        console.log(authCtx.token);
       }
 
       setWeeklyInsights(json);
@@ -388,6 +389,32 @@ function HomeScreen({ navigation }) {
               )}
             </View>
           </View>
+
+          {/* Language check-in — only renders when the week's journal /
+              care log reflections actually flagged something. No card on
+              a clean week; this is an invitation, not a persistent nag. */}
+          {hasLanguageSignal && (
+            <TouchableOpacity
+              style={styles.languageCard}
+              activeOpacity={0.85}
+              onPress={() => navigation.navigate("DistortionBreaker")}
+            >
+              <View style={styles.languageCardHeader}>
+                <Image
+                  source={require("../assets/icons/fish.png")}
+                  style={styles.languageCardIcon}
+                  resizeMode="contain"
+                />
+                <Text style={[styles.globalFont, styles.languageCardTitle]}>
+                  Language Check-In
+                </Text>
+              </View>
+              <Text style={[styles.globalFont, styles.languageCardText]}>
+                {languageInsight.message}
+              </Text>
+            </TouchableOpacity>
+          )}
+
           <View style={styles.activityBoxes}>
             <View style={styles.activitySection}>
               <View style={styles.insightsGrid}>
@@ -500,7 +527,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FAF8F4",
-    //backgroundColor: "red",
     alignItems: "flex-start",
     justifyContent: "flex-start",
   },
@@ -562,8 +588,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     height: 170,
     width: 200,
-    //gap: 100,
-    //marginLeft: "5%",
   },
   mapButton: {
     flexDirection: "row",
@@ -583,7 +607,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     gap: 10,
-    //paddingHorizontal: 10,
   },
   qaContainer: {
     flexDirection: "row",
@@ -657,11 +680,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 18,
   },
-  section: {
-    backgroundColor: "#F5F5F5",
-    borderRadius: 12,
-    padding: 15,
-  },
   dailyGrid: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -706,6 +724,34 @@ const styles = StyleSheet.create({
     width: 140,
     height: 140,
     paddingTop: 40,
+  },
+  languageCard: {
+    backgroundColor: "#FFF7F0",
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 23,
+  },
+  languageCardHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 6,
+  },
+  languageCardIcon: {
+    width: 22,
+    height: 22,
+    marginRight: 8,
+    tintColor: Colors.darkBrownText,
+  },
+  languageCardTitle: {
+    fontSize: 15,
+    fontWeight: "700",
+    letterSpacing: 1,
+    color: Colors.darkBrownText,
+  },
+  languageCardText: {
+    fontSize: 14,
+    lineHeight: 20,
+    color: Colors.darkNeutral,
   },
 });
 

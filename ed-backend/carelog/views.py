@@ -13,6 +13,13 @@ from .ml.helper_functions import (
     aggregate_weekly_feature_data,
 )
 
+# Reused from the journal app — same rule-based distortion/sentiment
+# analyzer applied to any reflective text (journal entries, care log
+# notes). See journal/nlp.py for the implementation + design notes.
+# If this cross-app import ever feels awkward, move nlp.py into a small
+# shared app (e.g. core/nlp.py) and update both imports.
+from journal.nlp.nlp import analyze
+
 from stickers.rewards.helper_functions import award_points
 
 from rest_framework.permissions import IsAuthenticated
@@ -45,8 +52,19 @@ def care_log_cluster(request):
 
             cluster, state_name = cluster_user(data)
 
+            # Analyze the end-of-log reflection text the same way journal
+            # entries are analyzed, so a spike in distortion language shows
+            # up regardless of which part of the app the user wrote it in.
+            result = analyze(data.get("notes", ""))
+
             care_log_input = serializer.save(
-                user=request.user, cluster=cluster, state_name=state_name
+                user=request.user,
+                cluster=cluster,
+                state_name=state_name,
+                sentiment=result.sentiment,
+                sentiment_score=result.sentiment_score,
+                distortion_tags=result.distortion_tags,
+                is_flagged=result.is_flagged,
             )
 
             award_points(request.user, "care_log_submission", 1)
@@ -58,6 +76,10 @@ def care_log_cluster(request):
                     ).data,  # converts saved care log entry db obj into JSON so frontend can read it
                     "cluster": cluster,  # splits btwn entry and cluster so ml pred can be easier to access
                     "state_name": state_name,
+                    # Not a DB field on its own — a one-time gentle nudge
+                    # the client can optionally surface right after this
+                    # submission, same UX pattern as the journal screen.
+                    "reflection_prompt": result.reflection_prompt,
                 },
                 status=status.HTTP_201_CREATED,
             )
@@ -84,6 +106,52 @@ def dashboard_recommendations(request):
 
     serializer = CareLogSerializer(latest_entry)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# Gentle, non-alarming copy per distortion tag for the weekly rollup.
+# Deliberately softer/more zoomed-out than the per-entry prompts in
+# journal/nlp.py, since this is summarizing a pattern across several days
+# rather than reacting to one moment.
+WEEKLY_LANGUAGE_MESSAGES = {
+    "self_criticism": "This week had some entries with tough self-talk. Want to revisit one with the Distortion Breaker?",
+    "food_morality": "A few entries this week framed food as good or bad. Want to explore that pattern together?",
+    "all_or_nothing": "A few entries leaned all-or-nothing this week. Want to practice reframing one?",
+    "catastrophizing": "A few entries this week described things as disasters or unbearable. Want to slow one down together?",
+    "should_statements": "There were a lot of 'shoulds' in your entries this week. Want to loosen that up a bit?",
+    "default": "A few entries this week had some heavy language in them. Want to take a look together?",
+}
+
+
+def _build_language_insight(weekly_entries):
+    """
+    Roll up per-entry NLP flags into a single weekly signal: how many
+    entries were flagged, what the most common distortion pattern was,
+    and a gentle summary message — the "spike in negative self-talk"
+    signal, computed from stored per-entry results rather than
+    re-analyzing text here.
+    """
+    total = weekly_entries.count()
+    flagged_entries = [e for e in weekly_entries if e.is_flagged]
+    flagged_count = len(flagged_entries)
+
+    tag_counts = {}
+    for entry in weekly_entries:
+        for tag in entry.distortion_tags or []:
+            tag_counts[tag] = tag_counts.get(tag, 0) + 1
+
+    top_tag = max(tag_counts, key=tag_counts.get) if tag_counts else None
+
+    return {
+        "total_entries": total,
+        "flagged_count": flagged_count,
+        "top_distortion": top_tag,
+        "distortion_counts": tag_counts,
+        "message": (
+            WEEKLY_LANGUAGE_MESSAGES.get(top_tag, WEEKLY_LANGUAGE_MESSAGES["default"])
+            if flagged_count > 0
+            else None
+        ),
+    }
 
 
 @api_view(["GET"])
@@ -147,12 +215,7 @@ def weekly_insights(request):
             "insights": insights,
         }
 
-    print("TODAY:", today)
-    print("MONDAY:", monday)
-    print("SUNDAY:", sunday)
-
-    for entry in weekly_entries:
-        print("ENTRY:", entry.id, entry.date_created, entry.date_created.date())
+    language_insight = _build_language_insight(weekly_entries)
 
     check_in_days = {}
 
@@ -163,8 +226,6 @@ def weekly_insights(request):
             date_created__date=day
         ).exists()
 
-    print("CHECK IN DAYS:", check_in_days)
-
     return Response(
         {
             "week": {
@@ -174,6 +235,7 @@ def weekly_insights(request):
             "entries_count": count,
             "features": features,
             "check_in_days": check_in_days,
+            "language_insight": language_insight,
         },
         status=status.HTTP_200_OK,
     )
