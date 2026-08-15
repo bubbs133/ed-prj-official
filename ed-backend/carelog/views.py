@@ -18,7 +18,7 @@ from .ml.helper_functions import (
 # notes). See journal/nlp.py for the implementation + design notes.
 # If this cross-app import ever feels awkward, move nlp.py into a small
 # shared app (e.g. core/nlp.py) and update both imports.
-from journal.nlp import analyze
+from journal.nlp.nlp import analyze
 from journal.models import JournalEntry
 
 import random
