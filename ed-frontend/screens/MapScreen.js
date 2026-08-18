@@ -7,7 +7,7 @@ import Colors from "../constants/colors";
 import GoBack from "../components/GoBack";
 
 import HeaderCard from "../components/HeaderCard";
-import MiniMap from "../components/MiniMap";
+import MiniMapWeb from "../components/MiniMapWeb.web";
 import PlaceList from "../components/PlaceList";
 import PlaceDetailSheet from "../components/PlaceDetailSheet";
 
@@ -169,7 +169,7 @@ function MapScreen({ navigation }) {
     <View style={styles.container}>
       <HeaderCard navigation={navigation} />
 
-      <MiniMap
+      <MiniMapWeb
         ref={mapRef}
         location={location}
         places={sortedPlaces}

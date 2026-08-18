@@ -87,7 +87,6 @@ function SignUpScreen({ navigation, onLogin }) {
               value: email,
               onChangeText: setEmail,
               autoCorrect: false,
-              autoComplete: false,
             }}
           />
         </View>
@@ -98,7 +97,6 @@ function SignUpScreen({ navigation, onLogin }) {
               value: username,
               onChangeText: setUsername,
               autoCorrect: false,
-              autoComplete: false,
             }}
           />
         </View>
@@ -109,8 +107,7 @@ function SignUpScreen({ navigation, onLogin }) {
               value: password,
               onChangeText: setPassword,
               autoCorrect: false,
-              autoComplete: false,
-              secureTextEntry: true
+              secureTextEntry: true,
             }}
           />
         </View>
@@ -137,7 +134,8 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center", // Changed from flex-start + top: 35% to pure center
+    width: "100%",
   },
   inputElements: {
     width: 300,
@@ -151,10 +149,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 10,
     borderWidth: 2.5,
-    position: height * 0.2,
+    backgroundColor: '#fff',
   },
   signinBtnView: {
-     paddingTop: 15
+    paddingTop: 15,
   },
   signinBtnTitle: {
     textAlign: "center",

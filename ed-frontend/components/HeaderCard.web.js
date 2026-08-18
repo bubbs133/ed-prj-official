@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import Colors from "../constants/colors";
-import GoBack from "../components/GoBack";
+import GoBack from "./GoBack";
 
 function HeaderCard({ navigation }) {
   return (

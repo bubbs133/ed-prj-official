@@ -12,7 +12,7 @@ import Colors from "../constants/colors";
 function LandingScreen({ navigation }) {
   function loginButtonHandler() {
     navigation.navigate("Login");
-    //console.log("login btn");
+    console.log("login btn");
   }
 
   function signupButtonHandler() {

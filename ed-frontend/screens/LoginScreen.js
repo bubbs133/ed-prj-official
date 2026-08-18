@@ -24,7 +24,10 @@ function LoginScreen({ navigation }) {
 
   const authCtx = useContext(AuthContext);
 
+  console.log("Current state -> Username:", username, "| Password:", password);
+
   async function loginHandler() {
+    console.log("pressed log in btn");
     try {
       const url = `${API_BASE_URL}/login/`;
       //const url = `${API_BASE_URL}/login/`;
@@ -74,7 +77,6 @@ function LoginScreen({ navigation }) {
                 value: username,
                 onChangeText: setUsername,
                 autoCorrect: false,
-                autoComplete: false,
               }}
             />
           </View>
@@ -85,7 +87,6 @@ function LoginScreen({ navigation }) {
                 value: password,
                 onChangeText: setPassword,
                 autoCorrect: false,
-                autoComplete: false,
                 secureTextEntry: true,
               }}
             />
@@ -111,35 +112,36 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "flex-start",
-    top: "35%",
+    justifyContent: "center", // Changed from flex-start + top: 35% to pure center
+    width: "100%",
   },
-  inputContainer: {},
+  inputContainer: {
+    width: "100%",
+    alignItems: "center",
+  },
   inputElements: {
     width: 300,
     marginBottom: 27,
   },
   loginBtn: {
     borderRadius: 10,
-    height: 35,
+    height: 40,
     width: 150,
     borderColor: Colors.landingBlue,
-    marginBottom: 10,
-    marginTop: 10,
     borderWidth: 2.5,
-    position: height * 0.2,
-    //borderBottomWidth: 4,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff", // Ensure it has a background so it's clickable!
   },
   loginBtnView: {
-    paddingTop: 15,
+    marginTop: 15,
   },
   loginBtnTitle: {
     textAlign: "center",
     fontSize: 16,
     color: Colors.landingBlue,
-    marginTop: 5,
     fontFamily: "Afacad",
-    fontWeight: 500,
+    fontWeight: "500",
     letterSpacing: 2,
   },
 });
