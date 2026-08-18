@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
   FlatList,
   Image,
+  Animated,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useRef, useContext, useCallback } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import Boxes from "../components/Boxes";
 import Colors from "../constants/colors";
@@ -64,6 +65,40 @@ function HomeScreen({ navigation }) {
   const [weeklyData, setWeeklyData] = useState(null);
   const [topMessage, setTopMessage] = useState("");
   const authCtx = useContext(AuthContext);
+
+  // ****** SOS BUTTON PULSE ****** //
+  // A quiet "still here if you need it" pulse rather than an alarm — see
+  // the grounding toolkit prototype notes on keeping this reassuring,
+  // not urgent-feeling, in color and motion.
+  const sosPulse = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(sosPulse, {
+          toValue: 1,
+          duration: 1700,
+          useNativeDriver: true,
+        }),
+        Animated.timing(sosPulse, {
+          toValue: 0,
+          duration: 1700,
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [sosPulse]);
+
+  const sosGlowOpacity = sosPulse.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.45, 0],
+  });
+  const sosGlowScale = sosPulse.interpolate({
+    inputRange: [0, 1],
+    outputRange: [1, 1.25],
+  });
 
   // ****** DISPLAY DATE ****** //
   function displayDate() {
@@ -429,9 +464,8 @@ function HomeScreen({ navigation }) {
                 styles.languageCard,
                 { backgroundColor: languageToneStyle.background },
               ]}
-              activeOpacity={languageInsight.tone === "flagged" ? 0.85 : 1}
-              disabled={languageInsight.tone !== "flagged"}
-              onPress={() => navigation.navigate("DistortionBreaker")}
+              activeOpacity={0.9}
+              onPress={() => navigation.navigate("GeneralInsights")}
             >
               <View style={styles.languageCardHeader}>
                 <Image
@@ -453,10 +487,39 @@ function HomeScreen({ navigation }) {
                 </Text>
               </View>
               <Text style={[styles.globalFont, styles.languageCardText]}>
-                {languageInsight.message}
+                {languageInsight.summary || languageInsight.message}
+              </Text>
+              <Text style={[styles.globalFont, styles.languageCardFootnote]}>
+                Tap for a deeper breakdown of journal and care-log reflections.
               </Text>
             </TouchableOpacity>
           )}
+
+          {/* SOS / grounding toolkit entry point. Always visible, not
+              tucked into a menu — the whole point is that it's reachable
+              in one tap during a hard moment. Navigates to the toolkit
+              menu screen (Breathe / Bubbles / Release) built separately;
+              register that screen in your navigator as "GroundingToolkit". 
+          <View style={styles.sosWrap} pointerEvents="box-none">
+            <Animated.View
+              style={[
+                styles.sosGlow,
+                {
+                  opacity: sosGlowOpacity,
+                  transform: [{ scale: sosGlowScale }],
+                },
+              ]}
+            />
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Toolkit")}
+              accessibilityRole="button"
+              accessibilityLabel="Open grounding toolkit, I need help now"
+              activeOpacity={0.9}
+              style={styles.sosBtn}
+            >
+              <Text style={styles.sosLabel}>I need{"\n"}help now</Text>
+            </TouchableOpacity>
+          </View> */}
 
           <View style={styles.activityBoxes}>
             <View style={styles.activitySection}>
@@ -795,6 +858,48 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
     color: Colors.darkNeutral,
+  },
+  languageCardFootnote: {
+    marginTop: 8,
+    fontSize: 12,
+    lineHeight: 18,
+    color: Colors.darkNeutral,
+    opacity: 0.8,
+  },
+  sosWrap: {
+    alignSelf: "center",
+    width: 78,
+    height: 78,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 23,
+  },
+  sosGlow: {
+    position: "absolute",
+    width: 78,
+    height: 78,
+    borderRadius: 39,
+    backgroundColor: Colors.homeBlue,
+  },
+  sosBtn: {
+    width: 78,
+    height: 78,
+    borderRadius: 39,
+    backgroundColor: Colors.homeBlue,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: Colors.homeBlue,
+    shadowOpacity: 0.5,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 8,
+  },
+  sosLabel: {
+    fontFamily: "Afacad",
+    color: "#fff",
+    fontSize: 12,
+    textAlign: "center",
+    lineHeight: 15,
   },
 });
 

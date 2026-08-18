@@ -78,8 +78,8 @@ CATASTROPHIZING = [
 ]
 
 SELF_CRITICISM = [
-    "i'm disgusting",
-    "i'm fat",
+    "disgusting",
+    "fat",
     "i'm weak",
     "i'm a failure",
     "worthless",
@@ -93,6 +93,10 @@ SELF_CRITICISM = [
     "i'm such a failure",
     "i'm ugly",
     "i don't deserve",
+    "pig",
+    "cow",
+    "fat",
+
 ]
 
 SHOULD_STATEMENTS = [
@@ -118,6 +122,7 @@ FOOD_MORALITY = [
     "i was so bad",
     "i was good today",
     "i was bad today",
+    "restricting"
 ]
 
 POSITIVE_MARKERS = [
@@ -152,6 +157,8 @@ NEGATIVE_MARKERS = [
     "overwhelmed",
     "disgusted",
     "shame",
+    "freaking out",
+    "scared"
 ]
 
 DISTORTION_LEXICONS = {
@@ -179,7 +186,7 @@ REFLECTION_PROMPTS = {
         "to try reframing this thought together?"
     ),
     "catastrophizing": (
-        "That sounds like a really heavy moment. Want to try breaking it "
+        "Your last entries sound like you've been having really heavy moments. Want to try breaking it "
         "down with the Distortion Breaker?"
     ),
     "self_criticism": (
