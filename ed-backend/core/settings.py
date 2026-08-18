@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import corsheaders
 
 import dj_database_url
 from django.core.exceptions import ImproperlyConfigured
@@ -44,7 +45,7 @@ DEBUG = env_bool("DJANGO_DEBUG", default=False)
 ALLOWED_HOSTS = [
     h.strip()
     for h in os.environ.get(
-        "DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost,192.168.0.125"
+        "DJANGO_ALLOWED_HOSTS", "api.useumi.org,127.0.0.1,localhost,192.168.0.125"
     ).split(",")
     if h.strip()
 ]
@@ -52,7 +53,10 @@ ALLOWED_HOSTS = [
 # Needed behind Dokploy/Traefik (HTTPS proxy) for POST/session CSRF.
 CSRF_TRUSTED_ORIGINS = [
     o.strip()
-    for o in os.environ.get("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",")
+    for o in os.environ.get(
+        "DJANGO_CSRF_TRUSTED_ORIGINS",
+        "https://api.useumi.org,http://localhost:8081,http://127.0.0.1:8081",
+    ).split(",")
     if o.strip()
 ]
 
@@ -200,8 +204,12 @@ STORAGES = {
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8081",
-    "http://localhost:19006",
+    o.strip()
+    for o in os.environ.get(
+        "CORS_ALLOWED_ORIGINS",
+        "http://localhost:8081,http://127.0.0.1:8081,http://localhost:19006",
+    ).split(",")
+    if o.strip()
 ]
 
 CORS_ALLOW_CREDENTIALS = True
