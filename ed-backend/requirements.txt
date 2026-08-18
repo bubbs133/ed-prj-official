@@ -1,6 +1,7 @@
 # Web framework
 Django>=5.0,<5.1
 djangorestframework>=3.15,<3.16
+django-cors-headers
 
 # Database
 psycopg[binary]>=3.1
