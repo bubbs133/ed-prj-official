@@ -133,28 +133,92 @@ WEEKLY_POSITIVE_MESSAGES = [
 ]
 
 WEEKLY_NEUTRAL_MESSAGE = (
-    "Your entries this week were pretty even-keeled. Keeping up with your "
-    "check-ins either way is worth noting."
+    "Your entries this week were pretty neutral. Keeping up with your "
+    "check-ins."
 )
+
+
+def _summarize_source_entries(source_name, entries):
+    """Build a per-source summary for mixed journal / care-log language patterns."""
+    total = len(entries)
+
+    if total == 0:
+        return {
+            "source": source_name,
+            "total_entries": 0,
+            "flagged_count": 0,
+            "top_distortion": None,
+            "distortion_counts": {},
+            "sentiment_counts": {"positive": 0, "neutral": 0, "negative": 0},
+            "tone": "no_data",
+            "message": None,
+        }
+
+    flagged_entries = [e for e in entries if e.is_flagged]
+    flagged_count = len(flagged_entries)
+
+    tag_counts = {}
+    sentiment_counts = {"positive": 0, "neutral": 0, "negative": 0}
+    for entry in entries:
+        for tag in entry.distortion_tags or []:
+            tag_counts[tag] = tag_counts.get(tag, 0) + 1
+        sentiment_counts[entry.sentiment] = sentiment_counts.get(entry.sentiment, 0) + 1
+
+    top_tag = max(tag_counts, key=tag_counts.get) if tag_counts else None
+    positive_ratio = sentiment_counts["positive"] / total
+
+    if flagged_count > 0:
+        tone = "flagged"
+        message = WEEKLY_LANGUAGE_MESSAGES.get(top_tag, WEEKLY_LANGUAGE_MESSAGES["default"])
+    elif positive_ratio >= 0.5:
+        tone = "positive"
+        message = random.choice(WEEKLY_POSITIVE_MESSAGES)
+    else:
+        tone = "neutral"
+        message = WEEKLY_NEUTRAL_MESSAGE
+
+    return {
+        "source": source_name,
+        "total_entries": total,
+        "flagged_count": flagged_count,
+        "top_distortion": top_tag,
+        "distortion_counts": tag_counts,
+        "sentiment_counts": sentiment_counts,
+        "tone": tone,
+        "message": message,
+    }
 
 
 def _build_language_insight(*entry_groups):
     """
     Combine per-entry NLP results from any number of sources (JournalEntry,
-    CareLog, ...) into one weekly signal. Each source just needs to carry
-    the shared `is_flagged` / `distortion_tags` / `sentiment` fields.
-
-    Unlike the earlier version, this always returns a message when there's
-    at least one entry — a week with no distortion flags but a clearly
-    positive tone gets its own message rather than staying silent, since a
-    good week is signal too, not just the absence of a bad one.
+    CareLog, ...) into one weekly signal while also keeping a source-by-source
+    breakdown so the dashboard can show both types of reflection without the
+    care log drowning out the journal signal.
     """
+    if not entry_groups:
+        return {
+            "total_entries": 0,
+            "flagged_count": 0,
+            "top_distortion": None,
+            "distortion_counts": {},
+            "sentiment_counts": {"positive": 0, "neutral": 0, "negative": 0},
+            "tone": "no_data",
+            "message": None,
+            "summary": "No reflective entries this week yet.",
+            "source_breakdown": {"carelog": _summarize_source_entries("carelog", []), "journal": _summarize_source_entries("journal", [])},
+        }
+
+    source_names = ["carelog", "journal"]
+    source_breakdown = {}
     all_entries = []
-    for group in entry_groups:
-        all_entries.extend(group)
+
+    for source_name, group in zip(source_names, entry_groups):
+        group_entries = list(group)
+        source_breakdown[source_name] = _summarize_source_entries(source_name, group_entries)
+        all_entries.extend(group_entries)
 
     total = len(all_entries)
-
     if total == 0:
         return {
             "total_entries": 0,
@@ -164,6 +228,8 @@ def _build_language_insight(*entry_groups):
             "sentiment_counts": {"positive": 0, "neutral": 0, "negative": 0},
             "tone": "no_data",
             "message": None,
+            "summary": "No reflective entries this week yet.",
+            "source_breakdown": source_breakdown,
         }
 
     flagged_entries = [e for e in all_entries if e.is_flagged]
@@ -179,20 +245,34 @@ def _build_language_insight(*entry_groups):
     top_tag = max(tag_counts, key=tag_counts.get) if tag_counts else None
     positive_ratio = sentiment_counts["positive"] / total
 
-    # Flagged language takes priority even in an otherwise positive week —
-    # a self-critical entry sitting next to three good ones is still worth
-    # a gentle look.
     if flagged_count > 0:
         tone = "flagged"
-        message = WEEKLY_LANGUAGE_MESSAGES.get(
-            top_tag, WEEKLY_LANGUAGE_MESSAGES["default"]
-        )
+        message = WEEKLY_LANGUAGE_MESSAGES.get(top_tag, WEEKLY_LANGUAGE_MESSAGES["default"])
     elif positive_ratio >= 0.5:
         tone = "positive"
         message = random.choice(WEEKLY_POSITIVE_MESSAGES)
     else:
         tone = "neutral"
         message = WEEKLY_NEUTRAL_MESSAGE
+
+    care_summary = source_breakdown.get("carelog", {})
+    journal_summary = source_breakdown.get("journal", {})
+    care_text = (
+        f"Care log reflections: {care_summary.get('flagged_count', 0)} flagged"
+        if care_summary
+        else "Care log reflections: no entries"
+    )
+    journal_text = (
+        f"Journal entries: {journal_summary.get('flagged_count', 0)} flagged"
+        if journal_summary
+        else "Journal entries: no entries"
+    )
+    if care_summary.get("top_distortion"):
+        care_text += f" • top pattern: {care_summary['top_distortion'].replace('_', ' ')}"
+    if journal_summary.get("top_distortion"):
+        journal_text += f" • top pattern: {journal_summary['top_distortion'].replace('_', ' ')}"
+
+    summary = f"{care_text}. {journal_text}."
 
     return {
         "total_entries": total,
@@ -202,6 +282,8 @@ def _build_language_insight(*entry_groups):
         "sentiment_counts": sentiment_counts,
         "tone": tone,
         "message": message,
+        "summary": summary,
+        "source_breakdown": source_breakdown,
     }
 
 
@@ -221,7 +303,13 @@ def weekly_insights(request):
         date_created__date__lte=sunday,
     ).order_by("date_created")
 
-    count = weekly_entries.count()
+    weekly_journal_entries = JournalEntry.objects.filter(
+        entry_author=request.user,
+        date_created__date__gte=monday,
+        date_created__date__lte=sunday,
+    )
+
+    count = weekly_entries.count() + weekly_journal_entries.count()
 
     daily_feature_data = aggregate_weekly_feature_data(weekly_entries)
 
@@ -269,12 +357,6 @@ def weekly_insights(request):
     # Same week window, but pulled from the journal app too — a flagged
     # journal entry should count toward this signal exactly like a flagged
     # care log reflection does.
-    weekly_journal_entries = JournalEntry.objects.filter(
-        entry_author=request.user,
-        date_created__date__gte=monday,
-        date_created__date__lte=sunday,
-    )
-
     language_insight = _build_language_insight(weekly_entries, weekly_journal_entries)
 
     check_in_days = {}
@@ -282,9 +364,9 @@ def weekly_insights(request):
     for i in range(7):
         day = monday + timedelta(days=i)
 
-        check_in_days[day.strftime("%a")] = weekly_entries.filter(
-            date_created__date=day
-        ).exists()
+        carelog_exists = weekly_entries.filter(date_created__date=day).exists()
+        journal_exists = weekly_journal_entries.filter(date_created__date=day).exists()
+        check_in_days[day.strftime("%a")] = carelog_exists or journal_exists
 
     return Response(
         {
@@ -293,6 +375,8 @@ def weekly_insights(request):
                 "end": sunday.isoformat(),
             },
             "entries_count": count,
+            "carelog_entries_count": weekly_entries.count(),
+            "journal_entries_count": weekly_journal_entries.count(),
             "features": features,
             "check_in_days": check_in_days,
             "language_insight": language_insight,

@@ -56,6 +56,8 @@ import StickerCollectionScreen from "./screens/StickerScreen";
 import MapScreen from "./screens/MapScreen";
 import ResourcesScreen from "./screens/ResourcesScreen";
 import StressInsightsScreen from "./screens/StressInsightsScreen";
+import ToolkitScreen from "./screens/ToolkitScreen";
+import BreatheScreen from "./screens/BreatheScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -253,6 +255,8 @@ export default function App() {
         />
         <Stack.Screen name="Map" component={MapScreen} />
         <Stack.Screen name="Resources" component={ResourcesScreen} />
+        <Stack.Screen name="Toolkit" component={ToolkitScreen}/>
+        <Stack.Screen name="Breathe" component={BreatheScreen}/>
       </Stack.Navigator>
     );
   }

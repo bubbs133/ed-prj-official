@@ -152,7 +152,10 @@ const GeneralInsightsScreen = ({ navigation }) => {
     );
   }
 
-  const { features } = weeklyData;
+  const { features, language_insight } = weeklyData;
+  const sourceBreakdown = language_insight?.source_breakdown || {};
+  const carelogSummary = sourceBreakdown.carelog || {};
+  const journalSummary = sourceBreakdown.journal || {};
 
   return (
     <View style={styles.container}>
@@ -175,6 +178,62 @@ const GeneralInsightsScreen = ({ navigation }) => {
                 </Text>
               </View>
             </View>
+
+            {language_insight?.message && (
+              <View style={styles.languageSection}>
+                <Text style={[styles.globalFont, styles.languageHeading]}>
+                  Reflection check-in
+                </Text>
+                <View style={styles.languageCard}>
+                  <Text style={[styles.globalFont, styles.languageCardTitle]}>
+                    {language_insight.tone === "flagged"
+                      ? "Language check-in"
+                      : language_insight.tone === "positive"
+                        ? "Noticing something good"
+                        : "Language check-in"}
+                  </Text>
+                  <Text style={[styles.globalFont, styles.languageCardText]}>
+                    {language_insight.summary || language_insight.message}
+                  </Text>
+                </View>
+
+                <View style={styles.sourceGrid}>
+                  <View style={styles.sourceCard}>
+                    <Text style={[styles.globalFont, styles.sourceTitle]}>
+                      Care log reflections
+                    </Text>
+                    <Text style={[styles.globalFont, styles.sourceMeta]}>
+                      {carelogSummary.total_entries ?? 0} entries · {carelogSummary.flagged_count ?? 0} flagged
+                    </Text>
+                    <Text style={[styles.globalFont, styles.sourceValue]}>
+                      {carelogSummary.top_distortion
+                        ? `Top pattern: ${carelogSummary.top_distortion.replace(/_/g, " ")}`
+                        : "No clear distortion pattern"}
+                    </Text>
+                    <Text style={[styles.globalFont, styles.sourceValue]}>
+                      {carelogSummary.message || "No major language pattern this week."}
+                    </Text>
+                  </View>
+
+                  <View style={styles.sourceCard}>
+                    <Text style={[styles.globalFont, styles.sourceTitle]}>
+                      Journal entries
+                    </Text>
+                    <Text style={[styles.globalFont, styles.sourceMeta]}>
+                      {journalSummary.total_entries ?? 0} entries · {journalSummary.flagged_count ?? 0} flagged
+                    </Text>
+                    <Text style={[styles.globalFont, styles.sourceValue]}>
+                      {journalSummary.top_distortion
+                        ? `Top pattern: ${journalSummary.top_distortion.replace(/_/g, " ")}`
+                        : "No clear distortion pattern"}
+                    </Text>
+                    <Text style={[styles.globalFont, styles.sourceValue]}>
+                      {journalSummary.message || "No major language pattern this week."}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            )}
 
             {/* Feature Cards Grid */}
             <View style={styles.gridContainer}>
@@ -203,16 +262,6 @@ const GeneralInsightsScreen = ({ navigation }) => {
                       {FEATURE_UNITS[featureKey]}
                     </Text>
                   </View>
-
-                  {/*<View style={styles.cardProgress}>
-                    <Progress.Bar
-                      progress={Math.min(featureData.average / 10, 1)}
-                      width={140}
-                      color={featureColors[featureKey]}
-                      height={6}
-                      borderRadius={3}
-                    />
-                  </View>*/}
 
                   <View style={styles.cardTrend}>
                     <Text style={styles.globalFont}>
@@ -297,6 +346,52 @@ const styles = StyleSheet.create({
   },
   summaryBox: {
     //backgroundColor: "#F0F0F0",
+  },
+  languageSection: {
+    marginBottom: 25,
+  },
+  languageHeading: {
+    fontWeight: 600,
+    fontSize: 18,
+    marginBottom: 12,
+  },
+  languageCard: {
+    backgroundColor: "#FFF7F0",
+    borderRadius: 16,
+    padding: 16,
+    marginBottom: 14,
+  },
+  languageCardTitle: {
+    fontSize: 16,
+    fontWeight: 700,
+    marginBottom: 8,
+  },
+  languageCardText: {
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  sourceGrid: {
+    gap: 12,
+  },
+  sourceCard: {
+    backgroundColor: "#F6F5F3",
+    borderRadius: 14,
+    padding: 14,
+  },
+  sourceTitle: {
+    fontSize: 15,
+    fontWeight: 700,
+    marginBottom: 6,
+  },
+  sourceMeta: {
+    fontSize: 12,
+    opacity: 0.8,
+    marginBottom: 8,
+  },
+  sourceValue: {
+    fontSize: 13,
+    lineHeight: 18,
+    marginBottom: 6,
   },
   checkinBtnText: {
     textAlign: "center",
