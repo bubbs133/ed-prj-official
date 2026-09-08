@@ -26,4 +26,5 @@ urlpatterns = [
     path("", include("quests.urls")),
     path("", include("carelog.urls")),
     path("", include("stickers.urls")),
+    path("", include("foodstudio.urls")),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

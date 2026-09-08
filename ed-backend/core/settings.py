@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     "quests",
     "stickers",
     "users",
+    "foodstudio",
     "rest_framework",
     "rest_framework.authtoken",
 ]

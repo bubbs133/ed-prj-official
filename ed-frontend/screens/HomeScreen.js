@@ -12,7 +12,6 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, useEffect, useRef, useContext, useCallback } from "react";
 import { useFocusEffect } from "@react-navigation/native";
-import Boxes from "../components/Boxes";
 import Colors from "../constants/colors";
 import { AuthContext } from "../auth/auth-context";
 import { DAILY_ACTIVITIES } from "../models/activityBoxes";
@@ -56,6 +55,15 @@ const FEATURE_CONFIGS = {
     target: 60,
     format: (avg) => `${avg} min`,
   },
+};
+
+// Accent theming for the three "story" stat cards — each gets its own
+// soft-tint background + solid icon badge instead of one flat grey,
+// so the row reads as three distinct signals rather than one grid.
+const STAT_ACCENTS = {
+  biggestImprovement: { bg: "#EAF6EF", accent: "#3F8F5F" },
+  strongestHabit: { bg: "#FFF7E8", accent: "#C98A2E" },
+  gentleFocus: { bg: "#FDEEEE", accent: "#C25B5B" },
 };
 
 function HomeScreen({ navigation }) {
@@ -274,85 +282,64 @@ function HomeScreen({ navigation }) {
   const languageToneStyle =
     LANGUAGE_TONE_STYLES[languageInsight?.tone] || LANGUAGE_TONE_STYLES.neutral;
 
-  const journeyCards = [
+  // ****** JOURNEY STAT CARDS ******
+  // Three "story" cards (Biggest Improvement / Strongest Habit / Gentle
+  // Focus) each get their own accent color and an icon badge, so they read
+  // as three distinct signals rather than one uniform grid. "Full Insights"
+  // is pulled out into its own wide banner below — it's a different kind
+  // of thing (a link to more detail) than the other three (a stat), so it
+  // shouldn't share a cell size with them.
+  const statCards = [
     {
       key: "biggestImprovement",
       img: require("../assets/icons/seastar.png"),
-      imgColor: Colors.darkBlueText,
       title: "Biggest Improvement",
-
       subtitle: biggestImprovement?.key
         ? biggestImprovement.key.replace("_", " ")
         : "",
-
       value:
         biggestImprovement?.data?.average !== undefined
           ? formatFeatureValue(
               biggestImprovement.key,
               biggestImprovement.data.average,
             )
-          : "More data needed.",
-
+          : null,
       screen: biggestImprovement?.key
         ? featureScreenMap[biggestImprovement.key]
         : null,
-
       disabled: !biggestImprovement,
-
-      backgroundColor: Colors.greyish,
-      fontColor: Colors.darkBlueText,
+      ...STAT_ACCENTS.biggestImprovement,
     },
     {
       key: "strongestHabit",
       img: require("../assets/icons/sun.png"),
-      imgColor: Colors.darkBrownText,
       title: "Strongest Habit",
-      subtitle: strongestHabit?.data?.label || "",
+      subtitle:
+        strongestHabit?.data?.label ||
+        (strongestHabit?.key ? strongestHabit.key.replace("_", " ") : ""),
       value:
         strongestHabit?.average !== undefined
           ? formatFeatureValue(strongestHabit.key, strongestHabit.average)
-          : "More data needed.",
+          : null,
       screen:
         strongestHabit?.key && featureScreenMap[strongestHabit.key]
           ? featureScreenMap[strongestHabit.key]
           : null,
       disabled: !strongestHabit,
-      backgroundColor: Colors.greyish,
-      fontColor: Colors.darkBrownText,
+      ...STAT_ACCENTS.strongestHabit,
     },
     {
       key: "gentleFocus",
       img: require("../assets/icons/fish.png"),
-      imgColor: Colors.darkBrownText,
       title: "Gentle Focus",
-
       subtitle: gentleFocus?.key ? gentleFocus.key.replace("_", " ") : "",
-
       value:
         gentleFocus?.data?.average !== undefined
           ? formatFeatureValue(gentleFocus.key, gentleFocus.data.average)
-          : "More data needed.",
-
+          : null,
       screen: gentleFocus?.key ? featureScreenMap[gentleFocus.key] : null,
-
       disabled: !gentleFocus,
-
-      backgroundColor: Colors.greyish,
-      fontColor: Colors.darkBrownText,
-    },
-    {
-      key: "fullInsights",
-      img: require("../assets/icons/bucket.png"),
-      imgColor: Colors.darkBlueText,
-      title: "Full Insights",
-      subtitle: "See more",
-      value: weeklyInsights?.entries_count
-        ? `${weeklyInsights.entries_count} entries`
-        : "",
-      screen: "GeneralInsights",
-      backgroundColor: Colors.homeBlue,
-      fontColor: Colors.darkBlueText,
-      whiteText: true,
+      ...STAT_ACCENTS.gentleFocus,
     },
   ];
 
@@ -438,11 +425,23 @@ function HomeScreen({ navigation }) {
                       key={idx}
                       style={[styles.dayBox, checkedIn && styles.checkedDayBox]}
                     >
-                      <Text style={[styles.globalFont, styles.dayLabel]}>
+                      <Text
+                        style={[
+                          styles.globalFont,
+                          styles.dayLabel,
+                          checkedIn && styles.checkedDayText,
+                        ]}
+                      >
                         {day}
                       </Text>
 
-                      <Text style={[styles.globalFont, styles.dayValue]}>
+                      <Text
+                        style={[
+                          styles.globalFont,
+                          styles.dayValue,
+                          checkedIn && styles.checkedDayText,
+                        ]}
+                      >
                         {checkedIn ? "✓" : "—"}
                       </Text>
                     </View>
@@ -452,48 +451,24 @@ function HomeScreen({ navigation }) {
             </View>
           </View>
 
+          {/* Food Studio entry point. Register the FoodStudioNavigator stack
+              as a screen named "FoodStudio" in whatever navigator also owns
+              "Home" (e.g. your root Stack.Navigator or tab navigator), with
+              headerShown: false so its own stack header takes over:
+
+                <Stack.Screen
+                  name="FoodStudio"
+                  component={FoodStudioNavigator}
+                  options={{ headerShown: false }}
+                />
+          */}
+
           {/* Language check-in — renders whenever there's at least one
               journal or care log entry this week, regardless of tone. A
               positive or neutral week gets its own gentle note instead of
               staying silent; only a "flagged" week is tappable through to
               the Distortion Breaker, since the others aren't asking for
               an action. */}
-          {hasLanguageSignal && (
-            <TouchableOpacity
-              style={[
-                styles.languageCard,
-                { backgroundColor: languageToneStyle.background },
-              ]}
-              activeOpacity={0.9}
-              onPress={() => navigation.navigate("GeneralInsights")}
-            >
-              <View style={styles.languageCardHeader}>
-                <Image
-                  source={languageToneStyle.icon}
-                  style={[
-                    styles.languageCardIcon,
-                    { tintColor: languageToneStyle.titleColor },
-                  ]}
-                  resizeMode="contain"
-                />
-                <Text
-                  style={[
-                    styles.globalFont,
-                    styles.languageCardTitle,
-                    { color: languageToneStyle.titleColor },
-                  ]}
-                >
-                  {languageToneStyle.title}
-                </Text>
-              </View>
-              <Text style={[styles.globalFont, styles.languageCardText]}>
-                {languageInsight.summary || languageInsight.message}
-              </Text>
-              <Text style={[styles.globalFont, styles.languageCardFootnote]}>
-                Tap for a deeper breakdown of journal and care-log reflections.
-              </Text>
-            </TouchableOpacity>
-          )}
 
           {/* SOS / grounding toolkit entry point. Always visible, not
               tucked into a menu — the whole point is that it's reachable
@@ -523,15 +498,20 @@ function HomeScreen({ navigation }) {
 
           <View style={styles.activityBoxes}>
             <View style={styles.activitySection}>
-              <View style={styles.insightsGrid}>
-                {journeyCards.map((card) => (
+              <View style={styles.statsRow}>
+                {statCards.map((card) => (
                   <TouchableOpacity
                     key={card.key}
                     disabled={card.disabled}
+                    activeOpacity={0.85}
                     style={[
-                      styles.insightCard,
-                      { backgroundColor: card.backgroundColor },
-                      card.disabled && styles.disabledCard,
+                      styles.statCard,
+                      {
+                        backgroundColor: card.disabled ? "#F6F5F4" : card.bg,
+                        borderColor: card.disabled ? "#E6E2DF" : "transparent",
+                        borderWidth: card.disabled ? 1.5 : 0,
+                        borderStyle: card.disabled ? "dashed" : "solid",
+                      },
                     ]}
                     onPress={() => {
                       if (!card.disabled && card.screen) {
@@ -539,56 +519,126 @@ function HomeScreen({ navigation }) {
                       }
                     }}
                   >
-                    <Image
-                      source={card.img}
-                      style={[styles.insightImg, { tintColor: card.imgColor }]}
-                    />
-                    <Text
+                    <View
                       style={[
-                        styles.globalFont,
-                        styles.insightTitle,
-                        { color: card.fontColor },
+                        styles.statIconBadge,
+                        {
+                          backgroundColor: card.disabled
+                            ? "#E6E2DF"
+                            : card.accent,
+                        },
                       ]}
                     >
+                      <Image
+                        source={card.img}
+                        style={[styles.statIconImg, { tintColor: "#fff" }]}
+                      />
+                    </View>
+
+                    <Text style={[styles.globalFont, styles.statTitle]}>
                       {card.title}
                     </Text>
-                    <Text
-                      style={[
-                        styles.globalFont,
-                        styles.insightMetric,
-                        { color: card.fontColor },
-                      ]}
-                    >
-                      {card.subtitle}
-                    </Text>
-                    <Text
-                      style={[
-                        styles.globalFont,
-                        styles.insightValue,
-                        card.whiteText && { color: card.fontColor },
-                        { color: card.fontColor },
-                      ]}
-                    >
-                      {card.value}
-                    </Text>
-                    {card.whiteText && (
-                      <Text
-                        style={[
-                          styles.globalFont,
-                          styles.insightSubtext,
-                          { color: card.fontColor },
-                        ]}
-                      >
-                        {card.subtitle ===
-                        "View trends, recommendations, and progress"
-                          ? "View trends, recommendations, and progress"
-                          : ""}
+
+                    {card.disabled ? (
+                      <Text style={[styles.globalFont, styles.statEmptyText]}>
+                        More data needed
                       </Text>
+                    ) : (
+                      <>
+                        {!!card.subtitle && (
+                          <Text
+                            style={[styles.globalFont, styles.statSubtitle]}
+                          >
+                            {card.subtitle}
+                          </Text>
+                        )}
+                        <Text
+                          style={[
+                            styles.globalFont,
+                            styles.statValue,
+                            { color: card.accent },
+                          ]}
+                        >
+                          {card.value}
+                        </Text>
+                      </>
                     )}
                   </TouchableOpacity>
                 ))}
               </View>
+
+              <TouchableOpacity
+                style={styles.fullInsightsBanner}
+                activeOpacity={0.9}
+                onPress={() => navigation.navigate("GeneralInsights")}
+              >
+                <View style={styles.fullInsightsIconBadge}>
+                  <Image
+                    source={require("../assets/icons/bucket.png")}
+                    style={[
+                      styles.fullInsightsIconImg,
+                      { tintColor: Colors.homeBlue },
+                    ]}
+                  />
+                </View>
+                <View style={styles.fullInsightsTextWrap}>
+                  <Text style={[styles.globalFont, styles.fullInsightsTitle]}>
+                    Full Insights
+                  </Text>
+                  <Text
+                    style={[styles.globalFont, styles.fullInsightsSubtitle]}
+                  >
+                    {weeklyInsights?.entries_count
+                      ? `${weeklyInsights.entries_count} entries this week — view trends & patterns`
+                      : "View trends, recommendations, and progress"}
+                  </Text>
+                </View>
+                <Text style={styles.fullInsightsArrow}>→</Text>
+              </TouchableOpacity>
+              <View style={{paddingTop: 20}}>
+                {hasLanguageSignal && (
+                  <TouchableOpacity
+                    style={[
+                      styles.languageCard,
+                      { backgroundColor: "#FFF7F0" },
+                    ]}
+                    activeOpacity={0.9}
+                    onPress={() => navigation.navigate("GeneralInsights")}
+                  >
+                    <View style={styles.languageCardHeader}>
+                      <View style={styles.languageCardIcon}>
+                        <Image
+                        source={languageToneStyle.icon}
+                        style={[
+                          { tintColor: languageToneStyle.titleColor, width: 22, height: 22 },
+                        ]}
+                        resizeMode="contain"
+                      />
+                      </View>
+                      <Text
+                        style={[
+                          styles.globalFont,
+                          styles.languageCardTitle,
+                          { color: languageToneStyle.titleColor },
+                        ]}
+                      >
+                        {languageToneStyle.title}
+                      </Text>
+                    </View>
+                    <Text style={[styles.globalFont, styles.languageCardText]}>
+                      {languageInsight.summary || languageInsight.message}
+                    </Text>
+                    <Text
+                      style={[styles.globalFont, styles.languageCardFootnote]}
+                    >
+                      Tap for a deeper breakdown of journal and care-log
+                      reflections.
+                    </Text>
+                  </TouchableOpacity>
+                )}
+              </View>
             </View>
+
             <View style={styles.activitySection}>
               <Text style={[styles.sectionHeading, styles.globalFont]}>
                 Daily Activities
@@ -598,26 +648,44 @@ function HomeScreen({ navigation }) {
                 data={DAILY_ACTIVITIES}
                 numColumns={2}
                 keyExtractor={(item) => item.id}
-                columnWrapperStyle={{
-                  justifyContent: "space-between",
-                  marginBottom: 10,
-                }}
+                columnWrapperStyle={styles.activityColumnWrapper}
                 renderItem={({ item }) => (
                   <TouchableOpacity
-                    style={{ width: "48%" }}
+                    style={styles.activityCard}
+                    activeOpacity={0.85}
                     onPress={() => navigation.navigate(item.screen)}
                   >
-                    <Boxes
-                      itemTitle={item.title}
-                      description={item.description}
-                      imgPath={item.img}
-                      height={154}
-                      width={"100%"}
-                      borderColor={item.border}
-                      fillColor={item.color}
-                      fontColor={item.fontColor}
-                      imgTint={item.imgColor}
-                    />
+                    <View
+                      style={[
+                        styles.activityIconBadge,
+                        { backgroundColor: item.color },
+                      ]}
+                    >
+                      <Image
+                        source={item.img}
+                        style={[
+                          styles.activityIconImg,
+                          { tintColor: item.imgColor },
+                        ]}
+                        resizeMode="contain"
+                      />
+                    </View>
+                    <Text
+                      style={[
+                        styles.globalFont,
+                        styles.activityTitle,
+                        { color: item.fontColor },
+                      ]}
+                      numberOfLines={2}
+                    >
+                      {item.title}
+                    </Text>
+                    <Text
+                      style={[styles.globalFont, styles.activityDescription]}
+                      numberOfLines={2}
+                    >
+                      {item.description}
+                    </Text>
                   </TouchableOpacity>
                 )}
               />
@@ -632,13 +700,25 @@ function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FAF8F4",
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
+    width: "100%",
+    alignItems: "center",
   },
   topContainer: {
+    width: "100%",
+    maxWidth: 760,
+    flex: 1,
+    backgroundColor: Colors.bgColor,
     paddingHorizontal: "5%",
-    paddingBottom: "20%",
+    paddingBottom: "15%",
+    paddingTop: "5%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
   date: {
     fontSize: 17,
@@ -648,9 +728,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     letterSpacing: 1,
     paddingTop: 7,
-  },
-  disabledCard: {
-    opacity: 1,
   },
   globalFont: {
     fontFamily: "Afacad",
@@ -743,59 +820,205 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
   },
-  insightsGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+
+  // ****** DAILY ACTIVITIES (redesigned to match the stat cards above) ******
+  activityColumnWrapper: {
     justifyContent: "space-between",
-    gap: 10,
+    marginBottom: 12,
+  },
+  activityCard: {
+    width: "48%",
+    minHeight: 168,
+    borderRadius: 20,
+    backgroundColor: "#fff",
+    padding: 16,
+    justifyContent: "flex-start",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 8,
+    elevation: 2,
+  },
+  activityIconBadge: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 12,
+  },
+  activityIconImg: {
+    width: 22,
+    height: 22,
+  },
+  activityTitle: {
+    fontSize: 15,
+    fontWeight: "700",
+    letterSpacing: 0.3,
+    lineHeight: 19,
+  },
+  activityDescription: {
+    fontSize: 12.5,
+    color: Colors.darkNeutral,
+    opacity: 0.65,
+    marginTop: 4,
+    lineHeight: 17,
   },
 
-  insightCard: {
-    width: "48%",
-    minHeight: 130,
-    borderRadius: 18,
+  // ****** JOURNEY STAT CARDS (redesigned) ******
+  statsRow: {
+    flexDirection: "row",
+    gap: 10,
+    marginBottom: 12,
+  },
+  statCard: {
+    flex: 1,
+    minHeight: 138,
+    borderRadius: 20,
     padding: 14,
     justifyContent: "space-between",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.05,
+    shadowRadius: 6,
+    elevation: 1,
+  },
+  statIconBadge: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 10,
+  },
+  statIconImg: {
+    width: 16,
+    height: 16,
+  },
+  statTitle: {
+    fontSize: 11,
+    fontWeight: "700",
+    letterSpacing: 0.5,
+    textTransform: "uppercase",
+    opacity: 0.55,
+  },
+  statSubtitle: {
+    fontSize: 12.5,
+    fontWeight: "600",
+    marginTop: 3,
+    textTransform: "capitalize",
+    opacity: 0.85,
+  },
+  statValue: {
+    fontSize: 21,
+    fontWeight: "800",
+    marginTop: 6,
+  },
+  statEmptyText: {
+    fontSize: 12.5,
+    fontStyle: "italic",
+    opacity: 0.5,
+    marginTop: 6,
   },
 
-  insightImg: {
-    height: 40,
-    width: 40,
+  fullInsightsBanner: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#EAF2FB",
+    borderRadius: 20,
+    padding: 16,
+  },
+  fullInsightsIconBadge: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 14,
+  },
+  fullInsightsIconImg: {
+    width: 22,
+    height: 22,
+  },
+  fullInsightsTextWrap: {
+    flex: 1,
+  },
+  fullInsightsTitle: {
+    fontSize: 15,
+    fontWeight: "700",
+    letterSpacing: 0.5,
+  },
+  fullInsightsSubtitle: {
+    fontSize: 12.5,
+    opacity: 0.7,
+    marginTop: 2,
+    lineHeight: 17,
+  },
+  fullInsightsArrow: {
+    fontSize: 18,
+    color: Colors.homeBlue,
+    marginLeft: 8,
   },
 
-  insightTitle: {
-    fontSize: 17,
-    fontFamily: "Afacad",
-    fontWeight: 700,
-    letterSpacing: 3,
+  // ****** FOOD STUDIO ENTRY CARD ******
+  foodStudioCard: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FFF1E4",
+    borderRadius: 20,
+    padding: 16,
+    marginBottom: 23,
   },
-
-  insightMetric: {
-    fontSize: 14,
-    fontWeight: "400",
-    letterSpacing: 1,
+  foodStudioIconBadge: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: "#FBDCB9",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 14,
   },
-
-  insightValue: {
+  foodStudioIconText: {
+    fontSize: 24,
+  },
+  foodStudioTextWrap: {
+    flex: 1,
+  },
+  foodStudioTitle: {
     fontSize: 16,
-    fontWeight: "400",
-    letterSpacing: 1,
+    fontWeight: "700",
+    letterSpacing: 0.5,
+  },
+  foodStudioSubtitle: {
+    fontSize: 12.5,
+    opacity: 0.7,
+    marginTop: 2,
+    lineHeight: 17,
+  },
+  foodStudioArrow: {
+    fontSize: 20,
+    opacity: 0.4,
+    marginLeft: 8,
+    color: Colors.darkNeutral,
   },
 
-  insightSubtext: {
-    fontSize: 13,
-    lineHeight: 18,
-  },
   dailyGrid: {
     flexDirection: "row",
     justifyContent: "space-between",
   },
   dayBox: {
     alignItems: "center",
-    backgroundColor: "#93B3C2",
-    borderRadius: 8,
-    padding: 8,
+    backgroundColor: "#EDEDED",
+    borderRadius: 10,
+    paddingVertical: 10,
     width: "13%",
+  },
+  checkedDayBox: {
+    backgroundColor: Colors.homeBlue,
+  },
+  checkedDayText: {
+    color: "#fff",
   },
   dayLabel: {
     fontWeight: 600,
@@ -843,10 +1066,13 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   languageCardIcon: {
-    width: 22,
-    height: 22,
-    marginRight: 8,
-    tintColor: Colors.darkBrownText,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 14,
   },
   languageCardTitle: {
     fontSize: 15,

@@ -136,10 +136,22 @@ function BingeUrgeInsightsScreen({ navigation }) {
                 {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
                   (day, idx) => (
                     <View key={idx} style={styles.dayBox}>
-                      <Text style={[styles.globalFont, styles.dayLabel, {color: Colors.darkNeutral}]}>
+                      <Text
+                        style={[
+                          styles.globalFont,
+                          styles.dayLabel,
+                          { color: Colors.darkNeutral },
+                        ]}
+                      >
                         {day}
                       </Text>
-                      <Text style={[styles.globalFont, styles.dayValue, {color: Colors.darkNeutral}]}>
+                      <Text
+                        style={[
+                          styles.globalFont,
+                          styles.dayValue,
+                          { color: Colors.darkNeutral },
+                        ]}
+                      >
                         {entries[idx]?.toFixed(0) || "-"}
                       </Text>
                     </View>
@@ -207,11 +219,25 @@ function BingeUrgeInsightsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    width: "100%",
+    alignItems: "center",
   },
   contentContainer: {
+    width: "100%",
+    maxWidth: 760,
+    flex: 1,
+    backgroundColor: Colors.bgColor,
     paddingHorizontal: "5%",
-    paddingBottom: 40,
+    paddingBottom: "15%",
+    paddingTop: "5%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
   globalFont: {
     fontFamily: "Afacad",

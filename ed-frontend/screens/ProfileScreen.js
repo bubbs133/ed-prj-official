@@ -190,16 +190,29 @@ export default function ProfileScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.bgColor,
+    width: "100%",
+    alignItems: "center",
   },
   globalFont: {
     fontFamily: "Afacad",
     letterSpacing: 1,
   },
   contentContainer: {
+    width: "100%",
+    maxWidth: 760,
+    flex: 1,
+    backgroundColor: Colors.bgColor,
     paddingHorizontal: "5%",
+    paddingBottom: "15%",
     paddingTop: "5%",
-    paddingBottom: "20%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
 
   settings: {

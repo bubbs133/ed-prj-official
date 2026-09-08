@@ -121,8 +121,12 @@ function AssessmentScreen({ navigation }) {
             {currentQuestionIdx + 1} / {CARELOG_QUESTIONS.length}
           </Text>
           <ScrollView
-            contentContainerStyle={{ flexGrow: 1, paddingTop: 40 }}
+            contentContainerStyle={{
+              paddingVertical: 40,
+              alignItems: "center",
+            }}
             showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps={"handled"}
           >
             <Text style={[styles.questions, styles.globalFont]}>
               {currentQuestion.question}
@@ -304,11 +308,25 @@ function AssessmentScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FAF8F4",
+    width: "100%",
+    alignItems: "center",
   },
   mainContainer: {
+    width: "100%",
+    maxWidth: 760,
     flex: 1,
+    backgroundColor: Colors.bgColor,
     paddingHorizontal: "5%",
+    paddingBottom: "15%",
+    paddingTop: "5%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
   top: {
     flexDirection: "row",
@@ -316,9 +334,10 @@ const styles = StyleSheet.create({
   },
   input: {
     textAlign: "center",
-    fontSize: 150, // Huge for numbers
+    fontSize: 80, // Scale down slightly to prevent overflow bounds
     color: Colors.darkNeutral,
-    paddingTop: "20%",
+    width: "100%",
+    minHeight: 150,
   },
   footer: {
     paddingBottom: 20,

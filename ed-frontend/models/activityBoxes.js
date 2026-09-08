@@ -13,6 +13,43 @@ const DAILY_ACTIVITIES = [
     screen: "Assessment",
   },
   {
+    id: "foodstudio",
+    title: "Food Studio",
+    description:
+      "Build a meal, try something new, or get a gentle idea for what sounds good right now.",
+    //color: Colors.pastelBlue,
+    //border: Colors.darkBlue,
+    color: Colors.greyish,
+    border: Colors.seaDarkBlue,
+    fontColor: Colors.darkBlueText,
+    img: require("../assets/icons/shell.png"),
+    imgColor: Colors.darkBlueText,
+    screen: "FoodStudioNav",
+  },
+  {
+    id: "quickReads",
+    title: "Quick Reads",
+    description: "Learn about eating disorders, nutrition, and sport science!",
+    color: Colors.greyish,
+    border: Colors.seaBlue2,
+    fontColor: Colors.darkBlueText,
+    img: require("../assets/icons/umbrella.png"),
+    imgColor: Colors.darkBlueText,
+    screen: "QuickReadsList",
+  },
+  {
+    id: "journal",
+    title: "Journal",
+    description: "Set your thoughts and feelings free by journaling.",
+    color: Colors.greyish,
+    border: Colors.lightCoffeeBrown,
+    fontColor: Colors.darkBrownText,
+    img: require("../assets/icons/beachball.png"),
+    imgColor: Colors.darkBrownText,
+    screen: "Journal",
+  },
+  /*
+  {
     id: "quests",
     title: "Quests",
     description: "Challenge yourself and your mind by completing quests.",
@@ -25,7 +62,7 @@ const DAILY_ACTIVITIES = [
     imgColor: Colors.darkBlueText,
     screen: "Quests",
   },
-  /*{
+  {
     id: "chat",
     title: "Chatroom",
     description: "Have a chat with Izzy on eating disorders and nutrition.",
@@ -46,28 +83,6 @@ const DAILY_ACTIVITIES = [
     //screen: "Tracking",
     screen: "StickersScreen",
   },*/
-  {
-    id: "journal",
-    title: "Journal",
-    description: "Set your thoughts and feelings free by journaling.",
-    color: Colors.greyish,
-    border: Colors.lightCoffeeBrown,
-    fontColor: Colors.darkBrownText,
-    img: require("../assets/icons/beachball.png"),
-    imgColor: Colors.darkBrownText,
-    screen: "Journal",
-  },
-  {
-    id: "quickReads",
-    title: "Quick Reads",
-    description: "Learn about eating disorders, nutrition, and sport science!",
-    color: Colors.greyish,
-    border: Colors.seaBlue2,
-    fontColor: Colors.darkBlueText,
-    img: require("../assets/icons/umbrella.png"),
-    imgColor: Colors.darkBlueText,
-    screen: "QuickReadsList",
-  },
 ];
 
 export { DAILY_ACTIVITIES };
