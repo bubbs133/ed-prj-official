@@ -1,101 +1,107 @@
 import {
-  Pressable,
   StyleSheet,
   Text,
   View,
   ImageBackground,
   TouchableOpacity,
+  useWindowDimensions,
 } from "react-native";
 import React from "react";
 import Colors from "../constants/colors";
 
 function LandingScreen({ navigation }) {
+  const { width, height } = useWindowDimensions();
+
   function loginButtonHandler() {
     navigation.navigate("Login");
-    console.log("login btn");
   }
 
   function signupButtonHandler() {
     navigation.navigate("SignUp");
-    console.log("sigup btn");
   }
 
+  const buttonWidth = Math.min(width * 0.85, 300);
+
   return (
-    <ImageBackground
-      source={require("../assets/main/landing2.png")}
-      style={styles.backgroundImg}
-    >
-      <View style={styles.container}>
-        <View style={styles.btns}>
-          <View>
-            <TouchableOpacity style={styles.loginbtn} onPressIn={loginButtonHandler}>
+    <View style={styles.container}>
+      <ImageBackground
+        source={require("../assets/main/landing2.png")}
+        style={[styles.backgroundImg, { width, height }]}
+        resizeMode="cover"
+      >
+        <View style={styles.mainContainer}>
+          <View style={styles.btns}>
+            <TouchableOpacity
+              style={[styles.loginbtn, { width: buttonWidth }]}
+              onPress={loginButtonHandler}
+            >
               <Text style={styles.btnTitles}>Login</Text>
             </TouchableOpacity>
-          </View>
-          <View>
-            <TouchableOpacity style={styles.signupbtn} onPress={signupButtonHandler}>
+
+            <TouchableOpacity
+              style={[styles.signupbtn, { width: buttonWidth }]}
+              onPress={signupButtonHandler}
+            >
               <Text style={styles.btnTitles}>Signup</Text>
             </TouchableOpacity>
           </View>
         </View>
-      </View>
-    </ImageBackground>
+      </ImageBackground>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    width: "100%",
   },
+
   backgroundImg: {
-    resizeMode: "cover",
     flex: 1,
+    width: "100%",
   },
+
+  mainContainer: {
+    flex: 1,
+    width: "100%",
+    alignItems: "center",
+  },
+
   btns: {
     position: "absolute",
     bottom: 35,
+    width: "100%",
+    alignItems: "center",
   },
+
   loginbtn: {
+    height: 45,
     borderRadius: 10,
-    height: 37,
-    width: 300,
     backgroundColor: Colors.landingBlue,
-    marginBottom: 10,
-    marginTop: 10,
-    //borderColor: Colors.floaterCream,
+    marginVertical: 5,
     borderColor: Colors.landingBlue,
-    //borderColor: "#42190D",
-    //borderColor: "#9B8E75",
     borderWidth: 2.5,
-    //borderBottomWidth: 4,
-    //borderRightWidth: 4
+    justifyContent: "center",
   },
+
   signupbtn: {
+    height: 45,
     borderRadius: 10,
-    height: 37,
-    width: 300,
     backgroundColor: "transparent",
-    marginBottom: 10,
-    marginTop: 10,
-    //borderColor: "#ADBCBE",
+    marginVertical: 5,
     borderColor: Colors.landingBlue,
-    //borderColor: "#C0D0E1",
     borderWidth: 2.5,
-    //borderBottomWidth: 4,
-    //borderRightWidth: 4
+    justifyContent: "center",
   },
+
   btnTitles: {
     textAlign: "center",
     fontSize: 19,
-    //color: "#42190D",
     color: Colors.floaterCream,
-    marginTop: 5,
     fontFamily: "Afacad",
-    fontWeight: 700,
+    fontWeight: "700",
     letterSpacing: 2,
-    //paddingBottom: 500,
   },
 });
 

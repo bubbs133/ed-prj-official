@@ -163,10 +163,21 @@ function EmotionalDistressInsightsScreen({ navigation }) {
                 <View style={styles.suggestions}>
                   {getSuggestions().map((suggestion, index) => (
                     <View key={index} style={styles.suggestion}>
-                      <Text style={[styles.globalFont, styles.bold, {color: Colors.darkBlueText}]}>
+                      <Text
+                        style={[
+                          styles.globalFont,
+                          styles.bold,
+                          { color: Colors.darkBlueText },
+                        ]}
+                      >
                         {suggestion.title}
                       </Text>
-                      <Text style={[styles.globalFont, {color: Colors.darkBlueText}]}>
+                      <Text
+                        style={[
+                          styles.globalFont,
+                          { color: Colors.darkBlueText },
+                        ]}
+                      >
                         {suggestion.description}
                       </Text>
                     </View>
@@ -179,18 +190,35 @@ function EmotionalDistressInsightsScreen({ navigation }) {
                   Trends
                 </Text>
                 <View style={styles.trendBox}>
-                  <Text style={[styles.globalFont, styles.trendArrow, {color: Colors.darkBlueText}]}>
+                  <Text
+                    style={[
+                      styles.globalFont,
+                      styles.trendArrow,
+                      { color: Colors.darkBlueText },
+                    ]}
+                  >
                     {trend_direction}
                   </Text>
                   <View>
-                    <Text style={[styles.globalFont, styles.bold, {color: Colors.darkBlueText}]}>
+                    <Text
+                      style={[
+                        styles.globalFont,
+                        styles.bold,
+                        { color: Colors.darkBlueText },
+                      ]}
+                    >
                       {trend === "increasing"
                         ? "Increasing"
                         : trend === "decreasing"
                           ? "Decreasing"
                           : "Stable"}
                     </Text>
-                    <Text style={[styles.globalFont, {color: Colors.darkBlueText}]}>
+                    <Text
+                      style={[
+                        styles.globalFont,
+                        { color: Colors.darkBlueText },
+                      ]}
+                    >
                       Change: {trend_value}/10
                     </Text>
                   </View>
@@ -207,11 +235,25 @@ function EmotionalDistressInsightsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    width: "100%",
+    alignItems: "center",
   },
   contentContainer: {
+    width: "100%",
+    maxWidth: 760,
+    flex: 1,
+    backgroundColor: Colors.bgColor,
     paddingHorizontal: "5%",
-    paddingBottom: 40,
+    paddingBottom: "15%",
+    paddingTop: "5%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
   globalFont: {
     fontFamily: "Afacad",

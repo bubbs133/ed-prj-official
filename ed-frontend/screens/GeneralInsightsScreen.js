@@ -33,7 +33,7 @@ const GeneralInsightsScreen = ({ navigation }) => {
   const [weeklyData, setWeeklyData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   const authCtx = useContext(AuthContext);
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const GeneralInsightsScreen = ({ navigation }) => {
         throw new Error("Not authenticated");
       }
 
-      const url = `${API_BASE_URL}/weekly-insights/`
+      const url = `${API_BASE_URL}/weekly-insights/`;
       //const url = `${API_BASE_URL}/weekly-insights/`;
 
       console.log("URL:", url);
@@ -203,7 +203,8 @@ const GeneralInsightsScreen = ({ navigation }) => {
                       Care log reflections
                     </Text>
                     <Text style={[styles.globalFont, styles.sourceMeta]}>
-                      {carelogSummary.total_entries ?? 0} entries · {carelogSummary.flagged_count ?? 0} flagged
+                      {carelogSummary.total_entries ?? 0} entries ·{" "}
+                      {carelogSummary.flagged_count ?? 0} flagged
                     </Text>
                     <Text style={[styles.globalFont, styles.sourceValue]}>
                       {carelogSummary.top_distortion
@@ -211,7 +212,8 @@ const GeneralInsightsScreen = ({ navigation }) => {
                         : "No clear distortion pattern"}
                     </Text>
                     <Text style={[styles.globalFont, styles.sourceValue]}>
-                      {carelogSummary.message || "No major language pattern this week."}
+                      {carelogSummary.message ||
+                        "No major language pattern this week."}
                     </Text>
                   </View>
 
@@ -220,7 +222,8 @@ const GeneralInsightsScreen = ({ navigation }) => {
                       Journal entries
                     </Text>
                     <Text style={[styles.globalFont, styles.sourceMeta]}>
-                      {journalSummary.total_entries ?? 0} entries · {journalSummary.flagged_count ?? 0} flagged
+                      {journalSummary.total_entries ?? 0} entries ·{" "}
+                      {journalSummary.flagged_count ?? 0} flagged
                     </Text>
                     <Text style={[styles.globalFont, styles.sourceValue]}>
                       {journalSummary.top_distortion
@@ -228,7 +231,8 @@ const GeneralInsightsScreen = ({ navigation }) => {
                         : "No clear distortion pattern"}
                     </Text>
                     <Text style={[styles.globalFont, styles.sourceValue]}>
-                      {journalSummary.message || "No major language pattern this week."}
+                      {journalSummary.message ||
+                        "No major language pattern this week."}
                     </Text>
                   </View>
                 </View>
@@ -283,11 +287,25 @@ const { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    paddingHorizontal: "5%",
+    width: "100%",
+    alignItems: "center",
   },
   contentContainer: {
-    paddingBottom: 40,
+    width: "100%",
+    maxWidth: 760,
+    flex: 1,
+    backgroundColor: Colors.bgColor,
+    paddingHorizontal: "5%",
+    paddingBottom: "15%",
+    paddingTop: "5%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
   globalFont: {
     fontFamily: "Afacad",

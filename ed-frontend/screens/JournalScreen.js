@@ -2,12 +2,10 @@ import { API_BASE_URL } from "@env";
 import {
   Alert,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
-  ImageBackground,
   KeyboardAvoidingView,
   Platform,
   Image,
@@ -173,11 +171,7 @@ function JournalScreen({ navigation }) {
             </Pressable>
           </View>
 
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-            style={styles.scrollArea}
-            contentContainerStyle={{ flexGrow: 1 }}
-          >
+          <View style={styles.entryArea}>
             {entryType === "prompted" && (
               <Text style={[styles.prompt, styles.globalFont]}>
                 {journalPrompt.prompt}
@@ -186,11 +180,12 @@ function JournalScreen({ navigation }) {
             <TextInput
               multiline={true}
               placeholder={placeholder}
+              placeholderTextColor={"#8A8A8A"}
               value={entry}
               onChangeText={(text) => setEntry(text)}
               style={[styles.journalEntryBox, styles.globalFont]}
             />
-          </ScrollView>
+          </View>
           <PrimaryBtn buttonTitle={"Submit"} handler={submitHandler} />
         </View>
       </KeyboardAvoidingView>
@@ -320,11 +315,25 @@ function JournalScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    width: "100%",
+    alignItems: "center",
   },
   mainWrapper: {
+    width: "100%", // Forces full width availability
+    maxWidth: 760,
     flex: 1,
+    backgroundColor: Colors.bgColor,
     paddingHorizontal: "5%",
+    paddingBottom: "15%",
+    paddingTop: "5%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
   header: {
     paddingBottom: 10,
@@ -359,12 +368,13 @@ const styles = StyleSheet.create({
     color: Colors.darkNeutral,
     fontWeight: "600",
   },
-  scrollArea: {
+  entryArea: {
     flex: 1,
+    width: "100%", // Ensures text input area stays full width when prompt is unmounted
   },
   journalEntryBox: {
     flex: 1,
-    minHeight: 200,
+    width: "100%",
     textAlignVertical: "top",
     paddingTop: 10,
     fontSize: 18,
@@ -402,7 +412,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 35,
     alignItems: "center",
-    width: "80%",
+    width: "50%",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
@@ -461,7 +471,6 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   nudgeActions: {
-    flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "center",
     gap: 16,

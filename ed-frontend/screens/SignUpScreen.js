@@ -3,13 +3,12 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   ImageBackground,
-  Pressable,
   Alert,
-  Dimensions,
+  useWindowDimensions,
   TouchableOpacity,
 } from "react-native";
+import GoBack from "../components/GoBack";
 import { useContext, useState } from "react";
 import Input from "../components/Input";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -21,8 +20,7 @@ function SignUpScreen({ navigation, onLogin }) {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
 
-  //const auth = getAuth();
-  //const user = auth.currentUser;
+  const { width, height } = useWindowDimensions();
 
   const authCtx = useContext(AuthContext);
 
@@ -61,23 +59,11 @@ function SignUpScreen({ navigation, onLogin }) {
     }
   }
 
-  /*async function signupHandler() {
-    try {
-      const data = await createUser(email, password);
-      //await AsyncStorage.setItem("username", username);
-      //navigation.replace("Home");
-      authCtx.authenticate(data.idToken);
-      console.log("Successful", data);
-      onLogin();
-    } catch (error) {
-      //console.error("Sign up failed");
-      console.log("Signup error:", error.response?.data || error.message);
-    }
-  }*/
   return (
     <ImageBackground
       source={require("../assets/main/signupbg.png")}
-      style={styles.backgroundImg}
+      style={[styles.backgroundImg, { width, height }]}
+      resizeMode="cover"
     >
       <View style={styles.mainContainer}>
         <View style={styles.inputElements}>
@@ -124,17 +110,14 @@ function SignUpScreen({ navigation, onLogin }) {
 
 export default SignUpScreen;
 
-const { height } = Dimensions.get("window");
-
 const styles = StyleSheet.create({
   backgroundImg: {
-    resizeMode: "cover",
     flex: 1,
   },
   mainContainer: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center", // Changed from flex-start + top: 35% to pure center
+    justifyContent: "center",
     width: "100%",
   },
   inputElements: {
@@ -149,7 +132,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 10,
     borderWidth: 2.5,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   signinBtnView: {
     paddingTop: 15,
@@ -160,7 +143,7 @@ const styles = StyleSheet.create({
     color: Colors.landingBlue,
     marginTop: 5,
     fontFamily: "Afacad",
-    fontWeight: 500,
+    fontWeight: "500",
     letterSpacing: 2,
   },
 });

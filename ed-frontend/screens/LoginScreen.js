@@ -4,12 +4,10 @@ import {
   TextInput,
   Text,
   StyleSheet,
-  Button,
   Alert,
-  Pressable,
   ImageBackground,
   TouchableOpacity,
-  Dimensions,
+  useWindowDimensions,
 } from "react-native";
 import { useContext, useState } from "react";
 import Input from "../components/Input";
@@ -18,9 +16,10 @@ import { AuthContext } from "../auth/auth-context";
 import Colors from "../constants/colors";
 
 function LoginScreen({ navigation }) {
-  //const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const { width, height } = useWindowDimensions();
 
   const authCtx = useContext(AuthContext);
 
@@ -30,7 +29,6 @@ function LoginScreen({ navigation }) {
     console.log("pressed log in btn");
     try {
       const url = `${API_BASE_URL}/login/`;
-      //const url = `${API_BASE_URL}/login/`;
       let response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -66,7 +64,8 @@ function LoginScreen({ navigation }) {
   return (
     <ImageBackground
       source={require("../assets/main/loginbg2.png")}
-      style={styles.backgroundImg}
+      style={[styles.backgroundImg, { width, height }]}
+      resizeMode="cover"
     >
       <View style={styles.mainContainer}>
         <View style={styles.inputContainer}>
@@ -102,17 +101,14 @@ function LoginScreen({ navigation }) {
   );
 }
 
-const { height } = Dimensions.get("window");
-
 const styles = StyleSheet.create({
   backgroundImg: {
-    resizeMode: "cover",
     flex: 1,
   },
   mainContainer: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center", // Changed from flex-start + top: 35% to pure center
+    justifyContent: "center",
     width: "100%",
   },
   inputContainer: {
@@ -131,7 +127,7 @@ const styles = StyleSheet.create({
     borderWidth: 2.5,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#fff", // Ensure it has a background so it's clickable!
+    backgroundColor: "#fff",
   },
   loginBtnView: {
     marginTop: 15,

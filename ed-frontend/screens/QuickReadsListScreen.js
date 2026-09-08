@@ -19,7 +19,7 @@ import ReadsList from "../components/ReadsList";
 function QuickReadsListScreen({ navigation }) {
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: "#fff" }}
+      style={{ flex: 1, width: "!00%", alignItems: "center" }}
       edges={["top", "left", "right"]}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -68,7 +68,21 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   mainContentContainer: {
+    width: "100%",
+    maxWidth: 760,
+    flex: 1,
+    backgroundColor: Colors.bgColor,
     paddingHorizontal: "5%",
+    paddingBottom: "15%",
+    paddingTop: "5%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
   heading: {
     fontSize: 23,

@@ -58,6 +58,11 @@ import ResourcesScreen from "./screens/ResourcesScreen";
 import StressInsightsScreen from "./screens/StressInsightsScreen";
 import ToolkitScreen from "./screens/ToolkitScreen";
 import BreatheScreen from "./screens/BreatheScreen";
+import LearnScreen from "./screens/LearnScreen";
+import DecideScreen from "./screens/DecideScreen";
+import FoodStudioNavigator from "./screens/FoodStudioNav";
+import StudioHomeScreen from "./screens/StudioHomeScreen";
+import ExploreScreen from "./screens/ExploreScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -115,8 +120,8 @@ export default function App() {
             borderRadius: 50,
             elevation: 10,
             position: "absolute",
-            marginLeft: 20,
-            marginRight: 20,
+            marginLeft: "20%",
+            marginRight: "20%",
             borderTopWidth: 0,
           },
         }}
@@ -144,9 +149,11 @@ export default function App() {
                   fontSize: 19,
                   color: focused ? Colors.focusIcon : Colors.lightGrey,
                 }}
-              >༄</Text>
+              >
+                ༄
+              </Text>
             ),
-            tabBarStyle: {display: "none"}
+            tabBarStyle: { display: "none" },
           }}
         />
         <Tab.Screen
@@ -255,8 +262,13 @@ export default function App() {
         />
         {/*<Stack.Screen name="Map" component={MapScreen} /> */}
         <Stack.Screen name="Resources" component={ResourcesScreen} />
-        <Stack.Screen name="Toolkit" component={ToolkitScreen}/>
-        <Stack.Screen name="Breathe" component={BreatheScreen}/>
+        <Stack.Screen name="Toolkit" component={ToolkitScreen} />
+        <Stack.Screen name="Breathe" component={BreatheScreen} />
+        <Stack.Screen name="Learn" component={LearnScreen} />
+        <Stack.Screen name="Decide" component={DecideScreen} />
+        <Stack.Screen name="Explore" component={ExploreScreen} />
+        <Stack.Screen name="FoodStudioNav" component={FoodStudioNavigator} />
+        <Stack.Screen name="FoodStudioHome" component={StudioHomeScreen} />
       </Stack.Navigator>
     );
   }

@@ -23,46 +23,42 @@ import { SwiperFlatList } from "react-native-swiper-flatlist";
 
 function DailyQuestScreen({ navigation }) {
   return (
-    <View style={{ resizeMode: "cover", flex: 1 }}>
-      <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
-        <View style={styles.mainContentContainer}>
-          <View>
-            <GoBack navigation={navigation} />
-          </View>
-          <View style={styles.top}>
-            <Text style={[styles.heading, styles.globalFont]}>
-              Daily Quests
-            </Text>
-            <Text style={[styles.screenInfo, styles.globalFont]}>
-              Challenge yourself and your mind by completing quests. Stepping
-              out of your bubble will help you reveal your hidden strengths!
-            </Text>
-          </View>
-          <FlatList
-            style={styles.sv}
-            data={QUESTS}
-            keyExtractor={(item) => item.id}
-            numColumns={2}
-            columnWrapperStyle={{
-              justifyContent: "space-between",
-              marginBottom: 10,
-            }}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                style={styles.questCard}
-                onPress={() =>
-                  navigation.navigate("SelectedQuest", { questId: item.id })
-                }
-              >
-                <Text style={[styles.globalFont, { textAlign: "center",}]}>
-                  {item.name}
-                </Text>
-              </TouchableOpacity>
-            )}
-          ></FlatList>
+    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
+      <View style={styles.mainContentContainer}>
+        <View>
+          <GoBack navigation={navigation} />
         </View>
-      </SafeAreaView>
-    </View>
+        <View style={styles.top}>
+          <Text style={[styles.heading, styles.globalFont]}>Daily Quests</Text>
+          <Text style={[styles.screenInfo, styles.globalFont]}>
+            Challenge yourself and your mind by completing quests. Stepping out
+            of your bubble will help you reveal your hidden strengths!
+          </Text>
+        </View>
+        <FlatList
+          style={styles.sv}
+          data={QUESTS}
+          keyExtractor={(item) => item.id}
+          numColumns={2}
+          columnWrapperStyle={{
+            justifyContent: "space-between",
+            marginBottom: 10,
+          }}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.questCard}
+              onPress={() =>
+                navigation.navigate("SelectedQuest", { questId: item.id })
+              }
+            >
+              <Text style={[styles.globalFont, { textAlign: "center" }]}>
+                {item.name}
+              </Text>
+            </TouchableOpacity>
+          )}
+        ></FlatList>
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -71,12 +67,25 @@ const { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //backgroundColor: Colors.lightNeutral,
-    backgroundColor: "#fff",
+    width: "100%",
     alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
+  },
+  mainContentContainer: {
+    width: "100%",
+    maxWidth: 760,
+    flex: 1,
+    backgroundColor: Colors.bgColor,
     paddingHorizontal: "5%",
+    paddingBottom: "15%",
+    paddingTop: "5%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
   sv: {
     flex: 1,
@@ -98,7 +107,7 @@ const styles = StyleSheet.create({
     width: "48%",
     borderRadius: 25,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   questContainer: {
     flex: 1,

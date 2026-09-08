@@ -27,14 +27,14 @@ const AssessmentIntroScreen = ({ navigation }) => {
 
         <View style={styles.textContainer}>
           <Text style={[styles.title, styles.globalFont]}>
-            Take a moment to{"\n"}check in.
+            Take a moment to check in.
           </Text>
 
           <Text style={[styles.description, styles.globalFont]}>
             Take a few minutes to notice how you're feeling and what you're
             thinking today.
             {"\n\n"}
-            There's no right or wrong answer. This space is simply here for you
+            There's no right or wrong answer, this space is simply here for you
             to reflect, without judgment.
           </Text>
         </View>
@@ -62,20 +62,30 @@ export default AssessmentIntroScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "100%",
+    alignItems: "center",
+  },
+  content: {
+    width: "100%",
+    maxWidth: 760,
+    flex: 1,
     backgroundColor: Colors.bgColor,
+    paddingHorizontal: "5%",
+    paddingBottom: "15%",
+    paddingTop: "5%",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
   globalFont: {
     fontFamily: "Afacad",
     color: Colors.darkNeutral,
   },
-  content: {
-    flex: 1,
-    paddingHorizontal: "5%",
-    paddingTop: 20,
-    paddingBottom: 30,
-    justifyContent: "space-between",
-  },
-
   logo: {
     fontSize: 26,
     fontWeight: "600",
@@ -113,11 +123,9 @@ const styles = StyleSheet.create({
     fontSize: 34,
     color: Colors.landingBlue,
   },
-
   textContainer: {
-    marginTop: -100,
+    marginTop: 25,
   },
-
   title: {
     fontSize: 42,
     lineHeight: 48,
@@ -125,13 +133,15 @@ const styles = StyleSheet.create({
     color: "#30332F",
     letterSpacing: -1,
     marginBottom: 20,
+    textAlign: 'center'
   },
 
   description: {
     fontSize: 17,
     lineHeight: 25,
     color: "#777B75",
-    maxWidth: 340,
+    paddingBottom: 30,
+    textAlign: "center"
   },
 
   bottomContainer: {
@@ -139,7 +149,7 @@ const styles = StyleSheet.create({
   },
 
   buttonOutline: {
-    width: "100%",
+    width: "55%",
     height: 40,
     borderRadius: 12,
     backgroundColor: Colors.bgColor,
@@ -160,7 +170,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   button: {
-    width: "100%",
+    width: "55%",
     height: 40,
     borderRadius: 12,
     backgroundColor: Colors.homeBlue,
