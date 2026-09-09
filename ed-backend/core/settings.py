@@ -54,7 +54,7 @@ CSRF_TRUSTED_ORIGINS = [
     o.strip()
     for o in os.environ.get(
         "DJANGO_CSRF_TRUSTED_ORIGINS",
-        "https://api.useumi.org,http://localhost:8081,http://127.0.0.1:8081",
+        "https://api.useumi.org,http://localhost:8081,http://127.0.0.1:8081,https://useumi.org,https://www.useumi.org",
     ).split(",")
     if o.strip()
 ]
@@ -207,7 +207,7 @@ CORS_ALLOWED_ORIGINS = [
     o.strip()
     for o in os.environ.get(
         "CORS_ALLOWED_ORIGINS",
-        "http://localhost:8081,http://127.0.0.1:8081,http://localhost:19006",
+        "http://localhost:8081,http://127.0.0.1:8081,http://localhost:19006,https://useumi.org,https://www.useumi.org",
     ).split(",")
     if o.strip()
 ]
