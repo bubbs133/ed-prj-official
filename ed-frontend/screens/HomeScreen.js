@@ -261,20 +261,20 @@ function HomeScreen({ navigation }) {
 
   const LANGUAGE_TONE_STYLES = {
     flagged: {
-      background: "#FFF7F0",
-      icon: require("../assets/icons/fish.png"),
-      titleColor: Colors.darkBrownText,
+      background: "#e1ddb9",
+      icon: require("../assets/icons/language.png"),
+      titleColor: Colors.darkNeutral,
       title: "Language Check-In",
     },
     positive: {
-      background: "#EAF6EF",
-      icon: require("../assets/icons/sun.png"),
-      titleColor: Colors.darkBlueText,
-      title: "Noticing Something Good",
+      background: "#e1ddb9",
+      icon: require("../assets/icons/language.png"),
+      titleColor: Colors.darkNeutral,
+      title: "Language Check-In",
     },
     neutral: {
-      background: "#F0F0F0",
-      icon: require("../assets/icons/seastar.png"),
+      background: "#e1ddb9",
+      icon: require("../assets/icons/language.png"),
       titleColor: Colors.darkNeutral,
       title: "Language Check-In",
     },
@@ -469,6 +469,47 @@ function HomeScreen({ navigation }) {
               staying silent; only a "flagged" week is tappable through to
               the Distortion Breaker, since the others aren't asking for
               an action. */}
+          <View style={{ paddingTop: 2 }}>
+            {hasLanguageSignal && (
+              <TouchableOpacity
+                style={[styles.languageCard, { backgroundColor: "#FFF7F0" }]}
+                activeOpacity={0.9}
+                onPress={() => navigation.navigate("GeneralInsights")}
+              >
+                <View style={styles.languageCardHeader}>
+                  <View style={styles.languageCardIcon}>
+                    <Image
+                      source={languageToneStyle.icon}
+                      style={[
+                        {
+                          tintColor: languageToneStyle.titleColor,
+                          width: 22,
+                          height: 22,
+                        },
+                      ]}
+                      resizeMode="contain"
+                    />
+                  </View>
+                  <Text
+                    style={[
+                      styles.globalFont,
+                      styles.languageCardTitle,
+                      { color: languageToneStyle.titleColor },
+                    ]}
+                  >
+                    {languageToneStyle.title}
+                  </Text>
+                </View>
+                <Text style={[styles.globalFont, styles.languageCardText]}>
+                  {languageInsight.summary || languageInsight.message}
+                </Text>
+                <Text style={[styles.globalFont, styles.languageCardFootnote]}>
+                  Tap for a deeper breakdown of journal and care-log
+                  reflections.
+                </Text>
+              </TouchableOpacity>
+            )}
+          </View>
 
           {/* SOS / grounding toolkit entry point. Always visible, not
               tucked into a menu — the whole point is that it's reachable
@@ -595,48 +636,6 @@ function HomeScreen({ navigation }) {
                 </View>
                 <Text style={styles.fullInsightsArrow}>→</Text>
               </TouchableOpacity>
-              <View style={{paddingTop: 20}}>
-                {hasLanguageSignal && (
-                  <TouchableOpacity
-                    style={[
-                      styles.languageCard,
-                      { backgroundColor: "#FFF7F0" },
-                    ]}
-                    activeOpacity={0.9}
-                    onPress={() => navigation.navigate("GeneralInsights")}
-                  >
-                    <View style={styles.languageCardHeader}>
-                      <View style={styles.languageCardIcon}>
-                        <Image
-                        source={languageToneStyle.icon}
-                        style={[
-                          { tintColor: languageToneStyle.titleColor, width: 22, height: 22 },
-                        ]}
-                        resizeMode="contain"
-                      />
-                      </View>
-                      <Text
-                        style={[
-                          styles.globalFont,
-                          styles.languageCardTitle,
-                          { color: languageToneStyle.titleColor },
-                        ]}
-                      >
-                        {languageToneStyle.title}
-                      </Text>
-                    </View>
-                    <Text style={[styles.globalFont, styles.languageCardText]}>
-                      {languageInsight.summary || languageInsight.message}
-                    </Text>
-                    <Text
-                      style={[styles.globalFont, styles.languageCardFootnote]}
-                    >
-                      Tap for a deeper breakdown of journal and care-log
-                      reflections.
-                    </Text>
-                  </TouchableOpacity>
-                )}
-              </View>
             </View>
 
             <View style={styles.activitySection}>
