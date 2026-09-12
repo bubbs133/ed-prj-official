@@ -5,6 +5,7 @@ users_app = "users"
 
 urlpatterns = [
     path("users/", views.user_list, name="user_list"),
+    path("users/verify/", views.verify_email, name="verify_email"),
     path("login/", views.login_user, name="login_user"),
     path("user-summary/", views.user_profile_summary, name="user_profile_summary"),
     #path('register/', RegisterView.as_view(), name='register'),

@@ -10,23 +10,28 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useContext, useState } from "react";
+import Checkbox from "expo-checkbox";
 import Input from "../components/Input";
-import { StackActions } from "@react-navigation/native";
 import { AuthContext } from "../auth/auth-context";
 import Colors from "../constants/colors";
 
 function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
+  const [needsVerification, setNeedsVerification] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const { width, height } = useWindowDimensions();
 
   const authCtx = useContext(AuthContext);
 
-  console.log("Current state -> Username:", username, "| Password:", password);
-
   async function loginHandler() {
-    console.log("pressed log in btn");
+    if (!termsAccepted) {
+      Alert.alert("Terms of Use", "Please agree to the Terms of Use to continue.");
+      return;
+    }
+
     try {
       const url = `${API_BASE_URL}/login/`;
       let response = await fetch(url, {
@@ -35,6 +40,7 @@ function LoginScreen({ navigation }) {
         body: JSON.stringify({
           username: username,
           password: password,
+          terms_accepted: termsAccepted,
         }),
       });
       const data = await response.json();
@@ -47,10 +53,14 @@ function LoginScreen({ navigation }) {
         setUsername("");
         setPassword("");
         navigation.navigate("TabNav");
-
-        console.log("LOGIN RESPONSE:", data);
+      } else if (data.verification_required) {
+        setNeedsVerification(true);
+        Alert.alert("Verify your email", "We sent a new verification code to your email.");
       } else {
-        Alert.alert("Login failed", data.detail || "Invalid credentials");
+        Alert.alert(
+          "Login failed",
+          data.detail || data.non_field_errors?.[0] || "Invalid credentials",
+        );
       }
     } catch (error) {
       console.log("Login error:", error);
@@ -58,6 +68,29 @@ function LoginScreen({ navigation }) {
         "Invalid information!",
         "Please enter the correct information.",
       );
+    }
+  }
+
+  async function verifyHandler() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/verify/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, code: verificationCode }),
+      });
+      const data = await response.json();
+
+      if (!response.ok || !data.token) {
+        throw new Error(data.detail || "Invalid verification code.");
+      }
+
+      await authCtx.authenticate(data.token, {
+        username: data.username,
+        email: data.email,
+      });
+      navigation.navigate("TabNav");
+    } catch (error) {
+      Alert.alert("Verification failed", error.message);
     }
   }
 
@@ -90,10 +123,35 @@ function LoginScreen({ navigation }) {
               }}
             />
           </View>
+          {needsVerification && (
+            <View style={styles.inputElements}>
+              <Input
+                label="verification code"
+                textInputConfig={{
+                  value: verificationCode,
+                  onChangeText: setVerificationCode,
+                  keyboardType: "number-pad",
+                  maxLength: 6,
+                }}
+              />
+            </View>
+          )}
+          <TouchableOpacity
+            style={styles.termsRow}
+            onPress={() => setTermsAccepted((accepted) => !accepted)}
+          >
+            <Checkbox value={termsAccepted} onValueChange={setTermsAccepted} />
+            <Text style={styles.termsText}>I agree to the Terms of Use</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.loginBtnView}>
-          <TouchableOpacity style={styles.loginBtn} onPress={loginHandler}>
-            <Text style={styles.loginBtnTitle}>Login</Text>
+          <TouchableOpacity
+            style={styles.loginBtn}
+            onPress={needsVerification ? verifyHandler : loginHandler}
+          >
+            <Text style={styles.loginBtnTitle}>
+              {needsVerification ? "Verify Email" : "Login"}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -131,6 +189,18 @@ const styles = StyleSheet.create({
   },
   loginBtnView: {
     marginTop: 15,
+  },
+  termsRow: {
+    width: 300,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginTop: 4,
+  },
+  termsText: {
+    color: Colors.landingBlue,
+    fontFamily: "Afacad",
+    fontSize: 15,
   },
   loginBtnTitle: {
     textAlign: "center",

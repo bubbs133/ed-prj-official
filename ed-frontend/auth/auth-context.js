@@ -5,6 +5,7 @@ const AuthContext = createContext({
   token: null,
   username: null,
   email: null,
+  isLoading: true,
   isAuthenticated: false,
   authenticate: (token, userInfo) => {},
   logout: () => {},
@@ -14,21 +15,26 @@ function AuthContextProvider({ children }) {
   const [authToken, setAuthToken] = useState(null);
   const [username, setUsername] = useState(null);
   const [email, setEmail] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function loadAuthData() {
-      const storedToken = await AsyncStorage.getItem("token");
-      const storedUsername = await AsyncStorage.getItem("username");
-      const storedEmail = await AsyncStorage.getItem("email");
+      try {
+        const storedToken = await AsyncStorage.getItem("token");
+        const storedUsername = await AsyncStorage.getItem("username");
+        const storedEmail = await AsyncStorage.getItem("email");
 
-      if (storedToken) {
-        setAuthToken(storedToken);
-      }
-      if (storedUsername) {
-        setUsername(storedUsername);
-      }
-      if (storedEmail) {
-        setEmail(storedEmail);
+        if (storedToken) {
+          setAuthToken(storedToken);
+        }
+        if (storedUsername) {
+          setUsername(storedUsername);
+        }
+        if (storedEmail) {
+          setEmail(storedEmail);
+        }
+      } finally {
+        setIsLoading(false);
       }
     }
     loadAuthData();
@@ -61,6 +67,7 @@ function AuthContextProvider({ children }) {
         token: authToken,
         username: username,
         email: email,
+        isLoading,
         isAuthenticated: !!authToken,
         authenticate,
         logout,

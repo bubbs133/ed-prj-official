@@ -8,10 +8,10 @@ import {
   useWindowDimensions,
   TouchableOpacity,
 } from "react-native";
+import Checkbox from "expo-checkbox";
 import GoBack from "../components/GoBack";
 import { useContext, useState } from "react";
 import Input from "../components/Input";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AuthContext } from "../auth/auth-context";
 import Colors from "../constants/colors";
 
@@ -19,12 +19,20 @@ function SignUpScreen({ navigation, onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
+  const [needsVerification, setNeedsVerification] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const { width, height } = useWindowDimensions();
 
   const authCtx = useContext(AuthContext);
 
   async function signupHandler() {
+    if (!termsAccepted) {
+      Alert.alert("Terms of Use", "Please agree to the Terms of Use to continue.");
+      return;
+    }
+
     try {
       const url = `${API_BASE_URL}/users/`;
       const response = await fetch(url, {
@@ -34,15 +42,13 @@ function SignUpScreen({ navigation, onLogin }) {
           email: email,
           username: username,
           password: password,
+          terms_accepted: termsAccepted,
         }),
       });
       const data = await response.json();
-      if (response.ok && data.token) {
-        await authCtx.authenticate(data.token, { username, email });
-        setEmail("");
-        setUsername("");
-        setPassword("");
-        navigation.navigate("TabNav");
+      if (response.ok && data.verification_required) {
+        setNeedsVerification(true);
+        Alert.alert("Verify your email", "We sent a verification code to your email.");
       } else {
         Alert.alert(
           "Sign up failed",
@@ -59,6 +65,32 @@ function SignUpScreen({ navigation, onLogin }) {
     }
   }
 
+  async function verifyHandler() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/verify/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, code: verificationCode }),
+      });
+      const data = await response.json();
+
+      if (!response.ok || !data.token) {
+        throw new Error(data.detail || "Invalid verification code.");
+      }
+
+      await authCtx.authenticate(data.token, {
+        username: data.username,
+        email: data.email,
+      });
+      setEmail("");
+      setUsername("");
+      setPassword("");
+      navigation.navigate("TabNav");
+    } catch (error) {
+      Alert.alert("Verification failed", error.message);
+    }
+  }
+
   return (
     <ImageBackground
       source={require("../assets/main/signupbg.png")}
@@ -66,41 +98,73 @@ function SignUpScreen({ navigation, onLogin }) {
       resizeMode="cover"
     >
       <View style={styles.mainContainer}>
-        <View style={styles.inputElements}>
-          <Input
-            label="email"
-            textInputConfig={{
-              value: email,
-              onChangeText: setEmail,
-              autoCorrect: false,
-            }}
-          />
-        </View>
-        <View style={styles.inputElements}>
-          <Input
-            label="username"
-            textInputConfig={{
-              value: username,
-              onChangeText: setUsername,
-              autoCorrect: false,
-            }}
-          />
-        </View>
-        <View style={styles.inputElements}>
-          <Input
-            label="password"
-            textInputConfig={{
-              value: password,
-              onChangeText: setPassword,
-              autoCorrect: false,
-              secureTextEntry: true,
-            }}
-          />
-        </View>
+        {!needsVerification ? (
+          <>
+            <View style={styles.inputElements}>
+              <Input
+                label="email"
+                textInputConfig={{
+                  value: email,
+                  onChangeText: setEmail,
+                  autoCorrect: false,
+                  keyboardType: "email-address",
+                  autoCapitalize: "none",
+                }}
+              />
+            </View>
+            <View style={styles.inputElements}>
+              <Input
+                label="username"
+                textInputConfig={{
+                  value: username,
+                  onChangeText: setUsername,
+                  autoCorrect: false,
+                }}
+              />
+            </View>
+            <View style={styles.inputElements}>
+              <Input
+                label="password"
+                textInputConfig={{
+                  value: password,
+                  onChangeText: setPassword,
+                  autoCorrect: false,
+                  secureTextEntry: true,
+                }}
+              />
+            </View>
+          </>
+        ) : (
+          <View style={styles.inputElements}>
+            <Input
+              label="verification code"
+              textInputConfig={{
+                value: verificationCode,
+                onChangeText: setVerificationCode,
+                keyboardType: "number-pad",
+                maxLength: 6,
+              }}
+            />
+          </View>
+        )}
+        {!needsVerification && (
+          <TouchableOpacity
+            style={styles.termsRow}
+            onPress={() => setTermsAccepted((accepted) => !accepted)}
+          >
+            <Checkbox value={termsAccepted} onValueChange={setTermsAccepted} />
+            <Text style={styles.termsText}>I agree to the Terms of Use</Text>
+          </TouchableOpacity>
+        )}
 
         <View style={styles.signinBtnView}>
-          <TouchableOpacity style={styles.signupBtn} onPress={signupHandler}>
-            <Text style={styles.signinBtnTitle}>Sign Up</Text>
+          <TouchableOpacity
+            style={styles.signupBtn}
+            onPress={needsVerification ? verifyHandler : signupHandler}
+          >
+            <Text style={styles.signinBtnTitle}>
+              {needsVerification ? "Verify Email" : "Sign Up"}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -136,6 +200,18 @@ const styles = StyleSheet.create({
   },
   signinBtnView: {
     paddingTop: 15,
+  },
+  termsRow: {
+    width: 300,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginTop: 4,
+  },
+  termsText: {
+    color: Colors.landingBlue,
+    fontFamily: "Afacad",
+    fontSize: 15,
   },
   signinBtnTitle: {
     textAlign: "center",
