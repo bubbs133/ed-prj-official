@@ -11,22 +11,20 @@ import {
 } from "react-native";
 import { useContext, useState } from "react";
 import Input from "../components/Input";
-import { StackActions } from "@react-navigation/native";
 import { AuthContext } from "../auth/auth-context";
 import Colors from "../constants/colors";
 
 function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
+  const [needsVerification, setNeedsVerification] = useState(false);
 
   const { width, height } = useWindowDimensions();
 
   const authCtx = useContext(AuthContext);
 
-  console.log("Current state -> Username:", username, "| Password:", password);
-
   async function loginHandler() {
-    console.log("pressed log in btn");
     try {
       const url = `${API_BASE_URL}/login/`;
       let response = await fetch(url, {
@@ -47,10 +45,14 @@ function LoginScreen({ navigation }) {
         setUsername("");
         setPassword("");
         navigation.navigate("TabNav");
-
-        console.log("LOGIN RESPONSE:", data);
+      } else if (data.verification_required) {
+        setNeedsVerification(true);
+        Alert.alert("Verify your email", "We sent a new verification code to your email.");
       } else {
-        Alert.alert("Login failed", data.detail || "Invalid credentials");
+        Alert.alert(
+          "Login failed",
+          data.detail || data.non_field_errors?.[0] || "Invalid credentials",
+        );
       }
     } catch (error) {
       console.log("Login error:", error);
@@ -58,6 +60,29 @@ function LoginScreen({ navigation }) {
         "Invalid information!",
         "Please enter the correct information.",
       );
+    }
+  }
+
+  async function verifyHandler() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/users/verify/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, code: verificationCode }),
+      });
+      const data = await response.json();
+
+      if (!response.ok || !data.token) {
+        throw new Error(data.detail || "Invalid verification code.");
+      }
+
+      await authCtx.authenticate(data.token, {
+        username: data.username,
+        email: data.email,
+      });
+      navigation.navigate("TabNav");
+    } catch (error) {
+      Alert.alert("Verification failed", error.message);
     }
   }
 
@@ -90,10 +115,28 @@ function LoginScreen({ navigation }) {
               }}
             />
           </View>
+          {needsVerification && (
+            <View style={styles.inputElements}>
+              <Input
+                label="verification code"
+                textInputConfig={{
+                  value: verificationCode,
+                  onChangeText: setVerificationCode,
+                  keyboardType: "number-pad",
+                  maxLength: 6,
+                }}
+              />
+            </View>
+          )}
         </View>
         <View style={styles.loginBtnView}>
-          <TouchableOpacity style={styles.loginBtn} onPress={loginHandler}>
-            <Text style={styles.loginBtnTitle}>Login</Text>
+          <TouchableOpacity
+            style={styles.loginBtn}
+            onPress={needsVerification ? verifyHandler : loginHandler}
+          >
+            <Text style={styles.loginBtnTitle}>
+              {needsVerification ? "Verify Email" : "Login"}
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

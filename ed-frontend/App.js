@@ -276,6 +276,10 @@ export default function App() {
   function RootNavigator() {
     const authCtx = useContext(AuthContext);
 
+    if (authCtx.isLoading) {
+      return null;
+    }
+
     return authCtx.isAuthenticated ? <AuthScreens /> : <UnAuthScreens />;
   }
 

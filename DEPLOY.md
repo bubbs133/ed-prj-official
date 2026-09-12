@@ -30,6 +30,13 @@ Set these in Dokploy (Environment) or the root `.env` for compose:
 | `DJANGO_CSRF_TRUSTED_ORIGINS` | e.g. `https://api.yourdomain.com` |
 | `DATABASE_URL` | set automatically by compose to the `db` service |
 | `LOAD_INITIAL_DATA` | optional path to a dumpdata JSON to seed on first boot |
+| `ALLOWED_EMAIL_DOMAINS` | comma-separated allowlist, e.g. `uci.edu,gmail.com` |
+| `EMAIL_BACKEND` | use `django.core.mail.backends.smtp.EmailBackend` in production |
+| `EMAIL_HOST` / `EMAIL_PORT` | SMTP server and port, usually `587` |
+| `EMAIL_USE_TLS` | `true` for standard SMTP submission |
+| `EMAIL_HOST_USER` / `EMAIL_HOST_PASSWORD` | SMTP credentials |
+| `DEFAULT_FROM_EMAIL` | sender address for verification codes |
+| `VERIFICATION_CODE_TTL_MINUTES` | verification-code lifetime, default `10` |
 
 ## 3. Dokploy
 
@@ -39,6 +46,12 @@ Set these in Dokploy (Environment) or the root `.env` for compose:
 3. Route your domain to the `web` service (port 8000). Traefik terminates TLS;
    Django trusts `X-Forwarded-Proto` via `SECURE_PROXY_SSL_HEADER`.
 4. Deploy. The entrypoint migrates and collects static automatically.
+
+Set the email variables before deploying. `ALLOWED_EMAIL_DOMAINS` should contain
+the domains you want to permit; verification still requires the user to receive
+the six-digit code sent to that address. In local development, omit SMTP
+settings to use Django's console email backend and read the code in the server
+logs.
 
 You can instead use a Dokploy-managed Postgres and drop the `db` service —
 just set `DATABASE_URL` to that instance.
