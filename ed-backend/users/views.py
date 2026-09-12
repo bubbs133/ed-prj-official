@@ -211,11 +211,6 @@ def user_profile_summary(request):
 @permission_classes([AllowAny])
 def login_user(request):
     if request.method == "POST":
-        if request.data.get("terms_accepted") is not True:
-            return Response(
-                {"detail": "You must agree to the Terms of Use."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
         username = request.data.get("username", "")
         password = request.data.get("password", "")
         user = User.objects.filter(username__iexact=username).first()

@@ -123,7 +123,7 @@ export default function ActivityTimeline({ activity = [], onSelectActivity }) {
 
       {activity.length === 0 && (
         <View style={styles.emptyContainer}>
-          <Text style={styles.emptyText}>🌱 Start your journey today!</Text>
+          <Text style={styles.emptyText}>Start your journey today!</Text>
 
           <Text style={styles.emptySubtext}>
             Your journals, care logs, and quests will appear here.

@@ -10,7 +10,6 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useContext, useState } from "react";
-import Checkbox from "expo-checkbox";
 import Input from "../components/Input";
 import { AuthContext } from "../auth/auth-context";
 import Colors from "../constants/colors";
@@ -20,18 +19,12 @@ function LoginScreen({ navigation }) {
   const [password, setPassword] = useState("");
   const [verificationCode, setVerificationCode] = useState("");
   const [needsVerification, setNeedsVerification] = useState(false);
-  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const { width, height } = useWindowDimensions();
 
   const authCtx = useContext(AuthContext);
 
   async function loginHandler() {
-    if (!termsAccepted) {
-      Alert.alert("Terms of Use", "Please agree to the Terms of Use to continue.");
-      return;
-    }
-
     try {
       const url = `${API_BASE_URL}/login/`;
       let response = await fetch(url, {
@@ -40,7 +33,6 @@ function LoginScreen({ navigation }) {
         body: JSON.stringify({
           username: username,
           password: password,
-          terms_accepted: termsAccepted,
         }),
       });
       const data = await response.json();
@@ -136,13 +128,6 @@ function LoginScreen({ navigation }) {
               />
             </View>
           )}
-          <TouchableOpacity
-            style={styles.termsRow}
-            onPress={() => setTermsAccepted((accepted) => !accepted)}
-          >
-            <Checkbox value={termsAccepted} onValueChange={setTermsAccepted} />
-            <Text style={styles.termsText}>I agree to the Terms of Use</Text>
-          </TouchableOpacity>
         </View>
         <View style={styles.loginBtnView}>
           <TouchableOpacity
@@ -189,18 +174,6 @@ const styles = StyleSheet.create({
   },
   loginBtnView: {
     marginTop: 15,
-  },
-  termsRow: {
-    width: 300,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    marginTop: 4,
-  },
-  termsText: {
-    color: Colors.landingBlue,
-    fontFamily: "Afacad",
-    fontSize: 15,
   },
   loginBtnTitle: {
     textAlign: "center",
