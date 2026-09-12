@@ -23,8 +23,6 @@ function LoginScreen({ navigation }) {
 
   const authCtx = useContext(AuthContext);
 
-  console.log("Current state -> Username:", username, "| Password:", password);
-
   async function loginHandler() {
     console.log("pressed log in btn");
     try {
