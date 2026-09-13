@@ -8,6 +8,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.db import transaction
 import random
+import logging
 from .serializers import SignUpSerializer, LoginSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -19,6 +20,8 @@ from carelog.models import CareLog
 from journal.models import JournalEntry
 from quests.models import Quest
 from .models import EmailVerificationCode
+
+logger = logging.getLogger(__name__)
 
 
 def send_verification_code(user):
@@ -60,6 +63,7 @@ def user_list(request):
                     user = serializer.save()
                     send_verification_code(user)
             except Exception:
+                logger.exception("Verification email failed for signup")
                 return Response(
                     {"detail": "We could not send the verification email. Please try again."},
                     status=status.HTTP_503_SERVICE_UNAVAILABLE,
