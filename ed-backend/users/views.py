@@ -27,7 +27,7 @@ logger = logging.getLogger(__name__)
 def send_verification_code(user):
     code = f"{random.randint(0, 999999):06d}"
     EmailVerificationCode.objects.filter(user=user, is_used=False).update(is_used=True)
-    EmailVerificationCode.objects.create(user=user, code=code)
+    EmailVerificationCode.objects.create(user=user, code=code, purpose="signup")
     send_mail(
         "Your UMI verification code",
         f"Your verification code is {code}. It expires in {settings.VERIFICATION_CODE_TTL_MINUTES} minutes.",
@@ -258,6 +258,7 @@ def verify_email(request):
         EmailVerificationCode.objects.filter(
             user=user,
             code=code,
+            purpose="signup",
             is_used=False,
             created_at__gte=cutoff,
         )
