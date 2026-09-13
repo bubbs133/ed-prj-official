@@ -29,6 +29,7 @@ class EmailVerificationCode(models.Model):
         related_name="verification_codes",
     )
     code = models.CharField(max_length=6)
+    purpose = models.CharField(max_length=32, default="signup")
     created_at = models.DateTimeField(auto_now_add=True)
     is_used = models.BooleanField(default=False)
 
