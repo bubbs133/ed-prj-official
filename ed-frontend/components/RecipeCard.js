@@ -8,7 +8,6 @@ export default function RecipeCard({ recipe }) {
   return (
     <View style={styles.card}>
       <Pressable style={styles.header} onPress={() => setOpen(!open)}>
-        <Text style={styles.emoji}>{recipe.emoji}</Text>
         <View style={{ flex: 1 }}>
           <Text style={styles.name}>{recipe.name}</Text>
           <Text style={styles.note}>{recipe.note}</Text>

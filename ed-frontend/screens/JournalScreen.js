@@ -180,7 +180,7 @@ function JournalScreen({ navigation }) {
             <TextInput
               multiline={true}
               placeholder={placeholder}
-              placeholderTextColor={"#8A8A8A"}
+              placeholderTextColor={"#b5b2b2"}
               value={entry}
               onChangeText={(text) => setEntry(text)}
               style={[styles.journalEntryBox, styles.globalFont]}

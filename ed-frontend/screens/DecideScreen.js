@@ -3,7 +3,7 @@ import { View, Text, Pressable, ScrollView, StyleSheet } from "react-native";
 import { colors, fonts, radii } from "../constants/theme";
 import SectionHeading from "../components/SectionHeading.js";
 import Chip from "../components/Chip.js";
-import RecipeCard from "../components/ReadsList.js";
+import RecipeCard from "../components/RecipeCard.js";
 import { RECIPES, DECIDE_MOODS } from "../models/foodStudio.js";
 
 export default function DecideScreen() {
@@ -86,7 +86,6 @@ export default function DecideScreen() {
         {DECIDE_MOODS.map((m) => (
           <Chip
             key={m.id}
-            emoji={m.emoji}
             label={m.label}
             onPress={() => setMood(m.id)}
           />

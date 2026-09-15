@@ -158,7 +158,10 @@ NEGATIVE_MARKERS = [
     "disgusted",
     "shame",
     "freaking out",
-    "scared"
+    "scared",
+    "die",
+    "kill",
+    "hate"
 ]
 
 DISTORTION_LEXICONS = {

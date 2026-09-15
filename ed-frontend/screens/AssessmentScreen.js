@@ -479,7 +479,7 @@ function makeStyles(scale) {
       right: 0,
       textAlign: "center",
       textAlignVertical: "center",
-      color: "#d3d3d3",
+      color: "#b5b2b2",
       fontFamily: "Afacad",
       letterSpacing: 1,
       width: "100%",

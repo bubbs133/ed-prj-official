@@ -29,7 +29,7 @@ def send_verification_code(user):
     EmailVerificationCode.objects.filter(user=user, is_used=False).update(is_used=True)
     EmailVerificationCode.objects.create(user=user, code=code, purpose="signup")
     send_mail(
-        "Your UMI verification code",
+        "Your Umi verification code",
         f"Your verification code is {code}. It expires in {settings.VERIFICATION_CODE_TTL_MINUTES} minutes.",
         settings.DEFAULT_FROM_EMAIL,
         [user.email],
