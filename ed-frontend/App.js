@@ -9,6 +9,7 @@ import {
   View,
   Image,
 } from "react-native";
+
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import LoginScreen from "./screens/LoginScreen";
@@ -25,12 +26,14 @@ import LandingScreen from "./screens/LandingScreen";
 import JournalScreen from "./screens/JournalScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import { Ionicons } from "@expo/vector-icons";
+
 import {
   useFonts,
   Afacad_400Regular,
   Afacad_700Bold,
   Afacad_500Medium,
 } from "@expo-google-fonts/afacad";
+
 import Colors from "./constants/colors";
 import Chatbot from "./screens/Chatbot";
 import AssessmentIntroScreen from "./screens/AssessmentIntroScreen";
@@ -67,15 +70,69 @@ import ExploreScreen from "./screens/ExploreScreen";
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const linking = {
+  prefixes: [],
+
+  config: {
+    screens: {
+      // Unauthenticated
+      Landing: "/",
+      Login: "/login",
+      SignUp: "/signup",
+
+      // Authenticated - tab navigator needs a nested config
+      TabNav: {
+        path: "/app",
+        screens: {
+          Home: "home",
+          "Check-In": "check-in",
+          Resources: "resources",
+          Profile: "profile",
+        },
+      },
+
+      // Authenticated - top-level stack screens
+      Settings: "/settings",
+      Assessment: "/assessment",
+      AssessmentIntroScreen: "/assessment-intro",
+      Chatbot: "/chatbot",
+      Quests: "/quests",
+      SelectedQuest: "/quests/:questId",
+      ChatbotRoom: "/chatbot-room",
+      ChatList: "/chat-list",
+      Tracking: "/tracking",
+      Journal: "/journal",
+      Read: "/read",
+      QuickReadsList: "/quick-reads",
+
+      // Insights
+      GeneralInsights: "/insights",
+      StressScreen: "/insights/stress",
+      BingeScreen: "/insights/binge",
+      EmotionalDistressScreen: "/insights/emotional-distress",
+      EnergyScreen: "/insights/energy",
+      ExerciseScreen: "/insights/exercise",
+      MealsScreen: "/insights/meals",
+      RestrictionScreen: "/insights/restriction",
+      SleepScreen: "/insights/sleep",
+      UrgeScreen: "/insights/urge-intensity",
+
+      // Toolkit
+      Toolkit: "/toolkit",
+      Breathe: "/toolkit/breathe",
+      Learn: "/toolkit/learn",
+      Decide: "/toolkit/decide",
+
+      // Misc
+      StickersScreen: "/stickers",
+      Explore: "/explore",
+      FoodStudioNav: "/food-studio",
+      FoodStudioHome: "/food-studio/home",
+    },
+  },
+};
+
 export default function App() {
-  //const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  /*function onLoginHandler() {
-    setIsAuthenticated(true);
-  }*/
-
-  //const authCtx = useContext(AuthContext);
-
   const [fontsLoaded] = useFonts({
     Afacad: Afacad_400Regular,
     "Afacad-Medium": Afacad_500Medium,
@@ -86,6 +143,12 @@ export default function App() {
     return null;
   }
 
+  /*
+   * ============================================================
+   * UNAUTHENTICATED SCREENS
+   * ============================================================
+   */
+
   function UnAuthScreens() {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -93,16 +156,24 @@ export default function App() {
           name="Landing"
           component={LandingScreen}
           options={{ headerShown: false }}
-        ></Stack.Screen>
+        />
+
         <Stack.Screen name="Login" options={{ headerShown: false }}>
           {(props) => <LoginScreen {...props} />}
         </Stack.Screen>
+
         <Stack.Screen name="SignUp">
           {(props) => <SignUpScreen {...props} />}
         </Stack.Screen>
       </Stack.Navigator>
     );
   }
+
+  /*
+   * ============================================================
+   * BOTTOM TAB NAVIGATION
+   * ============================================================
+   */
 
   function BottomTabNavigation() {
     return (
@@ -111,8 +182,9 @@ export default function App() {
           tabBarActiveTintColor: Colors.darkNeutral,
           tabBarInactiveTintColor: Colors.lightGrey,
           safeAreaInsets: { bottom: 0 },
-          //tabBarActiveBackgroundColor: Colors.darkPink,
+
           headerShown: false,
+
           tabBarStyle: {
             backgroundColor: Colors.homeBlue,
             height: 55,
@@ -139,6 +211,7 @@ export default function App() {
             ),
           }}
         />
+
         <Tab.Screen
           name="Check-In"
           component={AssessmentIntroScreen}
@@ -153,9 +226,13 @@ export default function App() {
                 ༄
               </Text>
             ),
-            tabBarStyle: { display: "none" },
+
+            tabBarStyle: {
+              display: "none",
+            },
           }}
         />
+
         <Tab.Screen
           name="Resources"
           component={ResourcesScreen}
@@ -172,15 +249,7 @@ export default function App() {
             ),
           }}
         />
-        {/*<Tab.Screen
-          name="Chatbot"
-          component={BotIntro}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="chatbubble-outline" color="#42190D" size={19} />
-            ),
-          }}
-        />*/}
+
         <Tab.Screen
           name="Profile"
           component={ProfileScreen}
@@ -194,17 +263,23 @@ export default function App() {
             ),
           }}
         />
-        {/* <Tab.Screen name="AssessmentIntro" component={AssessmentIntroScreen} /> */}
-        {/* <Tab.Screen name="Assessment" component={AssessmentScreen} /> */}
       </Tab.Navigator>
     );
   }
+
+  /*
+   * ============================================================
+   * AUTHENTICATED SCREENS
+   * ============================================================
+   */
 
   function AuthScreens() {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="TabNav" component={BottomTabNavigation} />
+
         <Stack.Screen name="Home" component={HomeScreen} />
+
         <Stack.Screen
           name="Settings"
           component={SettingsScreen}
@@ -217,61 +292,98 @@ export default function App() {
             },
           }}
         />
+
         <Stack.Screen name="Assessment" component={AssessmentScreen} />
+
         <Stack.Screen
           name="AssessmentIntroScreen"
           component={AssessmentIntroScreen}
         />
+
         <Stack.Screen name="Chatbot" component={Chatbot} />
+
         <Stack.Screen name="Quests" component={DailyQuestScreen} />
+
         <Stack.Screen name="ChatbotRoom" component={ChatroomScreen} />
+
         <Stack.Screen name="ChatList" component={ChatListScreen} />
+
         <Stack.Screen name="Tracking" component={TrackingScreen} />
+
         <Stack.Screen name="Journal" component={JournalScreen} />
+
         <Stack.Screen name="Read" component={ReadScreen} />
+
         <Stack.Screen name="SelectedQuest" component={SelectedQuestScreen} />
+
         <Stack.Screen name="QuickReadsList" component={QuickReadsListScreen} />
+
         <Stack.Screen
           name="GeneralInsights"
           component={GeneralInsightsScreen}
         />
+
         <Stack.Screen name="StressScreen" component={StressInsightsScreen} />
+
         <Stack.Screen name="BingeScreen" component={BingeUrgeInsightsScreen} />
+
         <Stack.Screen
           name="EmotionalDistressScreen"
           component={EmotionalDistressInsightsScreen}
         />
+
         <Stack.Screen name="EnergyScreen" component={EnergyInsightsScreen} />
+
         <Stack.Screen
           name="ExerciseScreen"
           component={ExerciseInsightsScreen}
         />
+
         <Stack.Screen name="MealsScreen" component={MealsInsightsScreen} />
+
         <Stack.Screen
           name="RestrictionScreen"
           component={RestrictionInsightsScreen}
         />
+
         <Stack.Screen name="SleepScreen" component={SleepInsightsScreen} />
+
         <Stack.Screen
           name="UrgeScreen"
           component={UrgeIntensityInsightsScreen}
         />
+
         <Stack.Screen
           name="StickersScreen"
           component={StickerCollectionScreen}
         />
-        {/*<Stack.Screen name="Map" component={MapScreen} /> */}
+
+        {/* <Stack.Screen name="Map" component={MapScreen} /> */}
+
         <Stack.Screen name="Resources" component={ResourcesScreen} />
+
         <Stack.Screen name="Toolkit" component={ToolkitScreen} />
+
         <Stack.Screen name="Breathe" component={BreatheScreen} />
+
         <Stack.Screen name="Learn" component={LearnScreen} />
+
         <Stack.Screen name="Decide" component={DecideScreen} />
+
         <Stack.Screen name="Explore" component={ExploreScreen} />
+
         <Stack.Screen name="FoodStudioNav" component={FoodStudioNavigator} />
+
         <Stack.Screen name="FoodStudioHome" component={StudioHomeScreen} />
       </Stack.Navigator>
     );
   }
+
+  /*
+   * ============================================================
+   * ROOT NAVIGATOR
+   * ============================================================
+   */
 
   function RootNavigator() {
     const authCtx = useContext(AuthContext);
@@ -283,25 +395,21 @@ export default function App() {
     return authCtx.isAuthenticated ? <AuthScreens /> : <UnAuthScreens />;
   }
 
-  {
-    return (
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <AuthContextProvider>
-          <NavigationContainer>
-            <RootNavigator />
-          </NavigationContainer>
-        </AuthContextProvider>
-      </GestureHandlerRootView>
-    );
-  }
+  /*
+   * ============================================================
+   * APP
+   * ============================================================
+   */
 
-  /*return (
-  <GestureHandlerRootView style={{ flex: 1 }}>
-    <NavigationContainer>
-      <UnAuthScreens />
-    </NavigationContainer>
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <AuthContextProvider>
+        <NavigationContainer linking={linking}>
+          <RootNavigator />
+        </NavigationContainer>
+      </AuthContextProvider>
     </GestureHandlerRootView>
-  );*/
+  );
 }
 
 const styles = StyleSheet.create({

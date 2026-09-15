@@ -35,7 +35,7 @@ function SettingsScreen({ navigation }) {
             <GoBack navigation={navigation} />
             <Text style={[styles.header, styles.globalFont]}>Settings</Text>
           </View>
-          <View style={styles.element}>
+          {/*<View style={styles.element}>
             <Text style={[styles.section, styles.globalFont]}>
               Account Management
             </Text>
@@ -72,7 +72,7 @@ function SettingsScreen({ navigation }) {
               size={20}
               color={Colors.darkNeutral}
             />
-          </View>
+          </View>*/}
           <View style={styles.element}>
             <Text style={[styles.section, styles.globalFont]}>
               Future Updates
@@ -85,7 +85,16 @@ function SettingsScreen({ navigation }) {
           </View>
           <View style={styles.element}>
             <TouchableOpacity onPress={logoutHandler}>
-              <Text style={[styles.section, styles.globalFont]}>Logout</Text>
+              <Text
+                style={{
+                  color: "#D9534F",
+                  fontFamily: "Afacad",
+                  letterSpacing: 1,
+                  fontWeight: 500,
+                }}
+              >
+                Logout
+              </Text>
             </TouchableOpacity>
             {/*<Ionicons name="chevron-forward-outline" />*/}
           </View>

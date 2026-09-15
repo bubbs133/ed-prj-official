@@ -17,12 +17,6 @@ const HOME_CARDS = [
     sub: "A tiny food experiment, no pressure.",
     tint: colors.lavender,
   },
-  {
-    id: "Recipes",
-    title: "Recipes",
-    sub: "Simple meals, sorted by what sounds good.",
-    tint: colors.butter,
-  },
 ];
 
 export default function StudioHomeScreen({ navigation }) {
@@ -46,8 +40,7 @@ export default function StudioHomeScreen({ navigation }) {
         <GoBack navigation={navigation} />
         <Text style={styles.heroTitle}>Food Studio</Text>
         <Text style={styles.heroSub}>
-          A space to get curious about food again — no calories, no rules, no
-          rating.
+          A space to get curious about food again. No calories, no rules.
         </Text>
       </View>
 
@@ -70,7 +63,6 @@ export default function StudioHomeScreen({ navigation }) {
             style={[styles.card, { backgroundColor: c.tint }]}
             onPress={() => navigation.navigate(c.id)}
           >
-            <Text style={{ fontSize: 24, marginBottom: 8 }}>{c.emoji}</Text>
             <Text style={styles.cardTitle}>{c.title}</Text>
             <Text style={styles.cardSub}>{c.sub}</Text>
           </Pressable>
@@ -81,10 +73,13 @@ export default function StudioHomeScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.bg },
-  hero: {
+  screen: {
+    flex: 1,
+    backgroundColor: colors.bg,
     paddingLeft: "5%",
     paddingRight: "5%",
+  },
+  hero: {
     marginTop: 30,
     flex: 1,
     alignItems: "flex-start",
@@ -92,18 +87,18 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   heroTitle: {
-    fontFamily: fonts.displayBold,
+    fontFamily: "Afacad",
     fontSize: 28,
     color: colors.ink,
     marginTop: 4,
   },
   heroSub: {
-    fontFamily: fonts.bodyRegular,
+    fontFamily: "Afacad",
     fontSize: 14,
     color: colors.inkSoft,
     alignItems: "flex-start",
     justifyContent: "flex-start",
-    marginBottom: 20
+    marginBottom: 20,
   },
   nudge: {
     backgroundColor: colors.sage,
@@ -111,9 +106,9 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 18,
   },
-  nudgeText: { fontFamily: fonts.body, fontSize: 14, color: colors.white },
+  nudgeText: { fontFamily: "Afacad", fontSize: 14, color: colors.white },
   nudgeCta: {
-    fontFamily: fonts.bodyBold,
+    fontFamily: "Afacad",
     fontSize: 13,
     color: colors.white,
     marginTop: 6,
@@ -130,9 +125,9 @@ const styles = StyleSheet.create({
     padding: 16,
     marginBottom: 4,
   },
-  cardTitle: { fontFamily: fonts.display, fontSize: 15.5, color: colors.ink },
+  cardTitle: { fontFamily: "Afacad", fontSize: 15.5, color: colors.ink },
   cardSub: {
-    fontFamily: fonts.bodyRegular,
+    fontFamily: "Afacad",
     fontSize: 12,
     color: colors.inkSoft,
     marginTop: 3,
