@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Pressable } from "react-native";
 
 import Colors from "../constants/colors";
 
-function PlaceCard({ place, distance, onPress }) {
+function PlaceCard({ place, distance, driveMinutes, onPress }) {
   const healthcareType =
     place.tags?.healthcare || place.tags?.office || "Healthcare";
 
@@ -14,7 +14,12 @@ function PlaceCard({ place, distance, onPress }) {
           {place.tags?.name || "Healthcare Facility"}
         </Text>
 
-        <Text style={styles.distance}>{distance.toFixed(1)} km away</Text>
+        <Text style={styles.distance}>
+          {distance.toFixed(1)} km away
+          {driveMinutes != null
+            ? ` · ${Math.round(driveMinutes)} min drive`
+            : ""}
+        </Text>
       </View>
 
       <View style={styles.right}>

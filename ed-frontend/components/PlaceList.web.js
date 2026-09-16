@@ -11,7 +11,9 @@ function PlaceList({ places, location, getDistance, onSelect }) {
       keyExtractor={(item) => item.id.toString()}
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={
-        <Text style={[styles.globalFont, styles.header]}>Nearby Professionals</Text>
+        <Text style={[styles.globalFont, styles.header]}>
+          Nearby Professionals
+        </Text>
       }
       renderItem={({ item }) => (
         <PlaceCard
@@ -22,6 +24,7 @@ function PlaceList({ places, location, getDistance, onSelect }) {
             item.lat,
             item.lon,
           )}
+          driveMinutes={item.driveMinutes}
           onPress={() => onSelect(item)}
         />
       )}
@@ -41,6 +44,6 @@ const styles = StyleSheet.create({
   globalFont: {
     fontFamily: "Afacad",
     letterSpacing: 1,
-    color: Colors.darkNeutral
-  }
+    color: Colors.darkNeutral,
+  },
 });

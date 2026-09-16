@@ -56,7 +56,7 @@ import RestrictionInsightsScreen from "./screens/RestrictionInsightsScreen";
 import SleepInsightsScreen from "./screens/SleepInsightsScreen";
 import UrgeIntensityInsightsScreen from "./screens/UrgeIntensityInsightsScreen";
 import StickerCollectionScreen from "./screens/StickerScreen";
-//import MapScreen from "./screens/MapScreen";
+import MapScreen from "./screens/MapScreen";
 import ResourcesScreen from "./screens/ResourcesScreen";
 import StressInsightsScreen from "./screens/StressInsightsScreen";
 import ToolkitScreen from "./screens/ToolkitScreen";
@@ -128,6 +128,7 @@ const linking = {
       Explore: "/explore",
       FoodStudioNav: "/food-studio",
       FoodStudioHome: "/food-studio/home",
+      Map: "/map"
     },
   },
 };
@@ -358,7 +359,7 @@ export default function App() {
           component={StickerCollectionScreen}
         />
 
-        {/* <Stack.Screen name="Map" component={MapScreen} /> */}
+        <Stack.Screen name="Map" component={MapScreen} />
 
         <Stack.Screen name="Resources" component={ResourcesScreen} />
 
