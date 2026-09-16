@@ -47,46 +47,10 @@ function MapScreen({ navigation }) {
   }, []);
 
   // -----------------------------
-  // YOUR ORIGINAL OVERPASS REQUEST
-  // -----------------------------
-  const fetchPlaces = async (lat, lng) => {
-    try {
-      const query = `
-        [out:json];
-        (
-          node(around:10000,${lat},${lng})["phone"]["addr:street"]["healthcare"="hospital"];
-          node(around:10000,${lat},${lng})["phone"]["addr:street"]["healthcare"="clinic"];
-          node(around:10000,${lat},${lng})["phone"]["addr:street"]["healthcare"="psychologist"];
-          node(around:10000,${lat},${lng})["phone"]["addr:street"]["healthcare"="psychiatrist"];
-          node(around:10000,${lat},${lng})["phone"]["addr:street"]["office"="therapist"];
-        );
-        out body;
-      `;
-
-      const response = await fetch("https://overpass-api.de/api/interpreter", {
-        method: "POST",
-        body: query,
-      });
-
-      const data = await response.json();
-
-      setPlaces(data.elements || []);
-    } catch (error) {
-      console.log(error);
-
-      Alert.alert("Error", "Failed to fetch nearby professionals.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // -----------------------------
   // DISTANCE
   // -----------------------------
 
-  const deg2rad = (deg) => {
-    return deg * (Math.PI / 180);
-  };
+  const deg2rad = (deg) => deg * (Math.PI / 180);
 
   const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
     const R = 6371;
@@ -107,13 +71,91 @@ function MapScreen({ navigation }) {
   };
 
   // -----------------------------
-  // SORT BY DISTANCE
+  // DRIVE TIME (OSRM)
+  // -----------------------------
+
+  const fetchDriveTimes = async (lat, lng, elements) => {
+    if (elements.length === 0) return elements;
+
+    try {
+      const coords = [
+        `${lng},${lat}`,
+        ...elements.map((p) => `${p.lon},${p.lat}`),
+      ].join(";");
+
+      const destinations = elements.map((_, i) => i + 1).join(",");
+
+      const url = `https://router.project-osrm.org/table/v1/driving/${coords}?sources=0&destinations=${destinations}&annotations=duration`;
+
+      const response = await fetch(url);
+      const data = await response.json();
+
+      const durations = data?.durations?.[0] || [];
+
+      return elements.map((place, i) => ({
+        ...place,
+        driveMinutes: durations[i] != null ? durations[i] / 60 : null,
+      }));
+    } catch (error) {
+      console.log("OSRM routing error:", error);
+      // Rough fallback: straight-line distance at an assumed ~35 km/h city average
+      return elements.map((place) => ({
+        ...place,
+        driveMinutes:
+          (getDistanceFromLatLonInKm(lat, lng, place.lat, place.lon) / 35) * 60,
+      }));
+    }
+  };
+
+  // -----------------------------
+  // OVERPASS REQUEST
+  // -----------------------------
+
+  const fetchPlaces = async (lat, lng) => {
+    try {
+      const query = `
+        [out:json];
+        (
+          node(around:10000,${lat},${lng})["phone"]["addr:street"]["healthcare"="hospital"];
+          node(around:10000,${lat},${lng})["phone"]["addr:street"]["healthcare"="clinic"];
+          node(around:10000,${lat},${lng})["phone"]["addr:street"]["healthcare"="psychologist"];
+          node(around:10000,${lat},${lng})["phone"]["addr:street"]["healthcare"="psychiatrist"];
+          node(around:10000,${lat},${lng})["phone"]["addr:street"]["office"="therapist"];
+        );
+        out body;
+      `;
+
+      const response = await fetch("https://overpass-api.de/api/interpreter", {
+        method: "POST",
+        body: query,
+      });
+
+      const data = await response.json();
+      const elements = data.elements || [];
+
+      const withDriveTimes = await fetchDriveTimes(lat, lng, elements);
+
+      setPlaces(withDriveTimes);
+    } catch (error) {
+      console.log(error);
+      Alert.alert("Error", "Failed to fetch nearby professionals.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // -----------------------------
+  // SORT (by drive time when we have it, else distance)
   // -----------------------------
 
   const sortedPlaces =
     location == null
       ? []
       : [...places].sort((a, b) => {
+          if (a.driveMinutes != null && b.driveMinutes != null) {
+            return a.driveMinutes - b.driveMinutes;
+          }
+
           const distanceA = getDistanceFromLatLonInKm(
             location.latitude,
             location.longitude,
@@ -137,7 +179,6 @@ function MapScreen({ navigation }) {
 
   const handleSelectPlace = (place) => {
     setSelectedPlace(place);
-
     mapRef.current?.animateTo(place);
   };
 
@@ -195,6 +236,7 @@ function MapScreen({ navigation }) {
               )
             : 0
         }
+        driveMinutes={selectedPlace?.driveMinutes}
         onClose={() => setSelectedPlace(null)}
       />
     </View>
@@ -204,16 +246,14 @@ function MapScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFDF8", // Soft sand color
+    backgroundColor: "#FFFDF8",
   },
-
   centerContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#FFFDF8",
   },
-
   globalFont: {
     fontFamily: "Afacad",
     color: Colors.darkNeutral,

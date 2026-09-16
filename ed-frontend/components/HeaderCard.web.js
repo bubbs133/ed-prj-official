@@ -22,7 +22,7 @@ export default HeaderCard;
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 22,
-    marginTop: 70,
+    marginTop: 20,
     marginBottom: 20,
   },
   globalFont: {
